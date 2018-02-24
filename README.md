@@ -8,7 +8,7 @@ Konfiguration aller kostenlos verfügbaren statischen Codeanalyse Tools. Diese d
 Richtlinien werden - soweit wie möglich - nicht mehr extra im Text erwähnt. Damit kann diese Projekt gleichzeitig als
 Vorlage für neue Projekte genutzt werden.
 - [Checkstyle](http://checkstyle.sourceforge.net/)
-- [PMD](http://https://pmd.github.io/)
+- [PMD](https://pmd.github.io/)
 - [FindBugs](http://findbugs.sourceforge.net/) bzw. [SpotBugs](https://spotbugs.github.io)
 - [IntelliJ](https://www.jetbrains.com/help/idea/code-inspection.html)
 
