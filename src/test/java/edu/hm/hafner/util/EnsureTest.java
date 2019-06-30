@@ -1,9 +1,9 @@
 package edu.hm.hafner.util;
 
-import org.junit.jupiter.api.Test;
+import java.util.Collections;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Lists;
+import org.assertj.core.util.Lists;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -12,8 +12,8 @@ import static org.assertj.core.api.Assertions.*;
  *
  * @author Ullrich Hafner
  */
-@SuppressWarnings({"ConstantConditions", "NullArgumentToVariableArgMethod"})
-public class EnsureTest {
+@SuppressWarnings("NullArgumentToVariableArgMethod")
+class EnsureTest {
     private static final String SOME_STRING = "-";
     private static final String EMPTY_STRING = "";
     private static final String ERROR_MESSAGE = "assertThatThrownBy Error.";
@@ -22,7 +22,7 @@ public class EnsureTest {
      * Checks whether no exception is thrown if we adhere to all contracts.
      */
     @Test
-    public void shouldNotThrowExceptionIfContractIsValid() {
+    void shouldNotThrowExceptionIfContractIsValid() {
         assertThatCode(() -> {
             Ensure.that(false).isFalse();
             Ensure.that(true).isTrue();
@@ -33,9 +33,9 @@ public class EnsureTest {
             Ensure.that(SOME_STRING).isNotEmpty();
             Ensure.that(SOME_STRING).isNotBlank();
             Ensure.that(EMPTY_STRING).isInstanceOf(String.class);
-            Ensure.that(ImmutableSet.of(EMPTY_STRING)).isNotEmpty();
-            Ensure.that(ImmutableSet.of(EMPTY_STRING)).contains(EMPTY_STRING);
-            Ensure.that(ImmutableSet.of(EMPTY_STRING)).doesNotContain(SOME_STRING);
+            Ensure.that(Collections.singleton(EMPTY_STRING)).isNotEmpty();
+            Ensure.that(Collections.singleton(EMPTY_STRING)).contains(EMPTY_STRING);
+            Ensure.that(Collections.singleton(EMPTY_STRING)).doesNotContain(SOME_STRING);
         }).doesNotThrowAnyException();
     }
 
@@ -44,7 +44,7 @@ public class EnsureTest {
      */
     @Test
     @SuppressWarnings("Convert2MethodRef")
-    public void shouldThrowExceptionIfContractIsViolated() {
+    void shouldThrowExceptionIfContractIsViolated() {
         assertThatThrownBy(() -> {
             Ensure.that(new IllegalArgumentException(ERROR_MESSAGE)).isNeverThrown(ERROR_MESSAGE);
         }).isInstanceOf(AssertionError.class).hasMessage(ERROR_MESSAGE);
@@ -76,13 +76,13 @@ public class EnsureTest {
             Ensure.that(SOME_STRING, SOME_STRING).isNull(ERROR_MESSAGE);
         }).isInstanceOf(AssertionError.class).hasMessage(ERROR_MESSAGE);
         assertThatThrownBy(() -> {
-            Ensure.that(ImmutableSet.of()).contains(EMPTY_STRING);
+            Ensure.that(Collections.emptySet()).contains(EMPTY_STRING);
         }).isInstanceOf(AssertionError.class);
         assertThatThrownBy(() -> {
-            Ensure.that(ImmutableSet.of(EMPTY_STRING)).contains(SOME_STRING);
+            Ensure.that(Collections.singleton(EMPTY_STRING)).contains(SOME_STRING);
         }).isInstanceOf(AssertionError.class);
         assertThatThrownBy(() -> {
-            Ensure.that(ImmutableSet.of(EMPTY_STRING)).doesNotContain(EMPTY_STRING);
+            Ensure.that(Collections.singleton(EMPTY_STRING)).doesNotContain(EMPTY_STRING);
         }).isInstanceOf(AssertionError.class);
     }
 
@@ -90,7 +90,7 @@ public class EnsureTest {
      * Checks whether we throw an exception if a contract is violated.
      */
     @Test
-    public void shouldThrowNpeIfContractIsViolated() {
+    void shouldThrowNpeIfContractIsViolated() {
         assertThatThrownBy(() -> {
             Ensure.that((Object)null).isNotNull(ERROR_MESSAGE);
         }).isInstanceOf(NullPointerException.class).hasMessage(ERROR_MESSAGE);
@@ -101,7 +101,7 @@ public class EnsureTest {
             Ensure.that(null, SOME_STRING).isNotNull(ERROR_MESSAGE);
         }).isInstanceOf(NullPointerException.class).hasMessage(ERROR_MESSAGE);
         assertThatThrownBy(() -> {
-            Ensure.that(null, null).isNotNull(ERROR_MESSAGE);
+            Ensure.that(null, (Object[]) null).isNotNull(ERROR_MESSAGE);
         }).isInstanceOf(NullPointerException.class).hasMessage(ERROR_MESSAGE);
         assertThatThrownBy(() -> {
             Ensure.that((Object)null).isNotNull();
@@ -113,7 +113,7 @@ public class EnsureTest {
             Ensure.that(null, SOME_STRING).isNotNull();
         }).isInstanceOf(NullPointerException.class);
         assertThatThrownBy(() -> {
-            Ensure.that(null, null).isNotNull();
+            Ensure.that(null, (Object[]) null).isNotNull();
         }).isInstanceOf(NullPointerException.class);
         assertThatThrownBy(() -> {
             Ensure.that((Object[])null).isNotEmpty(ERROR_MESSAGE);
@@ -133,7 +133,7 @@ public class EnsureTest {
      * Checks whether we throw an exception if something is empty.
      */
     @Test
-    public void shouldThrowExceptionIfEmpty() {
+    void shouldThrowExceptionIfEmpty() {
         assertThatThrownBy(() -> {
             Ensure.that(new String[0]).isNotEmpty(ERROR_MESSAGE);
         }).isInstanceOf(AssertionError.class);
@@ -176,7 +176,7 @@ public class EnsureTest {
      * Verifies that the message format is correctly interpreted.
      */
     @Test
-    public void shouldThrowExceptionWithCorrectMessage() {
+    void shouldThrowExceptionWithCorrectMessage() {
         assertThatThrownBy(() -> {
             Ensure.that(EMPTY_STRING).isInstanceOf(Integer.class, "This error uses '%s' to print the number %d.", "String.format", 42);
         }).isInstanceOf(AssertionError.class).hasMessage("This error uses 'String.format' to print the number 42.");
