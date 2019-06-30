@@ -1,6 +1,3 @@
-*.xml
-!checkstyle-idea.xml
-!codeStyleSettings.xml
-
+compiler.xml
+saveactions_settings.xml
 libraries
-scopes
