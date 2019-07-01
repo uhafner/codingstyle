@@ -20,7 +20,8 @@ Vorlage für neue Projekte genutzt werden.
 - [IntelliJ](https://www.jetbrains.com/help/idea/code-inspection.html)
 
 Die automatisch prüfbaren Richtlinien können teilweise direkt als Warnungen in der Entwicklungsumgebung 
-[IntelliJ](https://www.jetbrains.com/idea/) angezeigt werden (Checkstyle und IntelliJ Inspections). Somit ist sichergestellt,
+[IntelliJ](https://www.jetbrains.com/idea/) angezeigt werden (IntelliJ Inspections sowie Checkstyle und Error Prone 
+nach Installation der entsprechenden Plugins). Somit ist sichergestellt,
 dass immer die gleichen Warnungen angezeigt werden - egal wie und wo die Java Dateien weiterverarbeitet werden. 
 Für FindBugs und PMD ist der Umweg über das Build Management Tool [Maven](http://maven.apache.org/) erforderlich 
 (die entsprechenden IntelliJ Plugins sind leider aus meiner Sicht noch nicht ausgereift genug). 
