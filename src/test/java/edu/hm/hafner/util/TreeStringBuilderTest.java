@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-import org.assertj.core.internal.ObjectArrayElementComparisonStrategy;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
@@ -16,7 +15,7 @@ import static org.assertj.core.api.Assertions.*;
  * @author Kohsuke Kawaguchi
  */
 class TreeStringBuilderTest {
-    @SuppressWarnings("ConstantConditions")
+    @SuppressWarnings({"ConstantConditions", "NullAway"})
     @Test
     void shouldCreateSimpleTreeStringsWithBuilder() {
         TreeStringBuilder builder = new TreeStringBuilder();
