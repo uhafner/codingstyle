@@ -16,7 +16,8 @@ public abstract class AbstractComparableTest<T extends Comparable<T>> {
      * than the specified object.
      */
     @Test
-    public void shouldBeNegativeIfThisIsSmaller() {
+    @SuppressWarnings({"SelfComparison", "EqualsWithItself"})
+    void shouldBeNegativeIfThisIsSmaller() {
         T smaller = createSmallerSut();
         T greater = createGreaterSut();
 
@@ -31,7 +32,7 @@ public abstract class AbstractComparableTest<T extends Comparable<T>> {
      * Verifies that {@code sgn(x.compareTo(y)) == -sgn(y.compareTo(x))} for all {@code x} and {@code y}.
      */
     @Test
-    public void shouldBeSymmetric() {
+    void shouldBeSymmetric() {
         T left = createSmallerSut();
         T right = createGreaterSut();
 

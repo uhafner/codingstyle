@@ -88,7 +88,7 @@ public class PathUtil {
      * @return the absolute path
      */
     public String createAbsolutePath(final @Nullable String directory, final String fileName) {
-        if (isAbsolute(fileName) || StringUtils.isBlank(directory)) {
+        if (isAbsolute(fileName) || directory == null || directory.length() == 0) {
             return makeUnixPath(fileName);
         }
         String path = makeUnixPath(directory);

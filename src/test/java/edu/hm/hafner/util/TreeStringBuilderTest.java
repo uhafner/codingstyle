@@ -2,8 +2,10 @@ package edu.hm.hafner.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
+import org.assertj.core.internal.ObjectArrayElementComparisonStrategy;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
@@ -39,8 +41,9 @@ class TreeStringBuilderTest {
         assertThat(otherMiddleChild).hasToString("foo/bar/xxx");
         assertThat(otherMiddleChild.getLabel()).isEqualTo("xxx");
 
-        assertThat(otherMiddleChild.getParent()).isSameAs(treeString.getParent());
-        assertThat(otherMiddleChild.getParent().getParent()).isSameAs(foo);
+        TreeString parent = otherMiddleChild.getParent();
+        assertThat(parent).isSameAs(treeString.getParent());
+        assertThat(Objects.requireNonNull(parent.getParent())).isSameAs(foo);
 
         // middle node changed label but not toString
         assertThat(treeString.getLabel()).isEqualTo("zot");
