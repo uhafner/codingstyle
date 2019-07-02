@@ -1,0 +1,35 @@
+version: "3"
+services:
+  jenkins-master:
+    build:
+      context: ./docker/images/jenkins-master
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./docker/volumes/jenkins-home:/var/jenkins_home:cached
+    ports:
+      - 8080:8080
+      - 8000:8000
+      - 50000:50000
+    environment:
+      - VIRTUAL_HOST=jenkins.local
+      - VIRTUAL_PORT=8080
+      - TRY_UPGRADE_IF_NO_MARKER=true
+      - JAVA_OPTS= -Dstapler.jelly.noCache=true -DexecutableWar.jetty.disableCustomSessionIdCookieName=true -DexecutableWar.jetty.sessionIdCookieName=killerloop -agentlib:jdwp=transport=dt_socket,address=8000,suspend=n,server=y
+    restart: always
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+  java-agent:
+    build: ./docker/images/java-agent
+    volumes:
+      - ./docker/volumes/agent-data:/var/data:cached
+    ports:
+      - 8001:8001
+    depends_on:
+      - jenkins-master
+    restart: always

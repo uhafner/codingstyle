@@ -1,34 +1,36 @@
 node {
+    def mvnHome = tool 'mvn-default'
+
     stage ('Checkout') {
-        checkout scm
+        git branch:'master', url: 'https://github.com/uhafner/codingstyle.git'
     }
 
-    stage ('Build') {
-        def mvnHome = tool 'mvn-default'
+    stage ('Build and Static Analysis') {
+        withMaven(maven: 'mvn-default', mavenLocalRepo: '/var/data/m2repository', mavenOpts: '-Xmx768m -Xms512m') {
+            sh 'mvn -V -e clean verify -Dmaven.test.failure.ignore'
+        }
 
-        sh "${mvnHome}/bin/mvn --batch-mode -V -U -e clean verify -Dsurefire.useFile=false"
+        recordIssues tools: [java(), javaDoc()], aggregatingResults: 'true', id: 'java', name: 'Java'
+        recordIssues tool: errorProne(), healthy: 1, unhealthy: 20
 
-        junit testResults: '**/target/surefire-reports/TEST-*.xml'
-        warnings consoleParsers: [[parserName: 'Java Compiler (javac)']]
-    }
+        junit testResults: '**/target/*-reports/TEST-*.xml'
 
-    stage ('Analysis') {
-        def mvnHome = tool 'mvn-default'
-
-        sh "${mvnHome}/bin/mvn -batch-mode -V -U -e checkstyle:checkstyle pmd:pmd pmd:cpd findbugs:findbugs"
-
-        checkstyle()
-        pmd()
-        findbugs()
-        dry()
-        openTasks high: 'FIXME', normal: 'TODO'
+        recordIssues tools: [checkStyle(pattern: 'target/checkstyle-result.xml'),
+            spotBugs(pattern: 'target/spotbugsXml.xml'),
+            pmdParser(pattern: 'target/pmd.xml'),
+            cpd(pattern: 'target/cpd.xml'),
+            taskScanner(highTags:'FIXME', normalTags:'TODO', includePattern: '**/*.java', excludePattern: 'target/**/*')],
+            qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
     }
 
     stage ('Coverage') {
-        def mvnHome = tool 'mvn-default'
-
-        sh "${mvnHome}/bin/mvn -batch-mode -V -U -e clean jacoco:prepare-agent test jacoco:report"
-
+        withMaven(maven: 'mvn-default', mavenLocalRepo: '/var/data/m2repository', mavenOpts: '-Xmx768m -Xms512m') {
+            sh "mvn -V -U -e jacoco:prepare-agent test jacoco:report -Dmaven.test.failure.ignore"
+        }
         jacoco()
+    }
+
+    stage ('Collect Maven Warnings') {
+        recordIssues tool: mavenConsole()
     }
 }
