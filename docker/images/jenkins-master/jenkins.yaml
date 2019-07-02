@@ -126,7 +126,7 @@ tool:
 
 jobs:
   - script: >
-      pipelineJob('codingstyle') {
+      pipelineJob('Codingstyle') {
           definition {
               cpsScm {
                   scriptPath 'Jenkinsfile'
