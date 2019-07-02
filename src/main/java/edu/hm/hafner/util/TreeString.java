@@ -40,6 +40,7 @@ public final class TreeString implements Serializable {
      * @param label
      *         the suffix
      */
+    @SuppressWarnings("NullAway")
     TreeString(@Nullable final TreeString parent, final String label) {
         Ensure.that(parent == null || !label.isEmpty())
                 .isTrue("if there's a parent '%s', label '%s' can't be empty", parent, label);
