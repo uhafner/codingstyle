@@ -28,6 +28,7 @@ node {
             sh "mvn -V -U -e jacoco:prepare-agent test jacoco:report -Dmaven.test.failure.ignore"
         }
         jacoco()
+        publishCoverage adapters: [jacocoAdapter('**/*/jacoco.xml')], sourceFileResolver: sourceFiles('STORE_ALL_BUILD')
     }
 
     stage ('Collect Maven Warnings') {
