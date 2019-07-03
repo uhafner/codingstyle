@@ -28,6 +28,17 @@ Für FindBugs und PMD ist der Umweg über das Build Management Tool [Maven](http
 Die Verwendung von Maven hat zudem den Vorteil, dass die Ergebnisse hinterher leicht in den Continuous Integration Server 
 [Jenkins](https://jenkins.io/) eingebunden werden können. 
 
+Eine Beispielintegration in Jenkins ist auch bereits vorhanden.
+Diese kann über `docker-compose up` im Hauptverzeichnis gestartet werden. Anschließend wird die
+aktuelle Jenkins LTS Version mit allen benötigten Plugins in einem Docker Container gestartet und mit einem ebenso als 
+Docker Container initialisierten Java Agent (**Achtung**: Java 8) verbunden, der die Builds ausführt. Unter 
+[http://localhost:8080/job/Codingstyle/](http://localhost:8080/job/Codingstyle/) 
+ist dann nach erfolgreichem Start von Jenkins der entsprechende Jenkins Job sichtbar. Der Zugang erfolgt
+mit Benutzer `admin` und Passwort `admin`. Der job `Codingstyle` muss danach manuell gestartet werden,
+die Ergebnisse der Tests, Code und Mutation Coverage sowie statischen Analyse werden dann automatisch
+visualisiert. Die beiden Docker Container haben externe Volumes, die sich unterhalb des Ordners 
+`docker/volumes` befinden.
+
 Die Richtlinien sind in den Vorlesungen 2014/2015 entstanden und werden laufend ergänzt.
 Aktuell bestehen diese aus den folgenden Abschnitten:
 
