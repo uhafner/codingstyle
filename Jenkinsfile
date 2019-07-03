@@ -23,11 +23,18 @@ node {
             qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
     }
 
-    stage ('Coverage') {
+    stage ('Line and Branch Coverage') {
         withMaven(maven: 'mvn-default', mavenLocalRepo: '/var/data/m2repository', mavenOpts: '-Xmx768m -Xms512m') {
             sh "mvn -V -U -e jacoco:prepare-agent test jacoco:report -Dmaven.test.failure.ignore"
         }
         publishCoverage adapters: [jacocoAdapter('**/*/jacoco.xml')], sourceFileResolver: sourceFiles('STORE_ALL_BUILD')
+    }
+
+    stage ('Mutation Coverage') {
+        withMaven(maven: 'mvn-default', mavenLocalRepo: '/var/data/m2repository', mavenOpts: '-Xmx768m -Xms512m') {
+            sh "mvn org.pitest:pitest-maven:mutationCoverage"
+        }
+        step([$class: 'PitPublisher', mutationStatsFile: 'target/pit-reports/**/mutations.xml'])
     }
 
     stage ('Collect Maven Warnings') {
