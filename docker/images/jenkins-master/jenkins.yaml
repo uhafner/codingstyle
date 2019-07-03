@@ -6,7 +6,7 @@ jenkins:
   crumbIssuer:
     standard:
       excludeClientIPFromCrumb: false
-  disableRememberMe: true
+  disableRememberMe: false
   markupFormatter:
     rawHtml:
       disableSyntaxHighlighting: false
@@ -24,7 +24,7 @@ jenkins:
   remotingSecurity:
     enabled: true
   slaveAgentPort: 50000
-  systemMessage: "<h1>Coding Style of Ullrich Hafner</h1>"
+  systemMessage: "<h1>Ullrich Hafner's Coding Style</h1>"
   nodes:
     - permanent:
         launcher:
@@ -120,9 +120,10 @@ tool:
                 acceptLicense: false
   pipelineMaven:
     publisherOptions:
+      - jacocoPublisher:
+          disabled: true
       - junitPublisher:
           disabled: true
-          healthScaleFactor: !!int '1.0'
 
 jobs:
   - script: >
