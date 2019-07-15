@@ -35,7 +35,6 @@ jenkins:
             maxNumRetries: 10
             port: 22
             retryWaitTime: 15
-            jvmOptions: "-agentlib:jdwp=transport=dt_socket,address=8001,suspend=n,server=y"
         name: "java-agent"
         numExecutors: 1
         remoteFS: "/var/data"

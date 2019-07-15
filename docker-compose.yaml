@@ -14,7 +14,7 @@ services:
       - VIRTUAL_HOST=jenkins.local
       - VIRTUAL_PORT=8080
       - TRY_UPGRADE_IF_NO_MARKER=true
-      - JAVA_OPTS= -Dstapler.jelly.noCache=true -Dhudson.remoting.ClassFilter=com.google.common.collect.ImmutableListMultimap -DexecutableWar.jetty.disableCustomSessionIdCookieName=true -DexecutableWar.jetty.sessionIdCookieName=killerloop -agentlib:jdwp=transport=dt_socket,address=8000,suspend=n,server=y
+      - JAVA_OPTS= -Dstapler.jelly.noCache=true -Dhudson.remoting.ClassFilter=com.google.common.collect.ImmutableListMultimap -DexecutableWar.jetty.disableCustomSessionIdCookieName=true -DexecutableWar.jetty.sessionIdCookieName=killerloop 
     restart: always
   nginx-proxy:
     image: jwilder/nginx-proxy
