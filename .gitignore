@@ -3,3 +3,6 @@ target
 .classpath
 .project
 .settings
+
+# Project exclude paths
+/node_modules/

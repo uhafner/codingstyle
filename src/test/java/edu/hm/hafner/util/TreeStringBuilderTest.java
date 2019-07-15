@@ -13,6 +13,7 @@ import static org.assertj.core.api.Assertions.*;
  * Tests the class {@link TreeStringBuilder}.
  *
  * @author Kohsuke Kawaguchi
+ * @author Ullrich Hafner
  */
 class TreeStringBuilderTest {
     @SuppressWarnings({"ConstantConditions", "NullAway"})

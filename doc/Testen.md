@@ -12,52 +12,73 @@ Vorteile:
 
 ## Konventionen beim Schreiben von Modultests
 
-Wir nutzen für Modultests (d.h. Unittests) die [JUnit](http://junit.org/) Bibliothek. Alle Modultests einer Klasse `Foo` 
-legen wir in der zugehörigen Klasse `FooTest` ab. Die Tests werden im Verzeichnis *src/test/java* abgelegt, damit
-sie separat von den eigentlichen Klassen liegen (diese liegen unter  *src/main/java*). 
- 
+Wir nutzen für Modultests (d.h. Unittests) die [JUnit](https://junit.org/) Bibliothek in der Version 5. Alle Modultests 
+einer Klasse `Foo` legen wir in der zugehörigen Klasse `FooTest` ab. Testklassen verwenden dasselbe Package wie die zu 
+testende Klasse. Die Tests werden im Verzeichnis `src/test/java` abgelegt, damit sie separat von den eigentlichen 
+Klassen liegen (diese liegen unter  src/main/java`). 
+
+Gemäß der in JUnit 5 eingeführten Konventionen haben Test Klassen und Methoden die Sichtbarkeit *package private*. 
+Damit Testfälle als solches erkannt werden, müssen sie mit der Annotation `@org.junit.jupiter.api.Test` markiert werden.
+
 Ein Modultest besteht immer aus drei Schritten, die ggf. zusammenfallen können:
 
-1. **Given**: Das zu testende Objekt wird erzeugt (Subject Under Test: SUT). Sind dazu weitere Objekte nötig, 
-so werden diese in diesem Schritt ebenso erzeugt. 
+1. **Given**: Das zu testende Objekt wird erzeugt (auch Subject Under Test genannt und SUT abgekürzt). Sind dazu weitere Objekte nötig, 
+so werden diese in diesem Schritt ebenso erzeugt. Sollte das Erzeugen dieser zusätzlich erforderlichen Objekte mehr
+als ein paar Zeilen Code erfordern, so sollten diese Objekte in einzelnen `create` Methoden erzeugt werden. Damit
+ist eine Wiederverwendung in anderen Testfällen leichter möglich.
 2. **When**: Die zu überprüfende Funktionalität wird aufgerufen. Sind dazu weitere Objekte nötig (z.B. als Methodenparameter),
 sollten diese bereits in Schritt 1.) erzeugt werden.
 3. **Then**: Es wird überprüft, ob die im letzten Schritt aufgerufene Funktionalität korrekt ist. Dazu kann z.B. der
 Rückgabewert einer Methode oder der innere Zustand einer Klasse herangezogen werden. Zum Prüfen verwenden wir Assertions
-des JUnit Frameworks [AssertJ](http://joel-costigliola.github.io/assertj/assertj-core-features-highlight.html)
+des JUnit Frameworks [AssertJ](http://joel-costigliola.github.io/assertj/assertj-core-features-highlight.html) bzw. 
+die `verify` Methoden eines mocks. 
 
 Die Benennung der drei Schritte in **Given-When-Then** stammt aus dem 
 [Behavior-Driven-Development](http://dannorth.net/introducing-bdd/) und ist in einem 
 [Artikel von Martin Fowler](http://martinfowler.com/bliki/GivenWhenThen.html) gut beschrieben. 
+Es gibt auch noch die Begriffe **Arrange-Act-Assert** und **Setup-Excercise-Verify**, die synonym dazu verwendet 
+werden können.
 
-Damit im Fehlerfall schnell die Ursache gefunden wird, benennen wir eine Testmethode mit einem sinnvollen (und langen) Namen
+Damit im Fehlerfall schnell die Ursache gefunden wird, benennen wir eine Testmethode mit einem sinnvollen 
+(und ausreichend langem) Namen
 und ergänzen im JavaDoc in einem knappen Satz das Ziel des Tests. Eine sinnvolle Namenskonvention für Tests ist der 
 Präfix *should* mit einer angehängten Beschreibung, die die Eigenschaften des SUT beschreiben, die im Test überprüft werden 
-(bzw. das Ziel des Tests). 
+(bzw. das Ziel des Tests). Dies ist aber keine Pflicht, wichtig ist eine gute Benennung.
+
+Ein Test kann durchaus mehrere Szenarien enthalten, die aufeinander aufbauen. Ebenso ist die Verwendung von mehreren 
+Assertions im **When** Teil erlaubt. 
 
 An einem Beispiel lassen sich diese Konventionen am besten erkennen:
 ```java
-import org.junit.Test;
+package edu.hm.hafner.util;
+
+import org.junit.jupiter.api.Test;
+
 import static org.assertj.core.api.Assertions.*;
- 
+
 /**
- * Tests the class {@link MathUtils}.
- *
- * @author Ullrich Hafner
+ * Tests the class {@link TreeStringBuilder}.
  */
-public class MathUtilsTest {
-    /** Verifies that {@link MathUtils#max} works with positive and negative values. */
+class TreeStringBuilderTest {
     @Test
-    public void shouldFindMaximumForPositiveAndNegativeValues() {
+    void shouldCreateSimpleTreeStringsWithBuilder() {
         // Given
-        MathUtils utils = new MathUtils();
-        int[] inputValues = {1, -2, 0};
+        TreeStringBuilder builder = new TreeStringBuilder();
         
         // When
-        int actual = utils.max(inputValues);
- 
+        TreeString foo = builder.intern("foo");
+        
         // Then
-        assertThat(actual).as("Wrong maximum for %s", Arrays.toString(inputValues)).isEqualTo(1);
+        assertThat(foo).hasToString("foo");
+        assertThat(foo.getLabel()).isEqualTo("foo");
+
+        // When
+        TreeString treeString = builder.intern("foo/bar/zot");
+
+        // Then
+        assertThat(treeString).hasToString("foo/bar/zot");
+        assertThat(treeString.getLabel()).isEqualTo("/bar/zot");
+        assertThat(treeString.getParent()).isSameAs(foo);
     }
 }
 ```
@@ -88,7 +109,7 @@ auch gegenüber dem JUnit Pedant `@Test(expected = Exception.class)` - dass die 
 ## Allgemeine Testszenarien
 
 In JUnit gibt es die Möglichkeit, sich ein oder mehrere Testszenarien über speziell dafür markierte Methoden aufzubauen.
-Dazu müssen diese Methoden mit `@Before`, `@BeforeClass`, `@After, etc. annotiert werden, und die erzeugten SUT (und 
+Dazu müssen diese Methoden mit `@BeforeEach`, `@BeforeAll`, `@AfterEach`, `@AfterAll`, etc. annotiert werden, und die erzeugten SUT (und 
 abhängigen Objekte) in Objektvariablen (Fields) gespeichert werden. Dieses Vorgehen ist bequem, macht Testfalle jedoch
 unübersichtlich und schwer verständlich, da die im Test verwendenten Objekte nicht direkt sichtbar sind. 
 Daher verwenden wir diese Annotationen nicht. Generell gilt: Test Klassen sollen keine Objektvariablen besitzen. Statt 

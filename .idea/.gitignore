@@ -1,3 +1,6 @@
 compiler.xml
 saveactions_settings.xml
 libraries
+
+# Default ignored files
+/workspace.xml
