@@ -15,7 +15,7 @@ Vorteile:
 Wir nutzen für Modultests (d.h. Unittests) die [JUnit](https://junit.org/) Bibliothek in der Version 5. Alle Modultests 
 einer Klasse `Foo` legen wir in der zugehörigen Klasse `FooTest` ab. Testklassen verwenden dasselbe Package wie die zu 
 testende Klasse. Die Tests werden im Verzeichnis `src/test/java` abgelegt, damit sie separat von den eigentlichen 
-Klassen liegen (diese liegen unter  src/main/java`). 
+Klassen liegen (diese liegen unter `src/main/java`). 
 
 Gemäß der in JUnit 5 eingeführten Konventionen haben Test Klassen und Methoden die Sichtbarkeit *package private*. 
 Damit Testfälle als solches erkannt werden, müssen sie mit der Annotation `@org.junit.jupiter.api.Test` markiert werden.
@@ -113,7 +113,7 @@ Dazu müssen diese Methoden mit `@BeforeEach`, `@BeforeAll`, `@AfterEach`, `@Aft
 abhängigen Objekte) in Objektvariablen (Fields) gespeichert werden. Dieses Vorgehen ist bequem, macht Testfalle jedoch
 unübersichtlich und schwer verständlich, da die im Test verwendenten Objekte nicht direkt sichtbar sind. 
 Daher verwenden wir diese Annotationen nicht. Generell gilt: Test Klassen sollen keine Objektvariablen besitzen. Statt 
-dessen sollten benötigte Objekte immer neu mit passenden **create** Methoden erzeugt werden: so können die erzeugten 
+dessen sollten benötigte Objekte immer neu mit passenden `create` Methoden erzeugt werden: so können die erzeugten 
 Objekte in den einzelnen Tests unabhängig voneinander geändert werden können.
 
 ## Testen von Basisklassen
@@ -123,8 +123,8 @@ Abstract Test Pattern benutzt, das in einem [eigenen Abschnitt](Abstract-Test-Pa
 
 ## Aussagekräftige Fehlermeldungen
 
-Ein wichtiger Schritt im TDD ist die Validierung, ob ein Test überhaupt korrekt ist. D.h. es wird sichergestellt, 
-dass ein Fehler entsteht, wenn die zu testende Methode noch unvollständig ist. An dieser Stelle lohnt es sich,
+Ein wichtiger Schritt im TDD ist die Validierung, ob der **Test** überhaupt korrekt ist. D.h. wir müssen als erstes 
+sicherstellen, dass ein Test zunächst einmal fehlschlägt, wenn die zu testende Methode noch unvollständig ist. An dieser Stelle lohnt es sich,
 die Fehlermeldung zu analysieren: ist diese nicht aussagekräftig, sollte diese mit der Methode `as` entsprechend 
 verbessert werden: 
 
