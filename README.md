@@ -12,24 +12,24 @@ München zusammengefasst.
 Dieses Projekt enthält neben der Dokumentation der wichtigsten Kodierungsrichtlinien auch gleichzeitig eine sinnvolle 
 Konfiguration aller kostenlos verfügbaren statischen Codeanalyse Tools für Maven. Diese dort enthaltenen und automatisch 
 prüfbaren Richtlinien werden - soweit wie möglich - nicht mehr extra im Text erwähnt. Damit kann diese Projekt gleichzeitig als
-Vorlage für neue Projekte genutzt werden.
+Vorlage für neue Projekte genutzt werden. Unterstützt werden aktuell folgende Tools:
 - [Checkstyle](https://checkstyle.org)
 - [PMD](https://pmd.github.io/)
 - [SpotBugs](https://spotbugs.github.io)
 - [Error Prone](https://errorprone.info)
-- [IntelliJ](https://www.jetbrains.com/help/idea/code-inspection.html)
 
-Die automatisch prüfbaren Richtlinien können teilweise direkt als Warnungen in der Entwicklungsumgebung 
-[IntelliJ](https://www.jetbrains.com/idea/) angezeigt werden (IntelliJ Inspections sowie Checkstyle und Error Prone 
-nach Installation der entsprechenden Plugins). Somit ist sichergestellt,
+Die automatisch prüfbaren Richtlinien können für CheckStyle und Error Prone auch direkt als Warnungen in der 
+Entwicklungsumgebung [IntelliJ](https://www.jetbrains.com/idea/) angezeigt werden (nach der Installation des 
+entsprechenden IntelliJ Plugins). Zusätzlich sind die 
+[IntelliJ Code Inspections](https://www.jetbrains.com/help/idea/code-inspection.html) gemäß meiner Richtlinien konfiguriert. 
+Aktuell können diese allerdings noch nicht automatisch im Build überprüft werden 
+(siehe [#7](https://github.com/uhafner/codingstyle/issues/7)). Insgesamt ist damit sichergestellt,
 dass immer die gleichen Warnungen angezeigt werden - egal wie und wo die Java Dateien weiterverarbeitet werden. 
-Für FindBugs und PMD ist der Umweg über das Build Management Tool [Maven](http://maven.apache.org/) erforderlich 
-(die entsprechenden IntelliJ Plugins sind leider aus meiner Sicht noch nicht ausgereift genug). 
+Für SpotBugs und PMD ist der Umweg über das Build Management Tool [Maven](http://maven.apache.org/) erforderlich 
+(die entsprechenden IntelliJ Plugins sind leider aus meiner Sicht noch nicht ausgereift genug bzw. verwenden eine separate Konfiguration). 
 Die Verwendung von Maven hat zudem den Vorteil, dass die Ergebnisse hinterher leicht in den Continuous Integration Server 
-[Jenkins](https://jenkins.io/) eingebunden werden können. 
-
-Eine Beispielintegration in Travis und Jenkins ist auch bereits vorhanden. 
-Diese ist in einem eigenen Abschnitt [Continuous Integration](doc/Continuous-Integration.md)
+[Jenkins](https://jenkins.io/) eingebunden werden können. Eine solche Beispielintegration in Travis und Jenkins ist auch bereits vorhanden. 
+Diese ist im eigenen Abschnitt [Continuous Integration](doc/Continuous-Integration.md)
 ausführlich beschrieben.
 
 Die Richtlinien sind in den Vorlesungen 2014/2015 entstanden und werden laufend ergänzt.
