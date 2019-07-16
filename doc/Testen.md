@@ -60,6 +60,7 @@ import static org.assertj.core.api.Assertions.*;
  * Tests the class {@link TreeStringBuilder}.
  */
 class TreeStringBuilderTest {
+    /** Creates several tree strings and checks that new tree strings will use the prefix of a previous one. */
     @Test
     void shouldCreateSimpleTreeStringsWithBuilder() {
         // Given
@@ -91,15 +92,10 @@ Test mit [Lambda-Ausdrücken](http://www.oracle.com/webfolder/technetwork/tutori
 und der Assertion `assertThatThrownBy` aus AssertJ:
  
 ```java
-/** Verifies that at least one number is provided. */
-@Test
-public void shouldThrowExceptionIfArrayIsEmpty() {
-    // Given
-    MathUtils utils = new MathUtils();
-    assertThatThrownBy(() -> utils.max(new int[0])) // When 
-            .isInstanceOf(IllegalArgumentException.class) // Then
-            .hasMessageContaining("empty");
- }
+    @Test
+    void shouldThrowAssertionErrorIfLabelIsEmpty() {
+        assertThatThrownBy(() -> new TreeString(new TreeString(), "")).isInstanceOf(AssertionError.class);
+    }
 ``` 
 Wichtig ist, dass der Lambda Block nur genau die Anweisung enthält, die die Exception wirft. Dies hat den Vorteil -
 auch gegenüber dem JUnit Pedant `@Test(expected = Exception.class)` - dass die Exception nur an der genau bestimmten

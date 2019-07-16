@@ -17,6 +17,7 @@ import static org.assertj.core.api.Assertions.*;
  */
 class TreeStringBuilderTest {
     @SuppressWarnings({"ConstantConditions", "NullAway"})
+    /** Creates several tree strings and checks that new tree strings will use the prefix of a previous one. */
     @Test
     void shouldCreateSimpleTreeStringsWithBuilder() {
         TreeStringBuilder builder = new TreeStringBuilder();
@@ -68,6 +69,11 @@ class TreeStringBuilderTest {
         assertThat(new TreeStringBuilder().intern("foo")).hasSameHashCodeAs(foo);
         assertThat(new TreeStringBuilder().intern("foo/bar")).hasSameHashCodeAs(bar);
         assertThat(new TreeStringBuilder().intern("foo/bar/zot")).hasSameHashCodeAs(zot);
+    }
+
+    @Test
+    void shouldThrowAssertionErrorIfLabelIsEmpty() {
+        assertThatThrownBy(() -> new TreeString(new TreeString(), "")).isInstanceOf(AssertionError.class);
     }
 
     /**
