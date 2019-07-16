@@ -34,8 +34,13 @@ aktuelle Jenkins LTS Version mit allen benötigten Plugins in einem Docker Conta
 beim ersten Aufruf etwas). Dazu wird ebenso ein als Docker Container initialisierter Java Agent (**Achtung**: Java 8) 
 verbunden, der die Builds ausführt. Nach einem erfolgreichem Start von Jenkins ist dann unter 
 [http://localhost:8080/job/Codingstyle/](http://localhost:8080/job/Codingstyle/) 
-der entsprechende Jenkins Job sichtbar. Der Zugang erfolgt
-mit Benutzer `admin` und Passwort `admin`. Der job `Codingstyle` muss danach manuell gestartet werden,
+der entsprechende Jenkins Job sichtbar. Der Zugang auf diesen lokalen Rechner erfolgt zur Vereinfachung 
+mit Benutzer `admin` und Passwort `admin`, anschließend hat man volle Jenkins Administrationsrechte. 
+Der Job `Codingstyle` muss danach manuell gestartet werden,
 die Ergebnisse der Tests, Code und Mutation Coverage sowie statischen Analyse werden dann automatisch
 visualisiert. Die beiden Docker Container haben externe Volumes, die sich unterhalb des Ordners 
 `docker/volumes` befinden.
+
+Nach einem ersten Build in Jenkins sollte sich dann folgendes Bild ergeben:
+
+![Bla](images/build-result.png)
