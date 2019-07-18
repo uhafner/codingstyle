@@ -97,6 +97,16 @@ und der Assertion `assertThatThrownBy` aus AssertJ:
         assertThatThrownBy(() -> new TreeString(new TreeString(), "")).isInstanceOf(AssertionError.class);
     }
 ``` 
+
+Alternativ kann auch die Syntax `assertThatExceptionOfType` genutzt werden:
+
+```java
+    @Test
+    void shouldThrowAssertionErrorIfLabelIsEmpty() {
+        assertThatExceptionOfType(AssertionError.class).isThrownBy(() -> new TreeString(new TreeString(), ""));
+    }
+``` 
+
 Wichtig ist, dass der Lambda Block nur genau die Anweisung enthält, die die Exception wirft. Dies hat den Vorteil -
 auch gegenüber dem JUnit Pedant `@Test(expected = Exception.class)` - dass die Exception nur an der genau bestimmten
  Stelle überprüft wird. Wird eine Exception zufällig an einer anderen Stelle geworfen, so wird das als Testfehler
@@ -105,24 +115,19 @@ auch gegenüber dem JUnit Pedant `@Test(expected = Exception.class)` - dass die 
 ## Allgemeine Testszenarien
 
 In JUnit gibt es die Möglichkeit, sich ein oder mehrere Testszenarien über speziell dafür markierte Methoden aufzubauen.
-Dazu müssen diese Methoden mit `@BeforeEach`, `@BeforeAll`, `@AfterEach`, `@AfterAll`, etc. annotiert werden, und die erzeugten SUT (und 
-abhängigen Objekte) in Objektvariablen (Fields) gespeichert werden. Dieses Vorgehen ist bequem, macht Testfalle jedoch
-unübersichtlich und schwer verständlich, da die im Test verwendenten Objekte nicht direkt sichtbar sind. 
+Dazu müssen diese Methoden mit `@BeforeEach`, `@BeforeAll`, `@AfterEach`, `@AfterAll`, etc. annotiert werden, und die 
+erzeugten SUT (und abhängigen Objekte) in Objektvariablen (Fields) gespeichert werden. Dieses Vorgehen ist bequem, 
+macht Testfälle jedoch unübersichtlich und schwer verständlich, da die im Test verwendeten Objekte nicht direkt sichtbar sind. 
 Daher verwenden wir diese Annotationen nicht. Generell gilt: Test Klassen sollen keine Objektvariablen besitzen. Statt 
 dessen sollten benötigte Objekte immer neu mit passenden `create` Methoden erzeugt werden: so können die erzeugten 
 Objekte in den einzelnen Tests unabhängig voneinander geändert werden können.
 
-## Testen von Basisklassen
-
-Abstrakte Klassen und Schnittstellen lassen sich ebenso testen: dazu wird das 
-Abstract Test Pattern benutzt, das in einem [eigenen Abschnitt](Abstract-Test-Pattern.md) beschrieben ist.
-
 ## Aussagekräftige Fehlermeldungen
 
 Ein wichtiger Schritt im TDD ist die Validierung, ob der **Test** überhaupt korrekt ist. D.h. wir müssen als erstes 
-sicherstellen, dass ein Test zunächst einmal fehlschlägt, wenn die zu testende Methode noch unvollständig ist. An dieser Stelle lohnt es sich,
-die Fehlermeldung zu analysieren: ist diese nicht aussagekräftig, sollte diese mit der Methode `as` entsprechend 
-verbessert werden: 
+sicherstellen, dass ein Test zunächst einmal fehlschlägt, wenn die zu testende Methode noch unvollständig ist. 
+An dieser Stelle lohnt es sich, die Fehlermeldung zu analysieren: ist diese nicht aussagekräftig, 
+sollte diese mit der Methode `as` entsprechend verbessert werden: 
 
 ```java
 assertThat(list.size()).as("Wrong number of list elements").isEqualTo(5);
@@ -159,45 +164,19 @@ herangezogen werden:
 Sinnvollerweise nutzt man die [Coverage Übersicht](https://www.jetbrains.com/idea/help/code-coverage.html) 
 der Entwicklungsumgebung, um zu überprüfen, welcher Teil des Quelltextes bereits getestet wurde.
 
-## State Based vs. Interaction Based Testing
+## Weiterführende Themen
+
+Die folgenden Abschnitte referenzieren einige weiterführende Themen.
+ 
+### Testen von Basisklassen
+
+Abstrakte Klassen und Schnittstellen lassen sich ebenso testen: dazu wird das 
+Abstract Test Pattern benutzt, das in einem [eigenen Abschnitt](Abstract-Test-Pattern.md) beschrieben ist.
+
+### State Based vs. Interaction Based Testing
 
 Prinzipiell gibt es zwei Varianten des Testings. Beim **State Based Testing** wird das Testobjekt nach Aufruf der zu 
-testenden Methoden durch Abfrage seines internen Zustands verifiziert. Analog dazu kann natürlich auch der Zustand 
-der im Test verwendeten Parameter bzw. Rückgabewerte analysiert werden. Alle bisher beschriebenen Tests laufen nach diesem
-Muster ab und können folgendermaßen formuliert werden:
-
-```java
-/** [Kurze Beschreibung: was genau macht der Test] */
-@Test
-public void should[restlicher Methodenname der den Test fachlich beschreibt]() {
-    // Given
-    [Test Setup: Erzeugung der Parameter, die das SUT zum Erzeugen bzw. beim Aufruf benötigt]
-    [Erzeugung des SUT]
-    // When
-    [Aufruf der zu testenden Methoden]
-    // Then
-    [Verifikation des Zustands des SUT bzw. von Parametern oder Rückgabewerten mittels AssertJ]
-}
-```
-
-Im Gegensatz dazu wird beim **Interaction Based Testing** nicht der Zustand des SUT analysiert. Statt dessen werden die 
-Aufrufe aller am Test beteiligten Objekte mit einem Mocking Framework wie [Mockito](http://site.mockito.org/) überprüft.
-D.h. hier steht nicht der Zustand des Testobjekts im Vordergrund, sondern die Interaktion mit beteiligten Objekten. Ein
-typischer Testfall nach dem Interaction Based Testing ist folgendermaßen aufgebaut:
-
-```java
-/** [Kurze Beschreibung: was genau macht der Test] */
-@Test
-public void should[restlicher Methodenname der den Test fachliche beschreibt]() {
-    // Given
-    [Test Setup 1: Erzeugung der Mocks, die zur Verifikation benötigt werden]
-    [Test Setup 2: Erzeugung der Stubs, die das SUT zum Erzeugen bzw. beim Aufruf benötigt]
-    [Erzeugung des SUT]
-    // When
-    [Aufruf der zu testenden Methoden]
-    // Then
-    [Verifikation des Zustands der Mocks]
-}
-```
-
-Details zu diesem Vorgehen werden später in einem separaten Abschnitt beschrieben.
+testenden Methoden durch Abfrage seines internen Zustands verifiziert. Im Gegensatz dazu wird beim 
+**Interaction Based Testing** nicht der Zustand des SUT analysiert. Statt dessen werden die Aufrufe aller am Test 
+beteiligten Objekte überprüft. Details dazu sind im eigenen Abschnitt
+[State Based vs. Interaction Based Testing](State-Based-Vs-Interaction-Based.md) beschrieben.

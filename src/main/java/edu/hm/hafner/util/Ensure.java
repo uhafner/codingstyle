@@ -8,6 +8,7 @@ import org.eclipse.collections.impl.factory.Lists;
 
 import com.google.errorprone.annotations.FormatMethod;
 
+import edu.umd.cs.findbugs.annotations.CheckReturnValue;
 import edu.umd.cs.findbugs.annotations.Nullable;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -42,6 +43,7 @@ public final class Ensure {
      * @return a boolean condition
      */
     @SuppressWarnings("BooleanParameter")
+    @CheckReturnValue
     public static BooleanCondition that(final boolean value) {
         return new BooleanCondition(value);
     }
@@ -56,6 +58,7 @@ public final class Ensure {
      *
      * @return an object condition
      */
+    @CheckReturnValue
     public static ObjectCondition that(@Nullable final Object value,
             @Nullable final Object... additionalValues) {
         return new ObjectCondition(value, additionalValues);
@@ -69,6 +72,7 @@ public final class Ensure {
      *
      * @return an iterable condition
      */
+    @CheckReturnValue
     public static IterableCondition that(@Nullable final Iterable<?> value) {
         return new IterableCondition(value);
     }
@@ -81,6 +85,7 @@ public final class Ensure {
      *
      * @return a collection condition
      */
+    @CheckReturnValue
     public static CollectionCondition that(@Nullable final Collection<?> value) {
         return new CollectionCondition(value);
     }
@@ -94,6 +99,7 @@ public final class Ensure {
      * @return an array condition
      */
     @SuppressWarnings("PMD.UseVarargs")
+    @CheckReturnValue
     public static ArrayCondition that(@Nullable final Object[] value) {
         return new ArrayCondition(value);
     }
@@ -106,6 +112,7 @@ public final class Ensure {
      *
      * @return a string condition
      */
+    @CheckReturnValue
     public static StringCondition that(@Nullable final String value) {
         return new StringCondition(value);
     }
@@ -118,6 +125,7 @@ public final class Ensure {
      *
      * @return an exception condition
      */
+    @CheckReturnValue
     public static ExceptionCondition that(@Nullable final Throwable value) {
         return new ExceptionCondition(value);
     }
