@@ -291,7 +291,6 @@
             <manifestEntries>
               <Built-By>Ullrich Hafner</Built-By>
               <Url>${project.scm.url}</Url>
-              <Jenkins-ClassFilter-Whitelisted>true</Jenkins-ClassFilter-Whitelisted>
               <Automatic-Module-Name>codingstyle</Automatic-Module-Name>
             </manifestEntries>
           </archive>
@@ -332,10 +331,6 @@
           </rulesets>
           <targetJdk>${java.version}</targetJdk>
           <includeTests>true</includeTests>
-          <minimumTokens>50</minimumTokens>
-          <excludes>
-            <exclude>**/InjectedTest.java</exclude>
-          </excludes>
           <minimumTokens>50</minimumTokens>
         </configuration>
         <dependencies>
@@ -418,23 +413,6 @@
             <revapi.semver.ignore>
               <enabled>true</enabled>
             </revapi.semver.ignore>
-            <revapi.ignore>
-              <item>
-                <code>java.class.nonFinalClassInheritsFromNewClass</code>
-                <classQualifiedName>edu.hm.hafner.analysis.parser.XmlParser</classQualifiedName>
-                <justification>Internal baseclass upgrade</justification>
-              </item>
-              <item>
-                <code>java.field.enumConstantOrderChanged</code>
-                <classQualifiedName>se.bjurr.violations.lib.reports.Parser</classQualifiedName>
-                <justification>Nobody should rely on these constants.</justification>
-              </item>
-              <item>
-                <code>java.field.addedStaticField</code>
-                <classQualifiedName>se.bjurr.violations.lib.reports.Parser</classQualifiedName>
-                <justification>Nobody should rely on these constants.</justification>
-              </item>
-            </revapi.ignore>
           </analysisConfiguration>
         </configuration>
         <executions>
