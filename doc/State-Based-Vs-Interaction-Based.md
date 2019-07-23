@@ -61,8 +61,6 @@ import static org.mockito.Mockito.*;
 
 /**
  * Tests the class {@link PrefixLogger}.
- *
- * @author Ullrich Hafner
  */
 class PrefixLoggerTest {
     private static final String LOG_MESSAGE = "Hello PrefixLogger!";

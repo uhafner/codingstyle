@@ -18,7 +18,7 @@ ein test-jar konfiguriert, so dass alle Tests (und abstrakte Testklassen) auch a
 - spotbugs-maven-plugin: prüft das Projekt mit SpotBugs, alle Regeln werden verwendet mit den Ausnahmen definiert in der Datei [spotbugs-exclusion-filter.xml](../etc/spotbugs-exclusion-filter.xml).
 - org.revapi: prüft ob die aktuelle Versionsnummer die [semantische Versionierung](https://semver.org) berücksichtigt (source and binary). D.h. es gilt:
     1. Eine neue Major Version wurde definiert, wenn das API nicht mehr abwärtskompatibel ist
-    2. Eine neue Major Version wurde definiert, wenn eine neue Funktionalität abwärtskompatibel hinzugefügt wurde
+    2. Eine neue Minor Version wurde definiert, wenn eine neue Funktionalität abwärtskompatibel hinzugefügt wurde
     3. Eine neue PATCH Version wurde definiert, wenn Fehler abwärtskompatibel behoben wurden
 - maven-surefire-plugin: aktiviert das Erkennen der Annotationen der Architekturtests mit [ArchUnit](https://www.archunit.org)
 - jacoco-maven-plugin: misst die Code Coverage der Testfälle mit [JaCoCo](https://www.jacoco.org)

@@ -38,9 +38,10 @@ Aktuell bestehen diese aus den folgenden Abschnitten:
 - [Formatierung](doc/Formatierung.md)
 - [Namensgebung](doc/Namensgebung.md)
 - [Kommentare](doc/Kommentare.md)
-- [Testen](doc/Testen.md)
-- [State Based vs. Interaction Based Testing](doc/State-Based-Vs-Interaction-Based.md)
-- [Testen von Schnittstellen und Basisklassen](doc/Abstract-Test-Pattern.md)
+- Testen
+    - [Allgemeine Tipps zum Testen](doc/Testen.md)
+    - [State Based vs. Interaction Based Testing](doc/State-Based-Vs-Interaction-Based.mdˆ)
+    - [Testen von Schnittstellen und Basisklassen](doc/Abstract-Test-Pattern.md)
 - [Fehlerbehandlung](doc/Fehlerbehandlung.md)
 - [Best Practice](doc/Best-Practice.md)
 
