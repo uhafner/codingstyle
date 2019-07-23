@@ -1,8 +1,12 @@
 # Abstract Test Pattern
 
-Mit dem Abstract Test Pattern lassen sich Schnittstellenverträge (d.h. Interfaces) und abstrakte Klassen 
+Mit dem **Abstract Test Pattern** lassen sich Schnittstellenverträge (d.h. Interfaces) und abstrakte Klassen 
 testen. Damit kann sichergestellt werden, dass Subklassen (bzw. Klassen, die ein gegebenes Interface
-implementieren) sich an den vereinbarten Vertrag halten.
+implementieren) sich an den vereinbarten Vertrag halten. Das **Abstract Test Pattern** ist prinzipiell eine Komposition
+aus zwei anderen Design Patterns: dem **Template Method Pattern** und dem **Factory Method Pattern**. 
+Der konkrete Testfall wird als eine Template Method umgesetzt. Das darin benötigte Subject under Test wird durch eine 
+abstrakte Factory Method erzeugt, die von der jeweiligen konkreten Subtestklasse überschrieben werden muss. An  
+Beispielen lässt sich diese Herangehensweise am besten zeigen.
 
 ## Testen des Schnittstellenvertrags von equals
 
@@ -198,5 +202,5 @@ als Datei abgelegt werden.
 
 Neben solchen API Tests wird das Pattern hauptsächlich genutzt, um für den Code von abstrakten Klassen auch Testfälle 
 zur Verfügung zu stellen. Diese Testfälle können dann von Subklassen einfach mitbenutzt werden. So kann sicher
-gestellt werden, dass Subklassen den Vertrag einer Vererbungshierarchie nicht brechen und damit nicht das 
+gestellt werden, dass Subklassen den Vertrag einer Vererbungshierarchie nicht brechen und damit nicht unbewusst das 
 [Liskov Substitution Principle](http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod) verletzen.
