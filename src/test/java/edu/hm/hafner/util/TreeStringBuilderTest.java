@@ -16,9 +16,9 @@ import static org.assertj.core.api.Assertions.*;
  * @author Ullrich Hafner
  */
 class TreeStringBuilderTest {
-    @SuppressWarnings({"ConstantConditions", "NullAway"})
     /** Creates several tree strings and checks that new tree strings will use the prefix of a previous one. */
     @Test
+    @SuppressWarnings({"ConstantConditions", "NullAway"})
     void shouldCreateSimpleTreeStringsWithBuilder() {
         TreeStringBuilder builder = new TreeStringBuilder();
         TreeString foo = builder.intern("foo");
