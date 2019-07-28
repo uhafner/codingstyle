@@ -89,21 +89,20 @@ Für die folgenden Konstrukte wird kein Leerzeichen verwendet:
 - Zwischen Methodenname und öffnender runden ( Klammer 
 - Bedingung innerhalb der runden Klammern () im `if` oder `while`   
 
-Hier einige Beispiele, in denen das Leerzeichen durch das Sonderzeichen `⋅` hervorgehoben wurde:
+Hier ein echtes Beispiel, in denen das Leerzeichen durch das Sonderzeichen `⋅` hervorgehoben wurde:
 
 ```java
-if⋅(treeRight())⋅{
-    ...
+if (isAbsolute(fileName)⋅||⋅directory⋅==⋅null⋅||⋅directory.length()⋅==⋅0)⋅{
+⋅⋅⋅⋅return makeUnixPath(fileName);
 }
-else⋅if⋅(treeLeft())⋅{
-    ...
+String⋅path⋅=⋅makeUnixPath(directory);
+
+String⋅separator;
+if⋅(path.endsWith(SLASH))⋅{
+⋅⋅⋅⋅separator⋅=⋅StringUtils.EMPTY;
 }
 else⋅{
-    ...
-}
-
-while⋅(!onLeaf()⋅&&⋅(treeFront()⋅||⋅mushroomFront()))⋅{
-    ...
+⋅⋅⋅⋅separator⋅=⋅SLASH;
 }
 ```
 
@@ -117,30 +116,68 @@ Bei einem Umbruch ist darauf zu achten, dass i.A. vor einem Operator umgebrochen
 mit 8 Zeichen zusätzlich zur vorhergehenden Zeile eingerückt.
 
 ```java
-if (column >= half - limit + 1
-⋅⋅⋅⋅⋅⋅⋅⋅&& column < half + limit) {
-⋅⋅⋅⋅putLeaf();
-}
+Ensure.that(parent == null || !label.isEmpty())
+⋅⋅⋅⋅⋅⋅⋅⋅.isTrue("if there's a parent '%s', label '%s' can't be empty", parent, label);
 ```
 
 Das gleiche Schema wird verwendet beim Umbruch von Methodenparametern:
 
 ```java
-/**
- * Draws a horizontal line of the specified {@code length}. Start of the line is at ({@code x}, {@code y}).
- *
- * @param world  Karas world
- * @param x      x coordinate of start
- * @param y      y coordinate of start
- * @param length length of the line
- */
-public void drawHorizontalLine(final boolean[][] world, final int x, final int y,
-⋅⋅⋅⋅⋅⋅⋅⋅final int length) {
-⋅⋅⋅⋅drawHorizontalLine(world, x, y,
-⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅length, true);
+public static boolean containsAnyIgnoreCase(@Nullable final CharSequence input, 
+⋅⋅⋅⋅⋅⋅⋅⋅@Nullable final String... searchTexts) {
+⋅⋅⋅⋅if (StringUtils.isEmpty(input)) {
+⋅⋅⋅⋅⋅⋅⋅⋅return false;
+⋅⋅⋅⋅}
+    [...]
 }
+
 ```
 
+## Kommentare Formatieren
+
+Für Kommentare gibt es auch einige Richtlinien, die im Abschnitt [Kommentare](Kommentare.md) aufgeführt sind.
+Bei der Formatierung ist zusätzlich auf die folgende Punkte zu achten:
+- Zu lange Zeilen werden wie normaler Code nach 120 Zeichen umgebrochen (siehe [oben](#Zeilenumbruch))
+- Abschnitte nutzen korrekte Kennzeichnung mittels der XHTML Tags \<p\>Text\</p\> 
+- Parameter werden auf einer neuen Zeile beschrieben (mit korrektem Einrücken)
+
+Ein Beispiel sagt auch hier mehr als tausend Worte:
+
+```java
+/**
+ * Checks if the provided string contains irrespective of case any of the strings in the given array,
+ * handling {@code null} strings. Case-insensitivity is defined as by {@link String#equalsIgnoreCase(String)}.
+ *
+ * <p>
+ * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
+ * return {@code false}.
+ * </p>
+ *
+ * <pre>
+ * StringUtils.containsAny(null, *)            = false
+ * StringUtils.containsAny("", *)              = false
+ * StringUtils.containsAny(*, null)            = false
+ * StringUtils.containsAny(*, [])              = false
+ * StringUtils.containsAny("abcd", "ab", null) = true
+ * StringUtils.containsAny("abcd", "ab", "cd") = true
+ * StringUtils.containsAny("abc", "d", "abc")  = true
+ * StringUtils.containsAny("ABC", "d", "abc")  = true
+ * </pre>
+ *
+ * @param input
+ *         The string to check, may be {@code null}
+ * @param searchTexts
+ *         The strings to search for, may be empty. Individual CharSequences may be null as well.
+ *
+ * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
+ */
+public static boolean containsAnyIgnoreCase(@Nullable final CharSequence input, 
+        @Nullable final String... searchTexts) {
+    [...]
+}
+
+```
+ 
 ## Leerzeilen
 
 Auch Leerzeilen können die Struktur von Programmen verbessern. Zusammenhängende Anweisungen sollten gruppiert werden
@@ -175,64 +212,68 @@ Klassenkopf aufgeführt, dann alle Konstruktoren, dann alle Methoden. Am Schluss
 
 ## Komplettes Beispiel
 
-Am besten lassen sich die Regeln an einem realem Beispiel erkennen. Das folgende Programm erzeugt einen Diamanten
-in Karas Welt und zeigt dabei auch die typische Java Formatierung.
+Am besten lassen sich die Regeln an einem realem Beispiel erkennen, das die typische Java Formatierung aufzeigt:
 
 ```java
+package edu.hm.hafner.util;
+
+import org.apache.commons.lang3.StringUtils;
+
+import edu.umd.cs.findbugs.annotations.Nullable;
+
 /**
- * Solution for assignment 8.
+ * A simple helper class in the style of {@link StringUtils} that provides methods to check if strings contain
+ * search strings.
  *
  * @author Ullrich Hafner
  */
-public class Assignment8 extends Kara {
+public final class StringContainsUtils {
     /**
-     * Draws a diamond into a square world of size 2n + 1 x 2n +1.
+     * Checks if the provided string contains irrespective of case any of the strings in the given array,
+     * handling {@code null} strings. Case-insensitivity is defined as by {@link String#equalsIgnoreCase(String)}.
+     *
+     * <p>
+     * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
+     * return {@code false}.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.containsAny(null, *)            = false
+     * StringUtils.containsAny("", *)              = false
+     * StringUtils.containsAny(*, null)            = false
+     * StringUtils.containsAny(*, [])              = false
+     * StringUtils.containsAny("abcd", "ab", null) = true
+     * StringUtils.containsAny("abcd", "ab", "cd") = true
+     * StringUtils.containsAny("abc", "d", "abc")  = true
+     * StringUtils.containsAny("ABC", "d", "abc")  = true
+     * </pre>
+     *
+     * @param input
+     *         The string to check, may be {@code null}
+     * @param searchTexts
+     *         The strings to search for, may be empty. Individual CharSequences may be null as well.
+     *
+     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
      */
-    public void act() {
-        int width = computeWidth();
-        int half = width / 2;
+    public static boolean containsAnyIgnoreCase(@Nullable final CharSequence input,
+            @Nullable final String... searchTexts) {
+        if (StringUtils.isEmpty(input)) {
+            return false;
+        }
+        if (searchTexts == null || searchTexts.length == 0) {
+            return false;
+        }
 
-        for (int line = 0; line < width; line++) {
-            int limit = computeLimit(width, line);
-
-            for (int column = 0; column < width; column++) {
-                if (column >= half - limit + 1
-                        && column < half + limit) {
-                    putLeaf();
-                }
-                move();
+        for (String searchText : searchTexts) {
+            if (StringUtils.containsIgnoreCase(input, searchText)) {
+                return true;
             }
-
-            moveDown();
         }
+        return false;
     }
 
-    private int computeLimit(final int width, final int line) {
-        if (line > width / 2) {
-            return width - line;
-        }
-        else {
-            return line + 1;
-        }
-    }
-
-    private int computeWidth() {
-        int width = 0;
-
-        putLeaf();
-        do {
-            move();
-            width++;
-        } while (!onLeaf());
-        removeLeaf();
-
-        return width;
-    }
-
-    private void moveDown() {
-        turnRight();
-        move();
-        turnLeft();
+    private StringContainsUtils() {
+        // prevents instantiation
     }
 }
 ```

@@ -10,7 +10,7 @@ verwenden. In diesem Projekt werden die Kodierungsrichtlinien zu meinen Vorlesun
 München zusammengefasst. 
 
 Dieses Projekt enthält neben der Dokumentation der wichtigsten Kodierungsrichtlinien auch gleichzeitig eine sinnvolle 
-Konfiguration aller kostenlos verfügbaren statischen Codeanalyse Tools für Maven. Diese dort enthaltenen und automatisch 
+Konfiguration aller für Java kostenlos verfügbaren statischen Codeanalyse Tools mittels Maven. Diese dort enthaltenen und automatisch 
 prüfbaren Richtlinien werden - soweit wie möglich - nicht mehr extra im Text erwähnt. Damit kann diese Projekt gleichzeitig als
 Vorlage für neue Projekte genutzt werden. Unterstützt werden aktuell folgende Tools:
 - [Checkstyle](https://checkstyle.org)
@@ -28,9 +28,9 @@ dass immer die gleichen Warnungen angezeigt werden - egal wie und wo die Java Da
 Für SpotBugs und PMD ist der Umweg über das Build Management Tool [Maven](http://maven.apache.org/) erforderlich 
 (die entsprechenden IntelliJ Plugins sind leider aus meiner Sicht noch nicht ausgereift genug bzw. verwenden eine separate Konfiguration). 
 Die Verwendung von Maven hat zudem den Vorteil, dass die Ergebnisse hinterher leicht in den Continuous Integration Server 
-[Jenkins](https://jenkins.io/) eingebunden werden können. Eine solche Beispielintegration in Travis und Jenkins ist auch bereits vorhanden. 
+[Jenkins](https://jenkins.io/) eingebunden werden können. Eine beispielhafte Integration in Travis und Jenkins ist auch bereits vorhanden. 
 Diese ist im eigenen Abschnitt [Continuous Integration](doc/Continuous-Integration.md)
-ausführlich beschrieben.
+ausführlicher beschrieben.
 
 Die Richtlinien sind in den Vorlesungen 2014/2015 entstanden und werden laufend ergänzt.
 Aktuell bestehen diese aus den folgenden Abschnitten:
