@@ -1,0 +1,3 @@
+_extends: .github
+tag-template: codingstyle-$NEXT_MINOR_VERSION
+name-template: Codingstyle $NEXT_PATCH_VERSION
