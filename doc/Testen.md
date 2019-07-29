@@ -30,12 +30,12 @@ ist eine Wiederverwendung in anderen Testfällen leichter möglich.
 sollten diese bereits in Schritt 1.) erzeugt werden.
 3. **Then**: Es wird überprüft, ob die im letzten Schritt aufgerufene Funktionalität korrekt ist. Dazu kann z.B. der
 Rückgabewert einer Methode oder der innere Zustand einer Klasse herangezogen werden. Zum Prüfen verwenden wir Assertions
-des JUnit Frameworks [AssertJ](http://joel-costigliola.github.io/assertj/assertj-core-features-highlight.html) bzw. 
+des JUnit Frameworks [AssertJ](https://assertj.github.io/doc/) bzw. 
 die `verify` Methoden eines mocks. 
 
 Die Benennung der drei Schritte in **Given-When-Then** stammt aus dem 
-[Behavior-Driven-Development](http://dannorth.net/introducing-bdd/) und ist in einem 
-[Artikel von Martin Fowler](http://martinfowler.com/bliki/GivenWhenThen.html) gut beschrieben. 
+[Behavior-Driven-Development](https://dannorth.net/introducing-bdd/) und ist in einem 
+[Artikel von Martin Fowler](https://martinfowler.com/bliki/GivenWhenThen.html) gut beschrieben. 
 Es gibt auch noch die Begriffe **Arrange-Act-Assert** und **Setup-Excercise-Verify**, die synonym dazu verwendet 
 werden können.
 
@@ -60,7 +60,10 @@ import static org.assertj.core.api.Assertions.*;
  * Tests the class {@link TreeStringBuilder}.
  */
 class TreeStringBuilderTest {
-    /** Creates several tree strings and checks that new tree strings will use the prefix of a previous one. */
+    /** 
+     * Creates several tree strings and checks that new tree strings will use 
+     * the prefix of a previous one. 
+     */
     @Test
     void shouldCreateSimpleTreeStringsWithBuilder() {
         // Given
@@ -94,7 +97,8 @@ und der Assertion `assertThatThrownBy` aus AssertJ:
 ```java
     @Test
     void shouldThrowAssertionErrorIfLabelIsEmpty() {
-        assertThatThrownBy(() -> new TreeString(new TreeString(), "")).isInstanceOf(AssertionError.class);
+        assertThatThrownBy(() -> new TreeString(new TreeString(), ""))
+                .isInstanceOf(AssertionError.class);
     }
 ``` 
 
@@ -103,7 +107,8 @@ Alternativ kann auch die Syntax `assertThatExceptionOfType` genutzt werden:
 ```java
     @Test
     void shouldThrowAssertionErrorIfLabelIsEmpty() {
-        assertThatExceptionOfType(AssertionError.class).isThrownBy(() -> new TreeString(new TreeString(), ""));
+        assertThatExceptionOfType(AssertionError.class)
+                .isThrownBy(() -> new TreeString(new TreeString(), ""));
     }
 ``` 
 
