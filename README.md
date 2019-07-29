@@ -5,7 +5,6 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a4f98b07b95c47c19eb3443ee90168cd)](https://www.codacy.com/app/uhafner/codingstyle?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=uhafner/codingstyle&amp;utm_campaign=Badge_Grade)
 [![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/uhafner/codingstyle.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/uhafner/codingstyle/context:java)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/uhafner/codingstyle.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/uhafner/codingstyle/alerts/)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/uhafner/codingstyle.svg)](https://github.com/uhafner/codingstyle/pulls)
 
 In jedem Java Projekt sollte der gesamte Quelltext die gleichen Kriterien bei Stil, Formatierung, etc.
 verwenden. In diesem Projekt werden die Kodierungsrichtlinien zu meinen Vorlesungen an der Hochschule
