@@ -3,6 +3,8 @@
 [![Travis](https://img.shields.io/travis/uhafner/codingstyle/master.svg?logo=travis&label=travis%20build&logoColor=white)](https://travis-ci.org/uhafner/codingstyle)
 [![Codecov](https://img.shields.io/codecov/c/github/uhafner/codingstyle.svg)](https://codecov.io/gh/uhafner/codingstyle)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a4f98b07b95c47c19eb3443ee90168cd)](https://www.codacy.com/app/uhafner/codingstyle?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=uhafner/codingstyle&amp;utm_campaign=Badge_Grade)
+[![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/uhafner/codingstyle.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/uhafner/codingstyle/context:java)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/uhafner/codingstyle.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/uhafner/codingstyle/alerts/)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/uhafner/codingstyle.svg)](https://github.com/uhafner/codingstyle/pulls)
 
 In jedem Java Projekt sollte der gesamte Quelltext die gleichen Kriterien bei Stil, Formatierung, etc.
