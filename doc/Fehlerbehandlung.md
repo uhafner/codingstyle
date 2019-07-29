@@ -31,15 +31,15 @@ Parameter ohne direkte Nutzung in einer Objektvariable gespeichert wird.
 ## Exception-Typen
 
 Im JDK ist eine Vielzahl von Exception Klassen vordefiniert, diese haben alle die Endung `Exception` im Klassennamen. 
-Es macht keinen Sinn, eigene weitere Exceptions zu definieren. Wird eine Exception benötigt, ist i.A. im JDK 
+Es macht selten Sinn, eigene weitere Exceptions zu definieren. Wird eine Exception benötigt, ist i.A. im JDK 
 immer eine passende dabei.
 
 Java bietet als einzige Programmiersprache zwei verschiedene Exception Kategorien an:
 - checked Exceptions: müssen deklariert und gefangen werden
 - unchecked Exceptions: können deklariert und gefangen werden
 
-Das Konzept hat sich in der Praxis nicht bewährt (Details gibt es im Artikel
-[Does Java need Checked Exceptions?](http://www.mindview.net/Etc/Discussions/CheckedExceptions)), 
+Das Konzept hat sich in der Praxis nicht bewährt (Details gibt es in Artikeln wie [Checked Exceptions are Evil](https://phauer.com/2015/checked-exceptions-are-evil/)
+oder [The Trouble with Checked Exceptions](https://www.artima.com/intv/handcuffs.html)), 
 daher nutzen wir möglichst immer unchecked Exceptions. Werden Bibliotheken genutzt, die mit checked Exceptions arbeiten,
 bietet es sich an, diese an der Aufrufstelle zu fangen und in eine äquivalente unchecked Exception umzuwandeln. 
 

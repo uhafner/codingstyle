@@ -77,8 +77,9 @@ Beispiel:
  * StringUtils.isEmpty("  bob  ") = false
  * }</pre>
  *
- * @param cs  the CharSequence to check, may be {@code null}
- * @return {@code true} if the CharSequence is empty or null
+ * @param text  
+ *          the text to check, may be {@code null}
+ * @return {@code true} if the text is empty or {@code null}
  * @since 3.0 Changed signature from isEmpty(String) to isEmpty(CharSequence)
  */
 public static boolean isEmpty(final CharSequence cs) {

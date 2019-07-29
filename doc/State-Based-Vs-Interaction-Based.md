@@ -23,6 +23,41 @@ void should[restlicher Methodenname der den Test fachlich beschreibt]() {
 }
 ```
 
+Die folgenden beiden Tests aus diesem Projekt zeigen die zwei unterschiedlichen Varianten des State Based Testing.
+
+### Verifizieren der Rückgabewerte 
+
+Im folgenden Test wird der Rückgabewert einer Methode überprüft.
+
+```java
+@Test
+void shouldConvertToAbsolute() {
+    PathUtil pathUtil = new PathUtil();
+
+    assertThat(pathUtil.createAbsolutePath(null, FILE_NAME)).isEqualTo(FILE_NAME);
+    assertThat(pathUtil.createAbsolutePath("", FILE_NAME)).isEqualTo(FILE_NAME);
+    assertThat(pathUtil.createAbsolutePath("/", FILE_NAME)).isEqualTo("/" + FILE_NAME);
+    assertThat(pathUtil.createAbsolutePath("/tmp", FILE_NAME)).isEqualTo("/tmp/" + FILE_NAME);
+    assertThat(pathUtil.createAbsolutePath("/tmp/", FILE_NAME)).isEqualTo("/tmp/" + FILE_NAME);
+}
+```
+
+### Verifizieren der Objektzustands 
+
+Im folgenden Test wird der Zustand eines Objekts überprüft.
+
+```java
+@Test
+void shouldCreateSimpleTreeStringsWithBuilder() {
+    TreeStringBuilder builder = new TreeStringBuilder();
+    
+    TreeString foo = builder.intern("foo");
+    
+    assertThat(foo).hasToString("foo");
+    assertThat(foo.getLabel()).isEqualTo("foo");
+}
+
+```
 
 ## Interaction Based Testing
 
