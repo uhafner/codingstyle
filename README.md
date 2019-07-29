@@ -31,7 +31,9 @@ Für SpotBugs und PMD ist der Umweg über das Build Management Tool [Maven](http
 Die Verwendung von Maven hat zudem den Vorteil, dass die Ergebnisse hinterher leicht in den Continuous Integration Server 
 [Jenkins](https://jenkins.io/) eingebunden werden können. Eine beispielhafte Integration in Travis und Jenkins ist auch bereits vorhanden. 
 Diese ist im eigenen Abschnitt [Continuous Integration](doc/Continuous-Integration.md)
-ausführlicher beschrieben.
+ausführlicher beschrieben. Ebenso sind mehrere externe Tools konfiguriert, die die Qualität der Pull Requests 
+in diesem Repository bewerten, Details dazu sind im Abschnitt [Integration externer Tools](doc/Externe-Tool-Integration.md) 
+beschrieben.  
 
 Die Richtlinien sind in den Vorlesungen 2014/2015 entstanden und werden laufend ergänzt.
 Aktuell bestehen diese aus den folgenden Abschnitten:

@@ -1,6 +1,6 @@
 # Integration externer Tools
 
-Zur besseren Visualisierung der Projektergebnisse sind bereits verschiedene externe Tools konfiguriert.
+Zur Unterstützung des Entwicklungsworkflows sind bereits verschiedene externe Tools konfiguriert.
 
 ## Automatische Aktualisierung der Abhängigkeiten
 
@@ -17,3 +17,21 @@ Damit der Nutzer des Projekts immer über alle Änderungen im Projekt im Bilde i
 Einträge im [GitHub Releases Bereich](https://github.com/uhafner/codingstyle/releases). Diese Einträge werden
 aus den Titeln der Pull Requests generiert, d.h. jede Änderung am Projekt sollte über Pull Requests erfolgen und nicht 
 über direkte Git Commits - dies entspricht auch dem Vorgehen des [GitHub Flows](https://guides.github.com/introduction/flow/).
+
+## Statische Analyse von Pull Requests mit CheckStyle und PMD
+
+Wie bereits im Abschnitt [Continuous Integration](Continuous-Integration.md) erwähnt, gibt es keinen öffentlichen 
+Service, ein GitHub Projekt mit Jenkins automatisiert zu bauen. Für Travis gibt es diesen Service, aber Travis unterstützt
+wiederum nicht die Visualisierung der Ergebnisse der statischen Code Analyse. Daher wird jeder Pull Request 
+durch die externe App [Codacy](https://www.codacy.com/app/uhafner/codingstyle?utm_source=github.com&amp) überprüft: diese
+verwendet dabei die gleichen CheckStyle und PMD Regeln. 
+
+## Security Analyse von Pull Requests
+
+Zusätzlich zur statischen Analyse wird ein Pull Request auf Sicherheitslücken untersucht. Dies erfolgt über die GitHub
+App [LGTM](https://lgtm.com).
+
+## Bewertung der Code Coverage 
+
+Die Code Coverage der Unit Tests wird ebenfalls nach jeder Änderung (bzw. für jeden Pull Request) an den Service
+[Codecov](https://codecov.io/gh/uhafner/codingstyle) weitergeleitet, der die Resultate grafisch visualisiert.
