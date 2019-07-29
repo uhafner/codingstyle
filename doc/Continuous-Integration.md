@@ -64,4 +64,4 @@ visualisiert. Die beiden Docker Container haben externe Volumes, die sich unterh
 
 Nach einem ersten Build in Jenkins sollte sich dann folgendes Bild ergeben:
 
-![Bla](images/build-result.png)
+![Jenkins Build Summary](images/build-result.png)
