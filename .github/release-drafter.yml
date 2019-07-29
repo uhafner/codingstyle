@@ -37,6 +37,6 @@ exclude-labels:
   - invalid
 
 template: |
-  # Changes
+  # Changelog
 
   $CHANGES
