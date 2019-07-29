@@ -117,6 +117,35 @@ auch gegenüber dem JUnit Pedant `@Test(expected = Exception.class)` - dass die 
  Stelle überprüft wird. Wird eine Exception zufällig an einer anderen Stelle geworfen, so wird das als Testfehler
   markiert.
 
+## Bedingte Ausführung von Tests
+
+In Ausnahmefällen macht es Sinn, dass ein Testfall nur unter bestimmten Voraussetzungen gestartet wird. Ein typischer
+Anwendungsfall ist die Behandlung unterschiedlicher Betriebssysteme. In so einem Fall können Tests mit einem sogenannten
+*Guard* versehen werden, der den Test überspringt, falls die Voraussetzungen nicht erfüllt sind: wir verwenden  in
+so einem Fall die Methode `assumeThat` der AssertJ Bibliothek.  
+
+Beispielweise gibt es für die Klasse `PathUtils` jeweils einen Testfall für Windows und Unix Systeme:
+
+```java
+@Test
+void shouldSkipAlreadyAbsoluteOnUnix() {
+    assumeThat(isWindows()).isFalse();
+
+    PathUtil pathUtil = new PathUtil();
+
+    assertThat(pathUtil.createAbsolutePath("/tmp/", "/tmp/file.txt")).isEqualTo("/tmp/file.txt");
+}
+
+@Test
+void shouldSkipAlreadyAbsoluteOnWindows() {
+    assumeThat(isWindows()).isTrue();
+
+    PathUtil pathUtil = new PathUtil();
+
+    assertThat(pathUtil.createAbsolutePath("C:\\tmp", "C:\\tmp\\file.txt")).isEqualTo("C:/tmp/file.txt");
+}
+```
+  
 ## Allgemeine Testszenarien
 
 In JUnit gibt es die Möglichkeit, sich ein oder mehrere Testszenarien über speziell dafür markierte Methoden aufzubauen.
