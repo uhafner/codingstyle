@@ -82,8 +82,8 @@ Beispiel:
  * @return {@code true} if the text is empty or {@code null}
  * @since 3.0 Changed signature from isEmpty(String) to isEmpty(CharSequence)
  */
-public static boolean isEmpty(final CharSequence cs) {
-    return cs == null || cs.length() == 0;
+public static boolean isEmpty(final CharSequence text) {
+    return text == null || text.length() == 0;
 }
 
 ```
