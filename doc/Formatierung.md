@@ -145,12 +145,13 @@ Ein Beispiel sagt auch hier mehr als tausend Worte:
 
 ```java
 /**
- * Checks if the provided string contains irrespective of case any of the strings in the given array,
- * handling {@code null} strings. Case-insensitivity is defined as by {@link String#equalsIgnoreCase(String)}.
+ * Checks if the provided string contains irrespective of case any of the strings in the given 
+ * array, handling {@code null} strings. Case-insensitivity is defined as by 
+ * {@link String#equalsIgnoreCase(String)}.
  *
  * <p>
- * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
- * return {@code false}.
+ * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length 
+ * search array will return {@code false}.
  * </p>
  *
  * <pre>
