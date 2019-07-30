@@ -60,6 +60,7 @@ damit Pflichtlektüre für Berufstätige in der Softwareentwicklung:
 - [4] "Clean Code: A Handbook of Agile Software Craftsmanship", Robert C. Martin, Prentice Hall, 2008
 - [5] "Effective Java", Third Edition, Joshua Bloch, Addison Wesley, 2017
 - [6] "Refactoring: Improving the Design of Existing Code", Martin Fowler, Addison Wesley, 1999 
+- [7] "Java by Comparison", Simon Harrer, Jörg Lenhard, Linus Dietz, Pragmatic Programmers, 2018
 
 Die gesamten Dokumente dieser Kodierungsrichtlinien unterliegen der
 [Creative Commons Attribution 4.0 International Lizenz](http://creativecommons.org/licenses/by/4.0/). Der 
