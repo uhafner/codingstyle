@@ -13,9 +13,10 @@ Vorteile:
 ## Konventionen beim Schreiben von Modultests
 
 Wir nutzen für Modultests (d.h. Unittests) die [JUnit](https://junit.org/) Bibliothek in der Version 5. Alle Modultests 
-einer Klasse `Foo` legen wir in der zugehörigen Klasse `FooTest` ab. Testklassen verwenden dasselbe Package wie die zu 
-testende Klasse. Die Tests werden im Verzeichnis `src/test/java` abgelegt, damit sie separat von den eigentlichen 
-Klassen liegen (diese liegen unter `src/main/java`). 
+einer Klasse `Foo` legen wir in der zugehörigen Klasse `FooTest` ab. (Alternativ könnte auch der Suffix `Tests` verwendet
+werden, da ja eine Testklasse typischerweise mehrere Tests enthält - das ist aber Geschmackssache.) 
+Testklassen verwenden dasselbe Package wie die zu testende Klasse. Die Tests werden im Verzeichnis `src/test/java` 
+abgelegt, damit sie separat von den eigentlichen Klassen liegen (diese liegen unter `src/main/java`). 
 
 Gemäß der in JUnit 5 eingeführten Konventionen haben Test Klassen und Methoden die Sichtbarkeit *package private*. 
 Damit Testfälle als solches erkannt werden, müssen sie mit der Annotation `@org.junit.jupiter.api.Test` markiert werden.
