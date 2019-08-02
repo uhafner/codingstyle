@@ -53,6 +53,7 @@ pipeline-model-extensions
 pipeline-rest-api
 pipeline-stage-step
 pipeline-stage-tags-metadata
+pitmutation
 plain-credentials
 resource-disposer
 scm-api

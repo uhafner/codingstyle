@@ -18,13 +18,12 @@ VOLUME /var/data
 RUN addgroup -S jenkins && adduser -D agent -G jenkins
 RUN echo "agent:Docker!" | chpasswd
 
-USER agent
-
 RUN mkdir /home/agent/.ssh
 RUN chmod 700 /home/agent/.ssh
-COPY unsafe.pub /home/agent/.ssh/authorized_keys
+RUN chown agent:jenkins /home/agent/.ssh
 
-USER root
+COPY --chown=agent:jenkins unsafe.pub /home/agent/.ssh/authorized_keys
+
 COPY docker-entrypoint.sh /
 RUN chmod u+x docker-entrypoint.sh
 
