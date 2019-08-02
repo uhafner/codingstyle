@@ -26,8 +26,6 @@ services:
     restart: always
   java-agent:
     build: ./docker/images/java-agent
-    volumes:
-      - ./docker/volumes/agent-data:/var/data:cached
     depends_on:
       - jenkins-master
     restart: always
