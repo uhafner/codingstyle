@@ -23,6 +23,7 @@ RUN chmod 700 /home/agent/.ssh
 RUN chown agent:jenkins /home/agent/.ssh
 
 COPY --chown=agent:jenkins unsafe.pub /home/agent/.ssh/authorized_keys
+RUN chmod 600 /home/agent/.ssh/authorized_keys
 
 COPY docker-entrypoint.sh /
 RUN chmod u+x docker-entrypoint.sh
