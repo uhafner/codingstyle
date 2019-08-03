@@ -12,10 +12,6 @@ RUN apk update \
 
 USER root
 
-RUN mkdir /var/data
-VOLUME /var/data
-RUN chown agent:jenkins /var/data
-
 RUN addgroup -S jenkins && adduser -D agent -G jenkins
 RUN echo "agent:Docker!" | chpasswd
 
@@ -25,6 +21,10 @@ RUN chown agent:jenkins /home/agent/.ssh
 
 COPY --chown=agent:jenkins unsafe.pub /home/agent/.ssh/authorized_keys
 RUN chmod 600 /home/agent/.ssh/authorized_keys
+
+RUN mkdir /var/data
+VOLUME /var/data
+RUN chown agent:jenkins /var/data
 
 COPY docker-entrypoint.sh /
 RUN chmod u+x docker-entrypoint.sh
