@@ -24,7 +24,6 @@ RUN chmod 600 /home/agent/.ssh/authorized_keys
 
 RUN mkdir /var/data
 VOLUME /var/data
-RUN chown agent:jenkins /var/data
 
 COPY docker-entrypoint.sh /
 RUN chmod u+x docker-entrypoint.sh
