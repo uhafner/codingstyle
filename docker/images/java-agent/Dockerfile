@@ -14,6 +14,7 @@ USER root
 
 RUN mkdir /var/data
 VOLUME /var/data
+RUN chown agent:jenkins /var/data
 
 RUN addgroup -S jenkins && adduser -D agent -G jenkins
 RUN echo "agent:Docker!" | chpasswd
