@@ -50,7 +50,7 @@ Eine solche Visualisierung ist unter Travis nicht verfügbar.
 Da es für Jenkins keinen öffentlichen Service wie bei Travis gibt, um eigene Projekte zu bauen, muss die Jenkins 
 Integration lokal durchgeführt werden. Zur Vereinfachung des Jenkins Setup ist in diesem Coding Style eine
 lauffähige Jenkins Installation enthalten (im Sinne von *Infrastructure as Code*). 
-Diese kann über `docker-compose up` im Hauptverzeichnis gestartet werden. Anschließend wird die
+Diese kann über `jenkins.sh` im Hauptverzeichnis gestartet werden. Anschließend wird die
 aktuelle Jenkins LTS Version mit allen benötigten Plugins in einem Docker Container gebaut und gestartet (das dauert
 beim ersten Aufruf etwas). Dazu wird ebenso ein als Docker Container initialisierter Java Agent (**Achtung**: Java 8) 
 verbunden, der die Builds ausführt. Nach einem erfolgreichem Start von Jenkins ist dann unter 
@@ -59,8 +59,8 @@ der entsprechende Jenkins Job sichtbar. Der Zugang auf diesen lokalen Rechner er
 mit Benutzer `admin` und Passwort `admin`, anschließend hat man volle Jenkins Administrationsrechte. 
 Der Job `Codingstyle` muss danach manuell gestartet werden,
 die Ergebnisse der Tests, Code und Mutation Coverage sowie statischen Analyse werden dann automatisch
-visualisiert. Die beiden Docker Container haben externe Volumes, die sich unterhalb des Ordners 
-`docker/volumes` befinden.
+visualisiert. Das Jenkins Home Verzeichnis ist im Docker Container als externes Volume angelegt: d.h. der Zugriff kann
+auf dem Host direkt im Verzeichnis `docker/volumes/jenkins-home` erfolgen.
 
 Nach einem ersten Build in Jenkins sollte sich dann folgendes Bild ergeben:
 
