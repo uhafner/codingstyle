@@ -17,6 +17,8 @@ jenkins:
       name: "all"
   quietPeriod: 5
   scmCheckoutRetryCount: 0
+  globalDefaultFlowDurabilityLevel:
+    durabilityHint: PERFORMANCE_OPTIMIZED
   securityRealm:
     local:
       allowsSignup: false
