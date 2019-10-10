@@ -48,7 +48,7 @@ Aktuell bestehen diese aus den folgenden Abschnitten:
 - [Fehlerbehandlung](doc/Fehlerbehandlung.md)
 - [Best Practice](doc/Best-Practice.md)
 
-Zur besseren Verdeutlichung der angesprochenen Themen sind diesem Projekt auch [Java Beispiele](src/) angefügt, 
+Zur besseren Verdeutlichung der angesprochenen Themen sind diesem Projekt auch [Java Beispiele](./src/) angefügt, 
 die sich möglichst genau an diese Richtlinien halten.
 
 Ideen und Inhalte für diesen Styleguide lieferten verschiedene Bücher, insbesondere aber das Buch 
@@ -63,5 +63,5 @@ damit Pflichtlektüre für Berufstätige in der Softwareentwicklung:
 - [7] "Java by Comparison", Simon Harrer, Jörg Lenhard, Linus Dietz, Pragmatic Programmers, 2018
 
 Die gesamten Dokumente dieser Kodierungsrichtlinien unterliegen der
-[Creative Commons Attribution 4.0 International Lizenz](http://creativecommons.org/licenses/by/4.0/). Der 
-Quelltext aller Beispiele und Klassen unterliegt der [MIT Lizenz](http://opensource.org/licenses/MIT).
+[Creative Commons Attribution 4.0 International Lizenz](https://creativecommons.org/licenses/by/4.0/). Der 
+Quelltext aller Beispiele und Klassen unterliegt der [MIT Lizenz](https://opensource.org/licenses/MIT).
