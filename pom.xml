@@ -573,7 +573,7 @@
     <repository>
       <id>github</id>
       <name>Apache Maven Packages of Ullrich Hafner</name>
-      <url>https://maven.pkg.github.com/uhafner</url>
+      <url>https://maven.pkg.github.com/uhafner/codingstyle</url>
     </repository>
   </distributionManagement>
 
