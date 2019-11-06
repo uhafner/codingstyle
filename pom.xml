@@ -50,6 +50,8 @@
     <project.build.sourceEncoding>${source.encoding}</project.build.sourceEncoding>
     <java.version>1.8</java.version>
 
+    <module.name>${project.groupId}.codingstyle</module.name>
+
     <!-- Project Dependencies Configuration -->
     <spotbugs.annotations>3.1.12</spotbugs.annotations>
     <commons.lang.version>3.9</commons.lang.version>
@@ -297,7 +299,7 @@
             <manifestEntries>
               <Built-By>Ullrich Hafner</Built-By>
               <Url>${project.scm.url}</Url>
-              <Automatic-Module-Name>codingstyle</Automatic-Module-Name>
+              <Automatic-Module-Name>${module.name}</Automatic-Module-Name>
             </manifestEntries>
           </archive>
         </configuration>
