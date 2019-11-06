@@ -59,14 +59,14 @@
     <eclipse-collections.version>10.0.0</eclipse-collections.version>
     <spotbugs.parser.library.version>6.0.3</spotbugs.parser.library.version>
     <j2html.version>1.4.0</j2html.version>
-    <slf4j-nop.version>1.7.28</slf4j-nop.version>
+    <slf4j-nop.version>1.7.29</slf4j-nop.version>
 
     <!-- Project Test Dependencies Configuration -->
     <junit.version>5.5.2</junit.version>
     <junit-platform-launcher.version>1.5.2</junit-platform-launcher.version>
-    <mockito.version>3.0.0</mockito.version>
-    <assertj.version>3.13.2</assertj.version>
-    <archunit.version>0.11.0</archunit.version>
+    <mockito.version>3.1.0</mockito.version>
+    <assertj.version>3.14.0</assertj.version>
+    <archunit.version>0.12.0</archunit.version>
     <violations-lib.version>1.94</violations-lib.version>
     <json.version>20180813</json.version>
 
@@ -81,23 +81,23 @@
     <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
     <maven-buildhelper-plugin.version>3.0.0</maven-buildhelper-plugin.version>
     <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
-    <maven-jar-plugin.version>3.1.2</maven-jar-plugin.version>
+    <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
     <maven-pmd-plugin.version>3.12.0</maven-pmd-plugin.version>
-    <pmd.version>6.18.0</pmd.version>
+    <pmd.version>6.19.0</pmd.version>
     <maven-checkstyle-plugin.version>3.1.0</maven-checkstyle-plugin.version>
-    <checkstyle.version>8.24</checkstyle.version>
+    <checkstyle.version>8.26</checkstyle.version>
     <spotbugs-maven-plugin.version>3.1.12.2</spotbugs-maven-plugin.version>
-    <jacoco-maven-plugin.version>0.8.4</jacoco-maven-plugin.version>
+    <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
     <maven-taglist-plugin.version>2.4</maven-taglist-plugin.version>
     <maven-pitest-plugin.version>1.4.10</maven-pitest-plugin.version>
-    <pitest-junit5-plugin.version>0.9</pitest-junit5-plugin.version>
+    <pitest-junit5-plugin.version>0.10</pitest-junit5-plugin.version>
     <maven-error-prone-plugin.version>2.8.5</maven-error-prone-plugin.version>
     <error-prone.version>2.3.3</error-prone.version>
     <nullaway.version>0.7.5</nullaway.version>
     <maven-depgraph-plugin.version>3.3.0</maven-depgraph-plugin.version>
     <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
-    <revapi-maven-plugin.version>0.11.1</revapi-maven-plugin.version>
-    <revapi-java.version>0.19.1</revapi-java.version>
+    <revapi-maven-plugin.version>0.11.2</revapi-maven-plugin.version>
+    <revapi-java.version>0.20.0</revapi-java.version>
 
     <!-- Maven Surefire ArgLine -->
     <argLine>-Djava.util.logging.config.file=logging.properties</argLine>
