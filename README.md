@@ -23,10 +23,10 @@ dependency mechanism. If the sample classes are deleted then the dependencies ca
 
 This project and the associated static analysis tools are already running in continuous integration: an example 
 CI pipeline is active for Travis and GitHub Actions. For [Jenkins](https://jenkins.io/) a complete CI pipeline has been 
-configured that includes compile, test, static analysis, code coverage analysis, mutation coverage analysis, see
-section [Continuous Integration](doc/Continuous-Integration.md) for details. Additionally, some development tools are 
-configured in this GitHub project, that evaluate the quality of pull requests, see section 
-[integration of external tools](doc/Externe-Tool-Integration.md).
+configured that includes stages to compile, test, run static code analysis, run code coverage analysis, 
+and run mutation coverage analysis, see section [Continuous Integration](doc/Continuous-Integration.md) for details. 
+Additionally, some development tools are configured in this GitHub project, that evaluate the quality of pull requests, 
+see section [integration of external tools](doc/Externe-Tool-Integration.md).
 
 Content of the style guide (only in German):
 - [Formatierung](doc/Formatierung.md)
@@ -39,7 +39,7 @@ Content of the style guide (only in German):
 - [Fehlerbehandlung](doc/Fehlerbehandlung.md)
 - [Best Practice](doc/Best-Practice.md)
 
-A lot of ideas in this style are based on the following - path-breaking - books about software development: 
+A lot of ideas in this style are based on the following path-breaking books about software development: 
 
 - [1] "The Elements of Java Style", Vermeulen, Ambler, Bumgardner, Metz, Misfeldt, Shur und Thompson, Cambridge University Press, 2000
 - [2] "The Pragmatic Programmer. From Journeyman to Master", Andrew Hunt, David Thomas, Ward Cunningham, Addison Wesley, 1999
