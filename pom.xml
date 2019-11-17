@@ -40,10 +40,12 @@
       <name>Ullrich Hafner</name>
       <id>uhafner</id>
       <email>ullrich.hafner@hm.edu</email>
+      <organization>Munich University of Applied Sciences</organization>
+      <organizationUrl>https://www.hm.edu/en/index.en.html</organizationUrl>
     </developer>
   </developers>
 
-  <url>http://www.cs.hm.edu/die_fakultaet/ansprechpartner/professoren/hafner/index.de.html</url>
+  <url>https://www.cs.hm.edu/die_fakultaet/ansprechpartner/professoren/hafner/index.de.html</url>
 
   <properties>
     <source.encoding>UTF-8</source.encoding>

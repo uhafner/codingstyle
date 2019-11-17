@@ -1,5 +1,3 @@
-![JDK8](https://img.shields.io/badge/jdk-8-yellow.svg)
-[![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Travis](https://img.shields.io/travis/uhafner/codingstyle/master.svg?logo=travis&label=travis%20build&logoColor=white)](https://travis-ci.org/uhafner/codingstyle)
 [![GitHub Actions](https://github.com/uhafner/codingstyle/workflows/GitHub%20Actions/badge.svg)](https://github.com/uhafner/codingstyle/actions)
 [![Codecov](https://img.shields.io/codecov/c/github/uhafner/codingstyle.svg)](https://codecov.io/gh/uhafner/codingstyle)
@@ -7,38 +5,30 @@
 [![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/uhafner/codingstyle.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/uhafner/codingstyle/context:java)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/uhafner/codingstyle.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/uhafner/codingstyle/alerts/)
 
-In jedem Java Projekt sollte der gesamte Quelltext die gleichen Kriterien bei Stil, Formatierung, etc.
-verwenden. In diesem Projekt werden die Kodierungsrichtlinien zu meinen Vorlesungen an der Hochschule
-München zusammengefasst. 
+Each Java project should follow a given coding style. I.e., all contributions to the source code should use the same 
+formatting rules, design principles, code patterns, idioms, etc. This coding style provides the set of rules that I am using 
+in my lectures about software development at Munich University of Applied Sciences.  
 
-Dieses Projekt enthält neben der Dokumentation der wichtigsten Kodierungsrichtlinien auch gleichzeitig eine sinnvolle 
-Konfiguration aller für Java kostenlos verfügbaren statischen Codeanalyse Tools mittels Maven. Diese dort enthaltenen und automatisch 
-prüfbaren Richtlinien werden - soweit wie möglich - nicht mehr extra im Text erwähnt. Damit kann diese Projekt gleichzeitig als
-Vorlage für neue Projekte genutzt werden. Unterstützt werden aktuell folgende Tools:
+This project describes the coding style in detail (currently only in German) and serves as a template project. 
+It provides all necessary resources for a Java project to enforce this coding style using the following 
+static analysis tools via Maven (and partly in IntelliJ):
 - [Checkstyle](https://checkstyle.org)
 - [PMD](https://pmd.github.io/)
 - [SpotBugs](https://spotbugs.github.io)
 - [Error Prone](https://errorprone.info)
+ 
+Moreover, it provides some sample classes that already use this style guide. This classes can be used as such but are not
+required in this project. These classes also use some additional libraries that are included using the Maven
+dependency mechanism. If the sample classes are deleted then the dependencies can be safely deleted, too.
 
-Die automatisch prüfbaren Richtlinien können für CheckStyle und Error Prone auch direkt als Warnungen in der 
-Entwicklungsumgebung [IntelliJ](https://www.jetbrains.com/idea/) angezeigt werden (nach der Installation des 
-entsprechenden IntelliJ Plugins). Zusätzlich sind die 
-[IntelliJ Code Inspections](https://www.jetbrains.com/help/idea/code-inspection.html) gemäß meiner Richtlinien konfiguriert. 
-Aktuell können diese allerdings noch nicht automatisch im Build überprüft werden 
-(siehe [#7](https://github.com/uhafner/codingstyle/issues/7)). Insgesamt ist damit sichergestellt,
-dass immer die gleichen Warnungen angezeigt werden - egal wie und wo die Java Dateien weiterverarbeitet werden. 
-Für SpotBugs und PMD ist der Umweg über das Build Management Tool [Maven](http://maven.apache.org/) erforderlich 
-(die entsprechenden IntelliJ Plugins sind leider aus meiner Sicht noch nicht ausgereift genug bzw. verwenden eine separate Konfiguration). 
-Die Verwendung von Maven hat zudem den Vorteil, dass die Ergebnisse hinterher leicht in den Continuous Integration Server 
-[Jenkins](https://jenkins.io/) eingebunden werden können. Eine beispielhafte Integration in Travis und Jenkins ist auch bereits vorhanden. 
-Diese ist im eigenen Abschnitt [Continuous Integration](doc/Continuous-Integration.md)
-ausführlicher beschrieben. Ebenso sind mehrere externe Tools konfiguriert, die die Qualität der Pull Requests 
-in diesem Repository bewerten, Details dazu sind im Abschnitt [Integration externer Tools](doc/Externe-Tool-Integration.md) 
-beschrieben.  
+This project and the associated static analysis tools are already running in continuous integration: an example 
+CI pipeline is active for Travis and GitHub Actions. For [Jenkins](https://jenkins.io/) a complete CI pipeline has been 
+configured that includes compile, test, static analysis, code coverage analysis, mutation coverage analysis, see
+section [Continuous Integration](doc/Continuous-Integration.md) for details. Additionally, some development tools are 
+configured in this GitHub project, that evaluate the quality of pull requests, see section 
+[integration of external tools](doc/Externe-Tool-Integration.md).
 
-Die Richtlinien sind in den Vorlesungen 2014/2015 entstanden und werden laufend ergänzt.
-Aktuell bestehen diese aus den folgenden Abschnitten:
-
+Content of the style guide (only in German):
 - [Formatierung](doc/Formatierung.md)
 - [Namensgebung](doc/Namensgebung.md)
 - [Kommentare](doc/Kommentare.md)
@@ -49,12 +39,8 @@ Aktuell bestehen diese aus den folgenden Abschnitten:
 - [Fehlerbehandlung](doc/Fehlerbehandlung.md)
 - [Best Practice](doc/Best-Practice.md)
 
-Zur besseren Verdeutlichung der angesprochenen Themen sind diesem Projekt auch [Java Beispiele](./src/) angefügt, 
-die sich möglichst genau an diese Richtlinien halten.
+A lot of ideas in this style are based on the following - path-breaking - books about software development: 
 
-Ideen und Inhalte für diesen Styleguide lieferten verschiedene Bücher, insbesondere aber das Buch 
-"The Elements of Java Style" [1]. Diese Bücher sind allesamt wegweisend für die Softwareentwicklung und sind 
-damit Pflichtlektüre für Berufstätige in der Softwareentwicklung:
 - [1] "The Elements of Java Style", Vermeulen, Ambler, Bumgardner, Metz, Misfeldt, Shur und Thompson, Cambridge University Press, 2000
 - [2] "The Pragmatic Programmer. From Journeyman to Master", Andrew Hunt, David Thomas, Ward Cunningham, Addison Wesley, 1999
 - [3] "Code Complete: A Practical Handbook of Software Construction", Steve McConnell, Microsoft Press, 2004
@@ -63,6 +49,9 @@ damit Pflichtlektüre für Berufstätige in der Softwareentwicklung:
 - [6] "Refactoring: Improving the Design of Existing Code", Martin Fowler, Addison Wesley, 1999 
 - [7] "Java by Comparison", Simon Harrer, Jörg Lenhard, Linus Dietz, Pragmatic Programmers, 2018
 
-Die gesamten Dokumente dieser Kodierungsrichtlinien unterliegen der
-[Creative Commons Attribution 4.0 International Lizenz](https://creativecommons.org/licenses/by/4.0/). Der 
-Quelltext aller Beispiele und Klassen unterliegt der [MIT Lizenz](https://opensource.org/licenses/MIT).
+All documents in this project use the 
+[Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/). 
+Source code (snippets, examples, and classes) are using the [MIT license](https://opensource.org/licenses/MIT).
+
+[![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
