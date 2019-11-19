@@ -1,3 +1,4 @@
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/edu.hm.hafner/codingstyle/badge.svg)](https://maven-badges.herokuapp.com/maven-central/edu.hm.hafner/codingstyle)
 [![Travis](https://img.shields.io/travis/uhafner/codingstyle/master.svg?logo=travis&label=travis%20build&logoColor=white)](https://travis-ci.org/uhafner/codingstyle)
 [![GitHub Actions](https://github.com/uhafner/codingstyle/workflows/GitHub%20Actions/badge.svg)](https://github.com/uhafner/codingstyle/actions)
 [![Codecov](https://img.shields.io/codecov/c/github/uhafner/codingstyle.svg)](https://codecov.io/gh/uhafner/codingstyle)
