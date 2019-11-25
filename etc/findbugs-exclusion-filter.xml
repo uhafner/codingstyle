@@ -13,4 +13,7 @@
       <Bug code="UwF, SIC, NP, Dm" />
       <Class name="~.*Test.*" />
   </Match>
+  <Match>
+      <Class name="~.*Assertions.*" />
+  </Match>
 </FindBugsFilter>
