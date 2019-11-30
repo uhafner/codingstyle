@@ -5,7 +5,10 @@ import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -22,6 +25,15 @@ class PathUtilTest extends ResourceTest {
     private static final String NOT_EXISTING = "/should/not/exist";
     private static final String ILLEGAL = "\0 Null-Byte";
     private static final String FILE_NAME = "fileName.txt";
+
+    @DisplayName("Should be absolute path")
+    @ParameterizedTest(name = "[{index}] path={0}")
+    @ValueSource(strings = {"/", "/tmp", "C:\\", "C:\\Tmp"})
+    void shouldFindAbsolutePaths(final String path) {
+        PathUtil pathUtil = new PathUtil();
+
+        assertThat(pathUtil.isAbsolute(path)).isTrue();
+    }
 
     @Test
     void shouldReturnFallback() {
@@ -59,6 +71,13 @@ class PathUtilTest extends ResourceTest {
         PathUtil pathUtil = new PathUtil();
 
         assertThat(pathUtil.createAbsolutePath("C:\\tmp", "C:\\tmp\\file.txt")).isEqualTo("C:/tmp/file.txt");
+    }
+
+    @Test
+    void normalizeDriveLetter() {
+        PathUtil pathUtil = new PathUtil();
+
+        assertThat(pathUtil.getAbsolutePath("c:\\tmp")).isEqualTo("C:/tmp");
     }
 
     @Test

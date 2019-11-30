@@ -1,10 +1,10 @@
 package edu.hm.hafner.util;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Formatter;
 import java.util.List;
-
-import org.eclipse.collections.impl.factory.Lists;
 
 import com.google.errorprone.annotations.FormatMethod;
 
@@ -619,8 +619,9 @@ public final class Ensure {
         public void isInstanceOf(final Class<?> type, final Class<?>... additionalTypes) {
             isNotNull();
 
-            List<Class<?>> types = Lists.mutable.of(additionalTypes);
+            List<Class<?>> types = new ArrayList<>();
             types.add(type);
+            Collections.addAll(types, additionalTypes);
 
             for (Class<?> clazz : types) {
                 if (clazz.isInstance(value)) {

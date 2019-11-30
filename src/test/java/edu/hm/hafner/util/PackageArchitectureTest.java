@@ -1,4 +1,4 @@
-package edu.hm.hafner;
+package edu.hm.hafner.util;
 
 import java.net.URL;
 
@@ -25,4 +25,17 @@ class PackageArchitectureTest {
     static final ArchRule ADHERES_TO_PACKAGE_DESIGN
             = classes().should(adhereToPlantUmlDiagram(PACKAGE_DESIGN,
             consideringOnlyDependenciesInAnyPackage("edu.hm.hafner..")));
+
+    @ArchTest
+    static final ArchRule NO_PUBLIC_TEST_CLASSES = ArchitectureRules.NO_PUBLIC_TEST_CLASSES;
+
+    @ArchTest
+    static final ArchRule NO_TEST_API_CALLED = ArchitectureRules.NO_TEST_API_CALLED;
+
+    @ArchTest
+    static final ArchRule NO_FORBIDDEN_PACKAGE_ACCESSED = ArchitectureRules.NO_FORBIDDEN_PACKAGE_ACCESSED;
+
+    @ArchTest
+    static final ArchRule NO_FORBIDDEN_CLASSES_CALLED = ArchitectureRules.NO_FORBIDDEN_CLASSES_CALLED;
+
 }
