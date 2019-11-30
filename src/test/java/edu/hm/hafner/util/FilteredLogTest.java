@@ -73,6 +73,6 @@ class FilteredLogTest {
 
         assertThat(filteredLog.getErrorMessages()).contains(TITLE,
                 "Message", "java.lang.IllegalArgumentException: Cause",
-                "\tat edu.hm.hafner.util.FilteredLogTest.shouldLogExceptions(FilteredLogTest.java:72)");
+                "\tat edu.hm.hafner.util.FilteredLogTest.shouldLogExceptions(FilteredLogTest.java:71)");
     }
 }
