@@ -19,7 +19,7 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
  * @author Ullrich Hafner
  */
 public final class ArchitectureRules {
-    /** Test classes should not be public (Junit 5). */
+    /** Junit 5 test classes should not be public. */
     public static final ArchRule NO_PUBLIC_TEST_CLASSES =
             noClasses().that().haveSimpleNameEndingWith("Test")
                     .and().doNotHaveModifier(JavaModifier.ABSTRACT)
