@@ -58,10 +58,6 @@
     <spotbugs.annotations>3.1.12</spotbugs.annotations>
     <commons.lang.version>3.9</commons.lang.version>
     <commons.io.version>2.6</commons.io.version>
-    <commons.digester.version>3.2</commons.digester.version>
-    <spotbugs.parser.library.version>6.0.3</spotbugs.parser.library.version>
-    <j2html.version>1.4.0</j2html.version>
-    <slf4j-nop.version>1.7.29</slf4j-nop.version>
 
     <!-- Project Test Dependencies Configuration -->
     <junit.version>5.5.2</junit.version>
@@ -87,6 +83,7 @@
     <maven-checkstyle-plugin.version>3.1.0</maven-checkstyle-plugin.version>
     <checkstyle.version>8.26</checkstyle.version>
     <spotbugs-maven-plugin.version>3.1.12.2</spotbugs-maven-plugin.version>
+    <findsecbugs-plugin.version>1.10.1</findsecbugs-plugin.version>
     <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
     <maven-taglist-plugin.version>2.4</maven-taglist-plugin.version>
     <maven-pitest-plugin.version>1.4.10</maven-pitest-plugin.version>
@@ -108,11 +105,6 @@
   </properties>
 
   <dependencies>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-nop</artifactId>
-      <version>${slf4j-nop.version}</version>
-    </dependency>
     <dependency>
       <groupId>com.github.spotbugs</groupId>
       <artifactId>spotbugs-annotations</artifactId>
@@ -433,6 +425,14 @@
           <fork>true</fork>
           <excludeFilterFile>etc/spotbugs-exclusion-filter.xml</excludeFilterFile>
           <includeTests>true</includeTests>
+          <plugins>
+            <plugin>
+              <groupId>com.h3xstream.findsecbugs</groupId>
+              <artifactId>findsecbugs-plugin</artifactId>
+              <version>${findsecbugs-plugin.version}</version>
+            </plugin>
+          </plugins>
+
         </configuration>
       </plugin>
       <plugin>
@@ -585,18 +585,15 @@
 
   <profiles>
     <profile>
-      <id>skip-javadoc-and-analysis-with-tests</id>
-      <activation>
-        <property>
-          <name>skipTests</name>
-          <value>true</value>
-        </property>
-      </activation>
+      <id>skip</id>
       <properties>
         <maven.javadoc.skip>true</maven.javadoc.skip>
         <pmd.skip>true</pmd.skip>
         <spotbugs.skip>true</spotbugs.skip>
         <checkstyle.skip>true</checkstyle.skip>
+        <skipTests>true</skipTests>
+        <skipITs>true</skipITs>
+        <revapi.skip>true</revapi.skip>
       </properties>
     </profile>
   </profiles>

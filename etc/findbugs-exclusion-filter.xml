@@ -1,19 +1,22 @@
 <FindBugsFilter>
   <Match>
-      <Class name="~.*\$.*" />
+    <Class name="~.*\$.*"/>
   </Match>
   <Match>
-      <Bug code="CD" />
-      <Class name="~.*" />
+    <Bug code="CD"/>
+    <Class name="~.*"/>
   </Match>
   <Match>
-      <Class name="~.*Messages" />
+    <Class name="~.*Messages"/>
   </Match>
   <Match>
-      <Bug code="UwF, SIC, NP, Dm" />
-      <Class name="~.*Test.*" />
+    <Bug code="UwF, SIC, NP, Dm"/>
+    <Class name="~.*Test.*"/>
   </Match>
   <Match>
-      <Class name="~.*Assertions.*" />
+    <Class name="~.*Assertions.*"/>
+  </Match>
+  <Match>
+    <Bug category="DESERIALIZATION_GADGET"/>
   </Match>
 </FindBugsFilter>
