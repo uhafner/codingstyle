@@ -5,6 +5,7 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -98,7 +99,7 @@ public class PathUtil {
         if (isAbsolute(fileName) || StringUtils.isBlank(directory)) {
             return makeUnixPath(fileName);
         }
-        String path = makeUnixPath(directory);
+        String path = makeUnixPath(Objects.requireNonNull(directory));
 
         String separator;
         if (path.endsWith(SLASH)) {

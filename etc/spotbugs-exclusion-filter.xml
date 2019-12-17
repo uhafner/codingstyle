@@ -17,4 +17,11 @@
       <Bug code="UwF, SIC, NP, Dm, UI, RV" />
       <Class name="~.*Test.*" />
   </Match>
+  <Match>
+    <Bug category="SECURITY"/>
+    <Class name="~.*Test.*" />
+  </Match>
+  <Match>
+    <Bug code="DESERIALIZATION_GADGET, FORMAT_STRING_MANIPULATION, PATH_TRAVERSAL_IN, WEAK_FILENAMEUTILS"/>
+  </Match>
 </FindBugsFilter>
