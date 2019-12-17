@@ -432,7 +432,6 @@
               <version>${findsecbugs-plugin.version}</version>
             </plugin>
           </plugins>
-
         </configuration>
       </plugin>
       <plugin>
