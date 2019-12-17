@@ -7,7 +7,7 @@ node {
 
     stage ('Build and Static Analysis') {
         withMaven(maven: 'mvn-default', mavenLocalRepo: '/var/data/m2repository', mavenOpts: '-Xmx768m -Xms512m') {
-            sh 'mvn -V -e clean verify -Dmaven.test.failure.ignore'
+            sh 'mvn -V -e clean verify -Dmaven.test.failure.ignore -Dgpg.skip'
         }
 
         recordIssues tools: [java(), javaDoc()], aggregatingResults: 'true', id: 'java', name: 'Java'
