@@ -21,8 +21,8 @@ aus den Titeln der Pull Requests generiert, d.h. jede Änderung am Projekt sollt
 ## Statische Analyse von Pull Requests mit CheckStyle und PMD
 
 Wie bereits im Abschnitt [Continuous Integration](Continuous-Integration.md) erwähnt, gibt es keinen öffentlichen 
-Service, ein GitHub Projekt mit Jenkins automatisiert zu bauen. Für Travis gibt es diesen Service, aber Travis unterstützt
-wiederum nicht die Visualisierung der Ergebnisse der statischen Code Analyse. Daher wird jeder Pull Request 
+Service, ein GitHub Projekt mit Jenkins automatisiert zu bauen. Für GitHub Actions gibt es diesen Service, aber 
+die Visualisierung der Ergebnisse der statischen Code Analyse wird leider nicht unterstützt. Daher wird jeder Pull Request 
 durch die externe App [Codacy](https://www.codacy.com/app/uhafner/codingstyle?utm_source=github.com&amp) überprüft: diese
 verwendet dabei die gleichen CheckStyle und PMD Regeln. 
 

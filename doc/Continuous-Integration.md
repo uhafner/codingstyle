@@ -1,11 +1,11 @@
 # Continuous Integration des Coding Style
 
 Gemäß des Grundsatzes **eat your own dogfood** ist dieser Coding Style bereits für die Continuous Integration
-in [Travis](https://travis-ci.org) und [Jenkins](https://jenkins.io) vorbereitet. 
+in [GitHub Actions](https://github.com/features/actions) und [Jenkins](https://jenkins.io) vorbereitet. 
 
 ## Maven Konfiguration
 
-Sowohl für Travis als auch für Jenkins erfolgt die Automatisierung des Builds über Maven. Im zugehörigen 
+Sowohl für GitHub Actions als auch für Jenkins erfolgt die Automatisierung des Builds über Maven. Im zugehörigen 
 [POM](../pom.xml) sind alle Versionen der benutzten Maven Plugins und der benötigten Abhängigkeiten über Properties
 definiert, d.h. eine Aktualisierung lässt sich im entsprechenden Abschnitt leicht selbst durchführen bzw. über das 
 Maven Kommando `mvn versions:update-properties` automatisch aktualisieren. U.a. sind die folgenden Plugins vorkonfiguriert:
@@ -24,30 +24,30 @@ ein test-jar konfiguriert, so dass alle Tests (und abstrakte Testklassen) auch a
 - jacoco-maven-plugin: misst die Code Coverage der Testfälle mit [JaCoCo](https://www.jacoco.org)
 - pitest-maven: misst die Mutation Coverage der Testfälle mit [PITest](http://pitest.org)
 
-## Travis
+## GitHub Actions
 
-[![Travis](https://img.shields.io/travis/uhafner/codingstyle/master.svg?logo=travis&label=travis%20build&logoColor=white)](https://travis-ci.org/uhafner/codingstyle)
+[![GitHub Actions](https://github.com/uhafner/codingstyle/workflows/GitHub%20Actions/badge.svg)](https://github.com/uhafner/codingstyle/actions)
 
-Die Konfiguration der Continuous Integration in Travis is sehr [einfach](../.travis.yml). Da der gesamt Build 
-über Maven automatisiert ist, besteht die Konfiguration eigentlich nur aus dem Maven Aufruf 
-`mvn -B -V clean verify jacoco:prepare-agent test jacoco:report`. Damit wird das Projekt gebaut, alle Tests (Unit und 
-Integrationstests) werden ausgeführt, die statische Code Analyse wird durchgeführt und schließlich werden nochmals
-alle Test mit dem Code Coverage Tool JaCoCo analysiert. Bei einem erfolgreichen Build werden die Code Coverage 
-Ergebnisse in die Platform [CodeCov](https://codecov.io/gh/uhafner/codingstyle) hochgeladen. Da Travis OSS Projekte
-kostenlos baut, kann das Ergebnis der CI des Coding Style auf der [Travis Projekt Seite](https://travis-ci.org/uhafner/codingstyle) direkt eingesehen werden.
+Die Konfiguration der Continuous Integration in GitHub Actions is sehr [einfach](../.github/workflows/maven.yml). 
+Da der gesamte Build über Maven automatisiert ist, besteht die Konfiguration eigentlich nur aus einem Maven Aufruf,
+der das Projekt baut, alle Tests (Unit und Integrationstests) ausgeführt, die statische Code Analyse durchführt
+und schließlich werden nochmals alle Test mit dem Code Coverage Tool JaCoCo analysiert. Bei einem erfolgreichen 
+Build werden die Code Coverage Ergebnisse in die Platform [CodeCov](https://codecov.io/gh/uhafner/codingstyle) hochgeladen.
+GitHub Actions bietet die Möglichkeit, Matrix Builds durchzuführen: d.h., der Build wird auf den Plattformen Linux, 
+Windows und macOS parallel durchgeführt.
 
 ## Jenkins
 
 Eine Beispielintegration in Jenkins ist auch bereits vorhanden. Diese ist im [Jenkinsfile](../Jenkinsfile) hinterlegt
-und startet die Integration in mehreren Schritten (Stages). Zunächst werden auch hier alle Schritte wie in Travis
+und startet die Integration in mehreren Schritten (Stages). Zunächst werden auch hier alle Schritte wie in GitHub Actions
 aufgerufen. Anschließend erfolgt noch ein Start der Mutation Coverage mit [PIT](http://pitest.org). Insgesamt ist
 die CI Konfiguration für Jenkins umfangreicher, da nicht nur der eigentliche Build konfiguriert wird, sondern
 auch die Darstellung der Ergebnisse im Jenkins UI über die entsprechenden Jenkins Plugins konfiguriert wird.
-Eine solche Visualisierung ist unter Travis nicht verfügbar. 
+Eine solche Visualisierung ist unter GitHub Actions nicht verfügbar. 
 
 ### Lokale CI in Jenkins (über Docker Compose)
 
-Da es für Jenkins keinen öffentlichen Service wie bei Travis gibt, um eigene Projekte zu bauen, muss die Jenkins 
+Da es für Jenkins keinen öffentlichen Service wie bei GitHub Actions gibt, um eigene Projekte zu bauen, muss die Jenkins 
 Integration lokal durchgeführt werden. Zur Vereinfachung des Jenkins Setup ist in diesem Coding Style eine
 lauffähige Jenkins Installation enthalten (im Sinne von *Infrastructure as Code*). 
 Diese kann über `jenkins.sh` im Hauptverzeichnis gestartet werden. Anschließend wird die

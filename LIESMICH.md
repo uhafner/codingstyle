@@ -1,6 +1,5 @@
 ![JDK8](https://img.shields.io/badge/jdk-8-yellow.svg)
 [![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Travis](https://img.shields.io/travis/uhafner/codingstyle/master.svg?logo=travis&label=travis%20build&logoColor=white)](https://travis-ci.org/uhafner/codingstyle)
 [![GitHub Actions](https://github.com/uhafner/codingstyle/workflows/GitHub%20Actions/badge.svg)](https://github.com/uhafner/codingstyle/actions)
 [![Codecov](https://img.shields.io/codecov/c/github/uhafner/codingstyle.svg)](https://codecov.io/gh/uhafner/codingstyle)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a4f98b07b95c47c19eb3443ee90168cd)](https://www.codacy.com/app/uhafner/codingstyle?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=uhafner/codingstyle&amp;utm_campaign=Badge_Grade)
@@ -30,7 +29,7 @@ dass immer die gleichen Warnungen angezeigt werden - egal wie und wo die Java Da
 Für SpotBugs und PMD ist der Umweg über das Build Management Tool [Maven](http://maven.apache.org/) erforderlich 
 (die entsprechenden IntelliJ Plugins sind leider aus meiner Sicht noch nicht ausgereift genug bzw. verwenden eine separate Konfiguration). 
 Die Verwendung von Maven hat zudem den Vorteil, dass die Ergebnisse hinterher leicht in den Continuous Integration Server 
-[Jenkins](https://jenkins.io/) eingebunden werden können. Eine beispielhafte Integration in Travis und Jenkins ist auch bereits vorhanden. 
+[Jenkins](https://jenkins.io/) eingebunden werden können. Eine beispielhafte Integration in GitHub Actions und Jenkins ist auch bereits vorhanden. 
 Diese ist im eigenen Abschnitt [Continuous Integration](doc/Continuous-Integration.md)
 ausführlicher beschrieben. Ebenso sind mehrere externe Tools konfiguriert, die die Qualität der Pull Requests 
 in diesem Repository bewerten, Details dazu sind im Abschnitt [Integration externer Tools](doc/Externe-Tool-Integration.md) 

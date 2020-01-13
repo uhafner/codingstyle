@@ -1,5 +1,4 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/edu.hm.hafner/codingstyle/badge.svg)](https://maven-badges.herokuapp.com/maven-central/edu.hm.hafner/codingstyle)
-[![Travis](https://img.shields.io/travis/uhafner/codingstyle/master.svg?logo=travis&label=travis%20build&logoColor=white)](https://travis-ci.org/uhafner/codingstyle)
 [![GitHub Actions](https://github.com/uhafner/codingstyle/workflows/GitHub%20Actions/badge.svg)](https://github.com/uhafner/codingstyle/actions)
 
 Each Java project should follow a given coding style. I.e., all contributions to the source code should use the same 
@@ -19,7 +18,7 @@ required in this project. These classes also use some additional libraries that 
 dependency mechanism. If the sample classes are deleted then the dependencies can be safely deleted, too.
 
 This project and the associated static analysis tools are already running in continuous integration: an example 
-CI pipeline is active for Travis and GitHub Actions. For [Jenkins](https://jenkins.io/) a complete CI pipeline has been 
+CI pipeline is active for GitHub Actions. For [Jenkins](https://jenkins.io/) a complete CI pipeline has been 
 configured that includes stages to compile, test, run static code analysis, run code coverage analysis, 
 and run mutation coverage analysis, see section [Continuous Integration](doc/Continuous-Integration.md) for details. 
 Additionally, some development tools are configured in this GitHub project, that evaluate the quality of pull requests, 
