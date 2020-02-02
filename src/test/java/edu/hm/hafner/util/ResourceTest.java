@@ -15,10 +15,13 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 import org.apache.commons.io.input.BOMInputStream;
+import org.opentest4j.TestAbortedException;
 
 import com.google.errorprone.annotations.MustBeClosed;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
+import static org.assertj.core.api.Assumptions.*;
 
 /**
  * Base class for tests that need to read resource files from disk. Provides several useful methods that simplify
@@ -223,5 +226,23 @@ public abstract class ResourceTest {
         catch (URISyntaxException e) {
             throw new AssertionError("Can't open file " + fileName, e);
         }
+    }
+
+    /**
+     * Assumes that the test is running on Windows.
+     *
+     * @throws TestAbortedException if the test is running on a Unix system
+     */
+    protected void assumeThatTestIsRunningOnWindows() {
+        assumeThat(isWindows()).as("Test is not running on Windows").isTrue();
+    }
+
+    /**
+     * Assumes that the test is running on Windows.
+     *
+     * @throws TestAbortedException if the test is running on a Unix system
+     */
+    protected void assumeThatTestIsRunningOnUnix() {
+        assumeThat(isWindows()).as("Test is not running on Unix").isFalse();
     }
 }
