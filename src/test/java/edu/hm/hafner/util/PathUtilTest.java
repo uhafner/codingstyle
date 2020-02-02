@@ -24,7 +24,8 @@ import static org.assertj.core.api.Assumptions.*;
 class PathUtilTest extends ResourceTest {
     private static final String NOT_EXISTING = "/should/not/exist";
     private static final String ILLEGAL = "\0 Null-Byte";
-    private static final String FILE_NAME = "fileName.txt";
+    private static final String FILE_NAME = "relative.txt";
+    private static final String NOT_EXISTING_RELATIVE = "not-existing-relative";
 
     @DisplayName("Should be absolute path")
     @ParameterizedTest(name = "[{index}] path={0}")
@@ -56,8 +57,34 @@ class PathUtilTest extends ResourceTest {
     }
 
     @Test
+    void shouldConvertToRelative() {
+        PathUtil pathUtil = new PathUtil();
+
+        Path absolutePath = getResourceAsFile(FILE_NAME);
+
+        assertThat(pathUtil.getRelativePath(absolutePath.getParent(), FILE_NAME)).isEqualTo(FILE_NAME);
+        assertThat(pathUtil.getRelativePath(absolutePath.getParent(), NOT_EXISTING_RELATIVE)).isEqualTo(NOT_EXISTING_RELATIVE);
+
+        assertThat(pathUtil.getRelativePath(absolutePath.getParent().getParent(), "util/" + FILE_NAME)).isEqualTo("util/" + FILE_NAME);
+
+        assertThat(pathUtil.getRelativePath(absolutePath.getParent(), absolutePath.toString())).isEqualTo(FILE_NAME);
+        assertThat(pathUtil.getRelativePath(Paths.get(NOT_EXISTING), absolutePath.toString())).isEqualTo(absolutePath.toString());
+        assertThat(pathUtil.getRelativePath(Paths.get(NOT_EXISTING), FILE_NAME)).isEqualTo(FILE_NAME);
+    }
+
+    @Test
+    void shouldConvertNotResolvedToRelative() {
+        PathUtil pathUtil = new PathUtil();
+
+        Path absolutePath = getResourceAsFile(FILE_NAME);
+
+        assertThat(pathUtil.getRelativePath(absolutePath.getParent().getParent(), "./util/" + FILE_NAME)).isEqualTo("util/" + FILE_NAME);
+        assertThat(pathUtil.getRelativePath(absolutePath.getParent().getParent(), "../hafner/util/" + FILE_NAME)).isEqualTo("util/" + FILE_NAME);
+    }
+
+    @Test
     void shouldSkipAlreadyAbsoluteOnUnix() {
-        assumeThat(isWindows()).isFalse();
+        assumeThatTestIsRunningOnUnix();
 
         PathUtil pathUtil = new PathUtil();
 
@@ -66,7 +93,7 @@ class PathUtilTest extends ResourceTest {
 
     @Test
     void shouldSkipAlreadyAbsoluteOnWindows() {
-        assumeThat(isWindows()).isTrue();
+        assumeThatTestIsRunningOnWindows();
 
         PathUtil pathUtil = new PathUtil();
 
@@ -74,14 +101,14 @@ class PathUtilTest extends ResourceTest {
     }
 
     @Test
-    void normalizeDriveLetter() {
+    void shouldNormalizeDriveLetter() {
         PathUtil pathUtil = new PathUtil();
 
         assertThat(pathUtil.getAbsolutePath("c:\\tmp")).isEqualTo("C:/tmp");
     }
 
     @Test
-    void stayInSymbolicLinks() throws IOException {
+    void shouldStayInSymbolicLinks() throws IOException {
         Path current = Paths.get(".");
         Path real = current.toRealPath();
         Path realWithSymbolic = current.toRealPath(LinkOption.NOFOLLOW_LINKS);

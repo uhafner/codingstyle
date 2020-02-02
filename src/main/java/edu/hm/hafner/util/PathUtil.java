@@ -20,7 +20,7 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 public class PathUtil {
     private static final String BACK_SLASH = "\\";
     private static final String SLASH = "/";
-    private static final String DRIVE_LETTER_PREFIX = "^[a-z]:/.*"; 
+    private static final String DRIVE_LETTER_PREFIX = "^[a-z]:/.*";
 
     /**
      * Returns the string representation of the specified path. The path will be actually resolved in the file system
@@ -34,7 +34,11 @@ public class PathUtil {
      *         if the path could not be found
      */
     public String toString(final Path path) throws IOException {
-        return makeUnixPath(path.toAbsolutePath().normalize().toRealPath(LinkOption.NOFOLLOW_LINKS).toString());
+        return makeUnixPath(normalize(path).toString());
+    }
+
+    private Path normalize(final Path path) throws IOException {
+        return path.toAbsolutePath().normalize().toRealPath(LinkOption.NOFOLLOW_LINKS);
     }
 
     /**
@@ -55,6 +59,81 @@ public class PathUtil {
         catch (InvalidPathException ignored) {
             return makeUnixPath(path);
         }
+    }
+
+    /**
+     * Returns the relative path of specified path with respect to the provided base directory. The given path will be
+     * actually resolved in the file system (which may lead to a different fully qualified absolute path). Then the base
+     * directory prefix will be removed (if possible). In case of an error, i.e., if the file is not found or could not
+     * be resolved in the parent, then the provided {@code path} will be returned unchanged (but normalized using the
+     * UNIX path separator and upper case drive letter).
+     *
+     * @param base
+     *         the base directory that should be  to get the absolute path for
+     * @param path
+     *         the path to get the absolute path for
+     *
+     * @return the relative path
+     */
+    public String getRelativePath(final Path base, final String path) {
+        try {
+            return getRelativePath(base, Paths.get(path));
+        }
+        catch (InvalidPathException ignored) {
+            return makeUnixPath(path);
+        }
+    }
+
+    /**
+     * Returns the relative path of specified path with respect to the provided base directory. The given path will be
+     * actually resolved in the file system (which may lead to a different fully qualified absolute path). Then the base
+     * directory prefix will be removed (if possible). In case of an error, i.e., if the file is not found or could not
+     * be resolved in the parent, then the provided {@code path} will be returned unchanged (but normalized using the
+     * UNIX path separator and upper case drive letter).
+     *
+     * @param base
+     *         the base directory that should be  to get the absolute path for
+     * @param path
+     *         the path to get the absolute path for
+     *
+     * @return the relative path
+     */
+    public String getRelativePath(final String base, final String path) {
+        try {
+            return getRelativePath(Paths.get(base), Paths.get(path));
+        }
+        catch (InvalidPathException ignored) {
+            return makeUnixPath(path);
+        }
+    }
+
+    /**
+     * Returns the relative path of specified path with respect to the provided base directory. The given path will be
+     * actually resolved in the file system (which may lead to a different fully qualified absolute path). Then the base
+     * directory prefix will be removed (if possible). In case of an error, i.e., if the file is not found or could not
+     * be resolved in the parent, then the provided {@code path} will be returned unchanged (but normalized using the
+     * UNIX path separator and upper case drive letter).
+     *
+     * @param base
+     *         the base directory that should be  to get the absolute path for
+     * @param path
+     *         the path to get the absolute path for
+     *
+     * @return the relative path
+     */
+    public String getRelativePath(final Path base, final Path path) {
+        try {
+            Path normalizedBase = normalize(base);
+            if (path.isAbsolute()) {
+                return makeUnixPath(normalizedBase.relativize(normalize(path)).toString());
+            }
+            return makeUnixPath(normalizedBase.relativize(normalize(base.resolve(path))).toString());
+
+        }
+        catch (IOException | InvalidPathException ignored) {
+            // ignore and return the path as such
+        }
+        return makeUnixPath(path.toString());
     }
 
     /**
