@@ -1,6 +1,7 @@
 package edu.hm.hafner.util;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
@@ -39,6 +40,50 @@ public class PathUtil {
 
     private Path normalize(final Path path) throws IOException {
         return path.toAbsolutePath().normalize().toRealPath(LinkOption.NOFOLLOW_LINKS);
+    }
+
+    /**
+     * Tests whether a file exists.
+     *
+     * <p>
+     * Note that the result of this method is immediately outdated. If this method indicates the file exists then there
+     * is no guarantee that a subsequence access will succeed. Care should be taken when using this method in security
+     * sensitive applications.
+     * </p>
+     *
+     * @param directory
+     *         the directory that contains the file
+     * @param fileName
+     *         the file name .
+     *
+     * @return {@code true} if the file exists; {@code false} if the file does not exist or its existence cannot be
+     *         determined.
+     */
+    public boolean exists(final String directory, final String fileName) {
+        return exists(createAbsolutePath(directory, fileName));
+    }
+
+    /**
+     * Tests whether a file exists.
+     * <p>
+     * Note that the result of this method is immediately outdated. If this method indicates the file exists then there
+     * is no guarantee that a subsequence access will succeed. Care should be taken when using this method in security
+     * sensitive applications.
+     * </p>
+     *
+     * @param fileName
+     *         the absolute path of the file .
+     *
+     * @return {@code true} if the file exists; {@code false} if the file does not exist or its existence cannot be
+     *         determined.
+     */
+    public boolean exists(final String fileName) {
+        try {
+            return Files.exists(Paths.get(fileName));
+        }
+        catch (IllegalArgumentException ignore) {
+            return false;
+        }
     }
 
     /**

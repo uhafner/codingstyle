@@ -27,6 +27,29 @@ class PathUtilTest extends ResourceTest {
     private static final String FILE_NAME = "relative.txt";
     private static final String NOT_EXISTING_RELATIVE = "not-existing-relative";
 
+    /**
+     * Ensures that illegal file names are processed without problems and the test for existence returns {@code false}.
+     */
+    @ParameterizedTest(name = "[{index}] Illegal filename = {0}")
+    @ValueSource(strings = {"/does/not/exist", "!<>$&/&(", "\0 Null-Byte", "C:/!<>$&/&( \0", "/!<>$&/&( \0"})
+    @DisplayName("Should not change path on errors")
+    void shouldReturnFallbackOnError(final String fileName) {
+        PathUtil pathUtil = new PathUtil();
+
+        assertThat(pathUtil.exists(fileName)).isFalse();
+    }
+
+    @DisplayName("Should find some files in the resources folder")
+    @Test
+    void shouldFindResourceFolder() {
+        PathUtil pathUtil = new PathUtil();
+
+        assertThat(pathUtil.exists(getResourceAsFile(FILE_NAME).toString())).isTrue();
+        assertThat(pathUtil.exists(getResourceAsFile(FILE_NAME).getParent().toString())).isTrue();
+        assertThat(pathUtil.exists(getResourceAsFile(FILE_NAME).getParent().toString(), FILE_NAME)).isTrue();
+        assertThat(pathUtil.exists(getResourceAsFile(FILE_NAME).getRoot().toString())).isTrue();
+    }
+
     @DisplayName("Should be absolute path")
     @ParameterizedTest(name = "[{index}] path={0}")
     @ValueSource(strings = {"/", "/tmp", "C:\\", "C:\\Tmp"})
