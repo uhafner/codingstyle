@@ -24,25 +24,6 @@ public class PathUtil {
     private static final String DRIVE_LETTER_PREFIX = "^[a-z]:/.*";
 
     /**
-     * Returns the string representation of the specified path. The path will be actually resolved in the file system
-     * and will be returned as fully qualified absolute path. In case of an error, an exception will be thrown.
-     *
-     * @param path
-     *         the path to get the absolute path for
-     *
-     * @return the absolute path
-     * @throws IOException
-     *         if the path could not be found
-     */
-    public String toString(final Path path) throws IOException {
-        return makeUnixPath(normalize(path).toString());
-    }
-
-    private Path normalize(final Path path) throws IOException {
-        return path.toAbsolutePath().normalize().toRealPath(LinkOption.NOFOLLOW_LINKS);
-    }
-
-    /**
      * Tests whether a file exists.
      *
      * <p>
@@ -194,19 +175,11 @@ public class PathUtil {
      */
     public String getAbsolutePath(final Path path) {
         try {
-            return makeUnixPath(toString(path));
+            return makeUnixPath(normalize(path).toString());
         }
         catch (IOException | InvalidPathException ignored) {
             return makeUnixPath(path.toString());
         }
-    }
-
-    private String makeUnixPath(final String fileName) {
-        String unixStyle = fileName.replace(BACK_SLASH, SLASH);
-        if (unixStyle.matches(DRIVE_LETTER_PREFIX)) {
-            unixStyle = StringUtils.capitalize(unixStyle);
-        }
-        return unixStyle;
     }
 
     /**
@@ -246,5 +219,17 @@ public class PathUtil {
      */
     public boolean isAbsolute(final String fileName) {
         return FilenameUtils.getPrefixLength(fileName) > 0;
+    }
+
+    private Path normalize(final Path path) throws IOException {
+        return path.toAbsolutePath().normalize().toRealPath(LinkOption.NOFOLLOW_LINKS);
+    }
+
+    private String makeUnixPath(final String fileName) {
+        String unixStyle = fileName.replace(BACK_SLASH, SLASH);
+        if (unixStyle.matches(DRIVE_LETTER_PREFIX)) {
+            unixStyle = StringUtils.capitalize(unixStyle);
+        }
+        return unixStyle;
     }
 }
