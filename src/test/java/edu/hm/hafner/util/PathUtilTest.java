@@ -46,7 +46,7 @@ class PathUtilTest extends ResourceTest {
 
         assertThat(pathUtil.exists(getResourceAsFile(FILE_NAME).toString())).isTrue();
         assertThat(pathUtil.exists(getResourceAsFile(FILE_NAME).getParent().toString())).isTrue();
-        assertThat(pathUtil.exists(getResourceAsFile(FILE_NAME).getParent().toString(), FILE_NAME)).isTrue();
+        assertThat(pathUtil.exists(FILE_NAME, getResourceAsFile(FILE_NAME).getParent().toString())).isTrue();
         assertThat(pathUtil.exists(getResourceAsFile(FILE_NAME).getRoot().toString())).isTrue();
     }
 

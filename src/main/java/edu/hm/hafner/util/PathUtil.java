@@ -25,27 +25,6 @@ public class PathUtil {
 
     /**
      * Tests whether a file exists.
-     *
-     * <p>
-     * Note that the result of this method is immediately outdated. If this method indicates the file exists then there
-     * is no guarantee that a subsequence access will succeed. Care should be taken when using this method in security
-     * sensitive applications.
-     * </p>
-     *
-     * @param directory
-     *         the directory that contains the file
-     * @param fileName
-     *         the file name .
-     *
-     * @return {@code true} if the file exists; {@code false} if the file does not exist or its existence cannot be
-     *         determined.
-     */
-    public boolean exists(final String directory, final String fileName) {
-        return exists(createAbsolutePath(directory, fileName));
-    }
-
-    /**
-     * Tests whether a file exists.
      * <p>
      * Note that the result of this method is immediately outdated. If this method indicates the file exists then there
      * is no guarantee that a subsequence access will succeed. Care should be taken when using this method in security
@@ -53,7 +32,7 @@ public class PathUtil {
      * </p>
      *
      * @param fileName
-     *         the absolute path of the file .
+     *         the absolute path of the file
      *
      * @return {@code true} if the file exists; {@code false} if the file does not exist or its existence cannot be
      *         determined.
@@ -65,6 +44,27 @@ public class PathUtil {
         catch (IllegalArgumentException ignore) {
             return false;
         }
+    }
+
+    /**
+     * Tests whether a file exists.
+     *
+     * <p>
+     * Note that the result of this method is immediately outdated. If this method indicates the file exists then there
+     * is no guarantee that a subsequence access will succeed. Care should be taken when using this method in security
+     * sensitive applications.
+     * </p>
+     *
+     * @param fileName
+     *         the file name
+     * @param directory
+     *         the directory that contains the file
+     *
+     * @return {@code true} if the file exists; {@code false} if the file does not exist or its existence cannot be
+     *         determined.
+     */
+    public boolean exists(final String fileName, final String directory) {
+        return exists(createAbsolutePath(directory, fileName));
     }
 
     /**
@@ -84,6 +84,26 @@ public class PathUtil {
         }
         catch (InvalidPathException ignored) {
             return makeUnixPath(path);
+        }
+    }
+
+    /**
+     * Returns the string representation of the specified path. The path will be actually resolved in the file system
+     * and will be returned as fully qualified absolute path. In case of an error, i.e. if the file is not found, the
+     * provided {@code path} will be returned unchanged (but normalized using the UNIX path separator and upper case
+     * drive letter).
+     *
+     * @param path
+     *         the path to get the absolute path for
+     *
+     * @return the absolute path
+     */
+    public String getAbsolutePath(final Path path) {
+        try {
+            return makeUnixPath(normalize(path).toString());
+        }
+        catch (IOException | InvalidPathException ignored) {
+            return makeUnixPath(path.toString());
         }
     }
 
@@ -160,26 +180,6 @@ public class PathUtil {
             // ignore and return the path as such
         }
         return makeUnixPath(path.toString());
-    }
-
-    /**
-     * Returns the string representation of the specified path. The path will be actually resolved in the file system
-     * and will be returned as fully qualified absolute path. In case of an error, i.e. if the file is not found, the
-     * provided {@code path} will be returned unchanged (but normalized using the UNIX path separator and upper case
-     * drive letter).
-     *
-     * @param path
-     *         the path to get the absolute path for
-     *
-     * @return the absolute path
-     */
-    public String getAbsolutePath(final Path path) {
-        try {
-            return makeUnixPath(normalize(path).toString());
-        }
-        catch (IOException | InvalidPathException ignored) {
-            return makeUnixPath(path.toString());
-        }
     }
 
     /**
