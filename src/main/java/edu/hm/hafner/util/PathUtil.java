@@ -64,7 +64,12 @@ public class PathUtil {
      *         determined.
      */
     public boolean exists(final String fileName, final String directory) {
-        return exists(createAbsolutePath(directory, fileName));
+        try {
+            return exists(createAbsolutePath(directory, fileName));
+        }
+        catch (IllegalArgumentException ignore) {
+            return false;
+        }
     }
 
     /**

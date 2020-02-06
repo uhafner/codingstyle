@@ -37,6 +37,7 @@ class PathUtilTest extends ResourceTest {
         PathUtil pathUtil = new PathUtil();
 
         assertThat(pathUtil.exists(fileName)).isFalse();
+        assertThat(pathUtil.exists(fileName, "/")).isFalse();
     }
 
     @DisplayName("Should find some files in the resources folder")
