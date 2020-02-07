@@ -31,17 +31,34 @@ class PathUtilTest extends ResourceTest {
      * Ensures that illegal file names are processed without problems and the test for existence returns {@code false}.
      */
     @ParameterizedTest(name = "[{index}] Illegal filename = {0}")
-    @ValueSource(strings = {"/does/not/exist", "!<>$&/&(", "\0 Null-Byte", "C:/!<>$&/&( \0", "/!<>$&/&( \0"})
+    @ValueSource(strings = {"/does/not/exist", "\0 Null-Byte", "C:/!<>$&/&( \0", "/!<>$&/&( \0"})
     @DisplayName("Should not change path on errors")
     void shouldReturnFallbackOnError(final String fileName) {
         PathUtil pathUtil = new PathUtil();
 
         assertThat(pathUtil.exists(fileName)).isFalse();
         assertThat(pathUtil.exists(fileName, "/")).isFalse();
+        assertThat(pathUtil.getRelativePath(Paths.get("/"), fileName)).isEqualTo(fileName);
+        assertThat(pathUtil.getRelativePath("/", fileName)).isEqualTo(fileName);
+        assertThat(pathUtil.getRelativePath(fileName)).isEqualTo(fileName);
+        assertThat(pathUtil.getAbsolutePath(fileName)).isEqualTo(fileName);
+        assertThat(pathUtil.createAbsolutePath("/", fileName)).isEqualTo(fileName);
     }
 
-    @DisplayName("Should find some files in the resources folder")
+    @ParameterizedTest(name = "[{index}] Not normalized file name = {0}")
+    @ValueSource(strings = {"./relative.txt", "./folder/../relative.txt", "prefix/one/../two/..//../relative.txt"})
+    @DisplayName("Should shorten non normalized paths")
+    void shouldNormalizePath(final String fileName) {
+        PathUtil pathUtil = new PathUtil();
+
+        assertThat(pathUtil.exists(fileName)).isFalse();
+        assertThat(pathUtil.exists(fileName, "/")).isFalse();
+        assertThat(pathUtil.exists(fileName, fileName)).isFalse();
+        assertThat(pathUtil.getRelativePath(fileName)).isEqualTo(FILE_NAME);
+    }
+
     @Test
+    @DisplayName("Should find some files in the resources folder")
     void shouldFindResourceFolder() {
         PathUtil pathUtil = new PathUtil();
 
@@ -51,9 +68,9 @@ class PathUtilTest extends ResourceTest {
         assertThat(pathUtil.exists(getResourceAsFile(FILE_NAME).getRoot().toString())).isTrue();
     }
 
-    @DisplayName("Should be absolute path")
+    @DisplayName("Should verify valid absolute paths")
     @ParameterizedTest(name = "[{index}] path={0}")
-    @ValueSource(strings = {"/", "/tmp", "C:\\", "C:\\Tmp"})
+    @ValueSource(strings = {"/", "/tmp", "C:\\", "c:\\", "C:\\Tmp"})
     void shouldFindAbsolutePaths(final String path) {
         PathUtil pathUtil = new PathUtil();
 
@@ -61,12 +78,21 @@ class PathUtilTest extends ResourceTest {
     }
 
     @Test
-    void shouldReturnFallback() {
+    @DisplayName("Should return fallback if path is invalid")
+    void shouldReturnFallbackIfAbsolutePathIsNotValid() {
         PathUtil pathUtil = new PathUtil();
 
         assertThat(pathUtil.getAbsolutePath(NOT_EXISTING)).isEqualTo(NOT_EXISTING);
         assertThat(pathUtil.getAbsolutePath("C:\\should\\not\\exist")).isEqualTo("C:" + NOT_EXISTING);
         assertThat(pathUtil.getAbsolutePath(ILLEGAL)).isEqualTo(ILLEGAL);
+    }
+
+    @Test
+    @DisplayName("Should return fallback if parent is invalid")
+    void shouldReturnFallbackIfParentIsInvalid() {
+        PathUtil pathUtil = new PathUtil();
+
+        assertThat(pathUtil.createAbsolutePath("///a/b/", FILE_NAME)).isEqualTo(FILE_NAME);
     }
 
     @Test
@@ -87,6 +113,7 @@ class PathUtilTest extends ResourceTest {
         Path absolutePath = getResourceAsFile(FILE_NAME);
 
         assertThat(pathUtil.getRelativePath(absolutePath.getParent(), FILE_NAME)).isEqualTo(FILE_NAME);
+        assertThat(pathUtil.getRelativePath(FILE_NAME)).isEqualTo(FILE_NAME);
         assertThat(pathUtil.getRelativePath(absolutePath.getParent(), NOT_EXISTING_RELATIVE)).isEqualTo(NOT_EXISTING_RELATIVE);
 
         assertThat(pathUtil.getRelativePath(absolutePath.getParent().getParent(), "util/" + FILE_NAME)).isEqualTo("util/" + FILE_NAME);
@@ -94,6 +121,8 @@ class PathUtilTest extends ResourceTest {
         assertThat(pathUtil.getRelativePath(absolutePath.getParent(), absolutePath.toString())).isEqualTo(FILE_NAME);
         assertThat(pathUtil.getRelativePath(Paths.get(NOT_EXISTING), absolutePath.toString())).isEqualTo(pathUtil.getAbsolutePath(absolutePath));
         assertThat(pathUtil.getRelativePath(Paths.get(NOT_EXISTING), FILE_NAME)).isEqualTo(FILE_NAME);
+
+        assertThat(pathUtil.getRelativePath(NOT_EXISTING, FILE_NAME)).isEqualTo(FILE_NAME);
     }
 
     @Test

@@ -64,12 +64,7 @@ public class PathUtil {
      *         determined.
      */
     public boolean exists(final String fileName, final String directory) {
-        try {
-            return exists(createAbsolutePath(directory, fileName));
-        }
-        catch (IllegalArgumentException ignore) {
-            return false;
-        }
+        return exists(createAbsolutePath(directory, fileName));
     }
 
     /**
@@ -188,6 +183,42 @@ public class PathUtil {
     }
 
     /**
+     * Returns a normalized relative path of specified path. The given path will be actually resolved in the file system
+     * (which may lead to a different path). In case of an error, i.e., if the file is not found or could not be
+     * resolved in the parent, then the provided {@code path} will be returned unchanged (but normalized using the UNIX
+     * path separator and upper case drive letter).
+     *
+     * @param relative
+     *         the path to get the normalized path for
+     *
+     * @return the normalized relative path
+     */
+    public String getRelativePath(final Path relative) {
+        return makeUnixPath(relative.normalize().toString());
+    }
+
+    /**
+     * Returns a normalized relative path of specified path. The given path will be actually resolved in the file system
+     * (which may lead to a different path). In case of an error, i.e., if the file is not found or could not be
+     * resolved in the parent, then the provided {@code path} will be returned unchanged (but normalized using the UNIX
+     * path separator and upper case drive letter).
+     *
+     * @param relative
+     *         the path to get the normalized path for
+     *
+     * @return the normalized relative path
+     */
+    public String getRelativePath(final String relative) {
+        try {
+            return getRelativePath(Paths.get(relative));
+        }
+        catch (InvalidPathException ignored) {
+            // ignore and return the path as such
+        }
+        return makeUnixPath(relative);
+    }
+
+    /**
      * Returns the absolute path of the specified file in the given directory.
      *
      * @param directory
@@ -210,8 +241,14 @@ public class PathUtil {
         else {
             separator = SLASH;
         }
-        String normalized = FilenameUtils.normalize(String.join(separator, path, fileName));
-        return makeUnixPath(normalized == null ? fileName : normalized);
+
+        try {
+            String normalized = FilenameUtils.normalize(String.join(separator, path, fileName));
+            return makeUnixPath(normalized == null ? fileName : normalized);
+        }
+        catch (IllegalArgumentException ignored) {
+            return makeUnixPath(fileName);
+        }
     }
 
     /**
