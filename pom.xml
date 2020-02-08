@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.hm.hafner</groupId>
@@ -181,7 +182,7 @@
         </exclusion>
       </exclusions>
     </dependency>
- </dependencies>
+  </dependencies>
 
   <build>
     <resources>
@@ -323,6 +324,11 @@
               <Automatic-Module-Name>${module.name}</Automatic-Module-Name>
             </manifestEntries>
           </archive>
+          <excludes>
+            <exclude>**/checkstyle-configuration.xml</exclude>
+            <exclude>**/pmd-configuration.xml</exclude>
+            <exclude>**/spotbugs-exclusion-filter.xml</exclude>
+          </excludes>
         </configuration>
         <executions>
           <execution>
@@ -335,6 +341,21 @@
                 <include>**/ResourceTest*</include>
                 <include>**/SerializableTest*</include>
                 <include>**/ArchitectureRules*</include>
+              </includes>
+            </configuration>
+          </execution>
+          <execution>
+            <phase>package</phase>
+            <id>config</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+            <configuration>
+              <classifier>config</classifier>
+              <includes>
+                <include>**/checkstyle-configuration.xml</include>
+                <include>**/pmd-configuration.xml</include>
+                <include>**/spotbugs-exclusion-filter.xml</include>
               </includes>
             </configuration>
           </execution>
