@@ -323,11 +323,6 @@
               <Automatic-Module-Name>${module.name}</Automatic-Module-Name>
             </manifestEntries>
           </archive>
-          <excludes>
-            <exclude>**/checkstyle-configuration.xml</exclude>
-            <exclude>**/pmd-configuration.xml</exclude>
-            <exclude>**/spotbugs-exclusion-filter.xml</exclude>
-          </excludes>
         </configuration>
         <executions>
           <execution>
