@@ -27,25 +27,21 @@
     <module name="PackageAnnotation"/>
     <module name="EqualsAvoidNull"/>
     <module name="GenericWhitespace"/>
+    <module name="JavadocStyle">
+      <property name="severity" value="warning"/>
+      <property name="checkEmptyJavadoc" value="true"/>
+    </module>
     <module name="JavadocType"/>
-    <module name="JavadocMethod">
+    <module name="JavadocMethod"/>
+    <module name="JavadocVariable">
       <property name="scope" value="protected"/>
+      <property name="tokens" value="VARIABLE_DEF"/>
     </module>
     <module name="MissingJavadocMethodCheck">
       <property name="allowMissingPropertyJavadoc" value="true"/>
     </module>
     <module name="MissingJavadocTypeCheck"/>
     <module name="MissingJavadocPackageCheck"/>
-    <module name="JavadocVariable">
-      <property name="scope" value="protected"/>
-      <property name="tokens" value="VARIABLE_DEF"/>
-    </module>
-    <module name="JavadocStyle">
-      <property name="severity" value="warning"/>
-    </module>
-    <module name="JavadocStyle">
-      <property name="checkEmptyJavadoc" value="true"/>
-    </module>
     <module name="ConstantName"/>
     <module name="LocalFinalVariableName"/>
     <module name="LocalVariableName"/>
