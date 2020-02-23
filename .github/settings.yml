@@ -1,0 +1,14 @@
+# Labels: define labels for Issues and Pull Requests
+labels:
+  - name: bug
+    color: CC0000
+  - name: dependencies
+    color: 0366d6
+  - name: feature
+    color: 84b6eb
+  - name: enhancement
+    color: 84b6eb
+  - name: tests
+    color: f4c21d
+  - name: internal
+    color: e6e6e6
