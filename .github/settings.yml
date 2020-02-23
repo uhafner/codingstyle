@@ -7,8 +7,12 @@ labels:
   - name: feature
     color: 84b6eb
   - name: enhancement
-    color: 84b6eb
-  - name: tests
     color: f4c21d
+  - name: deprecated
+    color: f4c21d
+  - name: tests
+    color: 30cc62
+  - name: documentation
+    color: e6e6e6
   - name: internal
     color: e6e6e6
