@@ -25,5 +25,5 @@ labels:
     description: Enhancement of documentation
     color: bfafea
   - name: internal
-    description: Internal changes without visible user or API changes
+    description: Internal changes without user or API impact
     color: e6e6e6
