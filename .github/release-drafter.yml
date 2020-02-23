@@ -5,11 +5,15 @@ version-template: $MAJOR.$MINOR.$PATCH
 
 # Emoji reference: https://gitmoji.carloscuesta.me/
 categories:
-  - title: 🚨 Removed
+  - title: 💥 Removed
     label: removed
   - title: ⚠️ Deprecated
     label: deprecated
-  - title: 🚀 New features and improvements
+  - title: 🚀 New features
+    labels:
+      - enhancement
+      - feature
+  - title: ✨ Improvements
     labels:
       - enhancement
       - feature

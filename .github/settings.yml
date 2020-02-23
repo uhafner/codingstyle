@@ -15,6 +15,9 @@ labels:
   - name: deprecated
     description: Deprecating API
     color: f4c21d
+  - name: removed
+    description: Removing API
+    color: e4b21d
   - name: tests
     description: Enhancement of tests
     color: 30cc62
