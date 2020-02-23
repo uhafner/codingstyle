@@ -3,16 +3,23 @@ labels:
   - name: bug
     color: CC0000
   - name: dependencies
+    description: Update of dependencies
     color: 0366d6
   - name: feature
-    color: 84b6eb
+    color: a4c6fb
+    description: New features
   - name: enhancement
+    description: Enhancement of existing functionality
     color: f4c21d
   - name: deprecated
+    description: Deprecating API
     color: f4c21d
   - name: tests
+    description: Enhancement of tests
     color: 30cc62
   - name: documentation
-    color: e6e6e6
+    description: Enhancement of documentation
+    color: bfafea
   - name: internal
+    description: Internal changes without visible user or API changes
     color: e6e6e6
