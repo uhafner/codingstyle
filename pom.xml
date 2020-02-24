@@ -238,11 +238,13 @@
             <arg>-Xlint:all</arg>
             <arg>-XepAllDisabledChecksAsWarnings</arg>
             <arg>-XepIgnoreUnknownCheckNames</arg>
+            <arg>-XepDisableWarningsInGeneratedCode</arg>
             <arg>-XepAllErrorsAsWarnings</arg>
             <!-- NullAway configuration -->
             <arg>-Xep:NullAway:WARN</arg>
             <arg>-XepOpt:NullAway:AnnotatedPackages=edu.hm.hafner</arg>
             <!-- Disabled Rules -->
+            <arg>-Xep:PreferJavaTimeOverload:OFF</arg>
             <arg>-Xep:EqualsGetClass:OFF</arg>
             <arg>-Xep:AndroidJdkLibsChecker:OFF</arg>
             <arg>-Xep:Java7ApiChecker:OFF</arg>
@@ -274,7 +276,9 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>${maven-javadoc-plugin.version}</version>
         <configuration>
+          <source>${java.version}</source>
           <additionalOptions>-Xdoclint:all</additionalOptions>
+          <quiet>true</quiet>
         </configuration>
         <executions>
           <execution>
@@ -364,6 +368,9 @@
           <targetJdk>${java.version}</targetJdk>
           <includeTests>true</includeTests>
           <minimumTokens>50</minimumTokens>
+          <excludeRoots>
+            <excludeRoot>target/generated-test-sources/assertj-assertions</excludeRoot>
+          </excludeRoots>
         </configuration>
         <dependencies>
           <dependency>
@@ -392,7 +399,7 @@
           </execution>
         </executions>
         <configuration>
-          <excludes>**/MavenJavaTest.txt.java</excludes>
+          <excludes>**/*Assert*.java</excludes>
           <failOnViolation>false</failOnViolation>
           <configLocation>etc/checkstyle-configuration.xml</configLocation>
           <includeTestSourceDirectory>true</includeTestSourceDirectory>
@@ -509,28 +516,9 @@
           <version>${maven-deploy-plugin.version}</version>
         </plugin>
         <plugin>
-          <groupId>com.github.ferstl</groupId>
-          <artifactId>depgraph-maven-plugin</artifactId>
-          <version>${maven-depgraph-plugin.version}</version>
-          <configuration>
-            <graphFormat>puml</graphFormat>
-            <showVersions>true</showVersions>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>versions-maven-plugin</artifactId>
-          <version>${versions-maven-plugin.version}</version>
-        </plugin>
-        <plugin>
           <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
           <version>${jacoco-maven-plugin.version}</version>
-          <configuration>
-            <excludes>
-              <exclude>**/FastRegexpLineParser.*</exclude>
-            </excludes>
-          </configuration>
           <executions>
             <execution>
               <goals>
