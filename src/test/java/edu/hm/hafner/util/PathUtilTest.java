@@ -31,6 +31,7 @@ class PathUtilTest extends ResourceTest {
      * Ensures that illegal file names are processed without problems and the test for existence returns {@code false}.
      *
      * @param fileName
+     *         the file name to check
      */
     @ParameterizedTest(name = "[{index}] Illegal filename = {0}")
     @ValueSource(strings = {"/does/not/exist", "\0 Null-Byte", "C:/!<>$&/&( \0", "/!<>$&/&( \0"})
