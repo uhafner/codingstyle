@@ -29,6 +29,8 @@ class PathUtilTest extends ResourceTest {
 
     /**
      * Ensures that illegal file names are processed without problems and the test for existence returns {@code false}.
+     *
+     * @param fileName
      */
     @ParameterizedTest(name = "[{index}] Illegal filename = {0}")
     @ValueSource(strings = {"/does/not/exist", "\0 Null-Byte", "C:/!<>$&/&( \0", "/!<>$&/&( \0"})
@@ -114,12 +116,15 @@ class PathUtilTest extends ResourceTest {
 
         assertThat(pathUtil.getRelativePath(absolutePath.getParent(), FILE_NAME)).isEqualTo(FILE_NAME);
         assertThat(pathUtil.getRelativePath(FILE_NAME)).isEqualTo(FILE_NAME);
-        assertThat(pathUtil.getRelativePath(absolutePath.getParent(), NOT_EXISTING_RELATIVE)).isEqualTo(NOT_EXISTING_RELATIVE);
+        assertThat(pathUtil.getRelativePath(absolutePath.getParent(), NOT_EXISTING_RELATIVE)).isEqualTo(
+                NOT_EXISTING_RELATIVE);
 
-        assertThat(pathUtil.getRelativePath(absolutePath.getParent().getParent(), "util/" + FILE_NAME)).isEqualTo("util/" + FILE_NAME);
+        assertThat(pathUtil.getRelativePath(absolutePath.getParent().getParent(), "util/" + FILE_NAME)).isEqualTo(
+                "util/" + FILE_NAME);
 
         assertThat(pathUtil.getRelativePath(absolutePath.getParent(), absolutePath.toString())).isEqualTo(FILE_NAME);
-        assertThat(pathUtil.getRelativePath(Paths.get(NOT_EXISTING), absolutePath.toString())).isEqualTo(pathUtil.getAbsolutePath(absolutePath));
+        assertThat(pathUtil.getRelativePath(Paths.get(NOT_EXISTING), absolutePath.toString())).isEqualTo(
+                pathUtil.getAbsolutePath(absolutePath));
         assertThat(pathUtil.getRelativePath(Paths.get(NOT_EXISTING), FILE_NAME)).isEqualTo(FILE_NAME);
 
         assertThat(pathUtil.getRelativePath(NOT_EXISTING, FILE_NAME)).isEqualTo(FILE_NAME);
@@ -131,8 +136,10 @@ class PathUtilTest extends ResourceTest {
 
         Path absolutePath = getResourceAsFile(FILE_NAME);
 
-        assertThat(pathUtil.getRelativePath(absolutePath.getParent().getParent(), "./util/" + FILE_NAME)).isEqualTo("util/" + FILE_NAME);
-        assertThat(pathUtil.getRelativePath(absolutePath.getParent().getParent(), "../hafner/util/" + FILE_NAME)).isEqualTo("util/" + FILE_NAME);
+        assertThat(pathUtil.getRelativePath(absolutePath.getParent().getParent(), "./util/" + FILE_NAME)).isEqualTo(
+                "util/" + FILE_NAME);
+        assertThat(pathUtil.getRelativePath(absolutePath.getParent().getParent(),
+                "../hafner/util/" + FILE_NAME)).isEqualTo("util/" + FILE_NAME);
     }
 
     @Test

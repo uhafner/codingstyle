@@ -57,9 +57,15 @@ public final class TreeString implements Serializable {
      * Inserts a new node between this node and its parent, and returns the newly inserted node.
      * <p>
      * This operation doesn't change the string representation of this node.
+     *
+     * @param prefix
+     *         the prefix to remove
+     *
+     * @return the new node in the middle
      */
     TreeString split(final String prefix) {
-        assert getLabel().startsWith(prefix);
+        Ensure.that(getLabel().startsWith(prefix)).isTrue();
+
         char[] suffix = new char[label.length - prefix.length()];
         System.arraycopy(label, prefix.length(), suffix, 0, suffix.length);
 
@@ -79,6 +85,8 @@ public final class TreeString implements Serializable {
     /**
      * How many nodes do we have from the root to this node (including 'this' itself?). Thus depth of the root node is
      * 1.
+     *
+     * @return the depth
      */
     private int depth() {
         int i = 0;
@@ -128,6 +136,9 @@ public final class TreeString implements Serializable {
 
     /**
      * Interns {@link #label}.
+     *
+     * @param table
+     *         the table containing the existing strings
      */
     void dedup(final Map<String, char[]> table) {
         String l = getLabel();

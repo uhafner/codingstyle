@@ -79,6 +79,8 @@ public class TreeStringBuilder {
          *
          * @param string
          *         the string to intern
+         *
+         * @return the node
          */
         public Child intern(final String string) {
             if (string.isEmpty()) {
@@ -132,6 +134,8 @@ public class TreeStringBuilder {
          *
          * @param prefix
          *         the prefix
+         *
+         * @return the node
          */
         private Child split(final String prefix) {
             String suffix = getNode().getLabel().substring(prefix.length());
@@ -150,6 +154,8 @@ public class TreeStringBuilder {
          *         a string
          * @param b
          *         another string
+         *
+         * @return the prefix in characters
          */
         private int commonPrefix(final String a, final String b) {
             int m = Math.min(a.length(), b.length());
@@ -164,6 +170,9 @@ public class TreeStringBuilder {
 
         /**
          * Calls {@link TreeString#dedup(Map)} recursively.
+         *
+         * @param table
+         *         the table containing the existing strings
          */
         private void dedup(final Map<String, char[]> table) {
             getNode().dedup(table);

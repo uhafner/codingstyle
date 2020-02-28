@@ -361,6 +361,7 @@
           </execution>
         </executions>
         <configuration>
+          <linkXRef>false</linkXRef>
           <failOnViolation>false</failOnViolation>
           <rulesets>
             <ruleset>etc/pmd-configuration.xml</ruleset>
@@ -399,6 +400,7 @@
           </execution>
         </executions>
         <configuration>
+          <linkXRef>false</linkXRef>
           <excludes>**/*Assert*.java</excludes>
           <failOnViolation>false</failOnViolation>
           <configLocation>etc/checkstyle-configuration.xml</configLocation>
