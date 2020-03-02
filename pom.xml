@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.hm.hafner</groupId>
   <artifactId>codingstyle</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.3-SNAPSHOT</version>
 
   <packaging>jar</packaging>
 
@@ -22,7 +22,7 @@
     <connection>scm:git:git://github.com/uhafner/codingstyle.git</connection>
     <developerConnection>scm:git:git@github.com:uhafner/codingstyle.git</developerConnection>
     <url>https://github.com/uhafner/codingstyle</url>
-    <tag>codingstyle-1.0.2</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <licenses>
