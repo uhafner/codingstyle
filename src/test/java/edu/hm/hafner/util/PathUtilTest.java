@@ -31,7 +31,7 @@ class PathUtilTest extends ResourceTest {
     void shouldRelativizePath() {
         PathUtil pathUtil = new PathUtil();
 
-        assertThat(pathUtil.getRelativePath(getResourceAsFile(FILE_NAME), Paths.get("X:/"))).isEqualTo("X:");
+        assertThat(pathUtil.getRelativePath(Paths.get("C:/progra~1"), Paths.get("C:/windows"))).isEqualTo("C:/windows");
     }
 
     /**
