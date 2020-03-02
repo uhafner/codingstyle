@@ -27,6 +27,13 @@ class PathUtilTest extends ResourceTest {
     private static final String FILE_NAME = "relative.txt";
     private static final String NOT_EXISTING_RELATIVE = "not-existing-relative";
 
+    @Test
+    void shouldRelativizePath() {
+        PathUtil pathUtil = new PathUtil();
+
+        assertThat(pathUtil.getRelativePath(getResourceAsFile(FILE_NAME), Paths.get("X:/"))).isEqualTo("X:");
+    }
+
     /**
      * Ensures that illegal file names are processed without problems and the test for existence returns {@code false}.
      *
