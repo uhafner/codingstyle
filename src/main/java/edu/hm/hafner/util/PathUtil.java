@@ -2,7 +2,6 @@ package edu.hm.hafner.util;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.InvalidPathException;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -83,7 +82,7 @@ public class PathUtil {
         try {
             return getAbsolutePath(Paths.get(path));
         }
-        catch (InvalidPathException ignored) {
+        catch (IllegalArgumentException ignored) {
             return makeUnixPath(path);
         }
     }
@@ -103,7 +102,7 @@ public class PathUtil {
         try {
             return makeUnixPath(normalize(path).toString());
         }
-        catch (IOException | InvalidPathException ignored) {
+        catch (IOException | IllegalArgumentException ignored) {
             return makeUnixPath(path.toString());
         }
     }
@@ -126,7 +125,7 @@ public class PathUtil {
         try {
             return getRelativePath(base, Paths.get(path));
         }
-        catch (InvalidPathException ignored) {
+        catch (IllegalArgumentException ignored) {
             return makeUnixPath(path);
         }
     }
@@ -149,7 +148,7 @@ public class PathUtil {
         try {
             return getRelativePath(Paths.get(base), Paths.get(path));
         }
-        catch (InvalidPathException ignored) {
+        catch (IllegalArgumentException ignored) {
             return makeUnixPath(path);
         }
     }
@@ -177,7 +176,7 @@ public class PathUtil {
             return makeUnixPath(normalizedBase.relativize(normalize(base.resolve(path))).toString());
 
         }
-        catch (IOException | InvalidPathException ignored) {
+        catch (IOException | IllegalArgumentException ignored) {
             // ignore and return the path as such
         }
         return makeUnixPath(path.toString());
@@ -213,7 +212,7 @@ public class PathUtil {
         try {
             return getRelativePath(Paths.get(relative));
         }
-        catch (InvalidPathException ignored) {
+        catch (IllegalArgumentException ignored) {
             // ignore and return the path as such
         }
         return makeUnixPath(relative);
