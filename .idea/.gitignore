@@ -6,6 +6,9 @@
 !runConfigurations/*.xml
 !misc.xml
 !compiler.xml
+!encodings.xml
+!modules.xml
+!vcs.xml
 
 libraries
 scopes
