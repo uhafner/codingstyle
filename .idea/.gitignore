@@ -1,6 +1,8 @@
-compiler.xml
-saveactions_settings.xml
-libraries
+*.xml
+!checkstyle-idea.xml
+!codeStyles/codeStyleConfig.xml
+!codeStyles/Project.xml
+!inspectionProfiles/Project_Default.xml
 
-# Default ignored files
-/workspace.xml
+libraries
+scopes

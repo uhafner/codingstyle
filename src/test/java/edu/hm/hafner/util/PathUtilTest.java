@@ -173,7 +173,8 @@ class PathUtilTest extends ResourceTest {
         Path current = Paths.get(".");
         Path real = current.toRealPath();
         Path realWithSymbolic = current.toRealPath(LinkOption.NOFOLLOW_LINKS);
-        assumeThat(real).isNotEqualTo(realWithSymbolic);
+
+        assumeThat(real).as("Current working directory path is not based on symbolic links").isNotEqualTo(realWithSymbolic);
 
         String fromUtil = new PathUtil().getAbsolutePath(current);
         String unixStyle = realWithSymbolic.toString().replace('\\', '/');
