@@ -55,6 +55,34 @@ public final class StringContainsUtils {
         return false;
     }
 
+    /**
+     * Checks if the provided string contains irrespective of case all of the strings in the given array,
+     * handling {@code null} strings. Case-insensitivity is defined as by {@link String#equalsIgnoreCase(String)}.
+     *
+     * <p>
+     * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
+     * return {@code false}.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.containsAll(null, *)            = false
+     * StringUtils.containsAll("", *)              = false
+     * StringUtils.containsAll(*, null)            = false
+     * StringUtils.containsAll(*, [])              = false
+     * StringUtils.containsAll("abcd", "ab", null) = true
+     * StringUtils.containsAll("abcd", "ab", "cd") = true
+     * StringUtils.containsAll("abcd", "AB", "cd") = true
+     * StringUtils.containsAll("abc", "d", "abc")  = false
+     * StringUtils.containsAll("ABC", "d", "abc")  = false
+     * </pre>
+     *
+     * @param input
+     *         The string to check, may be {@code null}
+     * @param searchTexts
+     *         The strings to search for, may be empty. Individual CharSequences may be null as well.
+     *
+     * @return {@code true} if all of the search CharSequences are found, {@code false} otherwise
+     */
     public static boolean containsAllIgnoreCase(@Nullable final CharSequence input,
             @Nullable final String... searchTexts) {
         if (StringUtils.isEmpty(input)) {
