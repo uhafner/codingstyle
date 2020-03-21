@@ -49,5 +49,7 @@ class StringContainsUtilsTest {
         assertThat(containsAllIgnoreCase("This is a string text.", "wrong", "IS")).isFalse();
         assertThat(containsAllIgnoreCase("This is a string text.", "wrong", null)).isFalse();
         assertThat(containsAllIgnoreCase("This is a string text.", "is", null)).isFalse();
+        assertThat(containsAllIgnoreCase("This is a string text.", "is", "")).isTrue();
+
     }
 }
