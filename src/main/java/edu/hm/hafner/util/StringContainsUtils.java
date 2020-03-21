@@ -55,6 +55,25 @@ public final class StringContainsUtils {
         return false;
     }
 
+    public static boolean containsAllIgnoreCase(@Nullable final CharSequence input,
+            @Nullable final String... searchTexts) {
+        if (StringUtils.isEmpty(input)) {
+            return false;
+        }
+        if (searchTexts == null || searchTexts.length == 0) {
+            return false;
+        }
+        boolean containsAll = false;
+        for (String searchText : searchTexts) {
+            if (StringUtils.containsIgnoreCase(input, searchText)) {
+                containsAll = true;
+            } else {
+                containsAll = false;
+            }
+        }
+        return containsAll;
+    }
+
     private StringContainsUtils() {
         // prevents instantiation
     }
