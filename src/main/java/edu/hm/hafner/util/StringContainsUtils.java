@@ -69,7 +69,7 @@ public final class StringContainsUtils {
      * StringUtils.containsAll("", *)              = false
      * StringUtils.containsAll(*, null)            = false
      * StringUtils.containsAll(*, [])              = false
-     * StringUtils.containsAll("abcd", "ab", null) = true
+     * StringUtils.containsAll("abcd", "ab", null) = false
      * StringUtils.containsAll("abcd", "ab", "cd") = true
      * StringUtils.containsAll("abcd", "AB", "cd") = true
      * StringUtils.containsAll("abc", "d", "abc")  = false
