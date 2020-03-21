@@ -91,15 +91,12 @@ public final class StringContainsUtils {
         if (searchTexts == null || searchTexts.length == 0) {
             return false;
         }
-        boolean containsAll = false;
         for (String searchText : searchTexts) {
-            if (StringUtils.containsIgnoreCase(input, searchText)) {
-                containsAll = true;
-            } else {
-                containsAll = false;
+            if (!StringUtils.containsIgnoreCase(input, searchText)) {
+                return false;
             }
         }
-        return containsAll;
+        return true;
     }
 
     private StringContainsUtils() {
