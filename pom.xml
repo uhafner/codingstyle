@@ -56,14 +56,14 @@
     <module.name>${project.groupId}.codingstyle</module.name>
 
     <!-- Project Dependencies Configuration -->
-    <spotbugs.annotations>4.0.0</spotbugs.annotations>
+    <spotbugs.annotations>4.0.1</spotbugs.annotations>
     <commons.lang.version>3.9</commons.lang.version>
     <commons.io.version>2.6</commons.io.version>
 
     <!-- Project Test Dependencies Configuration -->
     <junit.version>5.6.0</junit.version>
     <junit-platform-launcher.version>1.6.0</junit-platform-launcher.version>
-    <mockito.version>3.3.0</mockito.version>
+    <mockito.version>3.3.3</mockito.version>
     <assertj.version>3.15.0</assertj.version>
     <archunit.version>0.13.1</archunit.version>
 
@@ -73,7 +73,7 @@
     <maven-install-plugin.version>3.0.0-M1</maven-install-plugin.version>
     <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-    <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
+    <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
     <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
     <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
     <maven-buildhelper-plugin.version>3.0.0</maven-buildhelper-plugin.version>
@@ -83,7 +83,7 @@
     <pmd.version>6.22.0</pmd.version>
     <maven-checkstyle-plugin.version>3.1.1</maven-checkstyle-plugin.version>
     <checkstyle.version>8.30</checkstyle.version>
-    <spotbugs-maven-plugin.version>3.1.12.2</spotbugs-maven-plugin.version>
+    <spotbugs-maven-plugin.version>4.0.0</spotbugs-maven-plugin.version>
     <findsecbugs-plugin.version>1.10.1</findsecbugs-plugin.version>
     <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
     <maven-taglist-plugin.version>2.4</maven-taglist-plugin.version>

@@ -1,0 +1,20 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="All in codingstyle" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+    <module name="codingstyle" />
+    <extension name="coverage" sample_coverage="false">
+      <pattern>
+        <option name="PATTERN" value="edu.hm.hafner.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <useClassPathOnly />
+    <option name="PACKAGE_NAME" value="" />
+    <option name="MAIN_CLASS_NAME" value="" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="package" />
+    <option name="PARAMETERS" value="" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
