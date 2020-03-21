@@ -42,6 +42,6 @@ node {
     }
 
     stage ('Autograding') {
-        autoGrade
+        autoGrade()
     }
 }
