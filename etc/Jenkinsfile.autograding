@@ -7,7 +7,7 @@ node {
 
     stage ('Build and Static Analysis') {
         withMaven(maven: 'mvn-default', mavenLocalRepo: '/var/data/m2repository', mavenOpts: '-Xmx768m -Xms512m') {
-            sh 'mvn -V -e clean verify -Dmaven.test.failure.ignore -Dgpg.skip'
+            sh 'mvn -ntp -V -e clean verify -Dmaven.test.failure.ignore -Dgpg.skip'
         }
 
         recordIssues tools: [java(), javaDoc()], aggregatingResults: 'true', id: 'java', name: 'Java'
@@ -25,14 +25,14 @@ node {
 
     stage ('Line and Branch Coverage') {
         withMaven(maven: 'mvn-default', mavenLocalRepo: '/var/data/m2repository', mavenOpts: '-Xmx768m -Xms512m') {
-            sh "mvn -V -U -e jacoco:prepare-agent test jacoco:report -Dmaven.test.failure.ignore"
+            sh "mvn -ntp -V -U -e jacoco:prepare-agent test jacoco:report -Dmaven.test.failure.ignore"
         }
         publishCoverage adapters: [jacocoAdapter('**/*/jacoco.xml')], sourceFileResolver: sourceFiles('STORE_ALL_BUILD')
     }
 
     stage ('Mutation Coverage') {
         withMaven(maven: 'mvn-default', mavenLocalRepo: '/var/data/m2repository', mavenOpts: '-Xmx768m -Xms512m') {
-            sh "mvn org.pitest:pitest-maven:mutationCoverage"
+            sh "mvn -ntp org.pitest:pitest-maven:mutationCoverage"
         }
         step([$class: 'PitPublisher', mutationStatsFile: 'target/pit-reports/**/mutations.xml'])
     }
@@ -42,6 +42,6 @@ node {
     }
 
     stage ('Autograding') {
-        recordIssues tool: mavenConsole()
+        autoGrade
     }
 }
