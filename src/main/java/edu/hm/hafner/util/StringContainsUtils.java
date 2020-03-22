@@ -38,6 +38,8 @@ public final class StringContainsUtils {
      *
      * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
      */
+    containsAllIgnoreCase pull ok?
+    
     public static boolean containsAnyIgnoreCase(@Nullable final CharSequence input,
             @Nullable final String... searchTexts) {
         if (StringUtils.isEmpty(input)) {
