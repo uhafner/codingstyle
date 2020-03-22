@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.*;
 /**
  * Tests the class {@link StringContainsUtils}.
  *
- * @author Ullrich Hafner
+ * @author Ullrich Hafner, Fabian Soellner
  */
 class StringContainsUtilsTest {
     @Test
@@ -20,6 +20,14 @@ class StringContainsUtilsTest {
         assertThat(containsAnyIgnoreCase(null)).isFalse();
         assertThat(containsAnyIgnoreCase(null, (String) null)).isFalse();
         assertThat(containsAnyIgnoreCase(null, (String[]) null)).isFalse();
+
+        assertThat(containsAllIgnoreCase("This is a string text.", (String[]) null)).isFalse();
+        assertThat(containsAllIgnoreCase("This is a string text.", (String) null)).isFalse();
+        assertThat(containsAllIgnoreCase("This is a string text.")).isFalse();
+
+        assertThat(containsAllIgnoreCase(null)).isFalse();
+        assertThat(containsAllIgnoreCase(null, (String) null)).isFalse();
+        assertThat(containsAllIgnoreCase(null, (String[]) null)).isFalse();
     }
 
     @Test
@@ -30,5 +38,19 @@ class StringContainsUtilsTest {
         assertThat(containsAnyIgnoreCase("This is a string text.", "this")).isTrue();
         assertThat(containsAnyIgnoreCase("This is a string text.", "wrong", "is")).isTrue();
         assertThat(containsAnyIgnoreCase("This is a string text.", "wrong", "IS")).isTrue();
+    }
+
+
+    @Test
+    void onlyAcceptsIfAllStringsContained() {
+        assertThat(containsAllIgnoreCase("This is a string text.", "something")).isFalse();
+
+        assertThat(containsAllIgnoreCase("This is a string text.", "This")).isTrue();
+        assertThat(containsAllIgnoreCase("This is a string text.", "this")).isTrue();
+        assertThat(containsAllIgnoreCase("This is a string text.", "wrong", "is")).isFalse();
+        assertThat(containsAllIgnoreCase("This is a string text.", "wrong", "IS")).isFalse();
+        assertThat(containsAllIgnoreCase("This is a string text.", "Text", "IS")).isTrue();
+        assertThat(containsAllIgnoreCase("This is a string text.", "text", "is")).isTrue();
+
     }
 }
