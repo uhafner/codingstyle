@@ -1,4 +1,4 @@
-name: 'Generate and upload coverage report to https://codecov.io'
+name: 'Generate coverage report'
 
 on:
   push:

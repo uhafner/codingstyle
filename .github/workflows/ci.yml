@@ -1,4 +1,4 @@
-name: 'CI with GitHub Actions (on all platforms)'
+name: 'CI on all platforms'
 
 on:
   push:
