@@ -12,6 +12,8 @@ import static org.assertj.core.api.Assertions.*;
  */
 class StringContainsUtilsTest {
     @Test
+    
+    
     void shouldHandleNull() {
         assertThat(containsAnyIgnoreCase("This is a string text.", (String[]) null)).isFalse();
         assertThat(containsAnyIgnoreCase("This is a string text.", (String) null)).isFalse();
