@@ -33,7 +33,6 @@ class StringContainsUtilsTest {
     
     @Test
     void shouldSearchStrings() {
-        
         assertThat(containsAnyIgnoreCase("This is a string text.", "something")).isFalse();
         
         assertThat(containsAnyIgnoreCase("This is a string text.", "This")).isTrue();
