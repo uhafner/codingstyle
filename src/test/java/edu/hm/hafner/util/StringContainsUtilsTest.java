@@ -29,7 +29,8 @@ class StringContainsUtilsTest {
         assertThat(containsAnyIgnoreCase(null, (String) null)).isFalse();
         assertThat(containsAnyIgnoreCase(null, (String[]) null)).isFalse();
     }
-
+    
+    
     @Test
     void shouldSearchStrings() {
         
