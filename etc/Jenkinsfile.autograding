@@ -42,6 +42,6 @@ node {
     }
 
     stage ('Autograding') {
-        autoGrade()
+        autoGrade('{"analysis":{"maxScore":100,"weightError":-10,"weightHigh":-5,"weightNormal":-2,"weightLow":-1}}')
     }
 }
