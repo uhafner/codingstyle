@@ -51,6 +51,7 @@ class StringContainsUtilsTest {
 
         assertThat(containsAllIgnoreCase("Find all strings", "Find")).isTrue();
         assertThat(containsAllIgnoreCase("Find all strings", "strings")).isTrue();
+        assertThat(containsAllIgnoreCase("Find all strings", "find", "all"));
         assertThat(containsAllIgnoreCase("Find all strings", "ALL")).isTrue();
     }
 }
