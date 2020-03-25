@@ -58,4 +58,20 @@ public final class StringContainsUtils {
     private StringContainsUtils() {
         // prevents instantiation
     }
+    public static boolean containsAllIgnoreCase(@Nullable final CharSequence input,
+            @Nullable final String... searchTexts) {
+        if (StringUtils.isEmpty(input)) {
+            return false;
+        }
+        if (searchTexts == null || searchTexts.length == 0) {
+            return false;
+        }
+
+        for (String searchText : searchTexts) {
+            if (!StringUtils.containsIgnoreCase(input, searchText)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

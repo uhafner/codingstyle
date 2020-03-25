@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <option name="DEFAULT_COMPILER" value="error-prone" />
     <annotationProcessing>
       <profile name="Annotation profile for Java coding style" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -50,10 +49,12 @@
           <entry name="$MAVEN_REPOSITORY$/NullAway/test-library-models/unspecified/test-library-models-unspecified.jar" />
         </processorPath>
         <module name="codingstyle" />
+        <module name="SE2" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="codingstyle" target="1.8" />
+      <module name="SE2" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="ErrorProneCompilerSettings">
