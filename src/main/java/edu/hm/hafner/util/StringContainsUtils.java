@@ -1,5 +1,7 @@
 package edu.hm.hafner.util;
 
+import java.util.Arrays;
+
 import org.apache.commons.lang3.StringUtils;
 
 import edu.umd.cs.findbugs.annotations.Nullable;
@@ -53,6 +55,47 @@ public final class StringContainsUtils {
             }
         }
         return false;
+    }
+
+    /**
+     * Checks if the provided string contains irrespective of case all of the strings in the given array,
+     * handling {@code null} strings. Case-insensitivity is defined as by {@link String#equalsIgnoreCase(String)}.
+     *
+     * <p>
+     * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
+     * return {@code false}.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.containsAllIgnoreCase(null, *)            = false
+     * StringUtils.containsAllIgnoreCase("", *)              = false
+     * StringUtils.containsAllIgnoreCase(*, null)            = false
+     * StringUtils.containsAllIgnoreCase(*, [])              = false
+     * StringUtils.containsAllIgnoreCase("abcd", "ab", null) = false
+     * StringUtils.containsAllIgnoreCase("abcd", "ab", "cd") = true
+     * StringUtils.containsAllIgnoreCase("abc", "d", "abc")  = false
+     * StringUtils.containsAllIgnoreCase("ABC", "d", "abc")  = false
+     * </pre>
+     *
+     * @param input
+     *         The string to check, may be {@code null}
+     * @param searchTexts
+     *         The strings to search for, may be empty. Individual CharSequences may be null as well.
+     *
+     * @return {@code true} if all of the search CharSequences are found, {@code false} otherwise
+     */
+    public static boolean containsAllIgnoreCase(@Nullable final CharSequence input,
+            @Nullable final String... searchTexts) {
+        if (StringUtils.isEmpty(input)) {
+            return false;
+        }
+        if (searchTexts == null || searchTexts.length == 0) {
+            return false;
+        }
+
+        return Arrays.stream(searchTexts)
+                .allMatch(searchText -> StringUtils.containsIgnoreCase(input, searchText));
+
     }
 
     private StringContainsUtils() {

@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.*;
  */
 class StringContainsUtilsTest {
     @Test
-    void shouldHandleNull() {
+    void containsAnyIgnoreCaseShouldHandleNull() {
         assertThat(containsAnyIgnoreCase("This is a string text.", (String[]) null)).isFalse();
         assertThat(containsAnyIgnoreCase("This is a string text.", (String) null)).isFalse();
         assertThat(containsAnyIgnoreCase("This is a string text.")).isFalse();
@@ -23,12 +23,32 @@ class StringContainsUtilsTest {
     }
 
     @Test
-    void shouldSearchStrings() {
+    void containsAnyIgnoreCaseShouldSearchStrings() {
         assertThat(containsAnyIgnoreCase("This is a string text.", "something")).isFalse();
 
         assertThat(containsAnyIgnoreCase("This is a string text.", "This")).isTrue();
         assertThat(containsAnyIgnoreCase("This is a string text.", "this")).isTrue();
         assertThat(containsAnyIgnoreCase("This is a string text.", "wrong", "is")).isTrue();
         assertThat(containsAnyIgnoreCase("This is a string text.", "wrong", "IS")).isTrue();
+    }
+
+    @Test
+    void containsAllIgnoreCaseShouldHandleNull() {
+        assertThat(containsAllIgnoreCase("This is a string text.", (String[]) null)).isFalse();
+        assertThat(containsAllIgnoreCase("This is a string text.", (String) null)).isFalse();
+        assertThat(containsAllIgnoreCase("This is a string text.")).isFalse();
+
+        assertThat(containsAllIgnoreCase(null)).isFalse();
+        assertThat(containsAllIgnoreCase(null, (String) null)).isFalse();
+        assertThat(containsAllIgnoreCase(null, (String[]) null)).isFalse();
+    }
+
+    @Test
+    void containsAllIgnoreCaseShouldSearchStrings() {
+        assertThat(containsAllIgnoreCase("This is a string text.", "something", "other")).isFalse();
+
+        assertThat(containsAllIgnoreCase("This is a string text.", "This", "IS")).isTrue();
+        assertThat(containsAllIgnoreCase("This is a string text.", "wrong", "is")).isFalse();
+        assertThat(containsAllIgnoreCase("This is a string text.", "wrong", "IS")).isFalse();
     }
 }
