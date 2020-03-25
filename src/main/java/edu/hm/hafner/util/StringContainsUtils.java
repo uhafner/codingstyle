@@ -8,7 +8,7 @@ import edu.umd.cs.findbugs.annotations.Nullable;
  * A simple helper class in the style of {@link StringUtils} that provides methods to check if strings contain
  * search strings.
  *
- * @author Ullrich Hafner
+ * @author Irina Vilinski
  */
 public final class StringContainsUtils {
     /**
@@ -53,9 +53,30 @@ public final class StringContainsUtils {
             }
         }
         return false;
+
     }
 
     private StringContainsUtils() {
         // prevents instantiation
+    }
+
+    public static boolean containsAllIgnoreCase(@Nullable final CharSequence input,
+            @Nullable final String... searchTexts) {
+        if (StringUtils.isEmpty(input)) {
+            return false;
+        }
+        if (searchTexts == null || searchTexts.length == 0) {
+            return false;
+        }
+
+        boolean allFound = false;
+        for (String searchText : searchTexts) {
+            if (StringUtils.containsIgnoreCase(input, searchText)) {
+                allFound = true;
+            }
+            else return false;
+        }
+        return allFound;
+
     }
 }
