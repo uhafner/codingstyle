@@ -20,15 +20,35 @@ class StringContainsUtilsTest {
         assertThat(containsAnyIgnoreCase(null)).isFalse();
         assertThat(containsAnyIgnoreCase(null, (String) null)).isFalse();
         assertThat(containsAnyIgnoreCase(null, (String[]) null)).isFalse();
+
+        assertThat(containsAllIgnoreCase("This is a string text.", (String[]) null)).isFalse();
+        assertThat(containsAllIgnoreCase("This is a string text.", (String) null)).isFalse();
+        assertThat(containsAllIgnoreCase("This is a string text.")).isFalse();
+
+        assertThat(containsAllIgnoreCase("This is a string text.", (String) null, "this")).isFalse();
+        assertThat(containsAllIgnoreCase("This is a string text.", "this", (String) null)).isFalse();
+        assertThat(containsAllIgnoreCase("This is a string text.", "This", (String) null)).isFalse();
+        assertThat(containsAllIgnoreCase("This is a string text.", (String) null, "This")).isFalse();
+
+        assertThat(containsAllIgnoreCase(null)).isFalse();
+        assertThat(containsAllIgnoreCase(null, (String) null)).isFalse();
+        assertThat(containsAllIgnoreCase(null, (String[]) null)).isFalse();
     }
 
     @Test
     void shouldSearchStrings() {
         assertThat(containsAnyIgnoreCase("This is a string text.", "something")).isFalse();
-
         assertThat(containsAnyIgnoreCase("This is a string text.", "This")).isTrue();
         assertThat(containsAnyIgnoreCase("This is a string text.", "this")).isTrue();
         assertThat(containsAnyIgnoreCase("This is a string text.", "wrong", "is")).isTrue();
         assertThat(containsAnyIgnoreCase("This is a string text.", "wrong", "IS")).isTrue();
+
+        assertThat(containsAllIgnoreCase("This is a string text.", "something")).isFalse();
+        assertThat(containsAllIgnoreCase("This is a string text.", "This")).isTrue();
+        assertThat(containsAllIgnoreCase("This is a string text.", "this")).isTrue();
+        assertThat(containsAllIgnoreCase("This is a string text.", "This", "is")).isTrue();
+        assertThat(containsAllIgnoreCase("This is a string text.", "this", "Is")).isTrue();
+        assertThat(containsAllIgnoreCase("This is a string text.", "wrong", "is")).isFalse();
+        assertThat(containsAllIgnoreCase("This is a string text.", "wrong", "IS")).isFalse();
     }
 }
