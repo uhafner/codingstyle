@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.*;
 /**
  * Tests the class {@link StringContainsUtils}.
  *
- * @author Ullrich Hafner
+ * @author Daniel Richter, Ullrich Hafner
  */
 class StringContainsUtilsTest {
     @Test
@@ -20,6 +20,14 @@ class StringContainsUtilsTest {
         assertThat(containsAnyIgnoreCase(null)).isFalse();
         assertThat(containsAnyIgnoreCase(null, (String) null)).isFalse();
         assertThat(containsAnyIgnoreCase(null, (String[]) null)).isFalse();
+
+        assertThat(containsAllIgnoreCase("This is a string text.", (String[]) null)).isFalse();
+        assertThat(containsAllIgnoreCase("This is a string text.", (String) null)).isFalse();
+        assertThat(containsAllIgnoreCase("This is a string text.")).isFalse();
+
+        assertThat(containsAllIgnoreCase(null)).isFalse();
+        assertThat(containsAllIgnoreCase(null, (String) null)).isFalse();
+        assertThat(containsAllIgnoreCase(null, (String[]) null)).isFalse();
     }
 
     @Test
