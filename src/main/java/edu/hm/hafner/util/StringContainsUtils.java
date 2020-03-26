@@ -46,7 +46,6 @@ public final class StringContainsUtils {
         if (searchTexts == null || searchTexts.length == 0) {
             return false;
         }
-
         for (String searchText : searchTexts) {
             if (StringUtils.containsIgnoreCase(input, searchText)) {
                 return true;
