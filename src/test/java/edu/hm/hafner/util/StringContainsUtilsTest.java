@@ -9,6 +9,7 @@ import static org.assertj.core.api.Assertions.*;
  * Tests the class {@link StringContainsUtils}.
  *
  * @author Ullrich Hafner
+ * @author Philipp Keidler
  */
 class StringContainsUtilsTest {
     @Test
@@ -16,7 +17,6 @@ class StringContainsUtilsTest {
         assertThat(containsAnyIgnoreCase("This is a string text.", (String[]) null)).isFalse();
         assertThat(containsAnyIgnoreCase("This is a string text.", (String) null)).isFalse();
         assertThat(containsAnyIgnoreCase("This is a string text.")).isFalse();
-
         assertThat(containsAnyIgnoreCase(null)).isFalse();
         assertThat(containsAnyIgnoreCase(null, (String) null)).isFalse();
         assertThat(containsAnyIgnoreCase(null, (String[]) null)).isFalse();
@@ -25,7 +25,6 @@ class StringContainsUtilsTest {
     @Test
     void shouldSearchStrings() {
         assertThat(containsAnyIgnoreCase("This is a string text.", "something")).isFalse();
-
         assertThat(containsAnyIgnoreCase("This is a string text.", "This")).isTrue();
         assertThat(containsAnyIgnoreCase("This is a string text.", "this")).isTrue();
         assertThat(containsAnyIgnoreCase("This is a string text.", "wrong", "is")).isTrue();
