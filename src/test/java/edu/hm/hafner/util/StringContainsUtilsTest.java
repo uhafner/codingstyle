@@ -16,7 +16,6 @@ class StringContainsUtilsTest {
         assertThat(containsAnyIgnoreCase("This is a string text.", (String[]) null)).isFalse();
         assertThat(containsAnyIgnoreCase("This is a string text.", (String) null)).isFalse();
         assertThat(containsAnyIgnoreCase("This is a string text.")).isFalse();
-
         assertThat(containsAnyIgnoreCase(null)).isFalse();
         assertThat(containsAnyIgnoreCase(null, (String) null)).isFalse();
         assertThat(containsAnyIgnoreCase(null, (String[]) null)).isFalse();
@@ -25,10 +24,19 @@ class StringContainsUtilsTest {
     @Test
     void shouldSearchStrings() {
         assertThat(containsAnyIgnoreCase("This is a string text.", "something")).isFalse();
-
         assertThat(containsAnyIgnoreCase("This is a string text.", "This")).isTrue();
         assertThat(containsAnyIgnoreCase("This is a string text.", "this")).isTrue();
         assertThat(containsAnyIgnoreCase("This is a string text.", "wrong", "is")).isTrue();
         assertThat(containsAnyIgnoreCase("This is a string text.", "wrong", "IS")).isTrue();
+    }
+
+    @Test
+    void shouldSearchALLStrings() {
+        assertThat(containsAllIgnoreCase("This is a string text.", "something")).isFalse();
+        assertThat(containsAllIgnoreCase("This is a string text.", "wrong", "IS")).isFalse();
+        assertThat(containsAllIgnoreCase("This is a string text.", "wrong", "is")).isFalse();
+        assertThat(containsAllIgnoreCase("This is a string text.", "is", "wrong")).isFalse();
+        assertThat(containsAllIgnoreCase("This is a string text.", "This")).isTrue();
+        assertThat(containsAllIgnoreCase("This is a string text.", "this")).isTrue();
     }
 }
