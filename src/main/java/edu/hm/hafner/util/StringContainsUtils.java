@@ -9,6 +9,7 @@ import edu.umd.cs.findbugs.annotations.Nullable;
  * strings.
  *
  * @author Ullrich Hafner
+ * @author Philipp Keidler
  */
 public final class StringContainsUtils {
     /**
@@ -60,7 +61,8 @@ public final class StringContainsUtils {
     }
 
     /**
-     * @author Philipp Keidler
+     * Checks if the provided string contains irrespective of case all of the strings in the given array, handling
+     * {@code null} strings. Case-insensitivity is defined as by {@link String#equalsIgnoreCase(String)}.
      *
      * @param input
      *         The string to check, may be {@code null}
