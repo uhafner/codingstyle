@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.*;
 /**
  * Tests the class {@link StringContainsUtils}.
  *
- * @author Ullrich Hafner
+ * @author Pia Lippert
  */
 class StringContainsUtilsTest {
     @Test
@@ -24,11 +24,25 @@ class StringContainsUtilsTest {
 
     @Test
     void shouldSearchStrings() {
+        //containsAnyIgnoreCase
         assertThat(containsAnyIgnoreCase("This is a string text.", "something")).isFalse();
 
         assertThat(containsAnyIgnoreCase("This is a string text.", "This")).isTrue();
         assertThat(containsAnyIgnoreCase("This is a string text.", "this")).isTrue();
         assertThat(containsAnyIgnoreCase("This is a string text.", "wrong", "is")).isTrue();
         assertThat(containsAnyIgnoreCase("This is a string text.", "wrong", "IS")).isTrue();
+
+        //containsAllIgnoreCase
+        assertThat(containsAllIgnoreCase("This is a string text.", "something")).isFalse();
+        assertThat(containsAllIgnoreCase("This is a string text.", "wrong", "is")).isFalse();
+        assertThat(containsAllIgnoreCase("This is a string text.", "wrong", "IS")).isFalse();
+        assertThat(containsAllIgnoreCase("This is a string text.", "string", "left")).isFalse();
+        assertThat(containsAllIgnoreCase("This is a string text.", "String", "right")).isFalse();
+
+        assertThat(containsAllIgnoreCase("This is a string text.", "This")).isTrue();
+        assertThat(containsAllIgnoreCase("This is a string text.", "this")).isTrue();
+        assertThat(containsAllIgnoreCase("This is a string text.", "This", "IS")).isTrue();
+        assertThat(containsAllIgnoreCase("This is a string text.", "this", "is")).isTrue();
     }
+
 }
