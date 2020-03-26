@@ -74,9 +74,9 @@ public final class StringContainsUtils {
      * </pre>
      *
      * @param input
-     *         The string to check, may be {@code null}
+     *        The string to check, may be {@code null}
      * @param searchTexts
-     *         The strings to search for, may be empty. Individual CharSequences may be null as well.
+     *        The strings to search for, may be empty. Individual CharSequences may be null as well.
      *
      * @return {@code true} if all of the search CharSequences are found, {@code false} otherwise
      */
