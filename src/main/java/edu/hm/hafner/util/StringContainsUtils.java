@@ -55,6 +55,30 @@ public final class StringContainsUtils {
         return false;
     }
 
+    /**
+     *
+     * @param parameter1
+     *
+     * @param parameter2
+     *
+     *
+     * @return
+     */
+    public static boolean containsAllIgnoreCase (@Nullable final CharSequence parameter1,
+            @Nullable final String... searchTexts) {
+
+        if (StringUtils.isAllEmpty(parameter1)) {
+            return false;
+        }
+
+        for(String searchText : searchTexts) {
+            if (StringUtils.equalsAny(parameter1, searchText)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private StringContainsUtils() {
         // prevents instantiation
     }
