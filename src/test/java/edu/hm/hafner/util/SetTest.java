@@ -2,7 +2,7 @@ package edu.hm.hafner.util;
 
 //Standard Imports for Unit Test
 import org.junit.jupiter.api.Test;
-//Use-Case Imports for Unit Test
+//Imports for Unit Test only when needed
 import static org.assertj.core.api.Assertions.*;
 //Import the class who should be tested
 import java.util.Set;
@@ -19,8 +19,15 @@ public class SetTest {
 
     @Test
     void constructions() {
-        //Test: public HashSet() (standard constructor)
-        assertThat(new HashSet<Integer>()).isNotNull();
+        /* Test: HashSet() (standard constructor) */
+        testHash = new HashSet<Integer>();
+        assertThat(testHash).isNotNull();
+        assertThat(testHash).isEmpty();
+
+        /* Test: HashSet(int initialCapacity) */
+        /* Test: HashSet(int initialCapacity, float loadFactor) */
+        /* Test: HashSet(int initialCapacity, float loadFactor, boolean dummy) */
+        /* Test: HashSet(Collection<? extends E> c) */
     }
 
     @Test
@@ -32,19 +39,19 @@ public class SetTest {
 
         /* Test: Sizes after declaration. */
         assertThat(testHash.size()).isEqualTo(0);
-        assertThat(extendHash.size()).isEqualTo(4);
+        assertThat(extendHash.size()).isEqualTo(104);
 
         /* Test: Size after Adding something. */
         testHash.addAll(extendHash);
-        assertThat(testHash.size()).isEqualTo(4);
+        assertThat(testHash.size()).isEqualTo(104);
         testHash.add(404);
-        assertThat(testHash.size()).isEqualTo(5);
+        assertThat(testHash.size()).isEqualTo(105);
         testHash.add(404); //Duplicates are not added.
-        assertThat(testHash.size()).isEqualTo(5);
+        assertThat(testHash.size()).isEqualTo(105);
 
         /* Test: Size after removing something. */
         testHash.remove(404);
-        assertThat(testHash.size()).isEqualTo(4);
+        assertThat(testHash.size()).isEqualTo(104);
         testHash.removeAll(extendHash);
         assertThat(testHash.size()).isEqualTo(0);
     }
@@ -52,6 +59,7 @@ public class SetTest {
     @Test
     void isEmpty() {
         testPrep();
+
         /* Test: After creating a fresh Variable */
         assertThat(testHash.isEmpty()).isTrue();
 
@@ -84,8 +92,17 @@ public class SetTest {
 
     @Test
     void contains() {
+        testPrep();
 
+        assertThat(extendHash.contains(511)).isTrue();
+        assertThat(extendHash.contains(2401)).isTrue();
+        for (int i = 100; i < 150; i++) {
+            assertThat(extendHash.contains(i)).isFalse();
+        }
     }
+
+    @Test //additional
+    void containsAll() { }
 
     @Test
     void add() { }
@@ -94,7 +111,11 @@ public class SetTest {
     void remove() { }
 
     @Test
-    void clear() { }
+    void clear() {
+        testPrep();
+        extendHash.clear();
+        assertThat(extendHash.isEmpty()).isTrue();
+    }
 
     @Test
     void cloneObject() { }
@@ -115,5 +136,8 @@ public class SetTest {
         extendHash.add(2106);
         extendHash.add(1310);
         extendHash.add(2401);
+        for (int i = 0; i < 100; i++) {
+            extendHash.add(i);
+        }
     }
 }
