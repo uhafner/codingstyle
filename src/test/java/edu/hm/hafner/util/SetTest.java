@@ -3,66 +3,51 @@ package edu.hm.hafner.util;
 //Standard Imports for Unit Test
 import org.junit.jupiter.api.Test;
 //Use-Case Imports for Unit Test
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 //Import the class who should be tested
+import java.util.Set;
+import java.util.HashSet;
 
 /**
- * Tests the class HashSet, with usage of SUT Hashsets from Integer.
+ * Tests the class HashSet, with usage of SUT HashSet from Integer.
  *
  * @author Philipp Keidler
  */
 public class SetTest {
     @Test
     void constructions() {
-
+        //Test: public HashSet() (standard constructor)
+        assertThat(new HashSet<Integer>()).isNotNull();
     }
 
     @Test
-    void iterator() {
-
-    }
+    void iterator() { }
 
     @Test
-    void size() {
-
-    }
+    void size() { }
 
     @Test
-    void isEmpty() {
-
-    }
+    void isEmpty() { }
 
     @Test
-    void contains() {
-
-    }
+    void contains() { }
 
     @Test
-    void add() {
-
-    }
+    void add() { }
 
     @Test
-    void remove() {
-
-    }
+    void remove() { }
 
     @Test
-    void clear() {
-
-    }
+    void clear() { }
 
     @Test
-    void cloneObject() {
-
-    }
+    void cloneObject() { }
 
     @Test
-    void writeObject() {
-
-    }
+    void writeObject() { }
 
     @Test
-    void readObject() {
-
-    }
+    void readObject() { }
 }
