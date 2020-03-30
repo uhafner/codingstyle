@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.*;
  */
 class StringContainsUtilsTest {
     @Test
-    void shouldHandleNull() {
+    void containsAnyIgnoreCaseShouldHandleNull() {
         assertThat(containsAnyIgnoreCase("This is a string text.", (String[]) null)).isFalse();
         assertThat(containsAnyIgnoreCase("This is a string text.", (String) null)).isFalse();
         assertThat(containsAnyIgnoreCase("This is a string text.")).isFalse();
@@ -23,7 +23,7 @@ class StringContainsUtilsTest {
     }
 
     @Test
-    void shouldSearchStrings() {
+    void shouldSearchAnyStrings() {
         assertThat(containsAnyIgnoreCase("This is a string text.", "something")).isFalse();
         assertThat(containsAnyIgnoreCase("This is a string text.", "This")).isTrue();
         assertThat(containsAnyIgnoreCase("This is a string text.", "this")).isTrue();
@@ -32,7 +32,7 @@ class StringContainsUtilsTest {
     }
 
     @Test
-    void shouldHandleNull2() {
+    void containsAllIgnoreCaseShouldHandleNull() {
         assertThat(containsAllIgnoreCase("This is a string text.", (String[]) null)).isFalse();
         assertThat(containsAllIgnoreCase("This is a string text.", (String) null)).isFalse();
         assertThat(containsAllIgnoreCase("This is a string text.")).isFalse();
