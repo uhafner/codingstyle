@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 //Imports for Unit Test only when needed
 import static org.assertj.core.api.Assertions.*;
 //Import the class who should be tested
-import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.HashSet;
 
@@ -46,12 +45,22 @@ public class SetTest {
         assertThat(testHash).isNotNull();
         assertThat(testHash).isNotEmpty();
         testHash.add(2412);
-        assertThat(testHash.size()).isEqualTo(105);
-        assertThat(extendHash.size()).isEqualTo(104); //that shows a deep copy, NOT a pointer copy!
+        assertThat(testHash.size()).isNotEqualTo(extendHash.size()); //that shows a deep copy, NOT a pointer copy!
     }
 
     @Test
-    void iterator() { }
+    void iterator() {
+        testPrep();
+
+        /* Check: hasNext() true and false */
+        assertThat(testHash.iterator().hasNext()).isFalse();
+        assertThat(extendHash.iterator().hasNext()).isTrue();
+
+        testHash.addAll(extendHash);
+
+        /* Check: First Integer in Map */
+        assertThat(testHash.iterator().next()).isEqualTo(0);
+    }
 
     @Test
     void size() {
@@ -114,31 +123,111 @@ public class SetTest {
     void contains() {
         testPrep();
 
+        /* Test: Positive test of contains() */
         assertThat(extendHash.contains(511)).isTrue();
         assertThat(extendHash.contains(2401)).isTrue();
+        for (int i = 75; i < 100; i++) {
+            assertThat(extendHash.contains(i)).isTrue();
+        }
+
+        /* Test: Negative test of contains() */
+        assertThat(extendHash.contains(3112)).isFalse();
+        assertThat(extendHash.contains(1996)).isFalse();
         for (int i = 100; i < 150; i++) {
             assertThat(extendHash.contains(i)).isFalse();
         }
     }
 
     @Test //additional
-    void containsAll() { }
+    void containsAll() {
+        testPrep();
+
+        /* Test: Check a filled Map against an empty one */
+        assertThat(extendHash.containsAll(testHash)).isTrue();
+        assertThat(testHash.containsAll(extendHash)).isFalse();
+
+        /* Test: Check exactly same filled Maps against each other */
+        testHash.addAll(extendHash);
+        assertThat(extendHash.containsAll(testHash)).isTrue();
+        assertThat(testHash.containsAll(extendHash)).isTrue();
+
+        /* Test: Check two different filled Maps against each other */
+        testHash.add(3112);
+        assertThat(extendHash.containsAll(testHash)).isFalse();
+        assertThat(testHash.containsAll(extendHash)).isTrue();
+        extendHash.add(2412);
+        assertThat(extendHash.containsAll(testHash)).isFalse();
+        assertThat(testHash.containsAll(extendHash)).isFalse();
+        testHash.remove(3112);
+        testHash.remove(511);
+        assertThat(extendHash.containsAll(testHash)).isTrue();
+        assertThat(testHash.containsAll(extendHash)).isFalse();
+
+        /* Test: Check the Map against itself */
+        testHash = extendHash;
+        assertThat(extendHash.containsAll(testHash)).isTrue();
+        assertThat(testHash.containsAll(extendHash)).isTrue();
+    }
 
     @Test
-    void add() { }
+    void add() {
+        testHash = new HashSet<>();
+        extendHash = new HashSet<>();
+
+        /* Test: Adding only one Integer each time */
+        assertThat(extendHash).isEmpty();
+        assertThat(extendHash.hashCode()).isEqualTo(0);
+        for (int i = 1; i <= 25; i++) {
+            extendHash.add(i);
+        }
+        assertThat(extendHash).isNotEmpty();
+        assertThat(extendHash.size()).isEqualTo(25);
+        assertThat(extendHash.hashCode()).isEqualTo(325);
+
+        /* Test: Adding more than one at once */
+        assertThat(testHash).isEmpty();
+        assertThat(testHash.hashCode()).isEqualTo(0);
+        testHash.addAll(extendHash);
+        assertThat(testHash).isNotEmpty();
+        assertThat(testHash.size()).isEqualTo(25);
+        assertThat(testHash.hashCode()).isEqualTo(325);
+        assertThat(testHash).isEqualTo(extendHash);
+
+        /* Test: Adding something that already exist (nothing is then happening) */
+        testHash.add(25);
+        assertThat(testHash).isEqualTo(extendHash);
+    }
 
     @Test
-    void remove() { }
+    void remove() {
+        testPrep();
+        testHash.addAll(extendHash);
+
+        /* Test: Removing only one Integer each time */
+        testHash.remove(13);
+        assertThat(testHash.hashCode()).isEqualTo(extendHash.hashCode() - 13);
+        testHash.remove(77);
+        assertThat(testHash.hashCode()).isEqualTo(extendHash.hashCode() - 77 - 13);
+        testHash.remove(7);
+        assertThat(testHash.hashCode()).isEqualTo(extendHash.hashCode() - 7 - 77 - 13);
+
+        /* Test: Removing more than one at once */
+        extendHash.removeAll(testHash);
+        assertThat(extendHash.hashCode()).isEqualTo(7 + 13 + 77);
+
+        /* Test: Removing something that not exist (nothing is then happening) */
+        testHash = new HashSet<>(extendHash);
+        testHash.remove(2);
+        assertThat(testHash).isEqualTo(extendHash);
+    }
 
     @Test
     void clear() {
         testPrep();
         extendHash.clear();
-        assertThat(extendHash.isEmpty()).isTrue();
+        assertThat(extendHash).isEmpty();
+        assertThat(extendHash).isNotNull();
     }
-
-    @Test
-    void cloneObject() { }
 
     /**
      * Sets the test variable to the starting point.
