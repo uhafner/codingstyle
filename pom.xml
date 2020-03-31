@@ -61,8 +61,13 @@
     <commons.io.version>2.6</commons.io.version>
 
     <!-- Project Test Dependencies Configuration -->
+<<<<<<< HEAD
     <junit.version>5.6.1</junit.version>
     <junit-platform-launcher.version>1.6.0</junit-platform-launcher.version>
+=======
+    <junit.version>5.6.0</junit.version>
+    <junit-platform-launcher.version>1.6.1</junit-platform-launcher.version>
+>>>>>>> 06b016e49f58042d8ecd92b488d4f8e93f6db957
     <mockito.version>3.3.3</mockito.version>
     <assertj.version>3.15.0</assertj.version>
     <archunit.version>0.13.1</archunit.version>
