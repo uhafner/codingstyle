@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 //Imports for Unit Test only when needed
 import static org.assertj.core.api.Assertions.*;
 //Import the class who should be tested
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.HashSet;
 
@@ -19,15 +20,34 @@ public class SetTest {
 
     @Test
     void constructions() {
+        final int initialCapacity = 4; // has to be: >= 0 !
+        final float loadFactor = (float) 100.0; // has to be: > 0 !
+
         /* Test: HashSet() (standard constructor) */
-        testHash = new HashSet<Integer>();
+        testHash = new HashSet<>();
         assertThat(testHash).isNotNull();
         assertThat(testHash).isEmpty();
 
         /* Test: HashSet(int initialCapacity) */
+        testHash = new HashSet<>(initialCapacity);
+        assertThat(testHash).isNotNull();
+        assertThat(testHash).isEmpty();
+
         /* Test: HashSet(int initialCapacity, float loadFactor) */
-        /* Test: HashSet(int initialCapacity, float loadFactor, boolean dummy) */
+        testHash = new HashSet<>(initialCapacity, loadFactor);
+        assertThat(testHash).isNotNull();
+        assertThat(testHash).isEmpty();
+
+        /* Test: HashSet(int initialCapacity, float loadFactor, boolean dummy) is PRIVATE! => NO test */
+
         /* Test: HashSet(Collection<? extends E> c) */
+        testPrep();
+        testHash = new HashSet<>(extendHash);
+        assertThat(testHash).isNotNull();
+        assertThat(testHash).isNotEmpty();
+        testHash.add(2412);
+        assertThat(testHash.size()).isEqualTo(105);
+        assertThat(extendHash.size()).isEqualTo(104); //that shows a deep copy, NOT a pointer copy!
     }
 
     @Test
@@ -119,12 +139,6 @@ public class SetTest {
 
     @Test
     void cloneObject() { }
-
-    @Test
-    void writeObject() { }
-
-    @Test
-    void readObject() { }
 
     /**
      * Sets the test variable to the starting point.
