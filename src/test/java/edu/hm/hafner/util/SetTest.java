@@ -99,13 +99,14 @@ public class SetTest {
         HashSet<Integer> h = createFilledHashSet(1, 2, 3, 4);
         SoftAssertions softAssertions = new SoftAssertions();
 
-        softAssertions.assertThat(h.isEmpty())
+        softAssertions.assertThat(h)
                 .as("HashSet filled")
-                .isFalse();
+                .isNotEmpty();
+
         h.clear();
-        softAssertions.assertThat(h.isEmpty())
+        softAssertions.assertThat(h)
                 .as("HashSet cleared")
-                .isTrue();
+                .isEmpty();
 
         softAssertions.assertAll();
     }
