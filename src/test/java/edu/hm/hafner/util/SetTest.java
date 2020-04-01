@@ -1,5 +1,6 @@
 package edu.hm.hafner.util;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -26,7 +27,31 @@ public class SetTest {
         return hashSet;
     }
 
-    //TODO Add tests for constructors
+    @Test
+    void testConstructorCapacity() {
+        assertThatThrownBy(() -> new HashSet<Integer>(-1))
+                .as("Negative capacity throws IllegalArgumentException")
+                .isExactlyInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void testConstructorCapacityLoadFactor() {
+        SoftAssertions softAssertions = new SoftAssertions();
+
+        softAssertions.assertThatThrownBy(() -> new HashSet<Integer>(-16, (float) 0.75))
+                .as("Negative capacity throws IllegalArgumentException")
+                .isExactlyInstanceOf(IllegalArgumentException.class);
+        softAssertions.assertThatThrownBy(() -> new HashSet<Integer>(16, (float) -0.75))
+                .as("Negative capacity throws IllegalArgumentException")
+                .isExactlyInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void testConstructorCollection() {
+        assertThatThrownBy(() -> new HashSet<Integer>(null))
+                .as("Null collection throws NullPointerException")
+                .isExactlyInstanceOf(NullPointerException.class);
+    }
 
     @Test
     void shouldAdd() {
