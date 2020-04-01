@@ -27,3 +27,6 @@ labels:
   - name: internal
     description: Internal changes without user or API impact
     color: e6e6e6
+  - name: assignment1
+    description: Student assignment 1
+    color: b6e6c6
