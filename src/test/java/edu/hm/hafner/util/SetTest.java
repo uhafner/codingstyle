@@ -44,6 +44,8 @@ public class SetTest {
         softAssertions.assertThatThrownBy(() -> new HashSet<Integer>(16, (float) -0.75))
                 .as("Negative capacity throws IllegalArgumentException")
                 .isExactlyInstanceOf(IllegalArgumentException.class);
+
+        softAssertions.assertAll();
     }
 
     @Test
