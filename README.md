@@ -1,5 +1,5 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/edu.hm.hafner/codingstyle/badge.svg)](https://maven-badges.herokuapp.com/maven-central/edu.hm.hafner/codingstyle)
-[![GitHub Actions](https://github.com/uhafner/codingstyle/workflows/GitHub%20Actions/badge.svg)](https://github.com/uhafner/codingstyle/actions)
+[![GitHub Actions](https://github.com/uhafner/codingstyle/workflows/CI%20on%20all%20platforms/badge.svg?branch=master)](https://github.com/uhafner/codingstyle/actions)
 
 Each Java project should follow a given coding style. I.e., all contributions to the source code should use the same 
 formatting rules, design principles, code patterns, idioms, etc. This coding style provides the set of rules that I am using 

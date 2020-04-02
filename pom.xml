@@ -61,13 +61,8 @@
     <commons.io.version>2.6</commons.io.version>
 
     <!-- Project Test Dependencies Configuration -->
-<<<<<<< HEAD
     <junit.version>5.6.1</junit.version>
-    <junit-platform-launcher.version>1.6.0</junit-platform-launcher.version>
-=======
-    <junit.version>5.6.0</junit.version>
     <junit-platform-launcher.version>1.6.1</junit-platform-launcher.version>
->>>>>>> 06b016e49f58042d8ecd92b488d4f8e93f6db957
     <mockito.version>3.3.3</mockito.version>
     <assertj.version>3.15.0</assertj.version>
     <archunit.version>0.13.1</archunit.version>
@@ -87,7 +82,7 @@
     <maven-pmd-plugin.version>3.13.0</maven-pmd-plugin.version>
     <pmd.version>6.22.0</pmd.version>
     <maven-checkstyle-plugin.version>3.1.1</maven-checkstyle-plugin.version>
-    <checkstyle.version>8.30</checkstyle.version>
+    <checkstyle.version>8.31</checkstyle.version>
     <spotbugs-maven-plugin.version>4.0.0</spotbugs-maven-plugin.version>
     <findsecbugs-plugin.version>1.10.1</findsecbugs-plugin.version>
     <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
