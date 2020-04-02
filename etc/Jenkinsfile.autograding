@@ -42,6 +42,6 @@ node {
     }
 
     stage ('Autograding') {
-        autoGrade('{"analysis":{"maxScore":100,"weightError":-10,"weightHigh":-5,"weightNormal":-2,"weightLow":-1}}')
+        autoGrade('{"analysis":{"maxScore":100,"weightError":-10,"weightHigh":-5,"weightNormal":-2,"weightLow":-1}, "tests":{"maxScore":100,"weightPassed":1,"weightFailures":-5,"weightSkipped":-1}, "coverage":{"maxScore":100,"weightCovered":1,"weightMissed":-1}, "pit":{"maxScore":100,"weightDetected":1,"weightUndetected":-1}}')
     }
 }
