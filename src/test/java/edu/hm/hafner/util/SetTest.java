@@ -2,7 +2,9 @@ package edu.hm.hafner.util;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 import static org.assertj.core.api.Assertions.*;
+
 import java.util.*;
 import java.util.HashSet;
 
@@ -19,7 +21,7 @@ class SetTest {
 
     @Test
     void shouldTestConstructorHashSet() {
-        HashSet<Integer> set = new HashSet();
+        HashSet<Integer> set = new HashSet<Integer>();
         Assertions.assertThat(set).isEmpty();
     }
 
@@ -57,7 +59,7 @@ class SetTest {
 
     @Test
     void shouldAddElements() {
-        HashSet<Integer> set = new HashSet();
+        HashSet<Integer> set = new HashSet<Integer>();
         set.add(eins);
         set.add(zwei);
 
@@ -67,7 +69,7 @@ class SetTest {
 
     @Test
     void shouldContainElements() {
-        HashSet<Integer> set = new HashSet();
+        HashSet<Integer> set = new HashSet<Integer>();
         set.add(eins);
         set.add(zwei);
 
@@ -77,13 +79,13 @@ class SetTest {
 
     @Test
     void shouldReturnTrueWhenEmpty() {
-        HashSet<Integer> set = new HashSet();
+        HashSet<Integer> set = new HashSet<Integer>();
         Assertions.assertThat(set).isEmpty();
     }
 
     @Test
     void shouldReturnFalseWhenNotEmpty() {
-        HashSet<Integer> set = new HashSet();
+        HashSet<Integer> set = new HashSet<Integer>();
         set.add(eins);
         set.add(zwei);
         set.add(drei);
@@ -93,7 +95,7 @@ class SetTest {
 
     @Test
     void shouldRemoveElements() {
-        HashSet<Integer> set = new HashSet();
+        HashSet<Integer> set = new HashSet<Integer>();
         set.add(eins);
         set.add(zwei);
         set.add(drei);
@@ -104,7 +106,7 @@ class SetTest {
 
     @Test
     void shouldClearAllElements() {
-        HashSet<Integer> set = new HashSet();
+        HashSet<Integer> set = new HashSet<Integer>();
         set.add(eins);
         set.add(zwei);
         set.add(drei);
@@ -115,7 +117,7 @@ class SetTest {
 
     @Test
     void shouldReturnCorrectSize() {
-        HashSet<Integer> set = new HashSet();
+        HashSet<Integer> set = new HashSet<Integer>();
         set.add(eins);
         set.add(zwei);
         set.add(drei);
@@ -129,15 +131,15 @@ class SetTest {
 
     @Test
     void shouldNotFindElementWhenEmpty() {
-        HashSet<Integer> set = new HashSet();
-        Iterator<Integer> itr = set.iterator();
+        HashSet<Integer> set = new HashSet<Integer>();
+        Iterator<Integer> it = set.iterator();
 
-        Assertions.assertThat(itr.hasNext()).isFalse();
+        Assertions.assertThat(it.hasNext()).isFalse();
     }
 
     @Test
     void shouldFindElementWhenNotEmpty() {
-        HashSet<Integer> set = new HashSet();
+        HashSet<Integer> set = new HashSet<Integer>();
         set.add(eins);
         set.add(zwei);
         set.add(drei);
@@ -152,7 +154,7 @@ class SetTest {
 
     @Test
     void shouldCloneSpecifiedHashSet() {
-        HashSet<Integer> set = new HashSet();
+        HashSet<Integer> set = new HashSet<Integer>();
         set.add(eins);
         set.add(zwei);
         set.add(drei);
