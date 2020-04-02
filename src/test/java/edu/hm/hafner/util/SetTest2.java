@@ -1,10 +1,10 @@
 package edu.hm.hafner.util;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+//Imports
+import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.*;
+import java.util.Set;
 import java.util.HashSet;
-import java.util.Iterator;
 
 /**
  * Test the class {@link java.util.HashSet}.
@@ -12,7 +12,7 @@ import java.util.Iterator;
  * @author Markus Vierheilig
  */
 
-class SetTest {
+public class SetTest2 {
     private Set<Integer> testHash;
     private Set<Integer> extendHash;
 
@@ -43,24 +43,25 @@ class SetTest {
         assertThat(testHash).isNotNull();
         assertThat(testHash).isNotEmpty();
         testHash.add(2608);
-        assertThat(testHash.size()).isEqualTo(7);
-        assertThat(extendHash.size()).isEqualTo(8); //deep copy, NOT a pointer copy!
+        assertThat(testHash.size()).isEqualTo(5);
+        assertThat(extendHash.size()).isEqualTo(4); //deep copy, NOT a pointer copy!
     }
+
 
 
     @Test
     void iterator() {
         //Test configuration
         testHash = new HashSet<>();
-        testHash.add(8);
-        testHash.add(4711);
+        testHash.add(4);
+        testHash.add(471);
 
         //Test
         assertThat(testHash.iterator().hasNext()).isTrue();
-        assertThat(testHash.iterator().next()).isEqualTo(8);
-        testHash.remove(8);
-        assertThat(testHash.iterator().next()).isEqualTo(4711);
-        testHash.remove(4711);
+        assertThat(testHash.iterator().next()).isEqualTo(4);
+        testHash.remove(4);
+        assertThat(testHash.iterator().next()).isEqualTo(471);
+        testHash.remove(471);
         assertThat(testHash.iterator().hasNext()).isFalse();
     }
 
@@ -70,19 +71,19 @@ class SetTest {
 
         //Test: Sizes after declaration.
         assertThat(testHash.size()).isEqualTo(0);
-        assertThat(extendHash.size()).isEqualTo(8);
+        assertThat(extendHash.size()).isEqualTo(4);
 
         // Test: Adding values
         testHash.addAll(extendHash);
-        assertThat(testHash.size()).isEqualTo(8);
+        assertThat(testHash.size()).isEqualTo(4);
         testHash.add(555);
-        assertThat(testHash.size()).isEqualTo(7);
+        assertThat(testHash.size()).isEqualTo(5);
         testHash.add(555);
-        assertThat(testHash.size()).isEqualTo(7);
+        assertThat(testHash.size()).isEqualTo(5);
 
         // Test: Size after removing a value.
         testHash.remove(555);
-        assertThat(testHash.size()).isEqualTo(8);
+        assertThat(testHash.size()).isEqualTo(4);
         testHash.removeAll(extendHash);
         assertThat(testHash.size()).isEqualTo(0);
     }
@@ -128,9 +129,9 @@ class SetTest {
         assertThat(extendHash.contains(1997)).isTrue();
         assertThat(extendHash.contains(1900)).isTrue();
         assertThat(extendHash.contains(123)).isTrue();
-        assertThat(extendHash.contains(8)).isFalse();
+        assertThat(extendHash.contains(4)).isFalse();
         assertThat(extendHash.contains(0)).isFalse();
-        assertThat(extendHash.contains(1999)).isFalse();
+        assertThat(extendHash.contains(1860)).isFalse();
     }
 
     @Test
@@ -140,7 +141,7 @@ class SetTest {
         testHash.add(11);
         assertThat(testHash.hashCode()).isEqualTo(11);
         testHash.add(300);
-        assertThat(testHash.hashCode()).isEqualTo(300); //11+300
+        assertThat(testHash.hashCode()).isEqualTo(311); //11+300
     }
 
     @Test
