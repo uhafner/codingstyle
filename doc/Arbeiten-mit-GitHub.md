@@ -1,6 +1,6 @@
 Disclaimer: Die folgende Anleitung ist unter großer Hilfe der folgenden beiden Tutorials entstanden:
 - [How To Create a Pull Request on GitHub](https://www.digitalocean.com/community/tutorials/how-to-create-a-pull-request-on-github)
-- [GitHub Standard Fork & Pull Request Workflow](https://gist.githubusercontent.com/Chaser324/ce0505fbed06b947d962/raw/23b18d33a8e1a512c53155aabdf97042d8c63768/GitHub-Forking.md)
+- [GitHub Standard Fork & Pull Request Workflow](https://gist.github.com/Chaser324/ce0505fbed06b947d962)
 
 # Arbeiten mit Pull Requests in GitHub
 
@@ -55,7 +55,8 @@ git checkout newfeature
 ```
 
 Nun geht es ans Programmieren und alle Änderungen werden Schritt für Schritt erstellt. 
-Hier hat sich das Test Driven Development bewährt, doch das soll nicht Teil dieser Anleitung sein.
+Hier hat sich das Test Driven Development bewährt, doch das soll nicht Teil dieser Anleitung sein
+(siehe [Kapitel Testen](Testen.md) in meinen Kodierungsrichtlinien).
 
 Ein weitere sinnvolle Vorgehensweise ist das schrittweise Entwickeln: Die Entwicklung wird nicht in einem
 Rutsch durchgeführt und dann mit einem Commit abgeschlossen, sondern in mehreren Iterationen. Jeder Schritt,
@@ -66,7 +67,7 @@ Beim Commit ist noch wichtig, eine gute Commit-Message zu vergeben, Chris Beam h
 [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/)
 geschrieben, der dies gut erklärt.
 
-## Pull Request vorbereiten
+## Pull Request vorbereiten und stellen
 
 Sobald alle Änderungen lokal mit einem Commit abgeschlossen wurden, können diese in den Fork auf GitHub integriert
 werden. Dazu ist lediglich ein Push erforderlich:
@@ -86,10 +87,36 @@ Beim Anlegen des Pull Request muss nun ein Titel und eine Beschreibung eingegebe
 der Aufgabe enthalten, die Beschreibung ggf. weitere Details dazu. Verwenden von Anrede, Grußformel oder Schlussformel
 sind nicht sinnvoll. 
 
-*Vor* dem finalen Anlegen des Pull Request muss geprüft werden, ob der Pull Request die gewünschten Änderungen 
-enthält -- und auch nur diese! Dazu den Abschnitt Files im Dialog öffnen und die einzelnen Änderungen durchgehen. Tauchen dort 
+**Vor** dem finalen Anlegen des Pull Request muss geprüft werden, ob der Pull Request die gewünschten Änderungen 
+enthält - und auch nur diese! Dazu den Abschnitt Files im Dialog öffnen und die einzelnen Änderungen durchgehen. Tauchen dort 
 Änderungen auf, die nichts mit der Abgabe zu tun haben, so sind diese zu entfernen. Typischerweise sind dies Umformatierungen oder Leerzeilenänderungen
 an nicht beteiligten Abschnitten oder gar komplett andere Dateien. 
+
+Um solche Änderungen in den Pull Request zu integrieren, müssen diese mit dem bereits beschriebenen Workflow umgesetzt 
+werden: im Editor die Änderungen an den entsprechenden Dateien vornehmen, Commit lokal ausführen und dann wieder
+mit Push auf das GitHub Projekt bringen. 
+
+Schaut der Pull Request dann wie gewünscht aus, so kann er mit `Create` erzeugt werden. 
+
+## Den Pull Request aktualisieren
+
+Sobald der Pull Request erzeugt wurde, wird dieser mit verschiedenen Tools automatisch überprüft. Welche Tools zum Tragen 
+kommen, hängt individuell vom Projekt ab. Typischerweise wird eine [Continuous Integration](Continuous-Integration.md) 
+gestartet, die einen Entwicklungs-Lebenszyklus ausführt:
+
+1. Compile
+2. Test
+3. Analyze
+
+Jeder dieser Schritte wird in GitHub mit einem *Ok* oder *Failed* Status markiert. Ist einer der Schritte mit *Failed*
+markiert, muss der Pull Request überarbeitet werden. Dazu muss der Fehler analysiert werden und dann der Quelltext
+an den passenden Stellen aktualisiert werden, sei es bei Compile- oder Testfehlern, bei Unterschreitung der geforderten 
+Testabdeckung oder bei Verstößen gegen die Kodierungsrichtlinien.
+
+Sind alle automatischen Tests auf *Ok* fehlt nur noch das Review des Autors des Orignal Projektes. Dies erfolgt 
+zeilenweise ebenfalls im Pull Request und kann mit den gleichen Schritten wie oben beschrieben eingearbeitet werden.
+Normalerweise erkennt GitHub diese Änderungen automatisch, diese müssen daher nicht explizit als *Gelöst* markiert 
+werden.   
 
 ## Den Fork aktuell halten
 
