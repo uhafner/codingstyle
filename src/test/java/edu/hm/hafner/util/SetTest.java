@@ -104,8 +104,11 @@ public class SetTest {
     void shouldRemove() {
         HashSet<Integer> filledtestHashSet = createFilledIntegerHashSet(1, 2, 3);
 
+        assertThat(filledtestHashSet.contains(1)).isTrue();
         assertThat(filledtestHashSet.remove(1)).isTrue();
+        assertThat(filledtestHashSet.contains(1)).isFalse();
         assertThat(filledtestHashSet.remove(1)).isFalse();
+        assertThat(filledtestHashSet.contains(null)).isFalse();
         assertThat(filledtestHashSet.remove(null)).isFalse();
     }
 
