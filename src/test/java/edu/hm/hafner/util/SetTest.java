@@ -24,17 +24,14 @@ public class SetTest {
 
         /* Test: HashSet() (standard constructor) */
         testHash = new HashSet<>();
-        assertThat(testHash).isNotNull();
         assertThat(testHash).isEmpty();
 
         /* Test: HashSet(int initialCapacity) */
         testHash = new HashSet<>(initialCapacity);
-        assertThat(testHash).isNotNull();
         assertThat(testHash).isEmpty();
 
         /* Test: HashSet(int initialCapacity, float loadFactor) */
         testHash = new HashSet<>(initialCapacity, loadFactor);
-        assertThat(testHash).isNotNull();
         assertThat(testHash).isEmpty();
 
         /* Test: HashSet(int initialCapacity, float loadFactor, boolean dummy) is PRIVATE! => NO test */
@@ -42,10 +39,19 @@ public class SetTest {
         /* Test: HashSet(Collection<? extends E> c) */
         testPrep();
         testHash = new HashSet<>(extendHash);
-        assertThat(testHash).isNotNull();
         assertThat(testHash).isNotEmpty();
         testHash.add(2412);
         assertThat(testHash.size()).isNotEqualTo(extendHash.size()); //that shows a deep copy, NOT a pointer copy!
+
+        /* Test: Fehler der Konstruktoren */
+        assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> new HashSet<Integer>(null));
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> new HashSet<Integer>(-5));
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> new HashSet<Integer>(5,
+                0));
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> new HashSet<Integer>(5,
+                -5));
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> new HashSet<Integer>(-5,
+                0.5f));
     }
 
     @Test
@@ -60,6 +66,19 @@ public class SetTest {
 
         /* Check: First Integer in Map */
         assertThat(testHash.iterator().next()).isEqualTo(0);
+
+        //New Test configuration
+        testHash = new HashSet<>();
+        testHash.add(4);
+        testHash.add(500);
+
+        //Test
+        assertThat(testHash.iterator().hasNext()).isTrue();
+        assertThat(testHash.iterator().next()).isEqualTo(4);
+        testHash.remove(4);
+        assertThat(testHash.iterator().next()).isEqualTo(500);
+        testHash.remove(500);
+        assertThat(testHash.iterator().hasNext()).isFalse();
     }
 
     @Test
@@ -182,7 +201,7 @@ public class SetTest {
         }
         assertThat(extendHash).isNotEmpty();
         assertThat(extendHash.size()).isEqualTo(25);
-        assertThat(extendHash.hashCode()).isEqualTo(325);
+        assertThat(extendHash).contains(25);
 
         /* Test: Adding more than one at once */
         assertThat(testHash).isEmpty();
