@@ -22,36 +22,36 @@ class SetTest {
     @Test
     void shouldTestConstructorHashSet() {
         HashSet<Integer> set = new HashSet<Integer>();
-        Assertions.assertThat(set).isEmpty();
+        assertThat(set).isEmpty();
     }
 
     @Test
     void shouldTestConstructorCollection() {
-        Assertions.assertThatThrownBy(() -> new HashSet<Integer>(null))
+        assertThatThrownBy(() -> new HashSet<Integer>(null))
                 .isExactlyInstanceOf(NullPointerException.class)
                 .as("If the specified collection is null, throws NullPointerException");
     }
 
     @Test
     void shouldTestConstructorCapacity() {
-        Assertions.assertThatThrownBy(() -> new HashSet<Integer>(-1))
+        assertThatThrownBy(() -> new HashSet<Integer>(-1))
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .as("If capacity less than zero, throws IllegalArgumentException");
     }
 
     @Test
     void shouldTestConstructorCapacityLoadFactor() {
-        Assertions.assertThatThrownBy(() -> new HashSet<Integer>(-1, -15))
+        assertThatThrownBy(() -> new HashSet<Integer>(-1, -15))
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .as("If capacity less than zero or loadFactor nonpositve,"
                         + " throws IllegalArgumentException");
 
-        Assertions.assertThatThrownBy(() -> new HashSet<Integer>(1, -15))
+        assertThatThrownBy(() -> new HashSet<Integer>(1, -15))
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .as("If capacity less than zero or loadFactor nonpositve,"
                         + " throws IllegalArgumentException");
 
-        Assertions.assertThatThrownBy(() -> new HashSet<Integer>(-1, 15))
+        assertThatThrownBy(() -> new HashSet<Integer>(-1, 15))
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .as("If capacity less than zero or loadFactor nonpositve,"
                         + " throws IllegalArgumentException");
@@ -63,8 +63,11 @@ class SetTest {
         set.add(eins);
         set.add(zwei);
 
-        Assertions.assertThat(set.add(drei)).isTrue();
-        Assertions.assertThat(set.add(zwei)).isFalse();
+        assertThat(set.add(drei)).isTrue();
+        assertThat(set.add(zwei)).isFalse();
+        assertThat(set).contains(eins);
+        assertThat(set).contains(zwei);
+        assertThat(set).contains(drei);
     }
 
     @Test
@@ -73,14 +76,15 @@ class SetTest {
         set.add(eins);
         set.add(zwei);
 
-        Assertions.assertThat(set).contains(eins, zwei);
-        Assertions.assertThat(set).doesNotContain(vier);
+        Assertions.assertThat(set.contains(eins)).isTrue();
+        Assertions.assertThat(set.contains(zwei)).isTrue();
+        Assertions.assertThat(set.contains(vier)).isFalse();
     }
 
     @Test
     void shouldReturnTrueWhenEmpty() {
         HashSet<Integer> set = new HashSet<Integer>();
-        Assertions.assertThat(set).isEmpty();
+        assertThat(set.isEmpty()).isTrue();
     }
 
     @Test
@@ -90,7 +94,7 @@ class SetTest {
         set.add(zwei);
         set.add(drei);
 
-        Assertions.assertThat(set).isNotEmpty();
+        assertThat(set.isEmpty()).isFalse();
     }
 
     @Test
@@ -100,8 +104,9 @@ class SetTest {
         set.add(zwei);
         set.add(drei);
 
-        Assertions.assertThat(set.remove(eins)).isTrue();
-        Assertions.assertThat(set.remove(eins)).isFalse();
+        assertThat(set.remove(eins)).isTrue();
+        assertThat(set.remove(eins)).isFalse();
+        assertThat(set.contains(eins)).isFalse();
     }
 
     @Test
@@ -112,7 +117,7 @@ class SetTest {
         set.add(drei);
 
         set.clear();
-        Assertions.assertThat(set).isEmpty();
+        assertThat(set).isEmpty();
     }
 
     @Test
@@ -122,11 +127,11 @@ class SetTest {
         set.add(zwei);
         set.add(drei);
 
-        Assertions.assertThat(set).hasSize(drei);
+        assertThat(set).hasSize(drei);
         set.remove(drei);
-        Assertions.assertThat(set).hasSize(zwei);
+        assertThat(set.size()).isEqualTo(zwei);
         set.clear();
-        Assertions.assertThat(set).hasSize(0);
+        assertThat(set.size()).isEqualTo(0);
     }
 
     @Test
@@ -134,7 +139,7 @@ class SetTest {
         HashSet<Integer> set = new HashSet<Integer>();
         Iterator<Integer> it = set.iterator();
 
-        Assertions.assertThat(it.hasNext()).isFalse();
+        assertThat(it.hasNext()).isFalse();
     }
 
     @Test
@@ -145,11 +150,11 @@ class SetTest {
         set.add(drei);
         Iterator<Integer> itr = set.iterator();
 
-        Assertions.assertThat(itr.hasNext()).isTrue();
-        Assertions.assertThat(itr.next()).isEqualTo(eins);
-        Assertions.assertThat(itr.next()).isEqualTo(zwei);
-        Assertions.assertThat(itr.next()).isEqualTo(drei);
-        Assertions.assertThat(itr.hasNext()).isFalse();
+        assertThat(itr.hasNext()).isTrue();
+        assertThat(itr.next()).isEqualTo(eins);
+        assertThat(itr.next()).isEqualTo(zwei);
+        assertThat(itr.next()).isEqualTo(drei);
+        assertThat(itr.hasNext()).isFalse();
     }
 
     @Test
@@ -162,7 +167,9 @@ class SetTest {
         HashSet<Integer> cloneSet = new HashSet<Integer>();
         cloneSet = (HashSet) set.clone();
 
-        assertThat(cloneSet).contains(eins, zwei, drei);
+        assertThat(cloneSet).contains(eins);
+        assertThat(cloneSet).contains(zwei);
+        assertThat(cloneSet).contains(drei);
         assertThat(cloneSet).isNotEmpty();
         assertThat(cloneSet).isEqualTo(set);
     }
