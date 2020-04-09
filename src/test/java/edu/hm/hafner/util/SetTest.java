@@ -15,7 +15,75 @@ import static org.assertj.core.api.Assertions.*;
  */
 public class SetTest {
     /**
-     * Test the method size and isEmpty.
+     * Test Constructors.
+     */
+    @Test
+    void shouldTestConstructors(){
+        HashSet set;
+
+        //HashSet()
+        set = new HashSet();
+        assertThat(set).isEmpty();
+
+        //HashSet(int initialCapacity)
+        set = new HashSet(1);
+        assertThat(set).isEmpty();
+
+        //HashSet(int initialCapacity, float loadFactor)
+        set = new HashSet(1, 1);
+        assertThat(set).isEmpty();
+
+        //HashSet(Collection<? extends E> c)
+        set = new HashSet(Arrays.asList(0, 1, 2, 3));
+        assertThat(set).isNotEmpty();
+
+        //Test Exceptions
+        assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> new HashSet(null));
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> new HashSet(-1));
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> new HashSet(1,
+                0));
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> new HashSet(1,
+                -1));
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> new HashSet(-1,
+                0.5f));
+    }
+
+    /**
+     * Test method iterator.
+     */
+    @Test
+    void shouldIterator(){
+        //Given
+        HashSet set = new HashSet();
+        //Then
+        assertThat(set.iterator().hasNext()).isFalse();
+        //When
+        set.add(1);
+        set.add(2);
+        //Then
+        assertThat(set.iterator().hasNext()).isTrue();
+        assertThat(set.iterator().next()).isEqualTo(1);
+        set.remove(1);
+        assertThat(set.iterator().next()).isEqualTo(2);
+        set.remove(2);
+        assertThat(set.iterator().hasNext()).isFalse();
+    }
+    /**
+     * Test method isEmpyty.
+     */
+    @Test
+    void shouldReturnIfIsEmpty(){
+        //Given
+        HashSet set = new HashSet();
+        //Then
+        assertThat(set.isEmpty()).isTrue();
+        //When
+        set.add(1);
+        //Then
+        assertThat(set.isEmpty()).isFalse();
+    }
+    /**
+     * Test method size.
      */
     @Test
     void shouldReturnTheSize() {
@@ -138,5 +206,15 @@ public class SetTest {
         assertThat(set.contains(1)).isFalse();
         assertThat(set.contains(3)).isTrue();
         assertThat(set.size()).isEqualTo(1);
+    }
+
+    /**
+     * Test method clone.
+     */
+    @Test
+    void shouldClone() {
+        HashSet set = new HashSet(Arrays.asList(0, 1, 2, 3));
+        Object copy = set.clone();
+        assertThat(set).isEqualTo(copy);
     }
 }
