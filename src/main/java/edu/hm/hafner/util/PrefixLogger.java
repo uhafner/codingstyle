@@ -10,16 +10,24 @@ import com.google.errorprone.annotations.FormatMethod;
  *
  * @author Ullrich Hafner
  */
-class PrefixLogger {
+public class PrefixLogger {
     private final String toolName;
     private final PrintStream delegate;
 
-    PrefixLogger(final PrintStream logger, final String toolName) {
-        if (toolName.contains("[")) {
-            this.toolName = toolName + " ";
+    /**
+     * Creates a new {@link PrefixLogger}.
+     *
+     * @param logger
+     *         the logger to create
+     * @param prefix
+     *         the prefix to print
+     */
+    public PrefixLogger(final PrintStream logger, final String prefix) {
+        if (prefix.contains("[")) {
+            this.toolName = prefix + " ";
         }
         else {
-            this.toolName = String.format("[%s] ", toolName);
+            this.toolName = String.format("[%s] ", prefix);
         }
         delegate = logger;
     }
@@ -35,7 +43,7 @@ class PrefixLogger {
      *         zero.
      */
     @FormatMethod
-    void log(final String format, final Object... args) {
+    public void log(final String format, final Object... args) {
         print(String.format(format, args));
     }
 
@@ -45,7 +53,7 @@ class PrefixLogger {
      * @param lines
      *         the messages to log
      */
-    void logEachLine(final Collection<String> lines) {
+    public void logEachLine(final Collection<String> lines) {
         lines.forEach(this::print);
     }
 
