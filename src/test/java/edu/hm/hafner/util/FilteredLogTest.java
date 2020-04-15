@@ -75,4 +75,16 @@ class FilteredLogTest {
                 "Message", "java.lang.IllegalArgumentException: Cause",
                 "\tat edu.hm.hafner.util.FilteredLogTest.shouldLogExceptions(FilteredLogTest.java:71)");
     }
+
+    @Test
+    void shouldLog20ErrorsByDefault() {
+        FilteredLog filteredLog = new FilteredLog(TITLE);
+
+        for (int i = 0; i < 25; i++) {
+            filteredLog.logError("error" + i);
+            filteredLog.logInfo("info" + i);
+        }
+        assertThat(filteredLog.getErrorMessages()).hasSize(21).contains("error19").doesNotContain("error20");
+        assertThat(filteredLog.getInfoMessages()).hasSize(25).contains("info0").contains("info24");
+    }
 }
