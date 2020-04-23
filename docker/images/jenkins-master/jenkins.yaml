@@ -121,10 +121,6 @@ unclassified:
     localRepository: "default"
   pollSCM:
     pollingThreadCount: 10
-  simple-theme-plugin:
-    elements:
-      - cssUrl:
-          url: "http://localhost:8080/userContent/material-blue-grey.css"
   timestamperConfig:
     allPipelines: true
     elapsedTimeFormat: "'<b>'HH:mm:ss.S'</b> '"
