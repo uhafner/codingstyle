@@ -461,8 +461,7 @@ public class StringUtils {
      *
      * @return A new String if suffix was appended, the same string otherwise.
      */
-    private static String appendIfMissing(final String str, final CharSequence suffix, final boolean ignoreCase,
-            final CharSequence... suffixes) {
+    public static String appendIfMissing(final String str, final CharSequence suffix, final boolean ignoreCase, final CharSequence... suffixes) {
         if (str == null || isEmpty(suffix) || endsWith(str, suffix, ignoreCase)) {
             return str;
         }
@@ -6090,8 +6089,7 @@ public class StringUtils {
      *
      * @return A new String if prefix was prepended, the same string otherwise.
      */
-    private static String prependIfMissing(final String str, final CharSequence prefix, final boolean ignoreCase,
-            final CharSequence... prefixes) {
+    public static String prependIfMissing(final String str, final CharSequence prefix, final boolean ignoreCase, final CharSequence... prefixes) {
         if (str == null || isEmpty(prefix) || startsWith(str, prefix, ignoreCase)) {
             return str;
         }
