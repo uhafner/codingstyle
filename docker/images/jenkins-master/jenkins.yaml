@@ -142,7 +142,7 @@ tool:
           - installSource:
               installers:
                 - maven:
-                    id: "3.6.0"
+                    id: "3.6.3"
   jdk:
     defaultProperties:
       - installSource:
