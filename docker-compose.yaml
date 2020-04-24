@@ -11,11 +11,11 @@ services:
       - 50000:50000
     environment:
       - TRY_UPGRADE_IF_NO_MARKER=true
-      - JAVA_OPTS= -Dhudson.remoting.ClassFilter=com.google.common.collect.ImmutableListMultimap -DexecutableWar.jetty.disableCustomSessionIdCookieName=true -DexecutableWar.jetty.sessionIdCookieName=codingstyle
+      - JAVA_OPTS= -Djenkins.ui.refresh=true -Dhudson.remoting.ClassFilter=com.google.common.collect.ImmutableListMultimap -DexecutableWar.jetty.disableCustomSessionIdCookieName=true -DexecutableWar.jetty.sessionIdCookieName=codingstyle
     user: ${CURRENT_UID}
     restart: always
   java-agent:
     build: ./docker/images/java-agent
     depends_on:
       - jenkins-master
-    restart: always
+    restart: unless-stopped

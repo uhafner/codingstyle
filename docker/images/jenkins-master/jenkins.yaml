@@ -124,7 +124,7 @@ unclassified:
   simple-theme-plugin:
     elements:
       - cssUrl:
-          url: "http://localhost:8080/userContent/material-blue-grey.css"
+          url: ""
   timestamperConfig:
     allPipelines: true
     elapsedTimeFormat: "'<b>'HH:mm:ss.S'</b> '"
@@ -142,7 +142,7 @@ tool:
           - installSource:
               installers:
                 - maven:
-                    id: "3.6.0"
+                    id: "3.6.3"
   jdk:
     defaultProperties:
       - installSource:
