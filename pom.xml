@@ -94,7 +94,7 @@
     <nullaway.version>0.7.5</nullaway.version>
     <maven-depgraph-plugin.version>3.3.0</maven-depgraph-plugin.version>
     <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
-    <revapi-maven-plugin.version>0.11.4</revapi-maven-plugin.version>
+    <revapi-maven-plugin.version>0.11.5</revapi-maven-plugin.version>
     <revapi-java.version>0.21.0</revapi-java.version>
     <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
     <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
