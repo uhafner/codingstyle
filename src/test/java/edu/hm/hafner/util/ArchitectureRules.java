@@ -11,6 +11,7 @@ import com.tngtech.archunit.core.domain.properties.CanBeAnnotated;
 import com.tngtech.archunit.lang.ArchRule;
 
 import static com.tngtech.archunit.core.domain.JavaClass.Predicates.*;
+import static com.tngtech.archunit.lang.conditions.ArchPredicates.*;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
 
 /**
@@ -35,12 +36,17 @@ public final class ArchitectureRules {
 
     /** Prevents that classes use visible but forbidden API. */
     public static final ArchRule NO_FORBIDDEN_PACKAGE_ACCESSED =
-            noClasses()
-            .should().dependOnClassesThat(resideInAnyPackage(
+            noClasses().should().dependOnClassesThat(resideInAnyPackage(
                     "org.apache.commons.lang..",
                     "org.joda.time..",
                     "javax.xml.bind..",
-                    "javax.annotation.."));
+                    "javax.annotation..",
+                    "net.jcip.annotations.."));
+
+    /** Prevents that classes use visible but forbidden API. */
+    public static final ArchRule NO_FORBIDDEN_ANNOTATION_USED =
+            noClasses().should().dependOnClassesThat(
+                    have(type(edu.umd.cs.findbugs.annotations.CheckForNull.class)));
 
     /** Prevents that classes use visible but forbidden API. */
     public static final ArchRule NO_FORBIDDEN_CLASSES_CALLED
