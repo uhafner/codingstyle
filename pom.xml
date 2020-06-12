@@ -229,6 +229,11 @@
           <testTarget>${java.version}</testTarget>
           <annotationProcessorPaths>
             <path>
+              <groupId>com.google.errorprone</groupId>
+              <artifactId>error_prone_core</artifactId>
+              <version>${error-prone.version}</version>
+            </path>
+            <path>
               <groupId>com.uber.nullaway</groupId>
               <artifactId>nullaway</artifactId>
               <version>${nullaway.version}</version>
@@ -264,11 +269,6 @@
             <groupId>org.codehaus.plexus</groupId>
             <artifactId>plexus-compiler-javac-errorprone</artifactId>
             <version>${maven-error-prone-plugin.version}</version>
-          </dependency>
-          <dependency>
-            <groupId>com.google.errorprone</groupId>
-            <artifactId>error_prone_core</artifactId>
-            <version>${error-prone.version}</version>
           </dependency>
         </dependencies>
       </plugin>
