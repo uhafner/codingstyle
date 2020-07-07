@@ -1,5 +1,6 @@
 package edu.hm.hafner.util;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 import org.apache.commons.lang3.StringUtils;
@@ -8,6 +9,7 @@ import com.tngtech.archunit.base.DescribedPredicate;
 import com.tngtech.archunit.core.domain.JavaCall;
 import com.tngtech.archunit.core.domain.JavaModifier;
 import com.tngtech.archunit.core.domain.properties.CanBeAnnotated;
+import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
 import static com.tngtech.archunit.core.domain.JavaClass.Predicates.*;
@@ -23,6 +25,7 @@ public final class ArchitectureRules {
     /** Junit 5 test classes should not be public. */
     public static final ArchRule NO_PUBLIC_TEST_CLASSES =
             noClasses().that().haveSimpleNameEndingWith("Test")
+                    .and().haveSimpleNameNotContaining("_jmh")
                     .and().doNotHaveModifier(JavaModifier.ABSTRACT)
                     .should().bePublic();
 
@@ -31,7 +34,8 @@ public final class ArchitectureRules {
      * These methods are meant to be {@code private}. Only test classes are allowed to call these methods.
      */
     public static final ArchRule NO_TEST_API_CALLED =
-            noClasses().that().haveSimpleNameNotEndingWith("Test")
+            noClasses().that()
+                    .haveSimpleNameNotEndingWith("Test").and().haveSimpleNameNotContaining("Benchmark")
                     .should().callCodeUnitWhere(new AccessRestrictedToTests());
 
     /** Prevents that classes use visible but forbidden API. */
@@ -53,6 +57,13 @@ public final class ArchitectureRules {
             = noClasses()
             .should().callCodeUnitWhere(new TargetIsForbiddenClass(
                     "org.junit.jupiter.api.Assertions", "org.junit.Assert"));
+
+    /** Ensures that the {@code readResolve} method has the correct signature. */
+    @ArchTest
+    public static final ArchRule READ_RESOLVE_SHOULD_BE_PROTECTED =
+            methods().that().haveFullName("readResolve").and().haveRawReturnType(Object.class)
+                    .should().beDeclaredInClassesThat().implement(Serializable.class)
+                    .andShould().beProtected();
 
     /**
      * Matches if a call from outside the defining class uses a method or constructor annotated with {@link
