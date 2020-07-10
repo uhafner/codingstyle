@@ -61,7 +61,7 @@ public final class ArchitectureRules {
     /** Ensures that the {@code readResolve} method has the correct signature. */
     @ArchTest
     public static final ArchRule READ_RESOLVE_SHOULD_BE_PROTECTED =
-            methods().that().haveFullName("readResolve").and().haveRawReturnType(Object.class)
+            methods().that().haveName("readResolve").and().haveRawReturnType(Object.class)
                     .should().beDeclaredInClassesThat().implement(Serializable.class)
                     .andShould().beProtected();
 
