@@ -3,6 +3,7 @@ node {
 
     stage ('Checkout') {
         git branch:'master', url: 'https://github.com/uhafner/codingstyle.git'
+        gitForensics newestBuildIfNotFound: true
     }
 
     stage ('Build and Static Analysis') {
