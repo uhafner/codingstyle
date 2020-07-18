@@ -29,8 +29,7 @@ public final class TreeString implements Serializable {
      * Creates a new root {@link TreeString}.
      */
     TreeString() {
-        this(null, "");
-    }
+        this(null, ""); }
 
     /**
      * Creates a new {@link TreeString} with the given parent and suffix.
@@ -46,8 +45,7 @@ public final class TreeString implements Serializable {
                 .isTrue("if there's a parent '%s', label '%s' can't be empty", parent, label);
 
         this.parent = parent;
-        this.label = label.toCharArray(); // string created as a substring of another string can have a lot of garbage attached to it.
-    }
+        this.label = label.toCharArray(); // string created as a substring of another string can have a lot of garbage attached to it.  }
 
     String getLabel() {
         return new String(label);
@@ -77,10 +75,8 @@ public final class TreeString implements Serializable {
     }
 
     @VisibleForTesting
-    @Nullable
     TreeString getParent() {
-        return parent;
-    }
+        return parent; }
 
     /**
      * How many nodes do we have from the root to this node (including 'this' itself?). Thus depth of the root node is
@@ -110,8 +106,7 @@ public final class TreeString implements Serializable {
 
     @Override
     public int hashCode() {
-        return toString().hashCode();
-    }
+        return toString().hashCode(); }
 
     /**
      * Returns the full string representation.
