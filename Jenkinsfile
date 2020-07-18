@@ -28,13 +28,6 @@ node {
         publishCoverage adapters: [jacocoAdapter('**/*/jacoco.xml')], sourceFileResolver: sourceFiles('STORE_ALL_BUILD')
     }
 
-    stage ('Mutation Coverage') {
-        withMaven {
-            sh "mvn org.pitest:pitest-maven:mutationCoverage"
-        }
-        step([$class: 'PitPublisher', mutationStatsFile: 'target/pit-reports/**/mutations.xml'])
-    }
-
     stage ('Collect Maven Warnings') {
         recordIssues tool: mavenConsole()
     }
