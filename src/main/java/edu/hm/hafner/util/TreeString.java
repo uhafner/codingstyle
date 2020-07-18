@@ -126,8 +126,7 @@ public final class TreeString implements Serializable {
             buf.append(token);
         }
 
-        return buf.toString();
-    }
+        return buf.toString(); }
 
     /**
      * Interns {@link #label}.
@@ -147,8 +146,7 @@ public final class TreeString implements Serializable {
     }
 
     public boolean isBlank() {
-        return StringUtils.isBlank(toString());
-    }
+        return StringUtils.isBlank(toString()); }
 
     /**
      * Creates a {@link TreeString}. Useful if you need to create one-off {@link TreeString} without {@link
@@ -160,6 +158,5 @@ public final class TreeString implements Serializable {
      * @return the new {@link TreeString}
      */
     public static TreeString valueOf(final String string) {
-        return new TreeString(null, string);
-    }
+        return new TreeString(null, string); }
 }
