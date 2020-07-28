@@ -1,0 +1,27 @@
+Index: src/main/java/edu/hm/hafner/util/StringContainsUtils.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package edu.hm.hafner.util;\n\nimport org.apache.commons.lang3.StringUtils;\n\nimport edu.umd.cs.findbugs.annotations.Nullable;\n\n/**\n * A simple helper class in the style of {@link StringUtils} that provides methods to check if strings contain\n * search strings.\n *\n * @author Ullrich Hafner\n */\npublic final class StringContainsUtils {\n    /**\n     * Checks if the provided string contains irrespective of case any of the strings in the given array,\n     * handling {@code null} strings. Case-insensitivity is defined as by {@link String#equalsIgnoreCase(String)}.\n     *\n     * <p>\n     * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will\n     * return {@code false}.\n     * </p>\n     *\n     * <pre>\n     * StringUtils.containsAny(null, *)            = false\n     * StringUtils.containsAny(\"\", *)              = false\n     * StringUtils.containsAny(*, null)            = false\n     * StringUtils.containsAny(*, [])              = false\n     * StringUtils.containsAny(\"abcd\", \"ab\", null) = true\n     * StringUtils.containsAny(\"abcd\", \"ab\", \"cd\") = true\n     * StringUtils.containsAny(\"abc\", \"d\", \"abc\")  = true\n     * StringUtils.containsAny(\"ABC\", \"d\", \"abc\")  = true\n     * </pre>\n     *\n     * @param input\n     *         The string to check, may be {@code null}\n     * @param searchTexts\n     *         The strings to search for, may be empty. Individual CharSequences may be null as well.\n     *\n     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise\n     */\n    public static boolean containsAnyIgnoreCase(@Nullable final CharSequence input,\n            @Nullable final String... searchTexts) {\n        if (StringUtils.isEmpty(input)) {\n            return false;\n        }\n        if (searchTexts == null || searchTexts.length == 0) {\n            return false;\n        }\n\n        for (String searchText : searchTexts) {\n            if (StringUtils.containsIgnoreCase(input, searchText)) {\n                return true;\n            }\n        }\n        return false;\n    }\n\n    private StringContainsUtils() {\n        // prevents instantiation\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/edu/hm/hafner/util/StringContainsUtils.java	(revision 11d6edcf0150dbbea528ad5a21c5b41fdefdea13)
++++ src/main/java/edu/hm/hafner/util/StringContainsUtils.java	(date 1595937366573)
+@@ -55,6 +55,17 @@
+         return false;
+     }
+ 
++    public static int issuesHere(float a, float b, float c, @Nullable String str1, @Nullable String str2, float d,
++            float e, float f, float g, float h, float i, float j) {
++        if (str1 == str2) {
++            return (int)a;
++        } else if (str1.equals(str2)) {
++            return (int)b;
++        } else {
++            return (int)c;
++        }
++    }
++
+     private StringContainsUtils() {
+         // prevents instantiation
+     }

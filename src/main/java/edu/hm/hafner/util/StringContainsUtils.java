@@ -55,6 +55,17 @@ public final class StringContainsUtils {
         return false;
     }
 
+    public static int issuesHere(float a, float b, float c, @Nullable String str1, @Nullable String str2, float d,
+            float e, float f, float g, float h, float i, float j) {
+        if (str1 == str2) {
+            return (int)a;
+        } else if (str1.equals(str2)) {
+            return (int)b;
+        } else {
+            return (int)c;
+        }
+    }
+
     private StringContainsUtils() {
         // prevents instantiation
     }

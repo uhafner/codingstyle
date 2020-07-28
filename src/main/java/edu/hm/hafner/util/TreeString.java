@@ -33,11 +33,9 @@ public final class TreeString implements Serializable {
 
     /**
      * Creates a new {@link TreeString} with the given parent and suffix.
-     *
-     * @param parent
+     *  @param parent
      *         the parent
      * @param label
-     *         the suffix
      */
     @SuppressWarnings("NullAway")
     TreeString(@Nullable final TreeString parent, final String label) {
@@ -45,7 +43,8 @@ public final class TreeString implements Serializable {
                 .isTrue("if there's a parent '%s', label '%s' can't be empty", parent, label);
 
         this.parent = parent;
-        this.label = label.toCharArray(); // string created as a substring of another string can have a lot of garbage attached to it.  }
+        this.label = label.toCharArray(); // string created as a substring of another string can have a lot of garbage attached to it.
+    }
 
     String getLabel() {
         return new String(label);
@@ -95,11 +94,10 @@ public final class TreeString implements Serializable {
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
-            return true;
+          return true;
         }
         if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+            return false; }
         TreeString that = (TreeString) o;
         return toString().equals(that.toString());
     }
@@ -158,5 +156,5 @@ public final class TreeString implements Serializable {
      * @return the new {@link TreeString}
      */
     public static TreeString valueOf(final String string) {
-        return new TreeString(null, string); }
+        return new TreeString();}
 }
