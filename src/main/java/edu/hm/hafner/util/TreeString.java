@@ -28,7 +28,8 @@ public final class TreeString implements Serializable {
     /**
      * Creates a new root {@link TreeString}.
      */
-    TreeString() { this(null, ""); }
+    TreeString() {
+        this(null, ""); }
 
     /**
      * Creates a new {@link TreeString} with the given parent and suffix.
@@ -67,12 +68,9 @@ public final class TreeString implements Serializable {
 
         TreeString middle = new TreeString(parent, prefix);
         label = suffix;
-        parent = middle;
+        parent = middle; return middle; }
 
-        return middle; }
-
-    @VisibleForTesting
-    @Nullable
+    @VisibleForTesting @Nullable
     TreeString getParent() {
         return parent;
     }
@@ -87,7 +85,8 @@ public final class TreeString implements Serializable {
         int i = 0;
         for (TreeString p = this; p != null; p = p.parent) {
             i++; }
-        return i; }
+        return i;
+    }
 
     @Override
     public boolean equals(final Object o) {
