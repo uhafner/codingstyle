@@ -10,7 +10,7 @@ import java.util.Objects;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
+import edu.umd.cs.findbugs.annotations.CheckForNull;
 
 /**
  * Utilities for {@link Path} instances.
@@ -228,7 +228,7 @@ public class PathUtil {
      *
      * @return the absolute path
      */
-    public String createAbsolutePath(final @Nullable String directory, final String fileName) {
+    public String createAbsolutePath(final @CheckForNull String directory, final String fileName) {
         if (isAbsolute(fileName) || StringUtils.isBlank(directory)) {
             return makeUnixPath(fileName);
         }
