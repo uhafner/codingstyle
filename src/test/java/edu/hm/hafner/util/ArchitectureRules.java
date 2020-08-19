@@ -50,7 +50,7 @@ public final class ArchitectureRules {
     /** Prevents that classes use visible but forbidden API. */
     public static final ArchRule NO_FORBIDDEN_ANNOTATION_USED =
             noClasses().should().dependOnClassesThat(
-                    have(type(edu.umd.cs.findbugs.annotations.CheckForNull.class)));
+                    have(type(edu.umd.cs.findbugs.annotations.Nullable.class)));
 
     /** Prevents that classes use visible but forbidden API. */
     public static final ArchRule NO_FORBIDDEN_CLASSES_CALLED

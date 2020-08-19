@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.hm.hafner</groupId>
@@ -91,7 +92,7 @@
     <pitest-junit5-plugin.version>0.12</pitest-junit5-plugin.version>
     <maven-error-prone-plugin.version>2.8.6</maven-error-prone-plugin.version>
     <error-prone.version>2.4.0</error-prone.version>
-    <nullaway.version>0.7.5</nullaway.version>
+    <nullaway.version>0.8.0</nullaway.version>
     <maven-depgraph-plugin.version>3.3.0</maven-depgraph-plugin.version>
     <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
     <revapi-maven-plugin.version>0.12.1</revapi-maven-plugin.version>
@@ -104,6 +105,16 @@
     <argLine>-Djava.util.logging.config.file=logging.properties</argLine>
 
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.uber.nullaway</groupId>
+        <artifactId>nullaway</artifactId>
+        <version>${nullaway.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
     <dependency>
@@ -258,7 +269,7 @@
             <arg>-Xep:MethodCanBeStatic:OFF</arg>
             <arg>-Xep:WildcardImport:OFF</arg>
             <arg>-Xep:ThrowsUncheckedException:OFF</arg>
-            <arg>-Xep:NullableDereference:OFF</arg> <!-- Exception -->
+            <arg>-Xep:NullableDereference:OFF</arg>
           </compilerArgs>
           <compilerId>javac-with-errorprone</compilerId>
           <forceJavacCompilerUse>true</forceJavacCompilerUse>
@@ -461,6 +472,18 @@
             <revapi.semver.ignore>
               <enabled>true</enabled>
             </revapi.semver.ignore>
+            <revapi.ignore >
+              <item>
+                <code>java.annotation.removed</code>
+                <annotation>@edu.umd.cs.findbugs.annotations.Nullable</annotation>
+                <justification>Annotation should be save to change.</justification>
+              </item>
+              <item>
+                <code>java.annotation.added</code>
+                <annotation>@edu.umd.cs.findbugs.annotations.CheckForNull</annotation>
+                <justification>Annotation should be save to change.</justification>
+              </item>
+            </revapi.ignore>
           </analysisConfiguration>
         </configuration>
         <executions>

@@ -2,7 +2,7 @@ package edu.hm.hafner.util;
 
 import org.apache.commons.lang3.StringUtils;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
+import edu.umd.cs.findbugs.annotations.CheckForNull;
 
 /**
  * A simple helper class in the style of {@link StringUtils} that provides methods to check if strings contain
@@ -38,8 +38,8 @@ public final class StringContainsUtils {
      *
      * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
      */
-    public static boolean containsAnyIgnoreCase(@Nullable final CharSequence input,
-            @Nullable final String... searchTexts) {
+    public static boolean containsAnyIgnoreCase(@CheckForNull final CharSequence input,
+            @CheckForNull final String... searchTexts) {
         if (StringUtils.isEmpty(input)) {
             return false;
         }

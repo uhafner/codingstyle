@@ -8,8 +8,8 @@ import java.util.List;
 
 import com.google.errorprone.annotations.FormatMethod;
 
+import edu.umd.cs.findbugs.annotations.CheckForNull;
 import edu.umd.cs.findbugs.annotations.CheckReturnValue;
-import edu.umd.cs.findbugs.annotations.Nullable;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -59,8 +59,8 @@ public final class Ensure {
      * @return an object condition
      */
     @CheckReturnValue
-    public static ObjectCondition that(@Nullable final Object value,
-            @Nullable final Object... additionalValues) {
+    public static ObjectCondition that(@CheckForNull final Object value,
+            @CheckForNull final Object... additionalValues) {
         return new ObjectCondition(value, additionalValues);
     }
 
@@ -73,7 +73,7 @@ public final class Ensure {
      * @return an iterable condition
      */
     @CheckReturnValue
-    public static IterableCondition that(@Nullable final Iterable<?> value) {
+    public static IterableCondition that(@CheckForNull final Iterable<?> value) {
         return new IterableCondition(value);
     }
 
@@ -86,7 +86,7 @@ public final class Ensure {
      * @return a collection condition
      */
     @CheckReturnValue
-    public static CollectionCondition that(@Nullable final Collection<?> value) {
+    public static CollectionCondition that(@CheckForNull final Collection<?> value) {
         return new CollectionCondition(value);
     }
 
@@ -100,7 +100,7 @@ public final class Ensure {
      */
     @SuppressWarnings("PMD.UseVarargs")
     @CheckReturnValue
-    public static ArrayCondition that(@Nullable final Object[] value) {
+    public static ArrayCondition that(@CheckForNull final Object[] value) {
         return new ArrayCondition(value);
     }
 
@@ -113,7 +113,7 @@ public final class Ensure {
      * @return a string condition
      */
     @CheckReturnValue
-    public static StringCondition that(@Nullable final String value) {
+    public static StringCondition that(@CheckForNull final String value) {
         return new StringCondition(value);
     }
 
@@ -126,7 +126,7 @@ public final class Ensure {
      * @return an exception condition
      */
     @CheckReturnValue
-    public static ExceptionCondition that(@Nullable final Throwable value) {
+    public static ExceptionCondition that(@CheckForNull final Throwable value) {
         return new ExceptionCondition(value);
     }
 
@@ -194,7 +194,7 @@ public final class Ensure {
      * Assertions for iterables.
      */
     public static class IterableCondition extends ObjectCondition {
-        @Nullable
+        @CheckForNull
         private final Iterable<?> value;
 
         /**
@@ -203,7 +203,7 @@ public final class Ensure {
          * @param value
          *         value of the condition
          */
-        public IterableCondition(@Nullable final Iterable<?> value) {
+        public IterableCondition(@CheckForNull final Iterable<?> value) {
             super(value);
 
             this.value = value;
@@ -255,7 +255,7 @@ public final class Ensure {
      * Assertions for iterables.
      */
     public static class CollectionCondition extends IterableCondition {
-        @Nullable
+        @CheckForNull
         private final Collection<?> value;
 
         /**
@@ -265,7 +265,7 @@ public final class Ensure {
          *         value of the condition
          */
         @SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
-        public CollectionCondition(@Nullable final Collection<?> value) {
+        public CollectionCondition(@CheckForNull final Collection<?> value) {
             super(value);
 
             this.value = value;
@@ -350,7 +350,7 @@ public final class Ensure {
      * Assertions for arrays.
      */
     public static class ArrayCondition extends ObjectCondition {
-        @Nullable
+        @CheckForNull
         private final Object[] values;
 
         /**
@@ -361,7 +361,7 @@ public final class Ensure {
          */
         @SuppressWarnings({"AssignmentToCollectionOrArrayFieldFromParameter", "PMD.ArrayIsStoredDirectly", "PMD.UseVarargs"})
         @SuppressFBWarnings("EI2")
-        public ArrayCondition(@Nullable final Object[] values) {
+        public ArrayCondition(@CheckForNull final Object[] values) {
             super(values);
 
             this.values = values;
@@ -413,7 +413,7 @@ public final class Ensure {
      * Assertions for strings.
      */
     public static class StringCondition extends ObjectCondition {
-        @Nullable
+        @CheckForNull
         private final String value;
 
         /**
@@ -422,7 +422,7 @@ public final class Ensure {
          * @param value
          *         value of the condition
          */
-        public StringCondition(@Nullable final String value) {
+        public StringCondition(@CheckForNull final String value) {
             super(value);
 
             this.value = value;
@@ -509,9 +509,9 @@ public final class Ensure {
      * Assertions for objects.
      */
     public static class ObjectCondition {
-        @Nullable
+        @CheckForNull
         private final Object value;
-        @Nullable
+        @CheckForNull
         private final Object[] additionalValues;
 
         /**
@@ -520,7 +520,7 @@ public final class Ensure {
          * @param value
          *         value of the condition
          */
-        public ObjectCondition(@Nullable final Object value) {
+        public ObjectCondition(@CheckForNull final Object value) {
             this(value, new Object[0]);
         }
 
@@ -534,7 +534,7 @@ public final class Ensure {
          */
         @SuppressFBWarnings("EI2")
         @SuppressWarnings({"AssignmentToCollectionOrArrayFieldFromParameter", "PMD.ArrayIsStoredDirectly"})
-        public ObjectCondition(@Nullable final Object value, @Nullable final Object... additionalValues) {
+        public ObjectCondition(@CheckForNull final Object value, @CheckForNull final Object... additionalValues) {
             this.value = value;
             this.additionalValues = additionalValues;
         }
@@ -740,7 +740,7 @@ public final class Ensure {
      * Assertions for exceptions.
      */
     public static class ExceptionCondition {
-        @Nullable
+        @CheckForNull
         private final Throwable value;
 
         /**
@@ -749,7 +749,7 @@ public final class Ensure {
          * @param value
          *         value of the condition
          */
-        public ExceptionCondition(@Nullable final Throwable value) {
+        public ExceptionCondition(@CheckForNull final Throwable value) {
             this.value = value;
         }
 
