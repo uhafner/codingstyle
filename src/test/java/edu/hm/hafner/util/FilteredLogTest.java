@@ -81,8 +81,8 @@ class FilteredLogTest {
         FilteredLog filteredLog = new FilteredLog(TITLE);
 
         for (int i = 0; i < 25; i++) {
-            filteredLog.logError("error" + i);
-            filteredLog.logInfo("info" + i);
+            filteredLog.logError("error%d", i);
+            filteredLog.logInfo("info%d", i);
         }
         assertThat(filteredLog.getErrorMessages()).hasSize(21).contains("error19").doesNotContain("error20");
         assertThat(filteredLog.getInfoMessages()).hasSize(25).contains("info0").contains("info24");
