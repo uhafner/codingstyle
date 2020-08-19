@@ -1,0 +1,18 @@
+version: 2
+updates:
+- package-ecosystem: maven
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: org.eclipse.collections:eclipse-collections
+    versions:
+    - "> 9.2.0"
+  - dependency-name: org.revapi:revapi-java
+    versions:
+    - "< 0.20.2"
+  - dependency-name: org.revapi:revapi-maven-plugin
+    versions:
+    - "< 0.11.4"
