@@ -5,6 +5,9 @@
       <Class name="~.*\$.*" />
   </Match>
   <Match>
+      <Class name="~.*_jmh.*" />
+  </Match>
+  <Match>
       <Bug code="NM" />
       <Class name="~.*Assertions.*" />
   </Match>
