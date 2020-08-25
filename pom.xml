@@ -259,6 +259,7 @@
             <arg>-Xep:NullAway:WARN</arg>
             <arg>-XepOpt:NullAway:AnnotatedPackages=edu.hm.hafner</arg>
             <!-- Disabled Rules -->
+            <arg>-Xep:ReturnMissingNullable:OFF</arg>
             <arg>-Xep:PreferJavaTimeOverload:OFF</arg>
             <arg>-Xep:EqualsGetClass:OFF</arg>
             <arg>-Xep:AndroidJdkLibsChecker:OFF</arg>
