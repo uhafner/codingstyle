@@ -152,4 +152,15 @@ public class FilteredLog implements Serializable {
     public List<String> getErrorMessages() {
         return Collections.unmodifiableList(errorMessages);
     }
+
+    /**
+     * Merges the info and error messages of the other log.
+     *
+     * @param other
+     *         the log to merge
+     */
+    public void merge(final FilteredLog other) {
+        infoMessages.addAll(other.infoMessages);
+        errorMessages.addAll(other.errorMessages);
+    }
 }

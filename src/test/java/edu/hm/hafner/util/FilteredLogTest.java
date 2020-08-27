@@ -2,7 +2,7 @@ package edu.hm.hafner.util;
 
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
+import static edu.hm.hafner.util.assertions.Assertions.*;
 
 /**
  * Tests the class {@link FilteredLog}.
@@ -16,9 +16,9 @@ class FilteredLogTest {
     void shouldLogNothing() {
         FilteredLog filteredLog = new FilteredLog(TITLE, 5);
 
-        assertThat(filteredLog.getErrorMessages()).isEmpty();
+        assertThat(filteredLog).hasNoErrorMessages();
         filteredLog.logSummary();
-        assertThat(filteredLog.getErrorMessages()).isEmpty();
+        assertThat(filteredLog).hasNoErrorMessages();
     }
 
     @Test
@@ -55,13 +55,30 @@ class FilteredLogTest {
 
         filteredLog.logSummary();
 
-        assertThat(filteredLog.getErrorMessages()).containsExactly(TITLE, "1", "2", "3", "4", "5",
+        assertThat(filteredLog).hasOnlyErrorMessages(TITLE, "1", "2", "3", "4", "5",
                 "  ... skipped logging of 2 additional errors ...");
         assertThat(filteredLog.size()).isEqualTo(7);
     }
 
     private void assertThatExactly5MessagesAreLogged(final FilteredLog filteredLog) {
-        assertThat(filteredLog.getErrorMessages()).containsExactly(TITLE, "1", "2", "3", "4", "5");
+        assertThat(filteredLog).hasOnlyErrorMessages(TITLE, "1", "2", "3", "4", "5");
+    }
+
+    @Test
+    void shouldMergeLogger() {
+        FilteredLog parent = new FilteredLog("Parent Errors");
+
+        parent.logInfo("parent Info 1");
+        parent.logError("parent Error 1");
+
+        FilteredLog child = new FilteredLog("Child Errors");
+        child.logInfo("child Info 1");
+        child.logError("child Error 1");
+
+        parent.merge(child);
+
+        assertThat(parent).hasOnlyInfoMessages("parent Info 1", "child Info 1");
+        assertThat(parent).hasOnlyErrorMessages("Parent Errors", "parent Error 1", "Child Errors", "child Error 1");
     }
 
     @Test
@@ -71,9 +88,8 @@ class FilteredLogTest {
         filteredLog.logException(new IllegalArgumentException("Cause"), "Message");
         filteredLog.logException(new IllegalArgumentException(""), "Message");
 
-        assertThat(filteredLog.getErrorMessages()).contains(TITLE,
-                "Message", "java.lang.IllegalArgumentException: Cause",
-                "\tat edu.hm.hafner.util.FilteredLogTest.shouldLogExceptions(FilteredLogTest.java:71)");
+        assertThat(filteredLog).hasErrorMessages(TITLE,
+                "Message", "java.lang.IllegalArgumentException: Cause");
     }
 
     @Test

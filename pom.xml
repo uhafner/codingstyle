@@ -99,6 +99,7 @@
     <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
     <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
     <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+    <assertj-assertions-generator-maven-plugin.version>2.2.0</assertj-assertions-generator-maven-plugin.version>
 
     <!-- Maven Surefire ArgLine -->
     <argLine>-Djava.util.logging.config.file=logging.properties</argLine>
@@ -356,6 +357,44 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-assertions-generator-maven-plugin</artifactId>
+        <version>${assertj-assertions-generator-maven-plugin.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate-assertions</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <quiet>true</quiet>
+          <cleanTargetDir>true</cleanTargetDir>
+          <hierarchical>false</hierarchical>
+          <generateBddAssertions>false</generateBddAssertions>
+          <generateJUnitSoftAssertions>false</generateJUnitSoftAssertions>
+          <generateSoftAssertions>true</generateSoftAssertions>
+          <templates>
+            <templatesDirectory>${project.basedir}/etc/assertj-templates/</templatesDirectory>
+            <assertionsEntryPointClass>assertions_entry_point_class_template.txt</assertionsEntryPointClass>
+            <softEntryPointAssertionClass>soft_assertions_entry_point_class_template.txt</softEntryPointAssertionClass>
+            <objectAssertion>has_assertion_template.txt</objectAssertion>
+          </templates>
+          <packages>
+            <package>edu.hm.hafner.util</package>
+          </packages>
+          <entryPointClassPackage>edu.hm.hafner.util.assertions</entryPointClassPackage>
+        </configuration>
+        <dependencies>
+          <!-- Without this dependency mvn test will fail due to a class not found exception -->
+          <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13</version>
+          </dependency>
+        </dependencies>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
