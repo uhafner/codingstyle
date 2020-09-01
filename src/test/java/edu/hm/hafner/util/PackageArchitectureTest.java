@@ -2,6 +2,7 @@ package edu.hm.hafner.util;
 
 import java.net.URL;
 
+import com.tngtech.archunit.core.importer.ImportOption.DoNotIncludeTests;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
@@ -16,7 +17,7 @@ import static com.tngtech.archunit.library.plantuml.PlantUmlArchCondition.*;
  * @author Ullrich Hafner
  */
 @SuppressWarnings("hideutilityclassconstructor")
-@AnalyzeClasses(packages = "edu.hm.hafner..")
+@AnalyzeClasses(packages = "edu.hm.hafner..", importOptions = DoNotIncludeTests.class)
 class PackageArchitectureTest {
     private static final URL PACKAGE_DESIGN = PackageArchitectureTest.class.getResource("/design.puml");
 
