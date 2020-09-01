@@ -76,7 +76,6 @@
     <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
     <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
     <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
-    <maven-buildhelper-plugin.version>3.0.0</maven-buildhelper-plugin.version>
     <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
     <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
     <maven-pmd-plugin.version>3.13.0</maven-pmd-plugin.version>
