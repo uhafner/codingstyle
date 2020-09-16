@@ -9,7 +9,7 @@ import static edu.hm.hafner.util.assertions.Assertions.*;
  *
  * @author Ullrich Hafner
  */
-class FilteredLogTest {
+class FilteredLogTest extends SerializableTest<FilteredLog> {
     private static final String TITLE = "Title: ";
 
     @Test
@@ -94,13 +94,35 @@ class FilteredLogTest {
 
     @Test
     void shouldLog20ErrorsByDefault() {
+        FilteredLog filteredLog = createLogWith20Elements();
+
+        assertThat(filteredLog.getErrorMessages()).hasSize(21).contains("error19").doesNotContain("error20");
+        assertThat(filteredLog.getInfoMessages()).hasSize(25).contains("info0").contains("info24");
+    }
+
+    private FilteredLog createLogWith20Elements() {
         FilteredLog filteredLog = new FilteredLog(TITLE);
 
         for (int i = 0; i < 25; i++) {
             filteredLog.logError("error%d", i);
             filteredLog.logInfo("info%d", i);
         }
-        assertThat(filteredLog.getErrorMessages()).hasSize(21).contains("error19").doesNotContain("error20");
-        assertThat(filteredLog.getInfoMessages()).hasSize(25).contains("info0").contains("info24");
+        return filteredLog;
+    }
+
+    @Override
+    protected FilteredLog createSerializable() {
+        return createLogWith20Elements();
+    }
+
+    /** Actually tests {@link edu.hm.hafner.util.SerializableTest}. */
+    @Test
+    void shouldManuallyUseSerializationHelpers() {
+        FilteredLog serializable = createSerializable();
+
+        byte[] bytes = toByteArray(serializable);
+        FilteredLog restored = restore(bytes);
+
+        assertThat(restored).isEqualTo(serializable);
     }
 }
