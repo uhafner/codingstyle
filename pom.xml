@@ -524,6 +524,11 @@
                 <annotation>@edu.umd.cs.findbugs.annotations.CheckForNull</annotation>
                 <justification>Annotation should be save to change.</justification>
               </item>
+              <item>
+                <code>java.annotation.added</code>
+                <annotation>@edu.hm.hafner.util.Generated</annotation>
+                <justification>Annotation should be save to change.</justification>
+              </item>
             </revapi.ignore>
           </analysisConfiguration>
         </configuration>
