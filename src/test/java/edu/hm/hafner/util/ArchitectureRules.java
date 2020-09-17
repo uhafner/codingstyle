@@ -22,6 +22,10 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
  * @author Ullrich Hafner
  */
 public final class ArchitectureRules {
+    private ArchitectureRules() {
+        // prevents instantiation
+    }
+
     /** Junit 5 test classes should not be public. */
     public static final ArchRule NO_PUBLIC_TEST_CLASSES =
             noClasses().that().haveSimpleNameEndingWith("Test")
@@ -58,7 +62,7 @@ public final class ArchitectureRules {
             .should().callCodeUnitWhere(new TargetIsForbiddenClass(
                     "org.junit.jupiter.api.Assertions", "org.junit.Assert"));
 
-    /** Ensures that the {@code readResolve} method has the correct signature. */
+    /** Ensures that the {@code readResolve} methods are protected so sub classes can call the parent method. */
     @ArchTest
     public static final ArchRule READ_RESOLVE_SHOULD_BE_PROTECTED =
             methods().that().haveName("readResolve").and().haveRawReturnType(Object.class)
@@ -107,9 +111,5 @@ public final class ArchitectureRules {
             return StringUtils.containsAny(input.getTargetOwner().getFullName(), classes)
                     && !input.getName().equals("assertTimeoutPreemptively");
         }
-    }
-
-    private ArchitectureRules() {
-        // prevents instantiation
     }
 }
