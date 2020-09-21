@@ -41,6 +41,23 @@ public abstract class ResourceTest {
     }
 
     /**
+     * Creates an empty file in the default temporary-file directory, using
+     * the prefix and suffix "test" to generate its name. The resulting {@code
+     * Path} is associated with the default {@code FileSystem}.
+     *
+     * @return  the path to the newly created file that did not exist before
+     *          this method was invoked
+     */
+    protected Path createTempFile() {
+        try {
+            return Files.createTempFile("test", ".test");
+        }
+        catch (IOException | IllegalArgumentException | UnsupportedOperationException | SecurityException exception) {
+            throw new AssertionError(exception);
+        }
+    }
+
+    /**
      * Reads all the bytes from a file. The method ensures that the file is closed when all bytes have been read or an
      * I/O error, or other runtime exception, is thrown.
      *

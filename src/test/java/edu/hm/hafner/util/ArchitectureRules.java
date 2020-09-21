@@ -109,7 +109,7 @@ public final class ArchitectureRules {
         @Override
         public boolean apply(final JavaCall<?> input) {
             return StringUtils.containsAny(input.getTargetOwner().getFullName(), classes)
-                    && !input.getName().equals("assertTimeoutPreemptively");
+                    && !"assertTimeoutPreemptively".equals(input.getName());
         }
     }
 }
