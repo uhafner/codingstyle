@@ -19,6 +19,13 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
  * @author Ullrich Hafner
  */
 public final class ArchitectureRules {
+    /**
+     * Matches if a code unit of one of the registered classes has been called.
+     */
+    private ArchitectureRules() {
+        // prevents instantiation
+    }
+
     /** Junit 5 test classes should not be public. */
     public static final ArchRule NO_PUBLIC_TEST_CLASSES =
             noClasses().that().haveSimpleNameEndingWith("Test")
@@ -47,7 +54,6 @@ public final class ArchitectureRules {
             = noClasses()
             .should().callCodeUnitWhere(new TargetIsForbiddenClass(
                     "org.junit.jupiter.api.Assertions", "org.junit.Assert"));
-
     /**
      * Matches if a call from outside the defining class uses a method or constructor annotated with {@link
      * VisibleForTesting}. There are two exceptions:
@@ -57,6 +63,7 @@ public final class ArchitectureRules {
      * </ul>
      */
     private static class AccessRestrictedToTests extends DescribedPredicate<JavaCall<?>> {
+
         AccessRestrictedToTests() {
             super("access is restricted to tests");
         }
@@ -67,16 +74,13 @@ public final class ArchitectureRules {
                     && !input.getOriginOwner().equals(input.getTargetOwner())
                     && !isVisibleForTesting(input.getOrigin());
         }
-
         private boolean isVisibleForTesting(final CanBeAnnotated target) {
             return target.isAnnotatedWith(VisibleForTesting.class);
         }
-    }
 
-    /**
-     * Matches if a code unit of one of the registered classes has been called.
-     */
+    }
     private static class TargetIsForbiddenClass extends DescribedPredicate<JavaCall<?>> {
+
         private final String[] classes;
 
         TargetIsForbiddenClass(final String... classes) {
@@ -84,15 +88,11 @@ public final class ArchitectureRules {
 
             this.classes = Arrays.copyOf(classes, classes.length);
         }
-
         @Override
         public boolean apply(final JavaCall<?> input) {
             return StringUtils.containsAny(input.getTargetOwner().getFullName(), classes)
-                    && !input.getName().equals("assertTimeoutPreemptively");
+                    && !"assertTimeoutPreemptively".equals(input.getName());
         }
-    }
 
-    private ArchitectureRules() {
-        // prevents instantiation
     }
 }
