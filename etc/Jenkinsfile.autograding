@@ -2,7 +2,8 @@ node {
     def mvnHome = tool 'mvn-default'
 
     stage ('Checkout') {
-        git branch:'master', url: 'https://github.com/uhafner/codingstyle.git'
+        git branch:'master', url: 'https://github.com/uhafner/codingstyle.git', credentialsId: 'github-app'
+
     }
 
     stage ('Build and Static Analysis') {
