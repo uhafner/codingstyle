@@ -17,7 +17,7 @@ import static com.tngtech.archunit.library.plantuml.PlantUmlArchCondition.*;
  * @author Ullrich Hafner
  */
 @SuppressWarnings("hideutilityclassconstructor")
-@AnalyzeClasses(packages = "edu.hm.hafner..")
+@AnalyzeClasses(packages = "edu.hm.hafner..", importOptions = DoNotIncludeTests.class)
 class PackageArchitectureTest {
     private static final URL PACKAGE_DESIGN = PackageArchitectureTest.class.getResource("/design.puml");
 
@@ -38,4 +38,6 @@ class PackageArchitectureTest {
     @ArchTest
     static final ArchRule NO_FORBIDDEN_CLASSES_CALLED = ArchitectureRules.NO_FORBIDDEN_CLASSES_CALLED;
 
+    @ArchTest
+    static final ArchRule NO_FORBIDDEN_ANNOTATION_USED = ArchitectureRules.NO_FORBIDDEN_ANNOTATION_USED;
 }

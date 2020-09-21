@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
@@ -151,5 +152,35 @@ public class FilteredLog implements Serializable {
      */
     public List<String> getErrorMessages() {
         return Collections.unmodifiableList(errorMessages);
+    }
+
+    /**
+     * Merges the info and error messages of the other log.
+     *
+     * @param other
+     *         the log to merge
+     */
+    public void merge(final FilteredLog other) {
+        infoMessages.addAll(other.infoMessages);
+        errorMessages.addAll(other.errorMessages);
+    }
+
+    @Override @Generated
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        FilteredLog that = (FilteredLog) o;
+        return maxLines == that.maxLines && lines == that.lines && title.equals(that.title)
+                && infoMessages.equals(that.infoMessages)
+                && errorMessages.equals(that.errorMessages);
+    }
+
+    @Override @Generated
+    public int hashCode() {
+        return Objects.hash(title, maxLines, lines, infoMessages, errorMessages);
     }
 }
