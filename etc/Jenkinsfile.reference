@@ -6,8 +6,8 @@ node {
     }
 
     stage ('Git mining') {
-        gitForensics
-        mineRepository
+        gitForensics()
+        mineRepository()
     }
 
     stage ('Build and Static Analysis') {
@@ -27,7 +27,6 @@ node {
             cpd(pattern: 'target/cpd.xml'),
             taskScanner(highTags:'FIXME', normalTags:'TODO', includePattern: '**/*.java', excludePattern: 'target/**/*')],
             qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
-
         recordIssues tool: mavenConsole()
     }
 
