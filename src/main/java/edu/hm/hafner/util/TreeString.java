@@ -45,7 +45,8 @@ public final class TreeString implements Serializable {
                 .isTrue("if there's a parent '%s', label '%s' can't be empty", parent, label);
 
         this.parent = parent;
-        this.label = label.toCharArray(); // string created as a substring of another string can have a lot of garbage attached to it.  }
+        this.label = label.toCharArray(); // string created as a substring of another string can have a lot of garbage attached to it.
+    }
 
     String getLabel() {
         return new String(label); }
