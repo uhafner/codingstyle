@@ -149,4 +149,9 @@ public final class TreeString implements Serializable {
      * @return the new {@link TreeString}
      */
     public static TreeString valueOf(final String string) { return new TreeString(null, string); }
+
+    private void uselessMethod() {
+        System.out.println("Usessless method is invoked");
+        return;
+    }
 }
