@@ -114,7 +114,7 @@ git push --set-upstream origin newfeature
 Nun sind diese Änderungen auch Online im eigenen GitHub Projekt sichtbar. GitHub erkennt dort automatisch,
 dass ein neuer Branch angelegt wurde und bietet eine entsprechende Schaltfläche in der Oberfläche an.
 Alternativ kann auch über den 
-[Pull Request Dialog](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork)
+[Pull Request Dialog](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)
 ein neuer Pull Request angelegt werden.      
 
 Beim Anlegen des Pull Request muss nun ein Titel und eine Beschreibung eingegeben werden. Der Titel sollte den Namen
