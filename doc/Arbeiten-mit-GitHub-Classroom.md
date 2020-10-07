@@ -95,7 +95,8 @@ Commit abgeschlossen werden. Dann lassen sich die Änderungen hinterher besser n
 
 Beim Commit ist noch wichtig, eine gute Commit-Message zu vergeben, Chris Beam hat hierzu den hilfreichen Artikel
 [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/)
-geschrieben, der dies gut erklärt.
+geschrieben, der dies gut erklärt. Das muss nicht so formal sein, wie dort beschrieben, hier sehen Sie einige
+Beispiele in meinem Projekt [codingstyle](https://github.com/uhafner/codingstyle/commits/master).
 
 Je nach Aufgabenstellung gibt es im Projekt eine [GitHub Action](https://docs.github.com/en/free-pro-team@latest/actions),
 die das Projekt nach jedem Commit neu baut und überprüft. Siehe dazu auch das 
