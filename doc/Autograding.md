@@ -99,5 +99,3 @@ jeden Commit) eine auswählbares Link, das zu den Ergebnissen führt.
     
 ![Actions Summary](images/actions-overview.png)
 
-
-Hat einer von euch inzwischen eine funktionierende Windows Anleitung für die Java Installation? Ich habe zwei links gefunden, aber mangels eigenem Windows Rechner konnte ich die nicht überprüfen: 
