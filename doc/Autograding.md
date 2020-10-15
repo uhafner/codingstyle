@@ -99,3 +99,26 @@ jeden Commit) eine auswählbares Link, das zu den Ergebnissen führt.
     
 ![Actions Summary](images/actions-overview.png)
 
+Wenn neben dem Commit ein grüner Haken angezeigt wird, haben Sie Schritt 1 schon mal erfolgreich absolviert: Ihr Programm
+kompiliert fehlerfrei. Bei einem roten X müssen Sie den Fehler beheben und nochmal neu hochladen. Eine Abgabe, die nicht
+übersetzbar ist, wird automatisch mit 0 Punkten bewertet. 
+
+Die Ergebnisse von Schritt 2 und 3 (und damit die eigentlichen Punkte Ihrer Abgabe) können Sie durch die Detailansicht
+des jeweiligen Commits einsehen. Dazu müssen Sie erst in die Detailsicht navigieren:
+
+![Actions Details](images/actions-details.png)
+
+Von dort haben Sie Zugriff auf das Ergebnis des Java Compilers. Dort müssen Sie nur hineinschauen, falls Sie hier 
+ein rotes Kreuz sehen. Diese Ausgabe können Sie auch lokal über Maven erhalten:
+
+![Compiler Build Log](images/actions-buildlog.png)
+
+Das wichtigste Ergebnis für die Abgabe ist dann die Zusammenfassung aus dem Autograding. Dort sehen Sie die Punkte für
+die Abgabe. Die Punkte berechnen sich aus zwei Teilen: aus den Testergebnissen (Anzahl der Testfehler) und
+aus den Warnungen der statischen Analyse. In den ersten Abgaben starten wir mit einer festen Punktezahl, von der
+jeweils Punkte bei Testfehlern oder bei Warnungen abgezogen werden.  
+
+![Test and Analysis Results](images/actions-autograding.png)
+
+
+ 
