@@ -84,11 +84,20 @@ ein neuer Commit entdeckt wird (d.h. Sie haben eine Änderung an einer `Assignme
 diese Änderungen abgeholt und Ihr Projekt wird analysiert. Die Analyse umfasst folgende Schritte:
 
 1. Ihr Projekt wird kompiliert. Das ist prinzipiell das gleiche wie in Greenfoot auch. Hier überprüft der Java Compiler,
-ob Sie sich an die Syntax der Sprache Java halten. Haben Sie einen Kompilefehler in Ihrer Lösung, dann bricht hier die
-Verarbeitung mit einer Fehlermeldung ab. Prüfen Sie daher vorher, ob Ihr Projekt fehlerfrei ist. Das können Sie
+ob Sie sich an die Syntax der Sprache Java halten. Haben Sie hier einen Fehler in Ihrer Lösung, dann bricht hier die
+Verarbeitung mit einer Fehlermeldung ab. Prüfen Sie daher vorher lokal, ob Ihr Projekt fehlerfrei ist. Das können Sie
 auf der Console über das Tool *Maven* erreichen, indem Sie das Kommando `mvn clean compile` aufrufen. Am Ende der
 Verarbeitung sollte das Maven mit `[INFO] BUILD SUCCESS` bestätigen.
 2. Automatisierte Tests zu den Aufgaben werden ausgeführt. Zu jeder Abgabe habe ich einen oder mehrere Tests verfasst,
-die Ihre Lösung prüfen. Diese Tests zeigen, ob Sie an alle Fallstricke gedacht haben.
+die Ihre Lösung prüfen. Diese Tests zeigen, ob Sie an alle Fallstricke gedacht haben. 
+3. Ihre Klassen werden einer statischen Analyse unterzogen: dabei untersuchen verschiedene Tools Ihre Abgaben auf
+typische Programmierfehler und auf die Einhaltung meiner [Kodierungsrichtlinien](https://github.com/uhafner/codingstyle).
+ 
+Die Ergebnisse dieser drei Schritte können Sie für Ihre Abgaben sehr einfach nachvollziehen, indem Sie den Karteireiter
+*Actions* in Ihrem GitHub Projekt öffnen. Dort finden Sie für jedes neue Hochladen (d.h. technisch gesehen für
+jeden Commit) eine auswählbares Link, das zu den Ergebnissen führt.
+    
+![Actions Summary](images/actions-overview.png)
 
 
+Hat einer von euch inzwischen eine funktionierende Windows Anleitung für die Java Installation? Ich habe zwei links gefunden, aber mangels eigenem Windows Rechner konnte ich die nicht überprüfen: 
