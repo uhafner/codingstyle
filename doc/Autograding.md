@@ -1,75 +1,59 @@
-= Hinweise zu den Abgaben in Softwareentwicklung I
-:icons: font
-Prof. Dr. Ullrich Hafner <ullrich.hafner@hm.edu>
-:toc-title: Inhaltsverzeichnis
-:chapter-label:
-:chapter-refsig: Kapitel
-:section-label: Abschnitt
-:section-refsig: Abschnitt
+# Hinweise zu den Abgaben in Softwareentwicklung I
 
-:xrefstyle: short
-:sectnums:
-:partnums:
-ifndef::includedir[:imagesdir: ./]
-ifndef::imagesdir[:imagesdir: ./]
-ifndef::plantUMLDir[:plantUMLDir: .plantuml/]
-:figure-caption: Abbildung
-:table-caption: Tabelle
+## Software installieren
 
-== Software installieren
-
-In diesem Semester benötigen wir zunächst das Tool https://www.greenfoot.org/download[GreenFoot], um unsere Programme
-mit Kara zu editieren und auszuführen. Um die Java Programme dabei zu übersetzen brauchen wir auch
-https://jdk.java.net/java-se-ri/11[Java 11]. Dazu können Sie die Downloads von OpenJDK oder
-https://adoptopenjdk.net[AdoptOpenJDK] nutzen.
+In diesem Semester benötigen wir zunächst das Tool [GreenFoot](https://www.greenfoot.org/download), 
+um unsere Programme mit Kara zu editieren und auszuführen. Um die Java Programme dabei zu übersetzen brauchen wir auch
+[Java 11](https://jdk.java.net/java-se-ri/11). Dazu können Sie die Downloads von OpenJDK oder
+[AdoptOpenJDK](https://adoptopenjdk.net) nutzen.
 
 Da wir werden Ihre Abgaben auch automatisiert bewerten, können Sie optional noch das Tool
-https://maven.apache.org/download.cgi[Maven] installieren, um die automatisierte Bewertung auch lokal auszuführen.
+[Maven](https://maven.apache.org/download.cgi) installieren, um die automatisierte Bewertung auch lokal auszuführen.
 Das müssen Sie das  unbedingt, denn Sie haben die Möglichkeit, die Ergebnisse direkt im GitHub Classroom
 anzuschauen.
 
 Alle Programme, die in diesem Semester erstellt werden, müssen in einer Versionsverwaltung abgelegt werden.
-Wir benutzen dafür lokal https://git-scm.com[Git] und sammeln die Ergebnisse dann in https://github.com/[GitHub]
-(siehe <<github-classroom>>).
+Wir benutzen dafür lokal [Git](https://git-scm.com) und sammeln die Ergebnisse dann in [GitHub](https://github.com/)
+(siehe [Abschnitt Github Classroom](#GitHub-classroom)).
 Bitte beachten Sie auch meine separate
-https://github.com/uhafner/codingstyle/blob/master/doc/Arbeiten-mit-GitHub-Classroom.md[Anleitung]
+[Anleitung](https://github.com/uhafner/codingstyle/blob/master/doc/Arbeiten-mit-GitHub-Classroom.md)
 zu Abgaben in GitHub Classroom. Um am Anfang auch schnell mit dem Programmieren zu starten, werden wir dazu erst
 in der zweiten Woche eine Einführung im Praktikum machen.
 
-=== Windows Installation
+### Windows Installation
 
-Laden Sie aktuelle Version von Java 11 von https://adoptopenjdk.net[AdoptOpenJDK] herunter (Achtung: keine neueren oder älteren Versionen nutzen) und
-https://javatutorial.net/set-java-home-windows-10[setzen Sie den Pfad]. Alternativ können Sie auch die Downloads von
-https://adoptopenjdk.net[AdoptOpenJDK] nutzen.
+Laden Sie aktuelle Version von Java 11 von [AdoptOpenJDK](https://adoptopenjdk.net) herunter 
+(Achtung: keine neueren oder älteren Versionen nutzen) und
+[setzen Sie den Pfad](https://javatutorial.net/set-java-home-windows-10). 
+Alternativ können Sie auch die Downloads von [AdoptOpenJDK](https://adoptopenjdk.net) nutzen.
 
 Optional: Maven können Sie als
-https://ftp-stud.hs-esslingen.de/pub/Mirrors/ftp.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.zip[ZIP]
+[ZIP](https://ftp-stud.hs-esslingen.de/pub/Mirrors/ftp.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.zip)
 herunterladen und an einem Pfad Ihrer Wahl entpacken.
-Dann müssen Sie noch den https://mkyong.com/maven/how-to-install-maven-in-windows/[Pfad setzen].
+Dann müssen Sie noch den [Pfad setzen](https://mkyong.com/maven/how-to-install-maven-in-windows/).
 
-=== Unix Installation
+### Unix Installation
 
-Unter macOS und Linux ist das deutlich einfacher. Unter macOS installieren Sie Greenfoot und das JDK mit https://brew.sh[Homebrew]:
-[source,shell script]
-----
+Unter macOS und Linux ist das deutlich einfacher. Unter macOS installieren Sie Greenfoot und das JDK mit 
+[Homebrew](https://brew.sh):
+
+```shell script
 brew cask install adoptopenjdk11 greenfoot
-----
+```
 
 Auch Maven und Git lässt sich so einfach installieren:
 
-[source,shell script]
-----
+```shell script
 brew install git maven
-----
+```
 
 Unter Linux nutzen Sie den Paketmanager Ihrer Distribution. Wer Linux nutzt, wird wissen, wie das geht...
 
-[#github-classroom]
-== GitHub Classroom
+## GitHub Classroom
 
 Wie bereits erwähnt, werden wir die ersten Übungsaufgaben mit Kara in Greenfoot umsetzten. Dazu benötigen wir für
 jede Aufgabe ein entsprechendes Szenario in Greenfoot. Diese Szenarien finden Sie immer in einem entsprechenden
-GitHub Classroom Projekt auf https://github.com/[GitHub]. Das jeweilige Link für den Classroom finden Sie in Moodle.
+GitHub Classroom Projekt auf [GitHub](https://github.com/). Das jeweilige Link für den Classroom finden Sie in Moodle.
 Damit Sie darauf zugreifen können, benötigen Sie einen Account bei GitHub - Sie können einen bestehenden Account nutzen,
 oder einen neuen anlegen. Weitere Details zur Arbeit in GitHub habe ich in
 ein eigenes https://github.com/uhafner/codingstyle/blob/master/doc/Arbeiten-mit-GitHub-Classroom.md[Hilfe-Dokument] gepackt.
@@ -91,7 +75,7 @@ durch Ihre Lösung ersetzten.
 https://github.com/uhafner/codingstyle/blob/master/doc/Arbeiten-mit-GitHub-Classroom.md[separate Anleitung].
 
 [#autograding]
-== Autograding
+## Autograding
 
 Da wir uns in diesem Semester nur virtuell sehen, fehlt das typische über die Schulter schauen, um Ihre Abgaben zu
 diskutieren. Damit Sie schnelles Feedback zu Ihrer Lösung bekommen, habe ich zusammen mit mehreren Studierenden
