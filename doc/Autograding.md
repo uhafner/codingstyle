@@ -99,8 +99,8 @@ jeden Commit) eine auswählbares Link, das zu den Ergebnissen führt.
     
 ![Actions Summary](images/actions-overview.png)
 
-Wenn neben dem Commit ein grüner Haken angezeigt wird, haben Sie Schritt 1 schon mal erfolgreich absolviert: Ihr Programm
-kompiliert fehlerfrei. Bei einem roten X müssen Sie den Fehler beheben und nochmal neu hochladen. Eine Abgabe, die nicht
+Wenn neben dem Commit ein grüner Haken (✅) angezeigt wird, haben Sie Schritt 1 schon mal erfolgreich absolviert: Ihr Programm
+kompiliert fehlerfrei. Bei einem roten Kreuz (❌) müssen Sie den Fehler beheben und nochmal neu hochladen. Eine Abgabe, die nicht
 übersetzbar ist, wird automatisch mit 0 Punkten bewertet. 
 
 Die Ergebnisse von Schritt 2 und 3 (und damit die eigentlichen Punkte Ihrer Abgabe) können Sie durch die Detailansicht
