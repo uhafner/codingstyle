@@ -106,7 +106,7 @@ kompiliert fehlerfrei. Bei einem roten Kreuz (❌) müssen Sie den Fehler behebe
 Die Ergebnisse von Schritt 2 und 3 (und damit die eigentlichen Punkte Ihrer Abgabe) können Sie durch die Detailansicht
 des jeweiligen Commits einsehen. Dazu müssen Sie erst in die Detailsicht navigieren:
 
-![Actions Details](images/actions-details.png)
+![test image size](images/actions-details.png){:width="50%"}
 
 Von dort haben Sie Zugriff auf das Ergebnis des Java Compilers. Dort müssen Sie nur hineinschauen, falls Sie hier 
 ein rotes Kreuz sehen. Diese Ausgabe können Sie auch lokal über Maven erhalten:
