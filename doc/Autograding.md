@@ -56,9 +56,9 @@ jede Aufgabe ein entsprechendes Szenario in Greenfoot. Diese Szenarien finden Si
 GitHub Classroom Projekt auf [GitHub](https://github.com/). Das jeweilige Link für den Classroom finden Sie in Moodle.
 Damit Sie darauf zugreifen können, benötigen Sie einen Account bei GitHub - Sie können einen bestehenden Account nutzen,
 oder einen neuen anlegen. Weitere Details zur Arbeit in GitHub habe ich in
-ein eigenes https://github.com/uhafner/codingstyle/blob/master/doc/Arbeiten-mit-GitHub-Classroom.md[Hilfe-Dokument] gepackt.
+ein eigenes [Hilfe-Dokument](https://github.com/uhafner/codingstyle/blob/master/doc/Arbeiten-mit-GitHub-Classroom.md) gepackt.
 
-== Assignment Projekte
+## Assignment Projekte
 
 Für die Bearbeitung der Kara Aufgaben finden Sie im Classroom immer ein fertiges Projekt, dass pro
 Aufgabe ein vorbereitetes Greenfoot-Szenario enthält. Diese Szenarios befinden sich im Ordner `scenarios`.
@@ -66,15 +66,14 @@ Für jede Aufgabe finden Sie in diesem Ordner einen Unterordner. Sie laden solch
 Doppelklick auf die Datei `project.greenfoot` oder indem Sie zunächst Greenfoot starten und dann den entsprechenden
 Ordner auswählen.
 
-Dann können Sie die Aufgabe lösen, und damit die Datei `Assignment*.java` abändern. Sobald Sie die Lösung für die Abgabe
+Dann können Sie die Aufgabe lösen und damit die Datei `Assignment*.java` abändern. Sobald Sie die Lösung für die Abgabe
 haben, können Sie diese in GitHub wieder hochladen. Dazu gibt es 2 Wege:
 
 - Zunächst können Sie die bestehende leere Datei, wie im Praktikum gezeigt, manuell in der Benutzeroberfläche von GitHub
 durch Ihre Lösung ersetzten.
-- Alternativ können Sie mit Git arbeiten, und die Dateien bequem über Konsolenbefehle hochladen. Dazu gibt es eine
-https://github.com/uhafner/codingstyle/blob/master/doc/Arbeiten-mit-GitHub-Classroom.md[separate Anleitung].
+- Alternativ können Sie mit Git arbeiten und die Dateien bequem über Konsolenbefehle hochladen. Dazu gibt es eine
+[separate Anleitung](https://github.com/uhafner/codingstyle/blob/master/doc/Arbeiten-mit-GitHub-Classroom.md).
 
-[#autograding]
 ## Autograding
 
 Da wir uns in diesem Semester nur virtuell sehen, fehlt das typische über die Schulter schauen, um Ihre Abgaben zu
