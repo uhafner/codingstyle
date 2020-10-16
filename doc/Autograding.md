@@ -21,8 +21,10 @@ in der zweiten Woche eine Einführung im Praktikum machen.
 
 ### Windows Installation
 
-Laden Sie aktuelle Version von Java 11 von [AdoptOpenJDK](https://adoptopenjdk.net) herunter 
-(Achtung: keine neueren oder älteren Versionen nutzen). 
+Laden Sie die aktuelle Version von Java 11 von [AdoptOpenJDK](https://adoptopenjdk.net) herunter 
+(Achtung: keine neueren oder älteren Versionen nutzen).
+
+Anschließend laden Sie [Greenfoot](https://www.greenfoot.org/download) als MSI-Installer.
 
 Optional: Maven können Sie als
 [ZIP](https://ftp-stud.hs-esslingen.de/pub/Mirrors/ftp.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.zip)
