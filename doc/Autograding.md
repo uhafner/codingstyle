@@ -4,8 +4,7 @@
 
 In diesem Semester benötigen wir zunächst das Tool [GreenFoot](https://www.greenfoot.org/download), 
 um unsere Programme mit Kara zu editieren und auszuführen. Um die Java Programme dabei zu übersetzen brauchen wir auch
-[Java 11](https://jdk.java.net/java-se-ri/11). Dazu können Sie die Downloads von OpenJDK oder
-[AdoptOpenJDK](https://adoptopenjdk.net) nutzen.
+Java 11. Dazu verwenden Sie bitte die Downloads von [AdoptOpenJDK](https://adoptopenjdk.net).
 
 Da wir werden Ihre Abgaben auch automatisiert bewerten, können Sie optional noch das Tool
 [Maven](https://maven.apache.org/download.cgi) installieren, um die automatisierte Bewertung auch lokal auszuführen.
@@ -23,9 +22,7 @@ in der zweiten Woche eine Einführung im Praktikum machen.
 ### Windows Installation
 
 Laden Sie aktuelle Version von Java 11 von [AdoptOpenJDK](https://adoptopenjdk.net) herunter 
-(Achtung: keine neueren oder älteren Versionen nutzen) und
-[setzen Sie den Pfad](https://javatutorial.net/set-java-home-windows-10). 
-Alternativ können Sie auch die Downloads von [AdoptOpenJDK](https://adoptopenjdk.net) nutzen.
+(Achtung: keine neueren oder älteren Versionen nutzen). 
 
 Optional: Maven können Sie als
 [ZIP](https://ftp-stud.hs-esslingen.de/pub/Mirrors/ftp.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.zip)
