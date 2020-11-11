@@ -83,7 +83,7 @@
     <maven-checkstyle-plugin.version>3.1.1</maven-checkstyle-plugin.version>
     <checkstyle.version>8.37</checkstyle.version>
     <spotbugs-maven-plugin.version>4.1.4</spotbugs-maven-plugin.version>
-    <findsecbugs-plugin.version>1.10.1</findsecbugs-plugin.version>
+    <findsecbugs-plugin.version>1.11.0</findsecbugs-plugin.version>
     <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
     <maven-taglist-plugin.version>2.4</maven-taglist-plugin.version>
     <maven-pitest-plugin.version>1.5.2</maven-pitest-plugin.version>
