@@ -5,7 +5,7 @@ node {
         git branch:'master', url: 'https://github.com/uhafner/codingstyle.git'
     }
 
-    stage ('Build and Static Analysis') {
+    stage ('Build, Test, and Static Analysis') {
         withMaven(maven: 'mvn-default', mavenLocalRepo: '/var/data/m2repository', mavenOpts: '-Xmx768m -Xms512m') {
             sh 'mvn -V -e clean verify -Dmaven.test.failure.ignore -Dgpg.skip'
         }
@@ -14,6 +14,7 @@ node {
         recordIssues tool: errorProne(), healthy: 1, unhealthy: 20
 
         junit testResults: '**/target/*-reports/TEST-*.xml'
+        publishCoverage adapters: [jacocoAdapter('**/*/jacoco.xml')], sourceFileResolver: sourceFiles('STORE_ALL_BUILD')
 
         recordIssues tools: [checkStyle(pattern: 'target/checkstyle-result.xml'),
             spotBugs(pattern: 'target/spotbugsXml.xml'),
@@ -21,13 +22,6 @@ node {
             cpd(pattern: 'target/cpd.xml'),
             taskScanner(highTags:'FIXME', normalTags:'TODO', includePattern: '**/*.java', excludePattern: 'target/**/*')],
             qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
-    }
-
-    stage ('Line and Branch Coverage') {
-        withMaven(maven: 'mvn-default', mavenLocalRepo: '/var/data/m2repository', mavenOpts: '-Xmx768m -Xms512m') {
-            sh "mvn -V -U -e jacoco:prepare-agent test jacoco:report -Dmaven.test.failure.ignore"
-        }
-        publishCoverage adapters: [jacocoAdapter('**/*/jacoco.xml')], sourceFileResolver: sourceFiles('STORE_ALL_BUILD')
     }
 
     stage ('Mutation Coverage') {
