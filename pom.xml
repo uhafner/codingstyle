@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.hm.hafner</groupId>
@@ -88,17 +89,18 @@
     <maven-taglist-plugin.version>2.4</maven-taglist-plugin.version>
     <maven-pitest-plugin.version>1.6.1</maven-pitest-plugin.version>
     <pitest-junit5-plugin.version>0.12</pitest-junit5-plugin.version>
-    <maven-error-prone-plugin.version>2.8.6</maven-error-prone-plugin.version>
     <error-prone.version>2.4.0</error-prone.version>
+    <error-prone.javac.version>9+181-r4173-1</error-prone.javac.version>
     <nullaway.version>0.8.0</nullaway.version>
-    <maven-depgraph-plugin.version>3.3.0</maven-depgraph-plugin.version>
-    <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
     <revapi-maven-plugin.version>0.12.2</revapi-maven-plugin.version>
     <revapi-java.version>0.22.1</revapi-java.version>
     <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
     <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
     <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
     <assertj-assertions-generator-maven-plugin.version>2.2.0</assertj-assertions-generator-maven-plugin.version>
+    <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
+    <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
+    <depgraph-maven-plugin.version>3.3.0</depgraph-maven-plugin.version>
 
     <!-- Maven Surefire ArgLine -->
     <argLine>-Djava.util.logging.config.file=logging.properties</argLine>
@@ -251,40 +253,66 @@
             </path>
           </annotationProcessorPaths>
           <compilerArgs>
+            <arg>
+              -J-Xbootclasspath/p:${settings.localRepository}/com/google/errorprone/javac/${error-prone.javac.version}/javac-${error-prone.javac.version}.jar
+            </arg>
             <arg>-Xlint:all</arg>
-            <arg>-XepExcludedPaths:.*/generated-test-sources/.*</arg>
-            <arg>-XepAllDisabledChecksAsWarnings</arg>
-            <arg>-XepIgnoreUnknownCheckNames</arg>
-            <arg>-XepDisableWarningsInGeneratedCode</arg>
-            <arg>-XepAllErrorsAsWarnings</arg>
-            <!-- NullAway configuration -->
-            <arg>-Xep:NullAway:WARN</arg>
-            <arg>-XepOpt:NullAway:AnnotatedPackages=edu.hm.hafner</arg>
-            <!-- Disabled Rules -->
-            <arg>-Xep:ReturnMissingNullable:OFF</arg>
-            <arg>-Xep:PreferJavaTimeOverload:OFF</arg>
-            <arg>-Xep:EqualsGetClass:OFF</arg>
-            <arg>-Xep:AndroidJdkLibsChecker:OFF</arg>
-            <arg>-Xep:Java7ApiChecker:OFF</arg>
-            <arg>-Xep:Var:OFF</arg>
-            <arg>-Xep:PrivateConstructorForUtilityClass:OFF</arg>
-            <arg>-Xep:MethodCanBeStatic:OFF</arg>
-            <arg>-Xep:WildcardImport:OFF</arg>
-            <arg>-Xep:ThrowsUncheckedException:OFF</arg>
-            <arg>-Xep:NullableDereference:OFF</arg>
-
+            <!-- XXX: The awkward comment formatting used
+            here ensures that the plugin arguments are
+            separated only by spaces. Once we drop support
+            for JDK 8 we can clean this up; later versions
+            do properly handle newline separators. See
+            https://github.com/google/error-prone/pull/1115.
+            -->
+            <arg>-Xplugin:ErrorProne <!--
+                ErrorProne configuration:
+                --> -XepExcludedPaths:.*/generated-test-sources/.* <!--
+                ErrorProne configuration:
+                --> -XepAllDisabledChecksAsWarnings <!--
+                ErrorProne configuration:
+                --> -XepIgnoreUnknownCheckNames <!--
+                ErrorProne configuration:
+                --> -XepDisableWarningsInGeneratedCode <!--
+                ErrorProne configuration:
+                --> -XepAllErrorsAsWarnings <!--
+                NullAway configuration:
+                --> -Xep:NullAway:WARN <!--
+                NullAway configuration:
+                --> -XepOpt:NullAway:AnnotatedPackages=edu.hm.hafner <!--
+                Disabled ErrorProne rule:
+                --> -Xep:ReturnMissingNullable:OFF <!--
+                Disabled ErrorProne rule:
+                --> -Xep:PreferJavaTimeOverload:OFF <!--
+                Disabled ErrorProne rule:
+                --> -Xep:EqualsGetClass:OFF <!--
+                Disabled ErrorProne rule:
+                --> -Xep:AndroidJdkLibsChecker:OFF <!--
+                Disabled ErrorProne rule:
+                --> -Xep:Java7ApiChecker:OFF <!--
+                Disabled ErrorProne rule:
+                --> -Xep:Var:OFF <!--
+                Disabled ErrorProne rule:
+                --> -Xep:PrivateConstructorForUtilityClass:OFF <!--
+                Disabled ErrorProne rule:
+                --> -Xep:MethodCanBeStatic:OFF <!--
+                Disabled ErrorProne rule:
+                --> -Xep:WildcardImport:OFF <!--
+                Disabled ErrorProne rule:
+                --> -Xep:ThrowsUncheckedException:OFF <!--
+                Disabled ErrorProne rule:
+                --> -Xep:NullableDereference:OFF
+            </arg>
+            <!-- The Error Prone plugin makes certain
+                assumptions about the state of the AST at the
+                moment it is invoked. Those assumptions are met
+                when using the `simple` compile policy. This
+                flag may be dropped after resolution of
+                https://bugs.openjdk.java.net/browse/JDK-8155674. -->
+            <arg>-XDcompilePolicy=simple</arg>
           </compilerArgs>
-          <compilerId>javac-with-errorprone</compilerId>
-          <forceJavacCompilerUse>true</forceJavacCompilerUse>
+          <fork>true</fork>
           <showWarnings>true</showWarnings>
         </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>org.codehaus.plexus</groupId>
-            <artifactId>plexus-compiler-javac-errorprone</artifactId>
-            <version>${maven-error-prone-plugin.version}</version>
-          </dependency>
-        </dependencies>
       </plugin>
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
@@ -422,6 +450,7 @@
           <includeTests>true</includeTests>
           <minimumTokens>50</minimumTokens>
           <excludeRoots>
+            <excludeRoot>target/generated-test-sources/test-annotations</excludeRoot>
             <excludeRoot>target/generated-test-sources/assertj-assertions</excludeRoot>
           </excludeRoots>
         </configuration>
@@ -453,7 +482,7 @@
         </executions>
         <configuration>
           <linkXRef>false</linkXRef>
-          <excludes>**/*Assert*.java</excludes>
+          <excludes>**/*Assert*.java,**/*_jmh*</excludes>
           <failOnViolation>false</failOnViolation>
           <configLocation>etc/checkstyle-configuration.xml</configLocation>
           <includeTestSourceDirectory>true</includeTestSourceDirectory>
@@ -607,6 +636,11 @@
           <version>${maven-deploy-plugin.version}</version>
         </plugin>
         <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>${maven-dependency-plugin.version}</version>
+        </plugin>
+        <plugin>
           <groupId>org.pitest</groupId>
           <artifactId>pitest-maven</artifactId>
           <version>${maven-pitest-plugin.version}</version>
@@ -639,6 +673,19 @@
               </configuration>
             </execution>
           </executions>
+        </plugin>
+        <plugin>
+          <groupId>com.github.ferstl</groupId>
+          <artifactId>depgraph-maven-plugin</artifactId>
+          <version>${depgraph-maven-plugin.version}</version>
+          <configuration>
+            <graphFormat>puml</graphFormat>
+            <scope>compile</scope>
+            <showClassifiers>true</showClassifiers>
+            <showVersions>true</showVersions>
+            <showConflicts>true</showConflicts>
+            <showDuplicates>true</showDuplicates>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
