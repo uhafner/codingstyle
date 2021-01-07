@@ -87,7 +87,7 @@
     <findsecbugs-plugin.version>1.11.0</findsecbugs-plugin.version>
     <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
     <maven-taglist-plugin.version>2.4</maven-taglist-plugin.version>
-    <maven-pitest-plugin.version>1.6.1</maven-pitest-plugin.version>
+    <maven-pitest-plugin.version>1.6.2</maven-pitest-plugin.version>
     <pitest-junit5-plugin.version>0.12</pitest-junit5-plugin.version>
     <error-prone.version>2.4.0</error-prone.version>
     <error-prone.javac.version>9+181-r4173-1</error-prone.javac.version>
