@@ -277,12 +277,18 @@
               -J-Xbootclasspath/p:${settings.localRepository}/com/google/errorprone/javac/${error-prone.javac.version}/javac-${error-prone.javac.version}.jar
             </arg>
             <arg>-Xlint:all</arg>
-            <!-- XXX: The awkward comment formatting used
-            here ensures that the plugin arguments are
-            separated only by spaces. Once we drop support
-            for JDK 8 we can clean this up; later versions
-            do properly handle newline separators. See
-            https://github.com/google/error-prone/pull/1115.
+            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</arg>
+            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED</arg>
+            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED</arg>
+            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED</arg>
+            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
+            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED</arg>
+            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</arg>
+            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED</arg>
+            <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED</arg>
+            <!-- XXX: The awkward comment formatting used here ensures that the plugin arguments are
+            separated only by spaces. Once we drop support for JDK 8 we can clean this up; later versions
+            do properly handle newline separators. See https://github.com/google/error-prone/pull/1115.
             -->
             <arg>-Xplugin:ErrorProne <!--
                 ErrorProne configuration:
