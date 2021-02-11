@@ -33,3 +33,30 @@ jobs:
       env:
         BROWSER: chrome-container
       run: mvn -V -ntp clean verify --file pom.xml '-Djenkins.test.timeout=5000' '-Dgpg.skip'
+    - name: Autograding
+      uses: uhafner/autograding-github-action@v1.6.0
+      with:
+        TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        HEAD_SHA: ${{github.event.pull_request.head.sha}}
+        CONFIG: >
+          {
+            "analysis": {
+              "maxScore": 100,
+              "errorImpact": -5,
+              "highImpact": -2,
+              "normalImpact": -1,
+              "lowImpact": -1
+            },
+            "tests": {
+              "maxScore": 100,
+              "failureImpact": -10,
+            },
+            "coverage": {
+              "maxScore": 100,
+              "missedPercentageImpact": -1
+            },
+            "pit": {
+              "maxScore": 100,
+              "undetectedPercentageImpact": -1
+            }
+          }
