@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 import org.apache.commons.lang3.StringUtils;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
 
 import com.tngtech.archunit.base.DescribedPredicate;
 import com.tngtech.archunit.core.domain.JavaCall;
@@ -13,7 +15,6 @@ import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
 import static com.tngtech.archunit.core.domain.JavaClass.Predicates.*;
-import static com.tngtech.archunit.lang.conditions.ArchPredicates.*;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
 
 /**
@@ -32,6 +33,19 @@ public final class ArchitectureRules {
                     .and().haveSimpleNameNotContaining("_jmh")
                     .and().doNotHaveModifier(JavaModifier.ABSTRACT)
                     .should().bePublic();
+
+    /** Junit 5 test methods should not be public. */
+    public static final ArchRule NO_PUBLIC_TEST_METHODS =
+            methods().that().areAnnotatedWith(Test.class)
+                    .or().areAnnotatedWith(ParameterizedTest.class)
+                    .and().areDeclaredInClassesThat()
+                    .haveSimpleNameEndingWith("Test")
+                    .should().notBePublic();
+
+    /** ArchUnit tests should not be public. */
+    public static final ArchRule NO_PUBLIC_ARCHITECTURE_TESTS =
+            fields().that().areAnnotatedWith(ArchTest.class)
+                    .should().notBePublic();
 
     /**
      * Methods or constructors that are annotated with {@link VisibleForTesting} must not be called by other classes.
@@ -53,8 +67,7 @@ public final class ArchitectureRules {
 
     /** Prevents that classes use visible but forbidden API. */
     public static final ArchRule NO_FORBIDDEN_ANNOTATION_USED =
-            noClasses().should().dependOnClassesThat(
-                    have(type(edu.umd.cs.findbugs.annotations.Nullable.class)));
+            noClasses().should().dependOnClassesThat().haveSimpleNameEndingWith("Nullable");
 
     /** Prevents that classes use visible but forbidden API. */
     public static final ArchRule NO_FORBIDDEN_CLASSES_CALLED
@@ -63,7 +76,6 @@ public final class ArchitectureRules {
                     "org.junit.jupiter.api.Assertions", "org.junit.Assert"));
 
     /** Ensures that the {@code readResolve} methods are protected so sub classes can call the parent method. */
-    @ArchTest
     public static final ArchRule READ_RESOLVE_SHOULD_BE_PROTECTED =
             methods().that().haveName("readResolve").and().haveRawReturnType(Object.class)
                     .should().beDeclaredInClassesThat().implement(Serializable.class)
