@@ -49,7 +49,7 @@ jobs:
             },
             "tests": {
               "maxScore": 100,
-              "failureImpact": -10,
+              "failureImpact": -10
             },
             "coverage": {
               "maxScore": 100,
