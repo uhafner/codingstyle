@@ -7,9 +7,11 @@ in [GitHub Actions](https://github.com/features/actions) und [Jenkins](https://j
 
 Sowohl für GitHub Actions als auch für Jenkins erfolgt die Automatisierung des Builds über Maven. Im zugehörigen 
 [POM](../pom.xml) sind alle Versionen der benutzten Maven Plugins und der benötigten Abhängigkeiten über Properties
-definiert, d.h. eine Aktualisierung lässt sich im entsprechenden Abschnitt leicht selbst durchführen bzw. über das 
-Maven Kommando `mvn versions:update-properties` automatisch aktualisieren. U.a. sind die folgenden Plugins vorkonfiguriert:
-- maven-compiler-plugin: konfiguriert die Java Version und legt alle Error Prone Regeln fest
+definiert, d.h. eine Aktualisierung lässt sich im entsprechenden Abschnitt leicht selbst durchführen bzw. wird 
+über den [Dependabot](https://dependabot.com) Roboter von GitHub automatisch über einen Pull Request aktualisiert. 
+U.a. sind die folgenden Plugins vorkonfiguriert:
+- maven-compiler-plugin: konfiguriert die Java Version auf Java 8 und legt alle Error Prone Regeln fest. Die Java 
+  Version kann beliebig aktualisert werden. 
 - maven-javadoc-plugin: aktiviert die strikte Prüfung von JavaDoc Kommentaren
 - maven-jar-plugin: legt einen Modulnamen fest, falls das Projekt in Java 9 oder höher verwendet wird. Außerdem wird
 ein test-jar konfiguriert, so dass alle Tests (und abstrakte Testklassen) auch als Dependencies genutzt werden können.
