@@ -2,9 +2,6 @@
 <!-- ${project.groupId}:${project.artifactId}:${project.version} -->
 <FindBugsFilter>
   <Match>
-      <Class name="~.*\$.*" />
-  </Match>
-  <Match>
       <Class name="~.*_jmh.*" />
   </Match>
   <Match>
