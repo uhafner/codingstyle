@@ -8,7 +8,7 @@ Java 11. Dazu verwenden Sie bitte die Downloads von [AdoptOpenJDK](https://adopt
 
 Da wir werden Ihre Abgaben auch automatisiert bewerten, können Sie optional noch das Tool
 [Maven](https://maven.apache.org/download.cgi) installieren, um die automatisierte Bewertung auch lokal auszuführen.
-Das müssen Sie das  unbedingt, denn Sie haben die Möglichkeit, die Ergebnisse direkt im GitHub Classroom
+Das müssen Sie das unbedingt, denn Sie haben die Möglichkeit, die Ergebnisse direkt im GitHub Classroom
 anzuschauen.
 
 Alle Programme, die in diesem Semester erstellt werden, müssen in einer Versionsverwaltung abgelegt werden.
