@@ -20,7 +20,6 @@ import com.google.errorprone.annotations.FormatMethod;
 public class FilteredLog implements Serializable {
     private static final long serialVersionUID = -8552323621953159904L;
 
-    private static final String SKIPPED_MESSAGE = "  ... skipped logging of %d additional errors ...";
     private static final int DEFAULT_MAX_LINES = 20;
 
     private final String title;
@@ -132,7 +131,7 @@ public class FilteredLog implements Serializable {
      */
     public void logSummary() {
         if (lines > maxLines) {
-            errorMessages.add(String.format(SKIPPED_MESSAGE, lines - maxLines));
+            errorMessages.add(String.format("  ... skipped logging of %d additional errors ...", lines - maxLines));
         }
     }
 
@@ -182,5 +181,16 @@ public class FilteredLog implements Serializable {
     @Override @Generated
     public int hashCode() {
         return Objects.hash(title, maxLines, lines, infoMessages, errorMessages);
+    }
+
+    @Override @Generated
+    public String toString() {
+        return "FilteredLog{"
+                + "title='" + title + '\''
+                + ", maxLines=" + maxLines
+                + ", lines=" + lines
+                + ", infoMessages=" + infoMessages
+                + ", errorMessages=" + errorMessages
+                + '}';
     }
 }

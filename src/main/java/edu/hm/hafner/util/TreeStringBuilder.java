@@ -3,7 +3,6 @@ package edu.hm.hafner.util;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 /**
  * Builds {@link TreeString}s that share common prefixes. Call {@link #intern(String)} and you get the {@link
@@ -88,7 +87,7 @@ public class TreeStringBuilder {
             }
 
             makeWritable();
-            for (Entry<String, Child> entry : children.entrySet()) {
+            for (Map.Entry<String, Child> entry : children.entrySet()) {
                 int plen = commonPrefix(entry.getKey(), string);
                 if (plen > 0) {
                     if (plen < entry.getKey().length()) {
