@@ -498,7 +498,6 @@ public final class Ensure {
     public static class ObjectCondition<T> {
         @CheckForNull
         private final T value;
-        @CheckForNull
         private final Object[] additionalValues;
 
         /**
@@ -521,7 +520,7 @@ public final class Ensure {
          */
         @SuppressFBWarnings("EI2")
         @SuppressWarnings({"AssignmentToCollectionOrArrayFieldFromParameter", "PMD.ArrayIsStoredDirectly"})
-        public ObjectCondition(@CheckForNull final T value, @CheckForNull final Object... additionalValues) {
+        public ObjectCondition(@CheckForNull final T value, final Object... additionalValues) {
             this.value = value;
             this.additionalValues = additionalValues;
         }

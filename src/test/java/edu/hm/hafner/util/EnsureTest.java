@@ -12,7 +12,6 @@ import static org.assertj.core.api.Assertions.*;
  *
  * @author Ullrich Hafner
  */
-@SuppressWarnings("NullArgumentToVariableArgMethod")
 class EnsureTest {
     private static final String SOME_STRING = "-";
     private static final String EMPTY_STRING = "";
