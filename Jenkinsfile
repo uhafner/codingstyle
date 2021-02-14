@@ -6,7 +6,7 @@ node('java11-agent') {
     }
 
     stage ('Environment') {
-        sh "echo $JAVA_HOME"
+        sh "echo JAVA_HOME=$JAVA_HOME"
     }
 
     stage ('Build, Test, and Static Analysis') {
