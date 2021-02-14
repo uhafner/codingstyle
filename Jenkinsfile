@@ -5,6 +5,10 @@ node('java11-agent') {
         checkout scm
     }
 
+    stage ('Environment') {
+        sh 'echo $JAVA_HOME'
+    }
+
     stage ('Build, Test, and Static Analysis') {
         withMaven(maven: 'mvn-default', mavenLocalRepo: '/var/data/m2repository', mavenOpts: '-Xmx768m -Xms512m') {
             sh 'mvn -V -e clean verify -Dmaven.test.failure.ignore -Dgpg.skip'
