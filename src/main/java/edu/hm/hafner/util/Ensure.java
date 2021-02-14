@@ -57,11 +57,12 @@ public final class Ensure {
      *         the additional values to check
      *
      * @return an object condition
+     * @param <T> type to check
      */
     @CheckReturnValue
-    public static ObjectCondition that(@CheckForNull final Object value,
+    public static <T> ObjectCondition<T> that(@CheckForNull final T value,
             @CheckForNull final Object... additionalValues) {
-        return new ObjectCondition(value, additionalValues);
+        return new ObjectCondition<>(value, additionalValues);
     }
 
     /**
@@ -560,6 +561,8 @@ public final class Ensure {
             }
         }
 
+        @SuppressFBWarnings("NP")
+        @SuppressWarnings("PMD.AvoidThrowingNullPointerException")
         T getValue() {
             if (value == null) {
                 throw new NullPointerException("Value is null");
