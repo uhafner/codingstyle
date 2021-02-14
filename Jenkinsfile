@@ -1,4 +1,4 @@
-node {
+node('java11-agent') {
     def mvnHome = tool 'mvn-default'
 
     stage ('Checkout') {
