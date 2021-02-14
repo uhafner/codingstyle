@@ -1,12 +1,10 @@
 node('java11-agent') {
-    def mvnHome = tool 'mvn-default'
-
     stage ('Checkout') {
         checkout scm
     }
 
     stage ('Build, Test, and Static Analysis') {
-        withMaven(maven: 'mvn-default', mavenLocalRepo: '/var/data/m2repository', mavenOpts: '-Xmx768m -Xms512m') {
+        withMaven(mavenLocalRepo: '/var/data/m2repository', mavenOpts: '-Xmx768m -Xms512m') {
             sh 'mvn -V -e clean verify -Dmaven.test.failure.ignore -Dgpg.skip'
         }
 
@@ -25,7 +23,7 @@ node('java11-agent') {
     }
 
     stage ('Mutation Coverage') {
-        withMaven(maven: 'mvn-default', mavenLocalRepo: '/var/data/m2repository', mavenOpts: '-Xmx768m -Xms512m') {
+        withMaven(mavenLocalRepo: '/var/data/m2repository', mavenOpts: '-Xmx768m -Xms512m') {
             sh "mvn org.pitest:pitest-maven:mutationCoverage"
         }
         step([$class: 'PitPublisher', mutationStatsFile: 'target/pit-reports/**/mutations.xml'])
