@@ -64,7 +64,7 @@ public abstract class SerializableTest<T extends Serializable> extends ResourceT
      *         the byte stream of the serializable
      * @return the deserialized instance
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "BanSerializableRead"})
     protected T restore(final byte[] serializedInstance) {
         Object object;
 
