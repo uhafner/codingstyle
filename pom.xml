@@ -99,7 +99,7 @@
     <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
     <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
     <depgraph-maven-plugin.version>3.3.0</depgraph-maven-plugin.version>
-    <animal-sniffer-maven-plugin.version>1.19</animal-sniffer-maven-plugin.version>
+    <animal-sniffer-maven-plugin.version>1.20</animal-sniffer-maven-plugin.version>
 
     <!-- Maven Surefire ArgLine -->
     <argLine>-Djava.util.logging.config.file=logging.properties</argLine>
