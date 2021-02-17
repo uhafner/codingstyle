@@ -20,6 +20,10 @@
       <Class name="~.*Test.*" />
   </Match>
   <Match>
+      <Bug code="UwF, SIC, NP, Dm, UI, RV, DMI" />
+      <Class name="~.*Benchmark.*" />
+  </Match>
+  <Match>
     <Bug category="SECURITY"/>
     <Class name="~.*Test.*" />
   </Match>
