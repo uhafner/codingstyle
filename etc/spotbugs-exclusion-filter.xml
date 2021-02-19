@@ -17,15 +17,11 @@
   </Match>
   <Match>
       <Bug code="UwF, SIC, NP, Dm, UI, RV, DMI" />
-      <Class name="~.*Test.*" />
-  </Match>
-  <Match>
-      <Bug code="UwF, SIC, NP, Dm, UI, RV, DMI" />
-      <Class name="~.*Benchmark.*" />
+      <Class name="~.*(Test|Benchmark).*" />
   </Match>
   <Match>
     <Bug category="SECURITY"/>
-    <Class name="~.*Test.*" />
+    <Class name="~.*(Test|Benchmark).*" />
   </Match>
   <Match>
     <Bug pattern="DESERIALIZATION_GADGET, FORMAT_STRING_MANIPULATION, PATH_TRAVERSAL_IN, WEAK_FILENAMEUTILS"/>
