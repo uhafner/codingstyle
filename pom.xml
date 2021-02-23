@@ -336,6 +336,8 @@
                 Disabled ErrorProne rule:
                 --> -Xep:ThrowsUncheckedException:OFF <!--
                 Disabled ErrorProne rule:
+                --> -Xep:BooleanParameter:OFF <!--
+                Disabled ErrorProne rule:
                 --> -Xep:NullableDereference:OFF
             </arg>
             <!-- The Error Prone plugin makes certain
