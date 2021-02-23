@@ -13,6 +13,7 @@
     <exclude name="UnusedImports"/>
     <exclude name="GuardLogStatement"/>
     <exclude name="AccessorMethodGeneration"/>
+    <exclude name="UnusedPrivateMethod"/>
   </rule>
   <rule ref="category/java/codestyle.xml">
     <exclude name="AtLeastOneConstructor"/>
@@ -95,5 +96,5 @@
   </rule>
   <rule ref="category/java/security.xml">
   </rule>
-  
+
 </ruleset>
