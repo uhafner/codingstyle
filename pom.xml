@@ -476,6 +476,9 @@
             <package>edu.hm.hafner.util</package>
           </packages>
           <entryPointClassPackage>edu.hm.hafner.util.assertions</entryPointClassPackage>
+          <excludes>
+            <exclude>.*Condition</exclude>
+          </excludes>
         </configuration>
         <dependencies>
           <!-- Without this dependency mvn test will fail due to a class not found exception -->
