@@ -23,7 +23,9 @@ jenkins:
             port: 22
             retryWaitTime: 15
             javaPath: "/opt/java/openjdk/bin/java"
-            sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
+            sshHostKeyVerificationStrategy:
+              manuallyTrustedKeyVerificationStrategy:
+                requireInitialManualTrust: false
         name: "java11-agent"
         numExecutors: 1
         remoteFS: "/var/data"
@@ -177,7 +179,6 @@ jobs:
               }
           }
       };
-      p
       freeStyleJob('freestyle-analysis-model') {
           scm {
               git {
