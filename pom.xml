@@ -56,7 +56,7 @@
     <module.name>${project.groupId}.codingstyle</module.name>
 
     <!-- Project Dependencies Configuration -->
-    <spotbugs.annotations>4.2.1</spotbugs.annotations>
+    <spotbugs.annotations>4.2.2</spotbugs.annotations>
     <commons.lang.version>3.12.0</commons.lang.version>
     <commons.io.version>2.8.0</commons.io.version>
     <javax.annotation-api.version>1.3.2</javax.annotation-api.version>
