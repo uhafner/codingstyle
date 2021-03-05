@@ -7,18 +7,14 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./docker/volumes/jenkins-home:/var/jenkins_home:cached
     ports:
-      - 8080:8080   # Jenkins UI
-      - 8000:8000   # Jenkins Master Debugging Port
-      - 50000:50000 # Jenkins JNLP port
+      - 8081:8080   # Jenkins UI - HOST:CONTAINER
     environment:
       - TRY_UPGRADE_IF_NO_MARKER=true
-      - JAVA_OPTS= -Dstapler.jelly.noCache=true  -Dhudson.remoting.ClassFilter=com.google.common.collect.ImmutableListMultimap -DexecutableWar.jetty.disableCustomSessionIdCookieName=true -DexecutableWar.jetty.sessionIdCookieName=warnings-ng-devenv -agentlib:jdwp=transport=dt_socket,address=8000,suspend=n,server=y
+      - JAVA_OPTS= -Dstapler.jelly.noCache=true  -Dhudson.remoting.ClassFilter=com.google.common.collect.ImmutableListMultimap -DexecutableWar.jetty.disableCustomSessionIdCookieName=true -DexecutableWar.jetty.sessionIdCookieName=warnings-ng-devenv
     user: ${CURRENT_UID}
     restart: unless-stopped
   java11-agent:
     build: ./docker/images/java11-agent
-    ports:
-      - 8001:8001   # Jenkins Agent Debugging Port
     depends_on:
       - jenkins-controller
     restart: unless-stopped
