@@ -10,7 +10,7 @@ import com.tngtech.archunit.lang.ArchRule;
  * @author Ullrich Hafner
  */
 @SuppressWarnings("hideutilityclassconstructor")
-@AnalyzeClasses(packages = "edu.hm.hafner..")
+@AnalyzeClasses(packages = "edu.hm.hafner")
 class ArchitectureTest {
     @ArchTest
     static final ArchRule NO_PUBLIC_TEST_CLASSES = ArchitectureRules.NO_PUBLIC_TEST_CLASSES;
