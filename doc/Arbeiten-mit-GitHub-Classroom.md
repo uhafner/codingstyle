@@ -37,11 +37,43 @@ angelegt und mit meinem Template gefüllt.
 
 ## Mit dem Repository arbeiten
 
-Alle Abgaben werden über Pull Requests gestellt. Dazu sind die in den nachfolgenden Abschnitten beschriebenen
-Schritte erforderlich. Die Schritte sind alle als Kommandozeilen-Operationen beschrieben. Falls gewünscht, können
-Sie dafür natürlich auch die Entwicklungsumgebung nutzen. 
+Damit die Aufgaben bewertet werden können, müssen Sie Ihren Quelltext in das GitHub Repository hochladen. Git ist ein
+[verteiltes Versionsmanagement System](https://git-scm.com/book/de/v2/Verteiltes-Git-Verteilter-Arbeitsablauf),
+d.h. Sie finden eine Kopie dieses Repositories (neben dem Original auf GitHub) auf Ihrem Rechner und auf den Rechnern 
+Ihrer Teampartner.
 
-### Das Repository auf den eigenen Rechner holen
+### Über die Entwicklungsumgebung das Projekt verwalten
+
+Am einfachsten nutzen Sie nur die Entwicklungsumgebung IntelliJ, um Ihr Projekt mit GitHub zu synchronisieren. 
+
+#### Import mit der Entwicklungsumgebung
+
+Nach dem Start der Entwicklungsumgebung haben Sie die Möglichkeit, Ihr Projekt direkt zu importieren: Mit der Aktion **Get from VCS** 
+(im Startup Wizard) oder dem Menüpunkt **File->New->Project from Version Control...**
+lässt sich das GitHub Projekt automatisch nach IntelliJ importieren. IntelliJ kümmert sich ab dann automatisch über
+die Verbindung zu GitHub. Kopieren Sie dazu Ihr Repository Link aus dem Classroom im Dialog in das Feld 
+**Repository URL->URL** und bestätigen Sie den Import mit **Clone**. 
+
+Nachdem das Projekt auf Ihren Rechner übertragen wurde, wird es in IntelliJ importiert und gebaut. Je nach bestehender 
+Konfiguration müssen Sie dazu noch im Konfigurationsdialog **File->Project Structure->SDKs** ein JDK 11 unter dem Namen
+"11" anlegen und referenzieren. Ist das erledigt, können Sie die Tests in Ihrem Projekt starten. Dazu können Sie auf
+das Projekt mit Rechts klicken und **Run All Tests** auswählen. In den meisten Classroom Projekten habe ich noch
+einen spezielle **All Tests** Runkonfiguration angelegt, die Sie auch direkt nutzen können.
+
+#### Hochladen von Änderungen
+
+Nach Veränderung Ihrer Dateien, werden diese farblich in IntelliJ markiert. Mit dem Kommando **Git->Commit** spielen Sie
+Ihre Änderungen zurück nach GitHub. Geben Sie im dann im neuen Dialog eine Commitbeschreibung ein (was haben Sie geändert)
+und bestätigen Sie den Dialog mit **Commit and Push**. IntelliJ führt dann einen lokalen **Commit** aus und speichert Ihre
+Änderung im Git Repository **lokal**. Damit die Änderungen auch in GitHub sichtbar werden, wird anschließend Ihr 
+komplettes Repository nach GitHub übertragen. 
+
+### Mit der Kommandozeile arbeiten
+
+Alternativ können Sie für diese Schritte auch die Kommandozeile nutzen. Dazu sind die in den nachfolgenden Abschnitten beschriebenen
+Schritte erforderlich. 
+
+#### Das Repository auf den eigenen Rechner holen
 
 Zunächst müssen Sie das Repository auf den eigenen Rechner holen. Git ist ein 
 [verteiltes Versionsmanagement System](https://git-scm.com/book/de/v2/Verteiltes-Git-Verteilter-Arbeitsablauf),
@@ -49,8 +81,8 @@ d.h. Sie finden eine Kopie dieses Repositories (neben dem Original auf GitHub) a
 Teampartner. Diese Kopie kann mit folgendem Kommando auf den eigenen Rechner geholt werden: 
 
 ```shell
-# Clone your fork to your local machine using SSH
-git clone git@github.com:USERNAME/FORKED-PROJECT.git
+# Clone your repository to your local machine using SSH
+git clone git@github.com:hafner-hm-edu/PROJECT.git
 ```
 
 Falls noch kein 
@@ -58,8 +90,8 @@ Falls noch kein
 hinterlegt ist, lässt sich das alternativ auch mit HTTPS erledigen:
 
 ```shell
-# Clone your fork to your local machine using HTTPS
-git clone https://github.com/USERNAME/FORKED-PROJECT.git
+# Clone your repository to your local machine using HTTPS
+git clone https://github.com/hafner-hm-edu/PROJECT.git
 ```
 
 Für die einfache passwort-freie Nutzung von GitHub empfehle ich die 
@@ -100,7 +132,7 @@ Beispiele in meinem Projekt [codingstyle](https://github.com/uhafner/codingstyle
 
 Je nach Aufgabenstellung gibt es im Projekt eine [GitHub Action](https://docs.github.com/en/free-pro-team@latest/actions),
 die das Projekt nach jedem Commit neu baut und überprüft. Siehe dazu auch das 
-[Kapitel Continuous Integration](Continuous-Integration.md).  
+[Kapitel Continuous Integration](Continuous-Integration.md) bzw. [Autograding](Autograding.md).  
 
 ## Pull Request vorbereiten und stellen
 
