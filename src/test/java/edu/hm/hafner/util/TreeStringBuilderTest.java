@@ -7,6 +7,8 @@ import java.util.Random;
 
 import org.junit.jupiter.api.Test;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+
 import static org.assertj.core.api.Assertions.*;
 
 /**
@@ -114,5 +116,13 @@ class TreeStringBuilderTest {
         for (int i = 0; i < a.size(); i++) {
             assertThat(o.get(i)).hasToString(a.get(i));
         }
+    }
+
+    @Test
+    void shouldObeyEqualsContract() {
+        EqualsVerifier.simple()
+                .withPrefabValues(TreeString.class, TreeString.valueOf("One"), TreeString.valueOf("Teo"))
+                .forClass(TreeString.class)
+                .verify();
     }
 }

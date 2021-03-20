@@ -2,6 +2,8 @@ package edu.hm.hafner.util;
 
 import org.junit.jupiter.api.Test;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+
 import static edu.hm.hafner.util.assertions.Assertions.*;
 
 /**
@@ -124,5 +126,10 @@ class FilteredLogTest extends SerializableTest<FilteredLog> {
         FilteredLog restored = restore(bytes);
 
         assertThat(restored).isEqualTo(serializable);
+    }
+
+    @Test
+    void shouldObeyEqualsContract() {
+        EqualsVerifier.simple().forClass(FilteredLog.class).verify();
     }
 }
