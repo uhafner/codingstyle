@@ -8,7 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 
 import com.tngtech.archunit.base.DescribedPredicate;
+import com.tngtech.archunit.core.domain.AccessTarget.ConstructorCallTarget;
 import com.tngtech.archunit.core.domain.JavaCall;
+import com.tngtech.archunit.core.domain.JavaConstructorCall;
 import com.tngtech.archunit.core.domain.JavaModifier;
 import com.tngtech.archunit.core.domain.properties.CanBeAnnotated;
 import com.tngtech.archunit.junit.ArchTest;
@@ -26,6 +28,10 @@ public final class ArchitectureRules {
     private ArchitectureRules() {
         // prevents instantiation
     }
+
+    /** Never create exception without any context. */
+    public static final ArchRule NO_EXCEPTIONS_WITH_NO_ARG_CONSTRUCTOR =
+            noClasses().should().callConstructorWhere(new ExceptionHasNoContext());
 
     /** Junit 5 test classes should not be public. */
     public static final ArchRule NO_PUBLIC_TEST_CLASSES =
@@ -122,6 +128,21 @@ public final class ArchitectureRules {
         public boolean apply(final JavaCall<?> input) {
             return StringUtils.containsAny(input.getTargetOwner().getFullName(), classes)
                     && !"assertTimeoutPreemptively".equals(input.getName());
+        }
+    }
+
+    private static class ExceptionHasNoContext extends DescribedPredicate<JavaConstructorCall> {
+        ExceptionHasNoContext() {
+            super("exception context is missing");
+        }
+
+        @Override
+        public boolean apply(final JavaConstructorCall javaConstructorCall) {
+            ConstructorCallTarget target = javaConstructorCall.getTarget();
+            if (target.getRawParameterTypes().size() > 0) {
+                return false;
+            }
+            return target.getOwner().isAssignableTo(Throwable.class);
         }
     }
 }
