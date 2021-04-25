@@ -4,16 +4,19 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 import org.apache.commons.lang3.StringUtils;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
 
 import com.tngtech.archunit.base.DescribedPredicate;
+import com.tngtech.archunit.core.domain.AccessTarget.ConstructorCallTarget;
 import com.tngtech.archunit.core.domain.JavaCall;
+import com.tngtech.archunit.core.domain.JavaConstructorCall;
 import com.tngtech.archunit.core.domain.JavaModifier;
 import com.tngtech.archunit.core.domain.properties.CanBeAnnotated;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
 import static com.tngtech.archunit.core.domain.JavaClass.Predicates.*;
-import static com.tngtech.archunit.lang.conditions.ArchPredicates.*;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
 
 /**
@@ -22,12 +25,33 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
  * @author Ullrich Hafner
  */
 public final class ArchitectureRules {
+    private ArchitectureRules() {
+        // prevents instantiation
+    }
+
+    /** Never create exception without any context. */
+    public static final ArchRule NO_EXCEPTIONS_WITH_NO_ARG_CONSTRUCTOR =
+            noClasses().should().callConstructorWhere(new ExceptionHasNoContext());
+
     /** Junit 5 test classes should not be public. */
     public static final ArchRule NO_PUBLIC_TEST_CLASSES =
             noClasses().that().haveSimpleNameEndingWith("Test")
                     .and().haveSimpleNameNotContaining("_jmh")
                     .and().doNotHaveModifier(JavaModifier.ABSTRACT)
                     .should().bePublic();
+
+    /** Junit 5 test methods should not be public. */
+    public static final ArchRule NO_PUBLIC_TEST_METHODS =
+            methods().that().areAnnotatedWith(Test.class)
+                    .or().areAnnotatedWith(ParameterizedTest.class)
+                    .and().areDeclaredInClassesThat()
+                    .haveSimpleNameEndingWith("Test")
+                    .should().notBePublic();
+
+    /** ArchUnit tests should not be public. */
+    public static final ArchRule NO_PUBLIC_ARCHITECTURE_TESTS =
+            fields().that().areAnnotatedWith(ArchTest.class)
+                    .should().notBePublic();
 
     /**
      * Methods or constructors that are annotated with {@link VisibleForTesting} must not be called by other classes.
@@ -49,8 +73,7 @@ public final class ArchitectureRules {
 
     /** Prevents that classes use visible but forbidden API. */
     public static final ArchRule NO_FORBIDDEN_ANNOTATION_USED =
-            noClasses().should().dependOnClassesThat(
-                    have(type(edu.umd.cs.findbugs.annotations.CheckForNull.class)));
+            noClasses().should().dependOnClassesThat().haveSimpleNameEndingWith("Nullable");
 
     /** Prevents that classes use visible but forbidden API. */
     public static final ArchRule NO_FORBIDDEN_CLASSES_CALLED
@@ -58,8 +81,7 @@ public final class ArchitectureRules {
             .should().callCodeUnitWhere(new TargetIsForbiddenClass(
                     "org.junit.jupiter.api.Assertions", "org.junit.Assert"));
 
-    /** Ensures that the {@code readResolve} method has the correct signature. */
-    @ArchTest
+    /** Ensures that the {@code readResolve} methods are protected so sub classes can call the parent method. */
     public static final ArchRule READ_RESOLVE_SHOULD_BE_PROTECTED =
             methods().that().haveName("readResolve").and().haveRawReturnType(Object.class)
                     .should().beDeclaredInClassesThat().implement(Serializable.class)
@@ -105,11 +127,22 @@ public final class ArchitectureRules {
         @Override
         public boolean apply(final JavaCall<?> input) {
             return StringUtils.containsAny(input.getTargetOwner().getFullName(), classes)
-                    && !input.getName().equals("assertTimeoutPreemptively");
+                    && !"assertTimeoutPreemptively".equals(input.getName());
         }
     }
 
-    private ArchitectureRules() {
-        // prevents instantiation
+    private static class ExceptionHasNoContext extends DescribedPredicate<JavaConstructorCall> {
+        ExceptionHasNoContext() {
+            super("exception context is missing");
+        }
+
+        @Override
+        public boolean apply(final JavaConstructorCall javaConstructorCall) {
+            ConstructorCallTarget target = javaConstructorCall.getTarget();
+            if (target.getRawParameterTypes().size() > 0) {
+                return false;
+            }
+            return target.getOwner().isAssignableTo(Throwable.class);
+        }
     }
 }

@@ -2,7 +2,7 @@
 <!-- ${project.groupId}:${project.artifactId}:${project.version} -->
 <FindBugsFilter>
   <Match>
-      <Class name="~.*\$.*" />
+      <Class name="~.*_jmh.*" />
   </Match>
   <Match>
       <Bug code="NM" />
@@ -17,13 +17,13 @@
   </Match>
   <Match>
       <Bug code="UwF, SIC, NP, Dm, UI, RV, DMI" />
-      <Class name="~.*Test.*" />
+      <Class name="~.*(Test|Benchmark).*" />
   </Match>
   <Match>
     <Bug category="SECURITY"/>
-    <Class name="~.*Test.*" />
+    <Class name="~.*(Test|Benchmark).*" />
   </Match>
   <Match>
-    <Bug pattern="DESERIALIZATION_GADGET, FORMAT_STRING_MANIPULATION, PATH_TRAVERSAL_IN, WEAK_FILENAMEUTILS"/>
+    <Bug pattern="DESERIALIZATION_GADGET, FORMAT_STRING_MANIPULATION, PATH_TRAVERSAL_IN, WEAK_FILENAMEUTILS, RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
   </Match>
 </FindBugsFilter>

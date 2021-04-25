@@ -1,21 +1,20 @@
 version: "3"
 services:
-  jenkins-master:
+  jenkins-controller:
     build:
-      context: ./docker/images/jenkins-master
+      context: docker/images/jenkins-controller
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./docker/volumes/jenkins-home:/var/jenkins_home:cached
     ports:
-      - 8080:8080
-      - 50000:50000
+      - 8081:8080   # Jenkins UI - HOST:CONTAINER
     environment:
       - TRY_UPGRADE_IF_NO_MARKER=true
-      - JAVA_OPTS= -Djenkins.ui.refresh=true -Dhudson.remoting.ClassFilter=com.google.common.collect.ImmutableListMultimap -DexecutableWar.jetty.disableCustomSessionIdCookieName=true -DexecutableWar.jetty.sessionIdCookieName=codingstyle
+      - JAVA_OPTS= -Dstapler.jelly.noCache=true  -Dhudson.remoting.ClassFilter=com.google.common.collect.ImmutableListMultimap -DexecutableWar.jetty.disableCustomSessionIdCookieName=true -DexecutableWar.jetty.sessionIdCookieName=warnings-ng-devenv
     user: ${CURRENT_UID}
-    restart: always
-  java-agent:
-    build: ./docker/images/java-agent
+    restart: unless-stopped
+  java11-agent:
+    build: ./docker/images/java11-agent
     depends_on:
-      - jenkins-master
+      - jenkins-controller
     restart: unless-stopped

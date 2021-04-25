@@ -3,6 +3,7 @@ analysis-model-api
 antisamy-markup-formatter
 apache-httpcomponents-client-4-api
 authentication-tokens
+autograding
 bouncycastle-api
 branch-api
 cloudbees-folder
@@ -22,6 +23,7 @@ file-operations
 form-element-path
 git
 git-client
+git-forensics
 git-server
 github
 github-api
@@ -40,6 +42,8 @@ mailer
 matrix-auth
 matrix-project
 maven-plugin
+metrics-aggregation
+mock-security-realm
 momentjs
 pam-auth
 pipeline-build-step
@@ -48,7 +52,6 @@ pipeline-input-step
 pipeline-maven
 pipeline-milestone-step
 pipeline-model-api
-pipeline-model-declarative-agent
 pipeline-model-definition
 pipeline-model-extensions
 pipeline-rest-api
@@ -59,7 +62,6 @@ plain-credentials
 resource-disposer
 scm-api
 script-security
-simple-theme-plugin
 ssh-credentials
 ssh-slaves
 structs

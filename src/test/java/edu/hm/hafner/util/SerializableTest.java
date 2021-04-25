@@ -54,13 +54,28 @@ public abstract class SerializableTest<T extends Serializable> extends ResourceT
      *         the byte stream of the serializable
      */
     protected void assertThatSerializableCanBeRestoredFrom(final byte... serializedInstance) {
+        assertThat(restore(serializedInstance)).isEqualTo(createSerializable());
+    }
+
+    /**
+     * Deserializes the subject under test from an array of bytes.
+     *
+     * @param serializedInstance
+     *         the byte stream of the serializable
+     * @return the deserialized instance
+     */
+    @SuppressWarnings({"unchecked", "BanSerializableRead"})
+    protected T restore(final byte[] serializedInstance) {
+        Object object;
+
         try (ObjectInputStream inputStream = new ObjectInputStream(new ByteArrayInputStream(serializedInstance))) {
-            Object resolved = inputStream.readObject();
-            assertThat(resolved).isEqualTo(createSerializable());
+            object = inputStream.readObject();
         }
         catch (IOException | ClassNotFoundException e) {
             throw new AssertionError("Can't resolve instance from byte array", e);
         }
+
+        return (T) object;
     }
 
     /**

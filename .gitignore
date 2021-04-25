@@ -4,6 +4,8 @@ target
 .project
 .settings
 .DS_Store
+pom.xml.releaseBackup
+release.properties
 
 # Project exclude paths
 /node_modules/

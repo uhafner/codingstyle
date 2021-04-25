@@ -1,13 +1,11 @@
-node {
-    def mvnHome = tool 'mvn-default'
-
+node('java11-agent') {
     stage ('Checkout') {
         git branch:'master', url: 'https://github.com/uhafner/codingstyle.git'
         gitForensics latestBuildIfNotFound: true
     }
 
-    stage ('Build and Static Analysis') {
-        withMaven(maven: 'mvn-default', mavenLocalRepo: '/var/data/m2repository', mavenOpts: '-Xmx768m -Xms512m') {
+    stage ('Build, Test, and Static Analysis') {
+        withMaven(mavenLocalRepo: '/var/data/m2repository', mavenOpts: '-Xmx768m -Xms512m') {
             sh 'mvn -V -e clean verify -Dmaven.test.failure.ignore -Dgpg.skip'
         }
 
@@ -15,6 +13,7 @@ node {
         recordIssues tool: errorProne(), healthy: 1, unhealthy: 20
 
         junit testResults: '**/target/*-reports/TEST-*.xml'
+        publishCoverage adapters: [jacocoAdapter('**/*/jacoco.xml')], sourceFileResolver: sourceFiles('STORE_ALL_BUILD')
 
         recordIssues tools: [checkStyle(pattern: 'target/checkstyle-result.xml'),
             spotBugs(pattern: 'target/spotbugsXml.xml'),

@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.hm.hafner</groupId>
   <artifactId>codingstyle</artifactId>
-  <version>1.2.0-SNAPSHOT</version>
+  <version>2.5.0-SNAPSHOT</version>
 
   <packaging>jar</packaging>
 
@@ -56,16 +56,18 @@
     <module.name>${project.groupId}.codingstyle</module.name>
 
     <!-- Project Dependencies Configuration -->
-    <spotbugs.annotations>4.0.6</spotbugs.annotations>
-    <commons.lang.version>3.10</commons.lang.version>
-    <commons.io.version>2.7</commons.io.version>
+    <spotbugs.annotations>4.2.3</spotbugs.annotations>
+    <commons.lang.version>3.12.0</commons.lang.version>
+    <commons.io.version>2.8.0</commons.io.version>
+    <javax.annotation-api.version>1.3.2</javax.annotation-api.version>
 
     <!-- Project Test Dependencies Configuration -->
-    <junit.version>5.6.2</junit.version>
-    <junit-platform-launcher.version>1.6.2</junit-platform-launcher.version>
-    <mockito.version>3.3.3</mockito.version>
-    <assertj.version>3.16.1</assertj.version>
-    <archunit.version>0.14.1</archunit.version>
+    <equalsverifier.version>3.6</equalsverifier.version>
+    <junit.version>5.7.1</junit.version>
+    <junit-platform-launcher.version>1.7.1</junit-platform-launcher.version>
+    <mockito.version>3.9.0</mockito.version>
+    <assertj.version>3.19.0</assertj.version>
+    <archunit.version>0.18.0</archunit.version>
 
     <!-- Maven Plug-ins Configuration -->
     <maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
@@ -75,37 +77,51 @@
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
     <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
     <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
-    <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
-    <maven-buildhelper-plugin.version>3.0.0</maven-buildhelper-plugin.version>
-    <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+    <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
+    <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
     <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
-    <maven-pmd-plugin.version>3.13.0</maven-pmd-plugin.version>
-    <pmd.version>6.25.0</pmd.version>
-    <maven-checkstyle-plugin.version>3.1.1</maven-checkstyle-plugin.version>
-    <checkstyle.version>8.34</checkstyle.version>
-    <spotbugs-maven-plugin.version>4.0.4</spotbugs-maven-plugin.version>
-    <findsecbugs-plugin.version>1.10.1</findsecbugs-plugin.version>
-    <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
-    <maven-taglist-plugin.version>2.4</maven-taglist-plugin.version>
-    <maven-pitest-plugin.version>1.5.2</maven-pitest-plugin.version>
-    <pitest-junit5-plugin.version>0.12</pitest-junit5-plugin.version>
-    <maven-error-prone-plugin.version>2.8.6</maven-error-prone-plugin.version>
-    <error-prone.version>2.4.0</error-prone.version>
-    <nullaway.version>0.7.5</nullaway.version>
-    <maven-depgraph-plugin.version>3.3.0</maven-depgraph-plugin.version>
-    <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
-    <revapi-maven-plugin.version>0.11.5</revapi-maven-plugin.version>
-    <revapi-java.version>0.21.1</revapi-java.version>
+    <maven-pmd-plugin.version>3.14.0</maven-pmd-plugin.version>
+    <pmd.version>6.33.0</pmd.version>
+    <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
+    <checkstyle.version>8.41.1</checkstyle.version>
+    <spotbugs-maven-plugin.version>4.2.3</spotbugs-maven-plugin.version>
+    <findsecbugs-plugin.version>1.11.0</findsecbugs-plugin.version>
+    <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
+    <maven-pitest-plugin.version>1.6.5</maven-pitest-plugin.version>
+    <pitest-junit5-plugin.version>0.14</pitest-junit5-plugin.version>
+    <error-prone.version>2.6.0</error-prone.version>
+    <nullaway.version>0.9.1</nullaway.version>
+    <revapi-maven-plugin.version>0.13.6</revapi-maven-plugin.version>
+    <revapi-java.version>0.23.2</revapi-java.version>
     <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
     <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
     <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+    <assertj-assertions-generator-maven-plugin.version>2.2.0</assertj-assertions-generator-maven-plugin.version>
+    <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
+    <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
+    <depgraph-maven-plugin.version>3.3.0</depgraph-maven-plugin.version>
+    <animal-sniffer-maven-plugin.version>1.20</animal-sniffer-maven-plugin.version>
 
     <!-- Maven Surefire ArgLine -->
     <argLine>-Djava.util.logging.config.file=logging.properties</argLine>
-
   </properties>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.uber.nullaway</groupId>
+        <artifactId>nullaway</artifactId>
+        <version>${nullaway.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
+    <dependency>
+      <groupId>javax.annotation</groupId>
+      <artifactId>javax.annotation-api</artifactId>
+      <version>${javax.annotation-api.version}</version>
+    </dependency>
     <dependency>
       <groupId>com.github.spotbugs</groupId>
       <artifactId>spotbugs-annotations</artifactId>
@@ -128,6 +144,12 @@
     </dependency>
 
     <!-- Test Dependencies -->
+    <dependency>
+      <groupId>nl.jqno.equalsverifier</groupId>
+      <artifactId>equalsverifier</artifactId>
+      <version>${equalsverifier.version}</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
@@ -166,21 +188,15 @@
     </dependency>
     <dependency>
       <groupId>com.tngtech.archunit</groupId>
-      <artifactId>archunit-junit5-api</artifactId>
+      <artifactId>archunit-junit5</artifactId>
       <version>${archunit.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>com.tngtech.archunit</groupId>
-      <artifactId>archunit-junit5-engine</artifactId>
-      <version>${archunit.version}</version>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-nop</artifactId>
+      <version>1.7.30</version>
       <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>junit-platform-engine</artifactId>
-          <groupId>org.junit.platform</groupId>
-        </exclusion>
-      </exclusions>
     </dependency>
   </dependencies>
 
@@ -199,6 +215,47 @@
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>${maven-enforcer-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>enforce-java</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireJavaVersion>
+                  <version>11</version>
+                </requireJavaVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>animal-sniffer-maven-plugin</artifactId>
+        <version>${animal-sniffer-maven-plugin.version}</version>
+        <configuration>
+          <signature>
+            <groupId>org.codehaus.mojo.signature</groupId>
+            <artifactId>java18</artifactId>
+            <version>1.0</version>
+          </signature>
+        </configuration>
+        <executions>
+          <execution>
+            <id>animal-sniffer</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
         <version>${maven-release-plugin.version}</version>
         <configuration>
@@ -206,6 +263,7 @@
           <useReleaseProfile>false</useReleaseProfile>
           <releaseProfiles>release</releaseProfiles>
           <goals>deploy</goals>
+          <tagNameFormat>v@{project.version}</tagNameFormat>
         </configuration>
       </plugin>
       <plugin>
@@ -241,36 +299,72 @@
           </annotationProcessorPaths>
           <compilerArgs>
             <arg>-Xlint:all</arg>
-            <arg>-XepAllDisabledChecksAsWarnings</arg>
-            <arg>-XepIgnoreUnknownCheckNames</arg>
-            <arg>-XepDisableWarningsInGeneratedCode</arg>
-            <arg>-XepAllErrorsAsWarnings</arg>
-            <!-- NullAway configuration -->
-            <arg>-Xep:NullAway:WARN</arg>
-            <arg>-XepOpt:NullAway:AnnotatedPackages=edu.hm.hafner</arg>
-            <!-- Disabled Rules -->
-            <arg>-Xep:PreferJavaTimeOverload:OFF</arg>
-            <arg>-Xep:EqualsGetClass:OFF</arg>
-            <arg>-Xep:AndroidJdkLibsChecker:OFF</arg>
-            <arg>-Xep:Java7ApiChecker:OFF</arg>
-            <arg>-Xep:Var:OFF</arg>
-            <arg>-Xep:PrivateConstructorForUtilityClass:OFF</arg>
-            <arg>-Xep:MethodCanBeStatic:OFF</arg>
-            <arg>-Xep:WildcardImport:OFF</arg>
-            <arg>-Xep:ThrowsUncheckedException:OFF</arg>
-            <arg>-Xep:NullableDereference:OFF</arg> <!-- Exception -->
+            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</arg>
+            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED</arg>
+            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED</arg>
+            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED</arg>
+            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
+            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED</arg>
+            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</arg>
+            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED</arg>
+            <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED</arg>
+            <!-- XXX: The awkward comment formatting used here ensures that the plugin arguments are
+            separated only by spaces. Once we drop support for JDK 8 we can clean this up; later versions
+            do properly handle newline separators. See https://github.com/google/error-prone/pull/1115.
+            -->
+            <arg>-Xplugin:ErrorProne <!--
+                ErrorProne configuration:
+                --> -XepExcludedPaths:.*/generated-test-sources/.* <!--
+                ErrorProne configuration:
+                --> -XepAllDisabledChecksAsWarnings <!--
+                ErrorProne configuration:
+                --> -XepIgnoreUnknownCheckNames <!--
+                ErrorProne configuration:
+                --> -XepDisableWarningsInGeneratedCode <!--
+                ErrorProne configuration:
+                --> -XepAllErrorsAsWarnings <!--
+                NullAway configuration:
+                --> -Xep:NullAway:WARN <!--
+                NullAway configuration:
+                --> -XepOpt:NullAway:AnnotatedPackages=edu.hm.hafner <!--
+                Disabled ErrorProne rule:
+                --> -Xep:ReturnMissingNullable:OFF <!--
+                Disabled ErrorProne rule:
+                --> -Xep:PreferJavaTimeOverload:OFF <!--
+                Disabled ErrorProne rule:
+                --> -Xep:EqualsGetClass:OFF <!--
+                Disabled ErrorProne rule:
+                --> -Xep:AndroidJdkLibsChecker:OFF <!--
+                Disabled ErrorProne rule:
+                --> -Xep:Java7ApiChecker:OFF <!--
+                Disabled ErrorProne rule:
+                --> -Xep:Var:OFF <!--
+                Disabled ErrorProne rule:
+                --> -Xep:PrivateConstructorForUtilityClass:OFF <!--
+                Disabled ErrorProne rule:
+                --> -Xep:MethodCanBeStatic:OFF <!--
+                Disabled ErrorProne rule:
+                --> -Xep:WildcardImport:OFF <!--
+                Disabled ErrorProne rule:
+                --> -Xep:ThrowsUncheckedException:OFF <!--
+                Disabled ErrorProne rule:
+                --> -Xep:UnusedMethod:OFF <!--
+                Disabled ErrorProne rule:
+                --> -Xep:BooleanParameter:OFF <!--
+                Disabled ErrorProne rule:
+                --> -Xep:NullableDereference:OFF
+            </arg>
+            <!-- The Error Prone plugin makes certain
+                assumptions about the state of the AST at the
+                moment it is invoked. Those assumptions are met
+                when using the `simple` compile policy. This
+                flag may be dropped after resolution of
+                https://bugs.openjdk.java.net/browse/JDK-8155674. -->
+            <arg>-XDcompilePolicy=simple</arg>
           </compilerArgs>
-          <compilerId>javac-with-errorprone</compilerId>
-          <forceJavacCompilerUse>true</forceJavacCompilerUse>
+          <fork>true</fork>
           <showWarnings>true</showWarnings>
         </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>org.codehaus.plexus</groupId>
-            <artifactId>plexus-compiler-javac-errorprone</artifactId>
-            <version>${maven-error-prone-plugin.version}</version>
-          </dependency>
-        </dependencies>
       </plugin>
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
@@ -291,6 +385,14 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>${maven-resources-plugin.version}</version>
+        <configuration>
+          <encoding>${source.encoding}</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
         <version>${maven-source-plugin.version}</version>
         <executions>
@@ -301,6 +403,18 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>com.tngtech.archunit</groupId>
+            <artifactId>archunit-junit5-engine</artifactId>
+            <version>${archunit.version}</version>
+          </dependency>
+        </dependencies>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -347,6 +461,47 @@
         </executions>
       </plugin>
       <plugin>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-assertions-generator-maven-plugin</artifactId>
+        <version>${assertj-assertions-generator-maven-plugin.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate-assertions</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <quiet>true</quiet>
+          <cleanTargetDir>true</cleanTargetDir>
+          <hierarchical>false</hierarchical>
+          <generateBddAssertions>false</generateBddAssertions>
+          <generateJUnitSoftAssertions>false</generateJUnitSoftAssertions>
+          <generateSoftAssertions>true</generateSoftAssertions>
+          <templates>
+            <templatesDirectory>${project.basedir}/etc/assertj-templates/</templatesDirectory>
+            <assertionsEntryPointClass>assertions_entry_point_class_template.txt</assertionsEntryPointClass>
+            <softEntryPointAssertionClass>soft_assertions_entry_point_class_template.txt</softEntryPointAssertionClass>
+            <objectAssertion>has_assertion_template.txt</objectAssertion>
+          </templates>
+          <packages>
+            <package>edu.hm.hafner.util</package>
+          </packages>
+          <entryPointClassPackage>edu.hm.hafner.util.assertions</entryPointClassPackage>
+          <excludes>
+            <exclude>.*Condition</exclude>
+          </excludes>
+        </configuration>
+        <dependencies>
+          <!-- Without this dependency mvn test will fail due to a class not found exception -->
+          <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
         <version>${maven-pmd-plugin.version}</version>
@@ -370,6 +525,7 @@
           <includeTests>true</includeTests>
           <minimumTokens>50</minimumTokens>
           <excludeRoots>
+            <excludeRoot>target/generated-test-sources/test-annotations</excludeRoot>
             <excludeRoot>target/generated-test-sources/assertj-assertions</excludeRoot>
           </excludeRoots>
         </configuration>
@@ -401,7 +557,7 @@
         </executions>
         <configuration>
           <linkXRef>false</linkXRef>
-          <excludes>**/*Assert*.java</excludes>
+          <excludes>**/*Assert*.java,**/*_jmh*</excludes>
           <failOnViolation>false</failOnViolation>
           <configLocation>etc/checkstyle-configuration.xml</configLocation>
           <includeTestSourceDirectory>true</includeTestSourceDirectory>
@@ -461,6 +617,23 @@
             <revapi.semver.ignore>
               <enabled>true</enabled>
             </revapi.semver.ignore>
+            <revapi.ignore>
+              <item>
+                <code>java.annotation.removed</code>
+                <annotation>@edu.umd.cs.findbugs.annotations.Nullable</annotation>
+                <justification>Annotation should be save to change.</justification>
+              </item>
+              <item>
+                <code>java.annotation.added</code>
+                <annotation>@edu.umd.cs.findbugs.annotations.CheckForNull</annotation>
+                <justification>Annotation should be save to change.</justification>
+              </item>
+              <item>
+                <code>java.annotation.added</code>
+                <annotation>@edu.hm.hafner.util.Generated</annotation>
+                <justification>Annotation should be save to change.</justification>
+              </item>
+            </revapi.ignore>
           </analysisConfiguration>
         </configuration>
         <executions>
@@ -473,69 +646,30 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${jacoco-maven-plugin.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+            <phase>process-test-classes</phase>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
 
     <pluginManagement>
       <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>${maven-surefire-plugin.version}</version>
-          <dependencies>
-            <dependency>
-              <groupId>com.tngtech.archunit</groupId>
-              <artifactId>archunit-junit5-engine</artifactId>
-              <version>${archunit.version}</version>
-            </dependency>
-          </dependencies>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>${maven-resources-plugin.version}</version>
-          <configuration>
-            <encoding>${source.encoding}</encoding>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-clean-plugin</artifactId>
-          <version>${maven-clean-plugin.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-install-plugin</artifactId>
-          <version>${maven-install-plugin.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-site-plugin</artifactId>
-          <version>${maven-site-plugin.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-deploy-plugin</artifactId>
-          <version>${maven-deploy-plugin.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.jacoco</groupId>
-          <artifactId>jacoco-maven-plugin</artifactId>
-          <version>${jacoco-maven-plugin.version}</version>
-          <executions>
-            <execution>
-              <goals>
-                <goal>prepare-agent</goal>
-              </goals>
-            </execution>
-            <execution>
-              <id>report</id>
-              <phase>prepare-package</phase>
-              <goals>
-                <goal>report</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
         <plugin>
           <groupId>org.pitest</groupId>
           <artifactId>pitest-maven</artifactId>
@@ -549,26 +683,25 @@
           </dependencies>
           <configuration>
             <outputFormats>XML,HTML</outputFormats>
+            <excludedMethods>
+              <param>*equals</param>
+              <param>*hashCode</param>
+              <param>*toString</param>
+            </excludedMethods>
           </configuration>
         </plugin>
         <plugin>
-          <artifactId>maven-enforcer-plugin</artifactId>
-          <executions>
-            <execution>
-              <id>display-info</id>
-              <configuration>
-                <rules>
-                  <enforceBytecodeVersion>
-                    <ignoreClasses>
-                      <!-- asm dependency from PMD contains a java9 module-info.class -->
-                      <ignoreClass>module-info</ignoreClass>
-                      <ignoreClass>ModuleUtils.class</ignoreClass>
-                    </ignoreClasses>
-                  </enforceBytecodeVersion>
-                </rules>
-              </configuration>
-            </execution>
-          </executions>
+          <groupId>com.github.ferstl</groupId>
+          <artifactId>depgraph-maven-plugin</artifactId>
+          <version>${depgraph-maven-plugin.version}</version>
+          <configuration>
+            <graphFormat>puml</graphFormat>
+            <scope>compile</scope>
+            <showClassifiers>true</showClassifiers>
+            <showVersions>true</showVersions>
+            <showConflicts>true</showConflicts>
+            <showDuplicates>true</showDuplicates>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>

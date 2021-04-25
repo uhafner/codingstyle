@@ -17,14 +17,25 @@ jenkins:
         launcher:
           ssh:
             credentialsId: "java-agent-ssh-private-key"
-            host: "java-agent"
+            host: "java11-agent"
             launchTimeoutSeconds: 210
             maxNumRetries: 10
             port: 22
             retryWaitTime: 15
-        name: "java-agent"
+            javaPath: "/opt/java/openjdk/bin/java"
+            sshHostKeyVerificationStrategy:
+              manuallyTrustedKeyVerificationStrategy:
+                requireInitialManualTrust: false
+        name: "java11-agent"
         numExecutors: 1
         remoteFS: "/var/data"
+        nodeProperties:
+          - envVars:
+              env:
+                - key: "JAVA_HOME"
+                  value: "/opt/java/openjdk"
+                - key: "MAVEN_HOME"
+                  value: "/opt/maven"
   numExecutors: 0
   primaryView:
     all:
@@ -95,20 +106,6 @@ credentials:
               username: "agent"
 
 unclassified:
-  extendedEmailPublisher:
-    adminRequiredForTemplateTesting: false
-    allowUnregisteredEnabled: false
-    charset: "UTF-8"
-    debugMode: false
-    defaultBody: "$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:\r\n\r\nCheck\
-      \ console output at $BUILD_URL to view the results."
-    defaultContentType: "text/plain"
-    defaultSubject: "$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!"
-    maxAttachmentSize: -1
-    maxAttachmentSizeMb: 0
-    precedenceBulk: false
-    useSsl: false
-    watchingEnabled: false
   globalDefaultFlowDurabilityLevel:
     durabilityHint: PERFORMANCE_OPTIMIZED
   location:
@@ -117,18 +114,8 @@ unclassified:
   mailer:
     charset: "UTF-8"
     useSsl: false
-  mavenModuleSet:
-    localRepository: "default"
   pollSCM:
     pollingThreadCount: 10
-  simple-theme-plugin:
-    elements:
-      - cssUrl:
-          url: ""
-  timestamperConfig:
-    allPipelines: true
-    elapsedTimeFormat: "'<b>'HH:mm:ss.S'</b> '"
-    systemTimeFormat: "'<b>'HH:mm:ss'</b> '"
 
 tool:
   git:
@@ -164,7 +151,7 @@ tool:
 
 jobs:
   - script: >
-      pipelineJob('Codingstyle') {
+      pipelineJob('pipeline-codingstyle') {
           definition {
               cpsScm {
                   scriptPath 'Jenkinsfile'
@@ -177,4 +164,64 @@ jobs:
                   }
               }
           }
+      };
+      pipelineJob('pipeline-analysis-model') {
+          definition {
+              cpsScm {
+                  scriptPath 'etc/Jenkinsfile.analysis'
+                  scm {
+                    git {
+                        remote { url 'https://github.com/jenkinsci/analysis-model.git' }
+                        branch '*/master'
+                        extensions {}
+                    }
+                  }
+              }
+          }
+      };
+      freeStyleJob('freestyle-analysis-model') {
+          scm {
+              git {
+                  remote { url 'https://github.com/jenkinsci/analysis-model.git' }
+                  branch '*/master'
+                  extensions {}
+              }
+          }
+          steps {
+              maven {
+                  mavenInstallation('mvn-default')
+                  goals('clean verify')
+                  properties(skipITs: true)
+              }
+          }
+          publishers {
+              recordIssues {
+                    sourceCodeEncoding('UTF-8')
+                    aggregatingResults(true)
+                    tools {
+                      mavenConsole {}
+                      java {}
+                      javaDoc {}
+                      taskScanner {
+                          highTags('FIXME')
+                          normalTags('TODO')
+                          includePattern('**/*.java')
+                          excludePattern('target/**/*')
+                      }
+                      spotBugs {
+                            pattern('**/target/spotbugsXml.xml')
+                            useRankAsPriority(true)
+                      }
+                      checkStyle {
+                            pattern('**/target/checkstyle-result.xml')
+                      }
+                      pmd {
+                            pattern('**/target/pmd.xml')
+                      }
+                      cpd {
+                            pattern('**/target/cpd.xml')
+                      }
+                  }
+              }
+        }
       };
