@@ -160,7 +160,7 @@ Eine Instanz der Klasse muss mit einem `ObjectOutputStream` in einen Bytestream 
 muss dieser Bytestream mit einem `ObjectInputStream` wieder zurück in eine Instanz der Klasse verwandelt werden können. 
 Die beiden Instanzen müssen hinterher gleich sein (bezüglich `equals`).
 
-```
+```java
 /**
  * Base class to test the serialization of instances of {@link Serializable}. Note that the instances under test must
  * override equals so that the test case can check the serialized instances for equality.
