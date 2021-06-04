@@ -67,7 +67,7 @@
     <junit-platform-launcher.version>1.7.2</junit-platform-launcher.version>
     <mockito.version>3.11.0</mockito.version>
     <assertj.version>3.19.0</assertj.version>
-    <archunit.version>0.18.0</archunit.version>
+    <archunit.version>0.19.0</archunit.version>
 
     <!-- Maven Plug-ins Configuration -->
     <maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
