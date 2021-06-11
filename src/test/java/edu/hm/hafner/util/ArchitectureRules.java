@@ -40,13 +40,13 @@ public final class ArchitectureRules {
                     .and().doNotHaveModifier(JavaModifier.ABSTRACT)
                     .should().bePublic();
 
-    /** Junit 5 test methods should not be public. */
-    public static final ArchRule NO_PUBLIC_TEST_METHODS =
+    /** Junit 5 test methods should be package private. */
+    public static final ArchRule ONLY_PACKAGE_PRIVATE_TEST_METHODS =
             methods().that().areAnnotatedWith(Test.class)
                     .or().areAnnotatedWith(ParameterizedTest.class)
                     .and().areDeclaredInClassesThat()
                     .haveSimpleNameEndingWith("Test")
-                    .should().notBePublic();
+                    .should().bePackagePrivate();
 
     /** ArchUnit tests should not be public. */
     public static final ArchRule NO_PUBLIC_ARCHITECTURE_TESTS =
