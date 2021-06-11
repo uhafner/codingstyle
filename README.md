@@ -1,4 +1,3 @@
-[![ChangeLog](https://img.shields.io/github/release/uhafner/codingstyle.svg?label=changelog)](https://github.com/uhafner/codingstyle/releases/latest)
 [![GitHub Actions](https://github.com/uhafner/codingstyle/workflows/GitHub%20CI/badge.svg?branch=master)](https://github.com/uhafner/codingstyle/actions)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a4f98b07b95c47c19eb3443ee90168cd)](https://www.codacy.com/app/uhafner/codingstyle?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=uhafner/codingstyle&amp;utm_campaign=Badge_Grade)
 [![Codecov](https://codecov.io/gh/uhafner/codingstyle/branch/master/graph/badge.svg)](https://codecov.io/gh/uhafner/codingstyle)
