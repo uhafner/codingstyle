@@ -64,9 +64,9 @@
     <!-- Project Test Dependencies Configuration -->
     <equalsverifier.version>3.7</equalsverifier.version>
     <junit.version>5.7.2</junit.version>
-    <junit-platform-launcher.version>1.7.2</junit-platform-launcher.version>
+    <junit-platform-launcher.version>1.8.1</junit-platform-launcher.version>
     <mockito.version>3.11.2</mockito.version>
-    <assertj.version>3.20.2</assertj.version>
+    <assertj.version>3.21.0</assertj.version>
     <archunit.version>0.20.1</archunit.version>
 
     <!-- Maven Plug-ins Configuration -->
@@ -84,7 +84,7 @@
     <pmd.version>6.37.0</pmd.version>
     <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
     <checkstyle.version>8.45</checkstyle.version>
-    <spotbugs-maven-plugin.version>4.3.0</spotbugs-maven-plugin.version>
+    <spotbugs-maven-plugin.version>4.4.1</spotbugs-maven-plugin.version>
     <findsecbugs-plugin.version>1.11.0</findsecbugs-plugin.version>
     <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
     <maven-pitest-plugin.version>1.6.8</maven-pitest-plugin.version>
