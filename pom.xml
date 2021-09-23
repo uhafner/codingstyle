@@ -56,7 +56,7 @@
     <module.name>${project.groupId}.codingstyle</module.name>
 
     <!-- Project Dependencies Configuration -->
-    <spotbugs.annotations>4.3.0</spotbugs.annotations>
+    <spotbugs.annotations>4.4.1</spotbugs.annotations>
     <commons.lang.version>3.12.0</commons.lang.version>
     <commons.io.version>2.11.0</commons.io.version>
     <javax.annotation-api.version>1.3.2</javax.annotation-api.version>
@@ -64,7 +64,7 @@
     <!-- Project Test Dependencies Configuration -->
     <equalsverifier.version>3.7</equalsverifier.version>
     <junit.version>5.7.2</junit.version>
-    <junit-platform-launcher.version>1.7.2</junit-platform-launcher.version>
+    <junit-platform-launcher.version>1.8.1</junit-platform-launcher.version>
     <mockito.version>3.11.2</mockito.version>
     <assertj.version>3.20.2</assertj.version>
     <archunit.version>0.20.1</archunit.version>
@@ -75,12 +75,12 @@
     <maven-install-plugin.version>3.0.0-M1</maven-install-plugin.version>
     <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-    <maven-javadoc-plugin.version>3.3.0</maven-javadoc-plugin.version>
+    <maven-javadoc-plugin.version>3.3.1</maven-javadoc-plugin.version>
     <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
     <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
     <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
     <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
-    <maven-pmd-plugin.version>3.14.0</maven-pmd-plugin.version>
+    <maven-pmd-plugin.version>3.15.0</maven-pmd-plugin.version>
     <pmd.version>6.37.0</pmd.version>
     <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
     <checkstyle.version>8.45</checkstyle.version>
