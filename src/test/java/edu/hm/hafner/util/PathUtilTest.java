@@ -91,6 +91,19 @@ class PathUtilTest extends ResourceTest {
     }
 
     @Test
+    @DisplayName("Should find the path prefix ")
+    void shouldDetectSamePathPrefix() {
+        PathUtil pathUtil = new PathUtil();
+
+        String absolutePath = pathUtil.createAbsolutePath(
+                "C:/Jenkins/workspace/XXX/XXX/XXX/XXX/build",
+                "../tests/mocks/generated_mocks.c");
+
+        assertThat(pathUtil.getAbsolutePath(absolutePath)).isEqualTo("C:/Jenkins/workspace/XXX/XXX/XXX/XXX/tests/mocks/generated_mocks.c");
+        assertThat(Paths.get(absolutePath).startsWith(pathUtil.getAbsolutePath(Paths.get("C:\\Jenkins\\workspace\\XXX")))).isTrue();
+    }
+
+    @Test
     @DisplayName("Should return fallback if parent is invalid")
     void shouldReturnFallbackIfParentIsInvalid() {
         PathUtil pathUtil = new PathUtil();
