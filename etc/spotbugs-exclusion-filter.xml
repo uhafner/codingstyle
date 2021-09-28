@@ -16,6 +16,9 @@
       <Class name="~.*Messages" />
   </Match>
   <Match>
+      <Class name="~.*Assert" />
+  </Match>
+  <Match>
       <Bug code="UwF, SIC, NP, Dm, UI, RV, DMI" />
       <Class name="~.*(Test|Benchmark).*" />
   </Match>
