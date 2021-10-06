@@ -113,7 +113,7 @@ markiert, muss der Pull Request überarbeitet werden. Dazu muss der Fehler analy
 an den passenden Stellen aktualisiert werden, sei es bei Compile- oder Testfehlern, bei Unterschreitung der geforderten 
 Testabdeckung oder bei Verstößen gegen die Kodierungsrichtlinien.
 
-Sind alle automatischen Tests auf *Ok*, fehlt nur noch das Review des Autors des Orignal Projektes. Dies erfolgt 
+Sind alle automatischen Tests auf *Ok*, fehlt nur noch das Review des Autors des Original Projektes. Dies erfolgt 
 zeilenweise ebenfalls im Pull Request und kann mit den gleichen Schritten wie oben beschrieben eingearbeitet werden.
 Normalerweise erkennt GitHub diese Änderungen automatisch, diese müssen daher nicht explizit als *Gelöst* markiert 
 werden.   
