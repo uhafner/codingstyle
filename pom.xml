@@ -65,7 +65,7 @@
     <equalsverifier.version>3.7.1</equalsverifier.version>
     <junit.version>5.8.1</junit.version>
     <junit-platform-launcher.version>1.8.1</junit-platform-launcher.version>
-    <mockito.version>3.12.4</mockito.version>
+    <mockito.version>4.0.0</mockito.version>
     <assertj.version>3.21.0</assertj.version>
     <archunit.version>0.21.0</archunit.version>
 
