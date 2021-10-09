@@ -11,6 +11,8 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import com.google.errorprone.annotations.FormatMethod;
 
+import edu.umd.cs.findbugs.annotations.CheckForNull;
+
 /**
  * Provides a log of info messages and a limited number of error messages. If the number of errors exceeds this limit,
  * then subsequent error messages will be skipped.
@@ -165,7 +167,7 @@ public class FilteredLog implements Serializable {
     }
 
     @Override @Generated
-    public boolean equals(final Object o) {
+    public boolean equals(@CheckForNull final Object o) {
         if (this == o) {
             return true;
         }
