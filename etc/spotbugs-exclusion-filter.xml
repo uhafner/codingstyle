@@ -19,7 +19,7 @@
       <Class name="~.*Assert" />
   </Match>
   <Match>
-      <Bug code="UwF, SIC, NP, Dm, UI, RV, DMI" />
+      <Bug code="UwF, SIC, NP, Dm, UI, RV, DMI, EI" />
       <Class name="~.*(Test|Benchmark).*" />
   </Match>
   <Match>
