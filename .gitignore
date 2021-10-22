@@ -1,11 +1,12 @@
+node
+node_modules
 target
 *.iml
 .classpath
 .project
 .settings
-.DS_Store
+pom.xml.versionsBackup
 pom.xml.releaseBackup
 release.properties
-
-# Project exclude paths
-/node_modules/
+.DS_Store
+/package-lock.json
