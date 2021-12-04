@@ -2,9 +2,10 @@ package edu.hm.hafner.util;
 
 import java.util.stream.Stream;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
+import static edu.hm.hafner.util.assertions.Assertions.*;
 import static org.mockito.Mockito.*;
 
 /**
@@ -14,12 +15,14 @@ import static org.mockito.Mockito.*;
  */
 class LookaheadStreamTest extends ResourceTest {
     private static final String FIRST_LINE = "First Line";
+    private static final String EMPTY = StringUtils.EMPTY;
 
     @Test
     void shouldHandleEmptyLines() {
         try (LookaheadStream stream = new LookaheadStream(getTextLinesAsStream(""))) {
-            assertThat(stream.hasNext()).isFalse();
-            assertThat(stream.getLine()).isEqualTo(0);
+            assertThat(stream).doesNotHaveNext().hasLine(0).hasFileName(EMPTY);
+
+            assertThatExceptionOfType(java.util.NoSuchElementException.class).isThrownBy(stream::peekNext);
             assertThatExceptionOfType(java.util.NoSuchElementException.class).isThrownBy(stream::next);
         }
     }
@@ -27,11 +30,14 @@ class LookaheadStreamTest extends ResourceTest {
     @Test
     void shouldReturnSingleLine() {
         try (LookaheadStream stream = new LookaheadStream(getTextLinesAsStream(FIRST_LINE))) {
-            assertThat(stream.hasNext()).isTrue();
-            assertThat(stream.next()).isEqualTo(FIRST_LINE);
-            assertThat(stream.getLine()).isEqualTo(1);
+            assertThat(stream).hasNext().hasLine(0);
+            assertThat(stream.peekNext()).isEqualTo(FIRST_LINE);
+            // Now reading from the buffer:
+            assertThat(stream).hasNext();
+            assertThat(stream.peekNext()).isEqualTo(FIRST_LINE);
 
-            assertThat(stream.hasNext()).isFalse();
+            assertThat(stream.next()).isEqualTo(FIRST_LINE);
+            assertThat(stream).hasLine(1).doesNotHaveNext();
         }
     }
 

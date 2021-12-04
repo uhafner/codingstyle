@@ -130,7 +130,7 @@ public class LookaheadStream implements AutoCloseable {
         return line;
     }
 
-    @Override
+    @Override @Generated
     public String toString() {
         return String.format("[%d] -> '%s'", line, lookaheadLine);
     }
