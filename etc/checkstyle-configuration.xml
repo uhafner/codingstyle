@@ -11,6 +11,12 @@
   <module name="TreeWalker">
     <module name="SuppressWarningsHolder" />
 
+    <module name="NoWhitespaceBeforeCaseDefaultColon"/>
+    <module name="UnnecessarySemicolonAfterOuterTypeDeclaration"/>
+    <module name="UnnecessarySemicolonInTryWithResources"/>
+    <module name="UnnecessarySemicolonInEnumeration"/>
+    <module name="AvoidDoubleBraceInitialization"/>
+    <module name="NoEnumTrailingComma"/>
     <module name="OneStatementPerLine"/>
     <module name="OuterTypeFilename"/>
     <module name="NestedForDepth">
@@ -33,6 +39,7 @@
     </module>
     <module name="JavadocType"/>
     <module name="JavadocMethod"/>
+    <module name="JavadocParagraph"/>
     <module name="JavadocVariable">
       <property name="scope" value="protected"/>
       <property name="tokens" value="VARIABLE_DEF"/>
@@ -42,6 +49,11 @@
     </module>
     <module name="MissingJavadocTypeCheck"/>
     <module name="MissingJavadocPackageCheck"/>
+    <module name="JavadocMissingLeadingAsteriskCheck"/>
+    <module name="JavadocMissingWhitespaceAfterAsteriskCheck"/>
+    <module name="JavadocContentLocationCheck"/>
+    <module name="JavadocBlockTagLocation"/>
+    <module name="InvalidJavadocPosition"/>
     <module name="ConstantName"/>
     <module name="LocalFinalVariableName"/>
     <module name="LocalVariableName"/>
@@ -50,10 +62,14 @@
     <module name="PackageName"/>
     <module name="ParameterName"/>
     <module name="StaticVariableName"/>
+    <module name="LambdaParameterName"/>
     <module name="TypeName"/>
     <module name="ClassTypeParameterName"/>
     <module name="MethodTypeParameterName"/>
     <module name="AnonInnerLength">
+      <property name="max" value="10"/>
+    </module>
+    <module name="LambdaBodyLength">
       <property name="max" value="10"/>
     </module>
     <module name="MethodLength"/>
