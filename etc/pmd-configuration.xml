@@ -54,9 +54,6 @@
   <rule ref="category/java/design.xml">
     <exclude name="LoosePackageCoupling"/>
     <exclude name="LawOfDemeter"/>
-    <exclude name="NcssConstructorCount"/>
-    <exclude name="NcssMethodCount"/>
-    <exclude name="NcssTypeCount"/>
     <exclude name="TooManyMethods"/>
     <exclude name="ClassWithOnlyPrivateConstructorsShouldBeFinal"/>
     <exclude name="ExcessiveParameterList"/>
