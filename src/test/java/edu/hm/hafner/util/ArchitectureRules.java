@@ -2,6 +2,7 @@ package edu.hm.hafner.util;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import com.tngtech.archunit.base.DescribedPredicate;
 import com.tngtech.archunit.core.domain.AccessTarget.ConstructorCallTarget;
 import com.tngtech.archunit.core.domain.JavaCall;
+import com.tngtech.archunit.core.domain.JavaClass;
 import com.tngtech.archunit.core.domain.JavaConstructorCall;
 import com.tngtech.archunit.core.domain.JavaModifier;
 import com.tngtech.archunit.core.domain.properties.CanBeAnnotated;
@@ -25,13 +27,10 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
  * @author Ullrich Hafner
  */
 public final class ArchitectureRules {
-    private ArchitectureRules() {
-        // prevents instantiation
-    }
-
     /** Never create exception without any context. */
     public static final ArchRule NO_EXCEPTIONS_WITH_NO_ARG_CONSTRUCTOR =
-            noClasses().should().callConstructorWhere(new ExceptionHasNoContext());
+            noClasses().that().haveSimpleNameNotContaining("Benchmark")
+                    .should().callConstructorWhere(new ExceptionHasNoContext());
 
     /** Junit 5 test classes should not be public. */
     public static final ArchRule NO_PUBLIC_TEST_CLASSES =
@@ -40,7 +39,7 @@ public final class ArchitectureRules {
                     .and().doNotHaveModifier(JavaModifier.ABSTRACT)
                     .should().bePublic();
 
-    /** Junit 5 test methods should be package private. */
+    /** Junit 5 test methods should not be public. */
     public static final ArchRule ONLY_PACKAGE_PRIVATE_TEST_METHODS =
             methods().that().areAnnotatedWith(Test.class)
                     .or().areAnnotatedWith(ParameterizedTest.class)
@@ -68,8 +67,13 @@ public final class ArchitectureRules {
                     "org.apache.commons.lang..",
                     "org.joda.time..",
                     "javax.xml.bind..",
+                    "net.jcip.annotations..",
                     "javax.annotation..",
-                    "net.jcip.annotations.."));
+                    "junit..",
+                    "org.hamcrest..",
+                    "com.google.common..",
+                    "org.junit"
+            ));
 
     /** Prevents that classes use visible but forbidden API. */
     public static final ArchRule NO_FORBIDDEN_ANNOTATION_USED =
@@ -81,15 +85,19 @@ public final class ArchitectureRules {
             .should().callCodeUnitWhere(new TargetIsForbiddenClass(
                     "org.junit.jupiter.api.Assertions", "org.junit.Assert"));
 
-    /** Ensures that the {@code readResolve} methods are protected so sub classes can call the parent method. */
+    /** Ensures that the {@code readResolve} methods are protected so subclasses can call the parent method. */
     public static final ArchRule READ_RESOLVE_SHOULD_BE_PROTECTED =
             methods().that().haveName("readResolve").and().haveRawReturnType(Object.class)
                     .should().beDeclaredInClassesThat().implement(Serializable.class)
                     .andShould().beProtected();
 
+    private ArchitectureRules() {
+        // prevents instantiation
+    }
+
     /**
-     * Matches if a call from outside the defining class uses a method or constructor annotated with {@link
-     * VisibleForTesting}. There are two exceptions:
+     * Matches if a call from outside the defining class uses a method or constructor annotated with
+     * {@link VisibleForTesting}. There are two exceptions:
      * <ul>
      * <li>The method is called on the same class</li>
      * <li>The method is called in a method also annotated with {@link VisibleForTesting}</li>
@@ -131,9 +139,23 @@ public final class ArchitectureRules {
         }
     }
 
-    private static class ExceptionHasNoContext extends DescribedPredicate<JavaConstructorCall> {
-        ExceptionHasNoContext() {
+    /**
+     * Predicate to match exception constructor calls without contexts.
+     */
+    public static class ExceptionHasNoContext extends DescribedPredicate<JavaConstructorCall> {
+        private final List<Class<? extends Throwable>> allowedExceptions;
+
+        /**
+         * Creates a new predicate.
+         *
+         * @param allowedExceptions
+         *         exceptions that are allowed to be instantiated without arguments
+         */
+        @SafeVarargs
+        public ExceptionHasNoContext(final Class<? extends Throwable>... allowedExceptions) {
             super("exception context is missing");
+
+            this.allowedExceptions = Arrays.asList(allowedExceptions);
         }
 
         @Override
@@ -142,7 +164,12 @@ public final class ArchitectureRules {
             if (target.getRawParameterTypes().size() > 0) {
                 return false;
             }
-            return target.getOwner().isAssignableTo(Throwable.class);
+            return target.getOwner().isAssignableTo(Throwable.class)
+                    && !isPermittedException(target.getOwner());
+        }
+
+        private boolean isPermittedException(final JavaClass owner) {
+            return allowedExceptions.stream().anyMatch(owner::isAssignableTo);
         }
     }
 }
