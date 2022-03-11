@@ -25,10 +25,6 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
  * @author Ullrich Hafner
  */
 public final class ArchitectureRules {
-    private ArchitectureRules() {
-        // prevents instantiation
-    }
-
     /** Never create exception without any context. */
     public static final ArchRule NO_EXCEPTIONS_WITH_NO_ARG_CONSTRUCTOR =
             noClasses().should().callConstructorWhere(new ExceptionHasNoContext());
@@ -40,7 +36,7 @@ public final class ArchitectureRules {
                     .and().doNotHaveModifier(JavaModifier.ABSTRACT)
                     .should().bePublic();
 
-    /** Junit 5 test methods should be package private. */
+    /** Junit 5 test methods should not be public. */
     public static final ArchRule ONLY_PACKAGE_PRIVATE_TEST_METHODS =
             methods().that().areAnnotatedWith(Test.class)
                     .or().areAnnotatedWith(ParameterizedTest.class)
@@ -68,8 +64,13 @@ public final class ArchitectureRules {
                     "org.apache.commons.lang..",
                     "org.joda.time..",
                     "javax.xml.bind..",
+                    "net.jcip.annotations..",
                     "javax.annotation..",
-                    "net.jcip.annotations.."));
+                    "junit..",
+                    "org.hamcrest..",
+                    "com.google.common..",
+                    "org.junit"
+                    ));
 
     /** Prevents that classes use visible but forbidden API. */
     public static final ArchRule NO_FORBIDDEN_ANNOTATION_USED =
@@ -81,11 +82,15 @@ public final class ArchitectureRules {
             .should().callCodeUnitWhere(new TargetIsForbiddenClass(
                     "org.junit.jupiter.api.Assertions", "org.junit.Assert"));
 
-    /** Ensures that the {@code readResolve} methods are protected so sub classes can call the parent method. */
+    /** Ensures that the {@code readResolve} methods are protected so subclasses can call the parent method. */
     public static final ArchRule READ_RESOLVE_SHOULD_BE_PROTECTED =
             methods().that().haveName("readResolve").and().haveRawReturnType(Object.class)
                     .should().beDeclaredInClassesThat().implement(Serializable.class)
                     .andShould().beProtected();
+
+    private ArchitectureRules() {
+        // prevents instantiation
+    }
 
     /**
      * Matches if a call from outside the defining class uses a method or constructor annotated with {@link
