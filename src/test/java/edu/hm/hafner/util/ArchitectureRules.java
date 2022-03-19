@@ -89,7 +89,7 @@ public final class ArchitectureRules {
     public static final ArchRule READ_RESOLVE_SHOULD_BE_PROTECTED =
             methods().that().haveName("readResolve").and().haveRawReturnType(Object.class)
                     .should().beDeclaredInClassesThat().implement(Serializable.class)
-                    .andShould().beProtected();
+                    .andShould().beProtected().allowEmptyShould(true);
 
     private ArchitectureRules() {
         // prevents instantiation
