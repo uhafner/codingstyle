@@ -19,6 +19,8 @@ import org.opentest4j.TestAbortedException;
 
 import com.google.errorprone.annotations.MustBeClosed;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import static org.assertj.core.api.Assumptions.*;
 
 /**
@@ -39,10 +41,12 @@ public abstract class ResourceTest {
     }
 
     /**
-     * Creates an empty file in the default temporary-file directory, using the prefix and suffix "test" to generate its
-     * name. The resulting {@code Path} is associated with the default {@code FileSystem}.
+     * Creates an empty file in the default temporary-file directory, using
+     * the prefix and suffix "test" to generate its name. The resulting {@code
+     * Path} is associated with the default {@code FileSystem}.
      *
-     * @return the path to the newly created file that did not exist before this method was invoked
+     * @return  the path to the newly created file that did not exist before
+     *          this method was invoked
      */
     protected Path createTempFile() {
         try {
@@ -67,27 +71,8 @@ public abstract class ResourceTest {
      * @return the content represented by a byte array
      */
     protected byte[] readAllBytes(final String fileName) {
-        return readAllBytes(fileName, getTestResourceClass());
-    }
-
-    /**
-     * Reads all the bytes from a file. The method ensures that the file is closed when all bytes have been read or an
-     * I/O error, or other runtime exception, is thrown.
-     *
-     * <p> Note that this method is intended for simple cases where it is
-     * convenient to read all bytes into a byte array. It is not intended for reading in large files.
-     * </p>
-     *
-     * @param fileName
-     *         name of the desired resource
-     * @param resourceClass
-     *         the class to obtain the class loader from that should resolve the resource
-     *
-     * @return the content represented by a byte array
-     */
-    protected byte[] readAllBytes(final String fileName, final Class<?> resourceClass) {
         try {
-            return readAllBytes(getPath(fileName, resourceClass));
+            return readAllBytes(getPath(fileName));
         }
         catch (URISyntaxException e) {
             throw new AssertionError("Can't find resource " + fileName, e);
@@ -116,8 +101,9 @@ public abstract class ResourceTest {
         }
     }
 
-    private Path getPath(final String name, final Class<?> resourceClass) throws URISyntaxException {
-        URL resource = resourceClass.getResource(name);
+    @SuppressFBWarnings("UI_INHERITANCE_UNSAFE_GETRESOURCE")
+    private Path getPath(final String name) throws URISyntaxException {
+        URL resource = getTestResourceClass().getResource(name);
         ensureThatResourceExists(resource, name);
         return Paths.get(resource.toURI());
     }
@@ -157,30 +143,8 @@ public abstract class ResourceTest {
      */
     @MustBeClosed
     protected Stream<String> asStream(final String fileName, final Charset charset) {
-        return asStream(fileName, charset, getTestResourceClass());
-    }
-
-    /**
-     * Read all lines from the desired resource as a {@code Stream}, i.e. this method populates lazily as the stream is
-     * consumed.
-     * <p>
-     * Bytes from the resource are decoded into characters using the specified charset and the same line terminators as
-     * specified by {@link Files#readAllLines(Path, Charset)} are supported.
-     * </p>
-     *
-     * @param fileName
-     *         name of the desired resource
-     * @param charset
-     *         the charset to use for decoding
-     * @param resourceClass
-     *         the class to obtain the class loader from that should resolve the resource
-     *
-     * @return the content represented as a {@link Stream} of lines
-     */
-    @MustBeClosed
-    protected Stream<String> asStream(final String fileName, final Charset charset, final Class<?> resourceClass) {
         try {
-            return Files.lines(getPath(fileName, resourceClass), charset);
+            return Files.lines(getPath(fileName), charset);
         }
         catch (IOException | URISyntaxException e) {
             throw new AssertionError("Can't read resource " + fileName, e);
@@ -196,21 +160,7 @@ public abstract class ResourceTest {
      * @return the content represented as an {@link InputStream}
      */
     protected InputStream asInputStream(final String fileName) {
-        return asInputStream(fileName, getTestResourceClass());
-    }
-
-    /**
-     * Finds a resource with the given name and returns an input stream with UTF-8 decoding.
-     *
-     * @param fileName
-     *         name of the desired resource
-     * @param resourceClass
-     *         the class to obtain the class loader from that should resolve the resource
-     *
-     * @return the content represented as an {@link InputStream}
-     */
-    protected InputStream asInputStream(final String fileName, final Class<?> resourceClass) {
-        InputStream stream = resourceClass.getResourceAsStream(fileName);
+        InputStream stream = getTestResourceClass().getResourceAsStream(fileName);
 
         ensureThatResourceExists(stream, fileName);
 
@@ -242,20 +192,6 @@ public abstract class ResourceTest {
      */
     protected String toString(final String fileName) {
         return createString(readAllBytes(fileName));
-    }
-
-    /**
-     * Finds a resource with the given name and returns the content (decoded with UTF-8) as String.
-     *
-     * @param fileName
-     *         name of the desired resource
-     * @param resourceClass
-     *         the class to obtain the class loader from that should resolve the resource
-     *
-     * @return the content represented as {@link String}
-     */
-    protected String toString(final String fileName, final Class<?> resourceClass) {
-        return createString(readAllBytes(fileName, resourceClass));
     }
 
     /**
@@ -312,8 +248,7 @@ public abstract class ResourceTest {
     /**
      * Assumes that the test is running on Windows.
      *
-     * @throws TestAbortedException
-     *         if the test is running on a Unix system
+     * @throws TestAbortedException if the test is running on a Unix system
      */
     protected void assumeThatTestIsRunningOnWindows() {
         assumeThat(isWindows()).as("Test is not running on Windows").isTrue();
@@ -322,8 +257,7 @@ public abstract class ResourceTest {
     /**
      * Assumes that the test is running on Windows.
      *
-     * @throws TestAbortedException
-     *         if the test is running on a Unix system
+     * @throws TestAbortedException if the test is running on a Unix system
      */
     protected void assumeThatTestIsRunningOnUnix() {
         assumeThat(isWindows()).as("Test is not running on Unix").isFalse();
