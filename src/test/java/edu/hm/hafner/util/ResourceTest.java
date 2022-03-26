@@ -14,6 +14,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.input.BOMInputStream;
 import org.opentest4j.TestAbortedException;
 
@@ -72,10 +73,14 @@ public abstract class ResourceTest {
      */
     protected byte[] readAllBytes(final String fileName) {
         try {
-            return readAllBytes(getPath(fileName));
+            URL resource = getTestResourceClass().getResource(fileName);
+
+            ensureThatResourceExists(resource, fileName);
+
+            return IOUtils.toByteArray(resource);
         }
-        catch (URISyntaxException e) {
-            throw new AssertionError("Can't find resource " + fileName, e);
+        catch (IOException e) {
+            throw new AssertionError("Can't read resource " + fileName, e);
         }
     }
 
