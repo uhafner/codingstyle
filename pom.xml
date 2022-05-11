@@ -628,15 +628,15 @@
           </dependency>
         </dependencies>
         <configuration>
-          <failBuildOnProblemsFound>true</failBuildOnProblemsFound>
+          <failBuildOnProblemsFound>false</failBuildOnProblemsFound>
           <checkDependencies>true</checkDependencies>
           <newVersion>${project.version}</newVersion>
           <failOnUnresolvedArtifacts>true</failOnUnresolvedArtifacts>
           <analysisConfiguration>
             <revapi.reporter.json>
-              <minSeverity>POTENTIALLY_BREAKING</minSeverity>
+              <minSeverity>NON_BREAKING</minSeverity>
               <minCriticality>documented</minCriticality>
-              <output>revapi-result.json</output>
+              <output>${project.build.outputDirectory}/revapi-result.json</output>
               <indent>false</indent>
               <append>false</append>
               <keepEmptyFile>true</keepEmptyFile>
@@ -645,30 +645,6 @@
               <enabled>true</enabled>
             </revapi.versions>
             <revapi.differences>
-              <item>
-                <regex>true</regex>
-                <code>java.class.nonPublicPartOfAPI</code>
-                <classQualifiedName>org.jvnet.hudson.*</classQualifiedName>
-                <justification>Not relevant</justification>
-              </item>
-              <item>
-                <regex>true</regex>
-                <code>java.class.nonPublicPartOfAPI</code>
-                <classQualifiedName>net.sf.json.*</classQualifiedName>
-                <justification>Not relevant</justification>
-              </item>
-              <item>
-                <regex>true</regex>
-                <code>java.class.nonPublicPartOfAPI</code>
-                <classQualifiedName>org.jvnet.hudson.*</classQualifiedName>
-                <justification>Not relevant</justification>
-              </item>
-              <item>
-                <regex>true</regex>
-                <code>java.class.nonPublicPartOfAPI</code>
-                <classQualifiedName>net.sf.json.*</classQualifiedName>
-                <justification>Not relevant</justification>
-              </item>
               <item>
                 <code>java.annotation.removed</code>
                 <annotation>@edu.umd.cs.findbugs.annotations.Nullable</annotation>
