@@ -30,7 +30,11 @@ class ResourceExtractorTest {
     void shouldLocateResourcesInFolder() {
         ResourceExtractor folderExtractor = new ResourceExtractor(ResourceExtractor.class);
         assertThat(folderExtractor.isReadingFromJarFile()).isFalse();
-        assertThat(folderExtractor.getResourcePath()).endsWith("target/classes");
+        assertThat(normalizePath(folderExtractor.getResourcePath())).endsWith("target/classes");
+    }
+
+    private String normalizePath(final String resourcePath) {
+        return new PathUtil().getAbsolutePath(resourcePath);
     }
 
     @Test
