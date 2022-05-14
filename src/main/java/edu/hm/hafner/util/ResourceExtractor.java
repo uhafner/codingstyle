@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.security.CodeSource;
+import java.security.ProtectionDomain;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Set;
@@ -28,6 +29,7 @@ import org.apache.commons.lang3.StringUtils;
 public class ResourceExtractor {
     private final boolean readingFromJarFile;
     private final Extractor extractor;
+    private String resourcePath;
 
     /**
      * Creates a new {@link ResourceExtractor} that extracts resources from the classloader of the specified class.
@@ -36,7 +38,12 @@ public class ResourceExtractor {
      *         the target class to use the classloader from
      */
     public ResourceExtractor(final Class<?> targetClass) {
-        CodeSource codeSource = targetClass.getProtectionDomain().getCodeSource();
+        this(targetClass, targetClass.getProtectionDomain());
+    }
+
+    @VisibleForTesting
+    ResourceExtractor(final Class<?> targetClass, final ProtectionDomain protectionDomain) {
+        CodeSource codeSource = protectionDomain.getCodeSource();
         if (codeSource == null) {
             throw new IllegalArgumentException("There is no CodeSource for " + targetClass);
         }
@@ -56,6 +63,11 @@ public class ResourceExtractor {
         else {
             extractor = new FolderExtractor(entryPoint);
         }
+        resourcePath = entryPoint.toString();
+    }
+
+    public String getResourcePath() {
+        return resourcePath;
     }
 
     public boolean isReadingFromJarFile() {

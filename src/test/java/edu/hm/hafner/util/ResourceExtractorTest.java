@@ -2,15 +2,19 @@ package edu.hm.hafner.util;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.security.CodeSource;
+import java.security.ProtectionDomain;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 /**
  * Tests the class {@link ResourceExtractor}.
@@ -23,9 +27,17 @@ class ResourceExtractorTest {
     private static final String MANIFEST_MF = "META-INF/MANIFEST.MF";
 
     @Test
-    void shouldLocateResourcesInJarFilesAndClassPath() {
-        assertThat(new ResourceExtractor(ResourceExtractor.class).isReadingFromJarFile()).isFalse();
-        assertThat(new ResourceExtractor(StringUtils.class).isReadingFromJarFile()).isTrue();
+    void shouldLocateResourcesInFolder() {
+        ResourceExtractor folderExtractor = new ResourceExtractor(ResourceExtractor.class);
+        assertThat(folderExtractor.isReadingFromJarFile()).isFalse();
+        assertThat(folderExtractor.getResourcePath()).endsWith("target/classes");
+    }
+
+    @Test
+    void shouldLocateResourcesInJarFile() {
+        ResourceExtractor jarExtractor = new ResourceExtractor(StringUtils.class);
+        assertThat(jarExtractor.isReadingFromJarFile()).isTrue();
+        assertThat(jarExtractor.getResourcePath()).matches(".*commons-lang3-\\d+\\.\\d+\\.\\d+.jar");
     }
 
     @Test
@@ -82,6 +94,33 @@ class ResourceExtractorTest {
 
         assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(() ->
                 proxy.extract(targetFolder, "does-not-exist"));
+    }
+
+    @Test
+    void shouldHandleClassloaderProblems() {
+        ProtectionDomain protectionDomain = mock(ProtectionDomain.class);
+
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> new ResourceExtractor(ResourceExtractor.class, protectionDomain))
+                .withMessageContainingAll("CodeSource for", "ResourceExtractor");
+
+        CodeSource codeSource = mock(CodeSource.class);
+        when(protectionDomain.getCodeSource()).thenReturn(codeSource);
+
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> new ResourceExtractor(ResourceExtractor.class, protectionDomain))
+                .withMessageContaining("CodeSource location for", "ResourceExtractor");
+
+        URL url = mock(URL.class);
+        when(codeSource.getLocation()).thenReturn(url);
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> new ResourceExtractor(ResourceExtractor.class, protectionDomain))
+                .withMessageContaining("CodeSource location path", "ResourceExtractor");
+
+        when(url.getPath()).thenReturn("file://file.jar");
+        ResourceExtractor extractor = new ResourceExtractor(ResourceExtractor.class, protectionDomain);
+
+        assertThat(extractor.getResourcePath()).isEqualTo("file:/file.jar");
     }
 
     private String readToString(final Path output) {
