@@ -161,6 +161,9 @@ public class ResourceExtractor {
                     String name = entry.getName();
                     if (remaining.contains(name)) {
                         Path targetFile = targetDirectory.resolve(name);
+                        if (!targetFile.normalize().startsWith(targetDirectory)) {
+                            throw new IllegalArgumentException("Corrupt jar structure, contains invalid path: " + name);
+                        }
                         Files.createDirectories(targetFile.getParent());
                         try (InputStream inputStream = jar.getInputStream(entry); OutputStream outputStream = Files.newOutputStream(targetFile)) {
                             IOUtils.copy(inputStream, outputStream);
