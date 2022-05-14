@@ -121,10 +121,10 @@ class ResourceExtractorTest {
                 .isThrownBy(() -> new ResourceExtractor(ResourceExtractor.class, protectionDomain))
                 .withMessageContaining("CodeSource location path", "ResourceExtractor");
 
-        when(url.getPath()).thenReturn("file://file.jar");
+        when(url.getPath()).thenReturn("file.jar");
         ResourceExtractor extractor = new ResourceExtractor(ResourceExtractor.class, protectionDomain);
 
-        assertThat(extractor.getResourcePath()).isEqualTo("file:/file.jar");
+        assertThat(extractor.getResourcePath()).isEqualTo("file.jar");
     }
 
     private String readToString(final Path output) {
