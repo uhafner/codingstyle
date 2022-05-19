@@ -628,7 +628,7 @@
           </dependency>
         </dependencies>
         <configuration>
-          <failBuildOnProblemsFound>false</failBuildOnProblemsFound>
+          <failBuildOnProblemsFound>true</failBuildOnProblemsFound>
           <checkDependencies>true</checkDependencies>
           <newVersion>${project.version}</newVersion>
           <failOnUnresolvedArtifacts>true</failOnUnresolvedArtifacts>
