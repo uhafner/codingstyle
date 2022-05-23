@@ -667,7 +667,7 @@
           <execution>
             <id>run-revapi</id>
             <goals>
-              <goal>report</goal>
+              <goal>check</goal>
             </goals>
             <phase>verify</phase>
           </execution>
