@@ -93,6 +93,7 @@
     <nullaway.version>0.9.7</nullaway.version>
     <revapi-maven-plugin.version>0.14.6</revapi-maven-plugin.version>
     <revapi-java.version>0.26.1</revapi-java.version>
+    <revapi-reporter-json-version>0.4.5</revapi-reporter-json-version>
     <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
     <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
     <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
@@ -626,13 +627,30 @@
             <artifactId>revapi-java</artifactId>
             <version>${revapi-java.version}</version>
           </dependency>
+          <dependency>
+            <groupId>org.revapi</groupId>
+            <artifactId>revapi-reporter-json</artifactId>
+            <version>${revapi-reporter-json-version}</version>
+          </dependency>
         </dependencies>
         <configuration>
+          <failBuildOnProblemsFound>true</failBuildOnProblemsFound>
+          <checkDependencies>true</checkDependencies>
+          <newVersion>${project.version}</newVersion>
+          <failOnUnresolvedArtifacts>true</failOnUnresolvedArtifacts>
           <analysisConfiguration>
-            <revapi.semver.ignore>
+            <revapi.reporter.json>
+              <minSeverity>NON_BREAKING</minSeverity>
+              <minCriticality>documented</minCriticality>
+              <output>${build.directory}/revapi-result.json</output>
+              <indent>false</indent>
+              <append>false</append>
+              <keepEmptyFile>true</keepEmptyFile>
+            </revapi.reporter.json>
+            <revapi.versions>
               <enabled>true</enabled>
-            </revapi.semver.ignore>
-            <revapi.ignore>
+            </revapi.versions>
+            <revapi.differences>
               <item>
                 <code>java.annotation.removed</code>
                 <annotation>@edu.umd.cs.findbugs.annotations.Nullable</annotation>
@@ -648,7 +666,7 @@
                 <annotation>@edu.hm.hafner.util.Generated</annotation>
                 <justification>Annotation should be save to change.</justification>
               </item>
-            </revapi.ignore>
+            </revapi.differences>
           </analysisConfiguration>
         </configuration>
         <executions>
@@ -682,7 +700,6 @@
         </executions>
       </plugin>
     </plugins>
-
     <pluginManagement>
       <plugins>
         <plugin>
