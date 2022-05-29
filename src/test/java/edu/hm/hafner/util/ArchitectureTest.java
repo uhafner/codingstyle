@@ -1,8 +1,12 @@
 package edu.hm.hafner.util;
 
+import com.tngtech.archunit.core.importer.ImportOption;
+import com.tngtech.archunit.core.importer.Location;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
+
+import edu.hm.hafner.util.ArchitectureTest.DoNotIncludeRulesUnderTest;
 
 /**
  * Checks the architecture of this module.
@@ -10,7 +14,7 @@ import com.tngtech.archunit.lang.ArchRule;
  * @author Ullrich Hafner
  */
 @SuppressWarnings("hideutilityclassconstructor")
-@AnalyzeClasses(packages = "edu.hm.hafner")
+@AnalyzeClasses(packages = "edu.hm.hafner", importOptions = DoNotIncludeRulesUnderTest.class)
 class ArchitectureTest {
     @ArchTest
     static final ArchRule NO_PUBLIC_TEST_CLASSES = ArchitectureRules.NO_PUBLIC_TEST_CLASSES;
@@ -35,4 +39,13 @@ class ArchitectureTest {
 
     @ArchTest
     static final ArchRule NO_EXCEPTIONS_WITH_NO_ARG_CONSTRUCTOR = ArchitectureRules.NO_EXCEPTIONS_WITH_NO_ARG_CONSTRUCTOR;
+
+    static final class DoNotIncludeRulesUnderTest implements ImportOption {
+        DoNotIncludeRulesUnderTest() {
+        }
+
+        public boolean includes(final Location location) {
+            return !location.contains(ArchitectureRulesTest.class.getSimpleName());
+        }
+    }
 }
