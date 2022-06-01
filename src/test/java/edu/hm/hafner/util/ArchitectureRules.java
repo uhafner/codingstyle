@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 
@@ -18,7 +17,9 @@ import com.tngtech.archunit.core.domain.properties.CanBeAnnotated;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
-import static com.tngtech.archunit.core.domain.JavaClass.Predicates.*;
+import static com.tngtech.archunit.core.domain.JavaAccess.Predicates.*;
+import static com.tngtech.archunit.lang.conditions.ArchConditions.*;
+import static com.tngtech.archunit.lang.conditions.ArchPredicates.*;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
 
 /**
@@ -30,14 +31,16 @@ public final class ArchitectureRules {
     /** Never create exception without any context. */
     public static final ArchRule NO_EXCEPTIONS_WITH_NO_ARG_CONSTRUCTOR =
             noClasses().that().haveSimpleNameNotContaining("Benchmark")
-                    .should().callConstructorWhere(new ExceptionHasNoContext());
+                    .should().callConstructorWhere(exceptionHasNoContextAsParameter())
+                    .because("exceptions should include failure-capture information in detail messages (Effective Java Item 75)");
 
     /** Junit 5 test classes should not be public. */
     public static final ArchRule NO_PUBLIC_TEST_CLASSES =
             noClasses().that().haveSimpleNameEndingWith("Test")
                     .and().haveSimpleNameNotContaining("_jmh")
                     .and().doNotHaveModifier(JavaModifier.ABSTRACT)
-                    .should().bePublic();
+                    .should().bePublic()
+                    .because("test classes are not part of the API and should be hidden in a package");
 
     /** Junit 5 test methods should not be public. */
     public static final ArchRule ONLY_PACKAGE_PRIVATE_TEST_METHODS =
@@ -45,45 +48,51 @@ public final class ArchitectureRules {
                     .or().areAnnotatedWith(ParameterizedTest.class)
                     .and().areDeclaredInClassesThat()
                     .haveSimpleNameEndingWith("Test")
-                    .should().bePackagePrivate();
+                    .should().bePackagePrivate()
+                    .because("test methods are not part of the API and should be hidden in a package");
 
     /** ArchUnit tests should not be public. */
-    public static final ArchRule NO_PUBLIC_ARCHITECTURE_TESTS =
+    public static final ArchRule ONLY_PACKAGE_PRIVATE_ARCHITECTURE_TESTS =
             fields().that().areAnnotatedWith(ArchTest.class)
-                    .should().notBePublic();
+                    .should().bePackagePrivate();
 
     /**
      * Methods or constructors that are annotated with {@link VisibleForTesting} must not be called by other classes.
      * These methods are meant to be {@code private}. Only test classes are allowed to call these methods.
      */
     public static final ArchRule NO_TEST_API_CALLED =
-            noClasses().that()
-                    .haveSimpleNameNotEndingWith("Test").and().haveSimpleNameNotContaining("Benchmark")
-                    .should().callCodeUnitWhere(new AccessRestrictedToTests());
+            noClasses().that().haveSimpleNameNotEndingWith("Test")
+                    .and().haveSimpleNameNotContaining("Benchmark")
+                    .should().callCodeUnitWhere(accessIsRestrictedForTests());
 
     /** Prevents that classes use visible but forbidden API. */
     public static final ArchRule NO_FORBIDDEN_PACKAGE_ACCESSED =
-            noClasses().should().dependOnClassesThat(resideInAnyPackage(
+            noClasses().should().dependOnClassesThat().resideInAnyPackage(
                     "org.apache.commons.lang..",
                     "org.joda.time..",
                     "javax.xml.bind..",
                     "net.jcip.annotations..",
-                    "javax.annotation..",
                     "junit..",
                     "org.hamcrest..",
                     "com.google.common..",
                     "org.junit"
-            ));
+            );
 
-    /** Prevents that classes use visible but forbidden API. */
+    /** Prevents that classes use visible but forbidden annotations. */
     public static final ArchRule NO_FORBIDDEN_ANNOTATION_USED =
-            noClasses().should().dependOnClassesThat().haveSimpleNameEndingWith("Nullable");
+            noClasses().should().dependOnClassesThat().haveNameMatching("javax.annotation.Check.*")
+                    .orShould().dependOnClassesThat().haveNameMatching("javax.annotation.Nonnull")
+                    .orShould().dependOnClassesThat().haveNameMatching("javax.annotation.Nullable")
+                    .orShould().dependOnClassesThat().haveNameMatching("javax.annotation.Parameters.*")
+                    .orShould().dependOnClassesThat().haveNameMatching("edu.umd.cs.findbugs.annotations.Nullable") // only CheckForNull and NonNull is allowed
+                    .because("JSR 305 annotations are now part of edu.umd.cs.findbugs.annotations package");
 
     /** Prevents that classes use visible but forbidden API. */
-    public static final ArchRule NO_FORBIDDEN_CLASSES_CALLED
-            = noClasses()
-            .should().callCodeUnitWhere(new TargetIsForbiddenClass(
-                    "org.junit.jupiter.api.Assertions", "org.junit.Assert"));
+    public static final ArchRule NO_FORBIDDEN_CLASSES_CALLED =
+            noClasses().should().callCodeUnitWhere(targetOwner(has(
+                    fullyQualifiedName("org.junit.jupiter.api.Assertions")
+                            .or(fullyQualifiedName("org.junit.Assert")))))
+                    .because("only AssertJ should be used for assertions");
 
     /** Ensures that the {@code readResolve} methods are protected so subclasses can call the parent method. */
     public static final ArchRule READ_RESOLVE_SHOULD_BE_PROTECTED =
@@ -91,8 +100,16 @@ public final class ArchitectureRules {
                     .should().beDeclaredInClassesThat().implement(Serializable.class)
                     .andShould().beProtected().allowEmptyShould(true);
 
+    private static ExceptionHasNoContext exceptionHasNoContextAsParameter() {
+        return new ExceptionHasNoContext();
+    }
+
     private ArchitectureRules() {
         // prevents instantiation
+    }
+
+    private static DescribedPredicate<? super JavaCall<?>> accessIsRestrictedForTests() {
+        return new AccessRestrictedToTests();
     }
 
     /**
@@ -117,25 +134,6 @@ public final class ArchitectureRules {
 
         private boolean isVisibleForTesting(final CanBeAnnotated target) {
             return target.isAnnotatedWith(VisibleForTesting.class);
-        }
-    }
-
-    /**
-     * Matches if a code unit of one of the registered classes has been called.
-     */
-    private static class TargetIsForbiddenClass extends DescribedPredicate<JavaCall<?>> {
-        private final String[] classes;
-
-        TargetIsForbiddenClass(final String... classes) {
-            super("forbidden class");
-
-            this.classes = Arrays.copyOf(classes, classes.length);
-        }
-
-        @Override
-        public boolean apply(final JavaCall<?> input) {
-            return StringUtils.containsAny(input.getTargetOwner().getFullName(), classes)
-                    && !"assertTimeoutPreemptively".equals(input.getName());
         }
     }
 
