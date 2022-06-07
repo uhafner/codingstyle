@@ -481,6 +481,7 @@
           </execution>
         </executions>
         <configuration>
+          <skip>true</skip>
           <quiet>true</quiet>
           <cleanTargetDir>true</cleanTargetDir>
           <hierarchical>false</hierarchical>
@@ -634,6 +635,7 @@
           </dependency>
         </dependencies>
         <configuration>
+          <skip>true</skip>
           <failBuildOnProblemsFound>true</failBuildOnProblemsFound>
           <checkDependencies>true</checkDependencies>
           <newVersion>${project.version}</newVersion>
