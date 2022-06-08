@@ -67,7 +67,7 @@
   </rule>
   <rule ref="category/java/design.xml/ImmutableField">
     <properties>
-      <property name="ignoredAnnotations" value="org.junit.jupiter.api.io.TempDir|javax.inject.Inject"/>
+      <property name="ignoredAnnotations" value="org.junit.jupiter.api.io.TempDir|javax.inject.Inject|com.google.inject.Inject"/>
     </properties>
   </rule>
 
