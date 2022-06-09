@@ -8,11 +8,13 @@ import java.util.Map;
  * Builds {@link TreeString}s that share common prefixes. Call {@link #intern(String)} and you get the {@link
  * TreeString} that represents the same string, but as you interns more strings that share the same prefixes, those
  * {@link TreeString}s that you get back start to share data.
+ *
  * <p>
  * Because the internal state of {@link TreeString}s get mutated as new strings are interned (to exploit new-found
  * common prefixes), {@link TreeString}s returned from {@link #intern(String)} aren't thread-safe until {@link
  * TreeStringBuilder} is disposed. That is, you have to make sure other threads don't see those {@link TreeString}s
  * until you are done interning strings.
+ * </p>
  *
  * @author Kohsuke Kawaguchi
  */

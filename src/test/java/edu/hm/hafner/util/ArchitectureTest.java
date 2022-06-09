@@ -41,9 +41,7 @@ class ArchitectureTest {
     static final ArchRule NO_EXCEPTIONS_WITH_NO_ARG_CONSTRUCTOR = ArchitectureRules.NO_EXCEPTIONS_WITH_NO_ARG_CONSTRUCTOR;
 
     static final class DoNotIncludeRulesUnderTest implements ImportOption {
-        DoNotIncludeRulesUnderTest() {
-        }
-
+        @Override
         public boolean includes(final Location location) {
             return !location.contains(ArchitectureRulesTest.class.getSimpleName());
         }
