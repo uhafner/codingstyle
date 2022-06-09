@@ -29,7 +29,7 @@ import org.apache.commons.lang3.StringUtils;
 public class ResourceExtractor {
     private final boolean readingFromJarFile;
     private final Extractor extractor;
-    private String resourcePath;
+    private final String resourcePath;
 
     /**
      * Creates a new {@link ResourceExtractor} that extracts resources from the classloader of the specified class.
@@ -160,14 +160,7 @@ public class ResourceExtractor {
                     JarEntry entry = entries.nextElement();
                     String name = entry.getName();
                     if (remaining.contains(name)) {
-                        Path targetFile = targetDirectory.resolve(name);
-                        if (!targetFile.normalize().startsWith(targetDirectory)) {
-                            throw new IllegalArgumentException("Corrupt jar structure, contains invalid path: " + name);
-                        }
-                        Files.createDirectories(targetFile.getParent());
-                        try (InputStream inputStream = jar.getInputStream(entry); OutputStream outputStream = Files.newOutputStream(targetFile)) {
-                            IOUtils.copy(inputStream, outputStream);
-                        }
+                        copy(targetDirectory, jar, entry, name);
                         remaining.remove(name);
                     }
                 }
@@ -177,6 +170,21 @@ public class ResourceExtractor {
             }
             if (!remaining.isEmpty()) {
                 throw new NoSuchElementException("The following files have not been found: " + remaining);
+            }
+        }
+
+        private void copy(final Path targetDirectory, final JarFile jar, final JarEntry entry, final String name)
+                throws IOException {
+            Path targetFile = targetDirectory.resolve(name);
+            if (!targetFile.normalize().startsWith(targetDirectory)) {
+                throw new IllegalArgumentException("Corrupt jar structure, contains invalid path: " + name);
+            }
+            Path parent = targetFile.getParent();
+            if (parent != null) {
+                Files.createDirectories(parent);
+            }
+            try (InputStream inputStream = jar.getInputStream(entry); OutputStream outputStream = Files.newOutputStream(targetFile)) {
+                IOUtils.copy(inputStream, outputStream);
             }
         }
     }

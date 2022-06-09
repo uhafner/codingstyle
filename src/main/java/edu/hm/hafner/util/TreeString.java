@@ -10,8 +10,10 @@ import edu.umd.cs.findbugs.annotations.CheckForNull;
 /**
  * {@link TreeString} is an alternative string representation that saves the memory when you have a large number of
  * strings that share common prefixes (such as various file names.)
+ *
  * <p>
  * {@link TreeString} can be built with {@link TreeStringBuilder}.
+ * </p>
  *
  * @author Kohsuke Kawaguchi
  */
@@ -55,8 +57,10 @@ public final class TreeString implements Serializable {
 
     /**
      * Inserts a new node between this node and its parent, and returns the newly inserted node.
+     *
      * <p>
      * This operation doesn't change the string representation of this node.
+     * </p>
      *
      * @param prefix
      *         the prefix to remove

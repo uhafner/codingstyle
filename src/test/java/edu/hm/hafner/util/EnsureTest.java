@@ -20,7 +20,7 @@ class EnsureTest {
     /**
      * Checks whether no exception is thrown if we adhere to all contracts.
      */
-    @Test
+    @Test @SuppressWarnings("checkstyle:LambdaBodyLength")
     void shouldNotThrowExceptionIfContractIsValid() {
         assertThatCode(() -> {
             Ensure.that(false).isFalse();

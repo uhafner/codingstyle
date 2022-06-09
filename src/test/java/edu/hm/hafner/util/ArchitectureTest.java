@@ -23,7 +23,7 @@ class ArchitectureTest {
     static final ArchRule ONLY_PACKAGE_PRIVATE_TEST_METHODS = ArchitectureRules.ONLY_PACKAGE_PRIVATE_TEST_METHODS;
 
     @ArchTest
-    static final ArchRule NO_PUBLIC_ARCHITECTURE_TESTS = ArchitectureRules.NO_PUBLIC_ARCHITECTURE_TESTS;
+    static final ArchRule ONLY_PACKAGE_PRIVATE_ARCHITECTURE_TESTS = ArchitectureRules.ONLY_PACKAGE_PRIVATE_ARCHITECTURE_TESTS;
 
     @ArchTest
     static final ArchRule NO_TEST_API_CALLED = ArchitectureRules.NO_TEST_API_CALLED;
@@ -41,9 +41,7 @@ class ArchitectureTest {
     static final ArchRule NO_EXCEPTIONS_WITH_NO_ARG_CONSTRUCTOR = ArchitectureRules.NO_EXCEPTIONS_WITH_NO_ARG_CONSTRUCTOR;
 
     static final class DoNotIncludeRulesUnderTest implements ImportOption {
-        DoNotIncludeRulesUnderTest() {
-        }
-
+        @Override
         public boolean includes(final Location location) {
             return !location.contains(ArchitectureRulesTest.class.getSimpleName());
         }
