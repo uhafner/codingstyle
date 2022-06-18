@@ -448,7 +448,8 @@
                 <include>**/assertj/*</include>
                 <include>**/ResourceTest*</include>
                 <include>**/SerializableTest*</include>
-                <include>**/ArchitectureRules*</include>
+                <include>**/ArchitectureRules$*</include>
+                <include>**/ArchitectureRules.*</include>
               </includes>
             </configuration>
           </execution>
