@@ -6,7 +6,7 @@ import java.util.Collection;
 import com.google.errorprone.annotations.FormatMethod;
 
 /**
- * A simple logger that prefixes each message with the a given name.
+ * A simple logger that prefixes each message with a given name.
  *
  * @author Ullrich Hafner
  */
