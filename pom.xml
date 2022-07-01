@@ -90,7 +90,7 @@
     <maven-pitest-plugin.version>1.8.0</maven-pitest-plugin.version>
     <pitest-junit5-plugin.version>0.15</pitest-junit5-plugin.version>
     <error-prone.version>2.14.0</error-prone.version>
-    <nullaway.version>0.9.7</nullaway.version>
+    <nullaway.version>0.9.8</nullaway.version>
     <revapi-maven-plugin.version>0.14.7</revapi-maven-plugin.version>
     <revapi-java.version>0.26.1</revapi-java.version>
     <revapi-reporter-json-version>0.4.6</revapi-reporter-json-version>
