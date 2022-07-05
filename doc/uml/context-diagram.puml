@@ -1,0 +1,50 @@
+@startuml
+
+skinparam componentStyle uml2
+hide stereotype
+
+skinparam actor {
+  BackgroundColor #4AD386
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> #FFFF00
+  BorderColor black
+  ArrowColor black
+  FontName  Arial Unicode MS
+  FontSize 20
+}
+
+skinparam class {
+  BackgroundColor #4AD386
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> gold
+  BorderColor black
+  ArrowColor black
+  FontName  Arial Unicode MS
+  FontSize 20
+}
+
+skinparam component {
+  BackgroundColor #f8f8f8
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> #FFFF00
+  BorderColor black
+  FontName  Arial Unicode MS
+  FontSize 20
+  ArrowFontName  Arial Unicode MS
+  ArrowFontSize 18
+}
+
+:Akteur:
+:Abgeleiteter Akteur:
+
+:Akteur: <|-- :Abgeleiteter Akteur: :\t\t\t
+
+[geplantes System] <<Main>>
+
+[geplantes System] -> :Akteur: : Datenfluss Ausgabe
+[geplantes System] <- :Abgeleiteter Akteur: : Datenfluss Eingabe
+
+[geplantes System] -left-> [Nachbarsystem] : Datenfluss Export
+[geplantes System] <-left- [Nachbarsystem] : Datenfluss Import
+
+@enduml

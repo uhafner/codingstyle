@@ -1,0 +1,45 @@
+@startuml
+skinparam state {
+  BackgroundColor #4AD386
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> gold
+  BorderColor black
+  ArrowColor black
+  ArrowThickness 2
+  FontName  Arial Unicode MS
+  FontSize 20
+}
+
+skinparam ArrowColor black
+skinparam ArrowThickness 2
+
+skinparam activityDiamondBackgroundColor #4AD386
+skinparam activityDiamondBorderColor black
+skinparam activityDiamondFont Arial Unicode MS
+skinparam activityArrowFontSize 20
+skinparam activityArrowFont Arial Unicode MS
+
+state "Detaillierter Zustand" as A
+state "Zustand" as B
+state "Auswahl Unten" as C
+state "Auswahl Rechts" as D
+
+state Choice <<choice>>
+state AnotherEnd <<end>>
+
+[*] -> A
+A --> A : Trigger für Transition in selben Zustand
+A: entry / Eintrittsaktivität
+A: do / Andauernde Aktivität
+A: exit / Austrittssaktivität
+
+A --> B : \tTrigger [Bedingung für Zustandswechsel] / Verhalten
+B -> [*] : \twhen [Bedingung für Ende]
+
+B --> Choice : \tTrigger / Verhalten
+
+Choice --> C : [Bedingung Unten]
+Choice -> D : [Bedingung Rechts]
+
+C -> AnotherEnd : mehrere Endzustände sind erlaubt
+@enduml

@@ -1,0 +1,38 @@
+@startuml
+
+skinparam actor {
+  BackgroundColor #4AD386
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> gold
+  BorderColor black
+  ArrowColor black
+  FontName  Arial Unicode MS
+  FontSize 20
+}
+skinparam usecase {
+  BackgroundColor #4AD386
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> gold
+  BorderColor black
+  ArrowColor black
+  FontName  Arial Unicode MS
+  FontSize 20
+}
+
+skinparam ArrowColor black
+skinparam ArrowThickness 2
+
+left to right direction
+
+:Akteur:
+:Abgeleiteter Akteur:
+
+:Akteur: <|- :Abgeleiteter Akteur: :\t\t\t
+
+rectangle Gruppierung #FFFF00 {
+    (Anwendungsfall) -up- Akteur
+    (Eingebundener\nAnwendungsfall) <. (Anwendungsfall) : \t\t         <<Include>>
+    :Abgeleiteter Akteur: -- (Beschränkter\nAnwendungsfall)
+}
+
+@enduml

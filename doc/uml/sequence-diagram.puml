@@ -1,0 +1,84 @@
+@startuml
+
+skin rose
+
+skinparam sequence {
+  BackgroundColor #4AD386
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> gold
+  BorderColor black
+  ArrowColor black
+  FontName  Arial Unicode MS
+  FontSize 20
+
+  LifeLineBorderColor black
+  LifeLineBackgroundColor AE396
+
+  ParticipantBackgroundColor 4AD386
+  ParticipantBorderColor black
+}
+
+skinparam actor {
+  BackgroundColor #4AD386
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> gold
+  BorderColor black
+  ArrowColor black
+  FontName  Arial Unicode MS
+  FontSize 20
+
+  LifeLineBorderColor black
+  LifeLineBackgroundColor AE396
+
+}
+
+skinparam classFontSize 24
+skinparam classAttributeIconSize 0
+skinparam defaultFontSize 20
+
+skinparam ArrowColor black
+skinparam ArrowThickness 1
+
+hide circle
+hide footbox
+
+actor Akteur
+participant ":Klasse" as unnamed
+participant "rot:ZweiteKlasse" as rot
+participant "blau:ZweiteKlasse" as blau
+
+activate unnamed
+Akteur -> unnamed: start(1, 3, 2)
+create rot
+unnamed -->> rot : new
+unnamed -> rot: synchronerAufruf({1, 3, 2})
+activate rot
+opt "Anzahl Elemente > 1.000"
+rot ->> blau: asynchronerAufrufFortschrittZeigen("Sortiere...")
+activate blau
+blau -> blau: fortschrittAnzeigen("Sortiere...")
+activate blau
+end
+alt "Anzahl Elemente > 10.000"
+rot -> rot: quicksort()
+else
+rot -> rot: mergesort()
+end
+opt "Anzahl Elemente > 1.000"
+rot ->> blau: asynchronerAufrufFortschrittBeenden()
+deactivate blau
+blau -> blau: schließeDialog()
+activate blau
+end
+rot -->> unnamed : "{1, 2, 3}"
+unnamed -->> Akteur
+deactivate rot
+deactivate unnamed
+loop noch Elemente vorhanden?
+Akteur -> unnamed : gibElementAus(e)
+deactivate blau
+activate unnamed
+deactivate unnamed
+end
+
+@enduml

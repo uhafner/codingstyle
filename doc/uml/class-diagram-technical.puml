@@ -1,0 +1,64 @@
+@startuml
+
+skinparam package {
+  BackgroundColor #dddddd
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> gold
+  BorderColor black
+  ArrowColor black
+  FontName  Arial Unicode MS
+  FontSize 20
+}
+
+skinparam class {
+  BackgroundColor #4AD386
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> gold
+  BorderColor black
+  ArrowColor black
+  FontName  Arial Unicode MS
+  FontSize 20
+}
+skinparam classFontSize 24
+skinparam classAttributeIconSize 0
+skinparam defaultFontSize 20
+
+skinparam ArrowColor black
+skinparam ArrowThickness 2
+
+hide circle
+
+package java.util {
+    class Observable {
+        - changed: boolean
+        - observers: Vector<Observer>
+        +registerObserver(o: Observer)
+        +unregisterObserver(o: Observer)
+        #notifyObservers()
+    }
+
+    interface Observer <<interface>> {
+        +update() {abstract}
+    }
+
+}
+class ConcreteObservable {
+    -state: State
+    +getState(): State
+    +setState(s: State)
+}
+
+Observable <|-- ConcreteObservable
+
+hide interface fields
+
+class ConcreteObserver {
+    +update()
+}
+
+Observable o- Observer : \t\t
+
+Observer <|.. ConcreteObserver
+ConcreteObservable <- ConcreteObserver : \t\t\t
+
+@enduml
