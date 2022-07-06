@@ -1,0 +1,70 @@
+@startuml
+
+skinparam package {
+  BackgroundColor #dddddd
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> gold
+  BorderColor black
+  ArrowColor black
+  FontName  Arial Unicode MS
+  FontSize 20
+}
+
+skinparam class {
+  BackgroundColor #4AD386
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> gold
+  BorderColor black
+  ArrowColor black
+  FontName  Arial Unicode MS
+  FontSize 20
+}
+skinparam classFontSize 24
+skinparam classAttributeIconSize 0
+skinparam defaultFontSize 20
+
+skinparam ArrowColor black
+skinparam ArrowThickness 2
+
+hide circle
+
+class Entität {
+    -attributName1: Datentyp
+    -attributName2: String
+    -schlüssel<<pk>>: String
+}
+
+class "Abgeleitete Entität" as A
+class "Verbundene Entität" as B
+
+class A {
+    -attributSubEntität: Datentyp
+}
+
+class B {
+    -attribut: Datentyp
+    -schlüssel<<pk>>: Datentyp
+}
+
+class Weitere {
+    -attribut: Datentyp
+    -schlüssel<<pk>>: Datentyp
+}
+
+class Assoziationsentität {
+    -beziehungsAttribut: Datentyp
+}
+
+Entität "0..1" - "*" B : \t\t
+Entität <|-- A
+A o- Aggregation : rollenName >
+B *- Komposition : > rollenName
+
+(Komposition, Weitere) . Assoziationsentität
+
+class " Mehrfach verbundene Entität " as Beziehung
+
+Weitere -left- Beziehung : Rollenname 1 \t \t\t >
+Weitere -left- Beziehung: Rollenname 2 \t \t \t \t >
+
+@enduml

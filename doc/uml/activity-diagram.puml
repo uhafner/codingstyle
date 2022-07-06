@@ -1,0 +1,58 @@
+@startuml
+
+skinparam activity {
+  BackgroundColor #4AD386
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> gold
+  BorderColor black
+  ArrowColor black
+  ArrowThickness 2
+  FontName  Arial Unicode MS
+  FontSize 20
+}
+
+sprite $rake [16x19/8] {
+0000000000000000
+0000000jj0000000
+0000000jj0000000
+0005555jj5555000
+000jjeejjeejj000
+000jj00jj00jj000
+000jj00jj00jj000
+0000000000000000
+}
+
+skinparam ArrowColor black
+skinparam ArrowThickness 2
+
+skinparam activityDiamondBackgroundColor #3E46D9
+skinparam activityDiamondFontColor #white
+skinparam activityDiamondBorderColor black
+skinparam activityDiamondFont Arial Unicode MS
+skinparam activityArrowFontSize 20
+skinparam activityArrowFont Arial Unicode MS
+
+|Partition 1|
+start
+repeat
+:Erste Aktion;
+    if( Frage? ) then ([true]\t)
+        :Alternative Links;
+    else (\t[false])
+        :Alternative Rechts;
+    endif
+|Partition 2|
+    #yellow :Zweite Aktion;
+    repeat while () is (\t     [Bedingung 1])
+    -> [Bedingung 2];
+    #yellow :Weitere Aktion;
+    #yellow :Weitere Aktivität <$rake>;
+        #yellow :Objekt]
+|Partition 1|
+fork
+:Parallele Aktion 1;
+fork again
+:Parallele Aktion 2;
+fork end
+stop
+@enduml

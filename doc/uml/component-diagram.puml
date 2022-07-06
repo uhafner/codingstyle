@@ -1,0 +1,101 @@
+@startuml
+
+skinparam component {
+  BackgroundColor #f8f8f8
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> #FFFF00
+  BorderColor black
+  FontName  Arial Unicode MS
+  FontSize 20
+  ArrowFontName  Arial Unicode MS
+  ArrowFontSize 18
+}
+
+skinparam package {
+  BackgroundColor #dddddd
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> gold
+  BorderColor black
+  ArrowColor black
+  FontName  Arial Unicode MS
+  FontSize 20
+}
+
+skinparam class {
+  BackgroundColor #4AD386
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> gold
+  BorderColor black
+  ArrowColor black
+  FontName  Arial Unicode MS
+  FontSize 20
+}
+skinparam classFontSize 24
+skinparam classAttributeIconSize 0
+skinparam defaultFontSize 20
+
+skinparam ArrowColor black
+skinparam ArrowThickness 2
+
+hide circle
+
+skinparam componentStyle uml2
+
+component "Anwendung" <<component>> as anwendung {
+    class ConcreteSubject {
+        -state: State
+        +getState(): State
+        +setState(s: State)
+    }
+
+    class ConcreteObserver {
+        +update()
+    }
+
+}
+
+component "Fachkomponente" <<component>> as fachkomponente {
+}
+
+component "org.apache.commons:commons-lang3" <<component>> as library {
+    artifact commons-lang3-3.12.jar <<artifact>> as lang {
+    }
+}
+
+component "JDK" <<component>> as Bibliothek {
+
+    package java.util {
+
+        class Subject {
+            - changed: boolean
+            - observers: Vector<Observer>
+            +registerObserver(o: Observer)
+            +unregisterObserver(o: Observer)
+            #notifyObservers()
+        }
+
+
+        interface Observer {
+            +update() {abstract}
+        }
+
+    }
+}
+
+anwendung ...> library : <<use>>
+Subject <|-- ConcreteSubject
+Subject o- Observer : \t\t
+
+Observer <|.. ConcreteObserver
+ConcreteSubject <- ConcreteObserver : \t\t\t
+
+circle "   \t\t\tFassade "
+
+anwendung ..> "   \t\t\tFassade " : "\t\t\t\t"
+"   \t\t\tFassade " -- fachkomponente
+
+
+
+
+
+@enduml
