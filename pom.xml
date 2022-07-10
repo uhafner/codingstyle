@@ -87,8 +87,8 @@
     <spotbugs-maven-plugin.version>4.7.1.0</spotbugs-maven-plugin.version>
     <findsecbugs-plugin.version>1.12.0</findsecbugs-plugin.version>
     <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
-    <maven-pitest-plugin.version>1.8.0</maven-pitest-plugin.version>
-    <pitest-junit5-plugin.version>0.15</pitest-junit5-plugin.version>
+    <maven-pitest-plugin.version>1.9.2</maven-pitest-plugin.version>
+    <pitest-junit5-plugin.version>1.0.0</pitest-junit5-plugin.version>
     <error-prone.version>2.14.0</error-prone.version>
     <nullaway.version>0.9.8</nullaway.version>
     <revapi-maven-plugin.version>0.14.7</revapi-maven-plugin.version>
@@ -635,6 +635,7 @@
           </dependency>
         </dependencies>
         <configuration>
+          <versionFormat>[-0-9.]*</versionFormat>
           <failBuildOnProblemsFound>true</failBuildOnProblemsFound>
           <checkDependencies>true</checkDependencies>
           <failOnUnresolvedArtifacts>true</failOnUnresolvedArtifacts>
@@ -661,6 +662,10 @@
                 </item>
               </differences>
             </revapi.differences>
+            <revapi.versions>
+              <enabled>true</enabled>
+              <strictSemver>false</strictSemver>
+            </revapi.versions>
             <revapi.reporter.json>
               <minSeverity>NON_BREAKING</minSeverity>
               <minCriticality>documented</minCriticality>
@@ -669,24 +674,6 @@
               <append>false</append>
               <keepEmptyFile>true</keepEmptyFile>
             </revapi.reporter.json>
-            <revapi.versions>
-              <enabled>true</enabled>
-              <strictSemver>false</strictSemver>
-            </revapi.versions>
-            <revapi.differences id="manually-vetted">
-              <attachments>
-                <vetted>ok</vetted>
-              </attachments>
-              <differences>
-                <item>
-                  <ignore>true</ignore>
-                  <regex>true</regex>
-                  <code>java.annotation.*</code>
-                  <annotationType>edu.umd.cs.findbugs.annotations.*</annotationType>
-                  <justification>Annotation should be safe to change</justification>
-                </item>
-              </differences>
-            </revapi.differences>
           </analysisConfiguration>
         </configuration>
         <executions>
