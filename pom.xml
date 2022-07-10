@@ -635,6 +635,7 @@
           </dependency>
         </dependencies>
         <configuration>
+          <versionFormat>[-0-9.]*</versionFormat>
           <failBuildOnProblemsFound>true</failBuildOnProblemsFound>
           <checkDependencies>true</checkDependencies>
           <failOnUnresolvedArtifacts>true</failOnUnresolvedArtifacts>
@@ -661,6 +662,10 @@
                 </item>
               </differences>
             </revapi.differences>
+            <revapi.versions>
+              <enabled>true</enabled>
+              <strictSemver>false</strictSemver>
+            </revapi.versions>
             <revapi.reporter.json>
               <minSeverity>NON_BREAKING</minSeverity>
               <minCriticality>documented</minCriticality>
@@ -669,24 +674,6 @@
               <append>false</append>
               <keepEmptyFile>true</keepEmptyFile>
             </revapi.reporter.json>
-            <revapi.versions>
-              <enabled>true</enabled>
-              <strictSemver>false</strictSemver>
-            </revapi.versions>
-            <revapi.differences id="manually-vetted">
-              <attachments>
-                <vetted>ok</vetted>
-              </attachments>
-              <differences>
-                <item>
-                  <ignore>true</ignore>
-                  <regex>true</regex>
-                  <code>java.annotation.*</code>
-                  <annotationType>edu.umd.cs.findbugs.annotations.*</annotationType>
-                  <justification>Annotation should be safe to change</justification>
-                </item>
-              </differences>
-            </revapi.differences>
           </analysisConfiguration>
         </configuration>
         <executions>
