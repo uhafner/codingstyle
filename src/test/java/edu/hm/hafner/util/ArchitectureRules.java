@@ -32,7 +32,8 @@ public final class ArchitectureRules {
     public static final ArchRule NO_EXCEPTIONS_WITH_NO_ARG_CONSTRUCTOR =
             noClasses().that().haveSimpleNameNotContaining("Benchmark")
                     .should().callConstructorWhere(exceptionHasNoContextAsParameter())
-                    .because("exceptions should include failure-capture information in detail messages (Effective Java Item 75)");
+                    .because("exceptions should include failure-capture information in detail messages (Effective Java Item 75)")
+                    .allowEmptyShould(true);
 
     /** Junit 5 test classes should not be public. */
     public static final ArchRule NO_PUBLIC_TEST_CLASSES =
@@ -54,7 +55,9 @@ public final class ArchitectureRules {
     /** ArchUnit tests should not be public. */
     public static final ArchRule ONLY_PACKAGE_PRIVATE_ARCHITECTURE_TESTS =
             fields().that().areAnnotatedWith(ArchTest.class)
-                    .should().bePackagePrivate();
+                    .should().bePackagePrivate()
+                    .because("architecture tests are not part of the API and should be hidden in a package")
+                    .allowEmptyShould(true);
 
     /**
      * Methods or constructors that are annotated with {@link VisibleForTesting} must not be called by other classes.
