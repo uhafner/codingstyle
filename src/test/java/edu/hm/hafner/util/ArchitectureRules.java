@@ -1,7 +1,6 @@
 package edu.hm.hafner.util;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -156,7 +155,7 @@ public final class ArchitectureRules {
         public ExceptionHasNoContext(final Class<? extends Throwable>... allowedExceptions) {
             super("exception context is missing");
 
-            this.allowedExceptions = Arrays.asList(allowedExceptions);
+            this.allowedExceptions = List.of(allowedExceptions);
         }
 
         @Override

@@ -141,7 +141,7 @@ public class TreeStringBuilder {
         private Child split(final String prefix) {
             String suffix = getNode().getLabel().substring(prefix.length());
 
-            Child middle = new Child(getNode().split(prefix));
+            var middle = new Child(getNode().split(prefix));
             middle.makeWritable();
             middle.children.put(suffix, this);
 

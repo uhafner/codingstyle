@@ -21,6 +21,7 @@ import static org.assertj.core.api.Assumptions.*;
  * @author Ullrich Hafner
  */
 @SuppressFBWarnings("DMI")
+@SuppressWarnings("NullAway")
 class PathUtilTest extends ResourceTest {
     private static final String NOT_EXISTING = "/should/not/exist";
     private static final String ILLEGAL = "\0 Null-Byte";
@@ -37,7 +38,7 @@ class PathUtilTest extends ResourceTest {
     @ValueSource(strings = {"/does/not/exist", "\0 Null-Byte", "C:/!<>$&/&( \0", "/!<>$&/&( \0"})
     @DisplayName("Should not change path on errors")
     void shouldReturnFallbackOnError(final String fileName) {
-        PathUtil pathUtil = new PathUtil();
+        var pathUtil = new PathUtil();
 
         assertThat(pathUtil.exists(fileName)).isFalse();
         assertThat(pathUtil.exists(fileName, "/")).isFalse();
@@ -52,7 +53,7 @@ class PathUtilTest extends ResourceTest {
     @ValueSource(strings = {"./relative.txt", "./folder/../relative.txt", "prefix/one/../two/..//../relative.txt"})
     @DisplayName("Should shorten non normalized paths")
     void shouldNormalizePath(final String fileName) {
-        PathUtil pathUtil = new PathUtil();
+        var pathUtil = new PathUtil();
 
         assertThat(pathUtil.exists(fileName)).isFalse();
         assertThat(pathUtil.exists(fileName, "/")).isFalse();
@@ -63,7 +64,7 @@ class PathUtilTest extends ResourceTest {
     @Test
     @DisplayName("Should find some files in the resources folder")
     void shouldFindResourceFolder() {
-        PathUtil pathUtil = new PathUtil();
+        var pathUtil = new PathUtil();
 
         assertThat(pathUtil.exists(getResourceAsFile(FILE_NAME).toString())).isTrue();
         assertThat(pathUtil.exists(getResourceAsFile(FILE_NAME).getParent().toString())).isTrue();
@@ -75,7 +76,7 @@ class PathUtilTest extends ResourceTest {
     @ParameterizedTest(name = "[{index}] path={0}")
     @ValueSource(strings = {"/", "/tmp", "C:\\", "c:\\", "C:\\Tmp"})
     void shouldFindAbsolutePaths(final String path) {
-        PathUtil pathUtil = new PathUtil();
+        var pathUtil = new PathUtil();
 
         assertThat(pathUtil.isAbsolute(path)).isTrue();
     }
@@ -83,7 +84,7 @@ class PathUtilTest extends ResourceTest {
     @Test
     @DisplayName("Should return fallback if path is invalid")
     void shouldReturnFallbackIfAbsolutePathIsNotValid() {
-        PathUtil pathUtil = new PathUtil();
+        var pathUtil = new PathUtil();
 
         assertThat(pathUtil.getAbsolutePath(NOT_EXISTING)).isEqualTo(NOT_EXISTING);
         assertThat(pathUtil.getAbsolutePath("C:\\should\\not\\exist")).isEqualTo("C:" + NOT_EXISTING);
@@ -93,14 +94,14 @@ class PathUtilTest extends ResourceTest {
     @Test
     @DisplayName("Should return fallback if parent is invalid")
     void shouldReturnFallbackIfParentIsInvalid() {
-        PathUtil pathUtil = new PathUtil();
+        var pathUtil = new PathUtil();
 
         assertThat(pathUtil.createAbsolutePath("///a/b/", FILE_NAME)).isEqualTo(FILE_NAME);
     }
 
     @Test
     void shouldConvertToAbsolute() {
-        PathUtil pathUtil = new PathUtil();
+        var pathUtil = new PathUtil();
 
         assertThat(pathUtil.createAbsolutePath(null, FILE_NAME)).isEqualTo(FILE_NAME);
         assertThat(pathUtil.createAbsolutePath("", FILE_NAME)).isEqualTo(FILE_NAME);
@@ -111,7 +112,7 @@ class PathUtilTest extends ResourceTest {
 
     @Test
     void shouldConvertToRelative() {
-        PathUtil pathUtil = new PathUtil();
+        var pathUtil = new PathUtil();
 
         Path absolutePath = getResourceAsFile(FILE_NAME);
 
@@ -133,7 +134,7 @@ class PathUtilTest extends ResourceTest {
 
     @Test
     void shouldConvertNotResolvedToRelative() {
-        PathUtil pathUtil = new PathUtil();
+        var pathUtil = new PathUtil();
 
         Path absolutePath = getResourceAsFile(FILE_NAME);
 
@@ -147,7 +148,7 @@ class PathUtilTest extends ResourceTest {
     void shouldSkipAlreadyAbsoluteOnUnix() {
         assumeThatTestIsRunningOnUnix();
 
-        PathUtil pathUtil = new PathUtil();
+        var pathUtil = new PathUtil();
 
         assertThat(pathUtil.createAbsolutePath("/tmp/", "/tmp/file.txt")).isEqualTo("/tmp/file.txt");
     }
@@ -156,14 +157,14 @@ class PathUtilTest extends ResourceTest {
     void shouldSkipAlreadyAbsoluteOnWindows() {
         assumeThatTestIsRunningOnWindows();
 
-        PathUtil pathUtil = new PathUtil();
+        var pathUtil = new PathUtil();
 
         assertThat(pathUtil.createAbsolutePath("C:\\tmp", "C:\\tmp\\file.txt")).isEqualTo("C:/tmp/file.txt");
     }
 
     @Test
     void shouldNormalizeDriveLetter() {
-        PathUtil pathUtil = new PathUtil();
+        var pathUtil = new PathUtil();
 
         assertThat(pathUtil.getAbsolutePath("c:\\tmp")).isEqualTo("C:/tmp");
     }

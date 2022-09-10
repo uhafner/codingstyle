@@ -1,5 +1,6 @@
 package edu.hm.hafner.util;
 
+import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
@@ -22,8 +23,8 @@ class LookaheadStreamTest extends ResourceTest {
         try (LookaheadStream stream = new LookaheadStream(getTextLinesAsStream(""))) {
             assertThat(stream).doesNotHaveNext().hasLine(0).hasFileName(EMPTY);
 
-            assertThatExceptionOfType(java.util.NoSuchElementException.class).isThrownBy(stream::peekNext);
-            assertThatExceptionOfType(java.util.NoSuchElementException.class).isThrownBy(stream::next);
+            assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(stream::peekNext);
+            assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(stream::next);
         }
     }
 

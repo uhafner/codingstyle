@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.CodeSource;
 import java.security.ProtectionDomain;
+import java.util.NoSuchElementException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ class ResourceExtractorTest {
 
     @Test
     void shouldLocateResourcesInFolder() {
-        ResourceExtractor folderExtractor = new ResourceExtractor(ResourceExtractor.class);
+        var folderExtractor = new ResourceExtractor(ResourceExtractor.class);
         assertThat(folderExtractor.isReadingFromJarFile()).isFalse();
         assertThat(normalizePath(folderExtractor.getResourcePath())).endsWith("target/classes");
     }
@@ -39,14 +40,14 @@ class ResourceExtractorTest {
 
     @Test
     void shouldLocateResourcesInJarFile() {
-        ResourceExtractor jarExtractor = new ResourceExtractor(StringUtils.class);
+        var jarExtractor = new ResourceExtractor(StringUtils.class);
         assertThat(jarExtractor.isReadingFromJarFile()).isTrue();
         assertThat(jarExtractor.getResourcePath()).matches(".*commons-lang3-\\d+\\.\\d+\\.\\d+.jar");
     }
 
     @Test
     void shouldExtractFromFolder(@TempDir final Path targetFolder) {
-        ResourceExtractor proxy = new ResourceExtractor(ResourceExtractor.class);
+        var proxy = new ResourceExtractor(ResourceExtractor.class);
 
         proxy.extract(targetFolder, ASSERTJ_TEMPLATES, JENKINS_FILE,
                 "edu/hm/hafner/util/ResourceExtractor.class");
@@ -59,7 +60,7 @@ class ResourceExtractorTest {
 
     @Test
     void shouldThrowExceptionIfTargetIsFileInFolder() throws IOException {
-        ResourceExtractor proxy = new ResourceExtractor(ResourceExtractor.class);
+        var proxy = new ResourceExtractor(ResourceExtractor.class);
 
         Path tempFile = Files.createTempFile("tmp", "tmp");
         assertThatIllegalArgumentException().isThrownBy(() -> proxy.extract(tempFile, MANIFEST_MF));
@@ -67,7 +68,7 @@ class ResourceExtractorTest {
 
     @Test
     void shouldThrowExceptionIfFileDoesNotExistInFolder(@TempDir final Path targetFolder) {
-        ResourceExtractor proxy = new ResourceExtractor(ResourceExtractor.class);
+        var proxy = new ResourceExtractor(ResourceExtractor.class);
 
         assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() ->
                 proxy.extract(targetFolder, "does-not-exist"));
@@ -75,7 +76,7 @@ class ResourceExtractorTest {
 
     @Test
     void shouldExtractFromJar(@TempDir final Path targetFolder) {
-        ResourceExtractor proxy = new ResourceExtractor(StringUtils.class);
+        var proxy = new ResourceExtractor(StringUtils.class);
 
         proxy.extract(targetFolder, MANIFEST_MF,
                 "org/apache/commons/lang3/StringUtils.class");
@@ -86,7 +87,7 @@ class ResourceExtractorTest {
 
     @Test
     void shouldThrowExceptionIfTargetIsFileInJar() throws IOException {
-        ResourceExtractor proxy = new ResourceExtractor(StringUtils.class);
+        var proxy = new ResourceExtractor(StringUtils.class);
 
         Path tempFile = Files.createTempFile("tmp", "tmp");
         assertThatIllegalArgumentException().isThrownBy(() -> proxy.extract(tempFile, MANIFEST_MF));
@@ -94,7 +95,7 @@ class ResourceExtractorTest {
 
     @Test
     void shouldThrowExceptionIfFileDoesNotExistInJar(@TempDir final Path targetFolder) {
-        ResourceExtractor proxy = new ResourceExtractor(StringUtils.class);
+        var proxy = new ResourceExtractor(StringUtils.class);
 
         assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(() ->
                 proxy.extract(targetFolder, "does-not-exist"));
@@ -122,7 +123,7 @@ class ResourceExtractorTest {
                 .withMessageContaining("CodeSource location path", "ResourceExtractor");
 
         when(url.getPath()).thenReturn("file.jar");
-        ResourceExtractor extractor = new ResourceExtractor(ResourceExtractor.class, protectionDomain);
+        var extractor = new ResourceExtractor(ResourceExtractor.class, protectionDomain);
 
         assertThat(extractor.getResourcePath()).isEqualTo("file.jar");
     }

@@ -13,6 +13,7 @@ import java.security.CodeSource;
 import java.security.ProtectionDomain;
 import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;

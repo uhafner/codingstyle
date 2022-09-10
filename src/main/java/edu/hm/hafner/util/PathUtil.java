@@ -228,7 +228,7 @@ public class PathUtil {
      *
      * @return the absolute path
      */
-    public String createAbsolutePath(final @CheckForNull String directory, final String fileName) {
+    public String createAbsolutePath(@CheckForNull final String directory, final String fileName) {
         if (isAbsolute(fileName) || StringUtils.isBlank(directory)) {
             return makeUnixPath(fileName);
         }

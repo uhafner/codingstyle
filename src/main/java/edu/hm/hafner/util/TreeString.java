@@ -73,7 +73,7 @@ public final class TreeString implements Serializable {
         char[] suffix = new char[label.length - prefix.length()];
         System.arraycopy(label, prefix.length(), suffix, 0, suffix.length);
 
-        TreeString middle = new TreeString(parent, prefix);
+        var middle = new TreeString(parent, prefix);
         label = suffix;
         parent = middle;
 
@@ -108,8 +108,7 @@ public final class TreeString implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        TreeString that = (TreeString) o;
-        return toString().equals(that.toString());
+        return toString().equals(((TreeString) o).toString());
     }
 
     @Override
@@ -130,7 +129,7 @@ public final class TreeString implements Serializable {
             sz += p.label.length;
         }
 
-        StringBuilder buf = new StringBuilder(sz);
+        var buf = new StringBuilder(sz);
         for (char[] token : tokens) {
             buf.append(token);
         }
