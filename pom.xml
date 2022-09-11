@@ -645,8 +645,26 @@
               </differences>
             </revapi.differences>
             <revapi.versions>
-              <enabled>true</enabled>
-              <strictSemver>false</strictSemver>
+              <versionIncreaseAllows>
+                <major>
+                    <severity>BREAKING</severity>
+                    <attachments>
+                      <vetted>ok</vetted>
+                    </attachments>
+                </major>
+                <minor>
+                    <severity>NON_BREAKING</severity>
+                    <attachments>
+                      <vetted>ok</vetted>
+                    </attachments>
+                </minor>
+                <patch>
+                    <severity>EQUIVALENT</severity>
+                    <attachments>
+                      <vetted>ok</vetted>
+                    </attachments>
+                </patch>
+              </versionIncreaseAllows>
             </revapi.versions>
             <revapi.reporter.json>
               <minSeverity>NON_BREAKING</minSeverity>

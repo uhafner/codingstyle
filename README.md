@@ -1,5 +1,4 @@
 [![GitHub Actions](https://github.com/uhafner/codingstyle/workflows/GitHub%20CI/badge.svg?branch=master)](https://github.com/uhafner/codingstyle/actions)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a4f98b07b95c47c19eb3443ee90168cd)](https://www.codacy.com/app/uhafner/codingstyle?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=uhafner/codingstyle&amp;utm_campaign=Badge_Grade)
 [![Codecov](https://codecov.io/gh/uhafner/codingstyle/branch/master/graph/badge.svg)](https://codecov.io/gh/uhafner/codingstyle)
 [![LGTM grade](https://img.shields.io/lgtm/grade/java/g/uhafner/codingstyle.svg?logo=lgtm&logoWidth=18&label=lgtm%20grade)](https://lgtm.com/projects/g/uhafner/codingstyle/context:java)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/uhafner/codingstyle.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/uhafner/codingstyle/alerts/)
@@ -16,8 +15,7 @@ static analysis tools via Maven (and partly in IntelliJ):
 - [SpotBugs](https://spotbugs.github.io)
 - [Error Prone](https://errorprone.info)
 
-❗Compiling this project requires a JDK version of 11 or higher (event though the language level still is set to
-Java 8 for all classes and dependencies).  
+❗This project requires a JDK version of 11 or higher.❗  
 
 Moreover, this project provides some sample classes that already use this style guide. This classes can be used 
 as such but are not required in this project. These classes also use some additional libraries that are included
