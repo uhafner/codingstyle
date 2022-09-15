@@ -22,10 +22,9 @@ jenkins:
             maxNumRetries: 10
             port: 22
             retryWaitTime: 15
+            jvmOptions: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8001"
             javaPath: "/opt/java/openjdk/bin/java"
-            sshHostKeyVerificationStrategy:
-              manuallyTrustedKeyVerificationStrategy:
-                requireInitialManualTrust: false
+            sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
         name: "java11-agent"
         numExecutors: 1
         remoteFS: "/var/data"
@@ -104,7 +103,12 @@ credentials:
               -----END RSA PRIVATE KEY----- \n"
               scope: GLOBAL
               username: "agent"
-
+          - gitHubApp:
+              appID: "74721"
+              description: "GitHub App"
+              id: "github-app"
+              privateKey: ${GITHUB_APP}
+              scope: GLOBAL
 unclassified:
   globalDefaultFlowDurabilityLevel:
     durabilityHint: PERFORMANCE_OPTIMIZED
@@ -158,32 +162,18 @@ jobs:
                   scm {
                     git {
                         remote { url 'https://github.com/uhafner/codingstyle.git' }
-                        branch '*/master'
+                        branch '*/main'
                         extensions {}
                     }
                   }
               }
           }
       };
-      pipelineJob('pipeline-analysis-model') {
-          definition {
-              cpsScm {
-                  scriptPath 'etc/Jenkinsfile.analysis'
-                  scm {
-                    git {
-                        remote { url 'https://github.com/jenkinsci/analysis-model.git' }
-                        branch '*/master'
-                        extensions {}
-                    }
-                  }
-              }
-          }
-      };
-      freeStyleJob('freestyle-analysis-model') {
+      freeStyleJob('freestyle-codingstyle') {
           scm {
               git {
-                  remote { url 'https://github.com/jenkinsci/analysis-model.git' }
-                  branch '*/master'
+                  remote { url 'https://github.com/uhafner/codingstyle.git' }
+                  branch '*/main'
                   extensions {}
               }
           }

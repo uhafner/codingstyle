@@ -8,7 +8,7 @@ USER jenkins
 
 # Install plugins
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
-RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
+RUN jenkins-plugin-cli --verbose -f /usr/share/jenkins/ref/plugins.txt
 
 # Create admin user and don't start the wizard
 RUN echo 2.0 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state
