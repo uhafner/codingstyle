@@ -18,10 +18,8 @@ jobs:
           java-version: '11'
           check-latest: true
           cache: 'maven'
-      - name: Create target folder
-        run: mkdir target
       - name: Compile, Test and Analysis
-        run: mvn -V -ntp --color always clean verify -Dmaven.test.failure.ignore=true | tee target/maven.log
+        run: mvn -V -ntp --color always clean verify -Dmaven.test.failure.ignore=true | tee maven.log
       - name: Mutation Coverage
         run: mvn -V -ntp org.pitest:pitest-maven:mutationCoverage
       - name: Autograding
@@ -35,15 +33,15 @@ jobs:
                 "tools": [
                   {
                     "id": "error-prone",
-                    "pattern": "target/maven.log"
+                    "pattern": "maven.log"
                   },
                   {
                     "id": "java",
-                    "pattern": "target/maven.log"
+                    "pattern": "maven.log"
                   },
                   {
                     "id": "javadoc-warnings",
-                    "pattern": "target/maven.log"
+                    "pattern": "maven.log"
                   },
                   {
                     "id": "checkstyle",
