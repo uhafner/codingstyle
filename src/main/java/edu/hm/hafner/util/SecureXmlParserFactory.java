@@ -8,6 +8,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -33,8 +34,10 @@ import static javax.xml.XMLConstants.*;
  * containing a reference to an external entity is processed by a weakly configured XML parser.
  *
  * @author Ullrich Hafner
- * @see <a href="https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html">XML External Entity Prevention Cheat Sheet</a>
- * @see <a href="https://rules.sonarsource.com/java/RSPEC-2755">XML parsers should not be vulnerable to XXE attacks</a>
+ * @see <a href="https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html">XML
+ *         External Entity Prevention Cheat Sheet</a>
+ * @see <a href="https://rules.sonarsource.com/java/RSPEC-2755">XML parsers should not be vulnerable to XXE
+ *         attacks</a>
  */
 public class SecureXmlParserFactory {
     /**
@@ -117,7 +120,7 @@ public class SecureXmlParserFactory {
     }
 
     private void clearAttributes(final DocumentBuilderFactory factory) {
-        for (String securityAttribute: DISABLED_ATTRIBUTES) {
+        for (String securityAttribute : DISABLED_ATTRIBUTES) {
             try {
                 factory.setAttribute(securityAttribute, CLEAR_ATTRIBUTE);
             }
@@ -128,7 +131,7 @@ public class SecureXmlParserFactory {
     }
 
     private void clearAttributes(final TransformerFactory transformerFactory) {
-        for (String securityAttribute: DISABLED_ATTRIBUTES) {
+        for (String securityAttribute : DISABLED_ATTRIBUTES) {
             try {
                 transformerFactory.setAttribute(securityAttribute, CLEAR_ATTRIBUTE);
             }
@@ -165,10 +168,11 @@ public class SecureXmlParserFactory {
     /**
      * Secure the {@link SAXParser} so that it does not resolve external entities.
      *
-     * @param parser the parser to secure
+     * @param parser
+     *         the parser to secure
      */
     private void secureParser(final SAXParser parser) {
-        for (String securityAttribute: DISABLED_ATTRIBUTES) {
+        for (String securityAttribute : DISABLED_ATTRIBUTES) {
             try {
                 parser.setProperty(securityAttribute, CLEAR_ATTRIBUTE);
             }
@@ -216,14 +220,35 @@ public class SecureXmlParserFactory {
      */
     public XMLStreamReader createXmlStreamReader(final Reader reader) {
         try {
-            var factory = createXmlInputFactory();
-            factory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
-            factory.setProperty(SUPPORTING_EXTERNAL_ENTITIES, false);
-            return factory.createXMLStreamReader(reader);
+            return createSecureInputFactory().createXMLStreamReader(reader);
         }
         catch (XMLStreamException exception) {
             throw new IllegalArgumentException("Can't create instance of XMLStreamReader", exception);
         }
+    }
+
+    /**
+     * Creates a new instance of a {@link XMLStreamReader} that does not resolve external entities.
+     *
+     * @param reader
+     *         the reader to wrap
+     *
+     * @return a new instance of a {@link XMLStreamReader}
+     */
+    public XMLEventReader createXmlEventReader(final Reader reader) {
+        try {
+            return createSecureInputFactory().createXMLEventReader(reader);
+        }
+        catch (XMLStreamException exception) {
+            throw new IllegalArgumentException("Can't create instance of XMLEventReader", exception);
+        }
+    }
+
+    private XMLInputFactory createSecureInputFactory() {
+        var factory = createXmlInputFactory();
+        factory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
+        factory.setProperty(SUPPORTING_EXTERNAL_ENTITIES, false);
+        return factory;
     }
 
     @VisibleForTesting

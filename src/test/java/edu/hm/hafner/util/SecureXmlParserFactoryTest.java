@@ -97,7 +97,7 @@ class SecureXmlParserFactoryTest {
     }
 
     @Test
-    void shouldCreateXmlInputFactory() throws XMLStreamException {
+    void shouldCreateXmlStreamReader() throws XMLStreamException {
         var factory = spy(new SecureXmlParserFactory());
 
         assertThat(factory.createXmlStreamReader(createEmptyXmlReader())).isNotNull();
@@ -109,9 +109,23 @@ class SecureXmlParserFactoryTest {
                 .withMessage("Can't create instance of XMLStreamReader");
     }
 
+    @Test
+    void shouldCreateXmlEventReader() throws XMLStreamException {
+        var factory = spy(new SecureXmlParserFactory());
+
+        assertThat(factory.createXmlEventReader(createEmptyXmlReader())).isNotNull();
+
+        var brokenXmlInputFactory = createBrokenXmlInputFactory();
+        when(factory.createXmlInputFactory()).thenReturn(brokenXmlInputFactory);
+
+        assertThatIllegalArgumentException().isThrownBy(() -> factory.createXmlEventReader(createEmptyXmlReader()))
+                .withMessage("Can't create instance of XMLEventReader");
+    }
+
     private XMLInputFactory createBrokenXmlInputFactory() throws XMLStreamException {
         var xmlInputFactory = mock(XMLInputFactory.class);
         when(xmlInputFactory.createXMLStreamReader((Reader) any())).thenThrow(new XMLStreamException(EXPECTED_EXCEPTION));
+        when(xmlInputFactory.createXMLEventReader((Reader) any())).thenThrow(new XMLStreamException(EXPECTED_EXCEPTION));
         return xmlInputFactory;
     }
 
