@@ -79,7 +79,7 @@ public class SecureXmlParserFactory {
      */
     public DocumentBuilder createDocumentBuilder() {
         try {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            var factory = createDocumentBuilderFactory();
             factory.setXIncludeAware(false);
             factory.setExpandEntityReferences(false);
             factory.setFeature(FEATURE_SECURE_PROCESSING, true);
@@ -91,6 +91,11 @@ public class SecureXmlParserFactory {
         catch (ParserConfigurationException exception) {
             throw new IllegalArgumentException("Can't create instance of DocumentBuilder", exception);
         }
+    }
+
+    @VisibleForTesting
+    DocumentBuilderFactory createDocumentBuilderFactory() {
+        return DocumentBuilderFactory.newInstance();
     }
 
     private void setFeatures(final DocumentBuilderFactory factory) {
@@ -140,7 +145,7 @@ public class SecureXmlParserFactory {
      */
     public SAXParser createSaxParser() {
         try {
-            SAXParserFactory factory = SAXParserFactory.newInstance();
+            var factory = createSaxParserFactory();
             configureSaxParserFactory(factory);
 
             SAXParser parser = factory.newSAXParser();
@@ -150,6 +155,11 @@ public class SecureXmlParserFactory {
         catch (ParserConfigurationException | SAXException exception) {
             throw new IllegalArgumentException("Can't create instance of SAXParser", exception);
         }
+    }
+
+    @VisibleForTesting
+    SAXParserFactory createSaxParserFactory() {
+        return SAXParserFactory.newInstance();
     }
 
     /**
@@ -206,7 +216,7 @@ public class SecureXmlParserFactory {
      */
     public XMLStreamReader createXmlStreamReader(final Reader reader) {
         try {
-            XMLInputFactory factory = XMLInputFactory.newInstance();
+            var factory = createXmlInputFactory();
             factory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
             factory.setProperty(SUPPORTING_EXTERNAL_ENTITIES, false);
             return factory.createXMLStreamReader(reader);
@@ -214,6 +224,11 @@ public class SecureXmlParserFactory {
         catch (XMLStreamException exception) {
             throw new IllegalArgumentException("Can't create instance of XMLStreamReader", exception);
         }
+    }
+
+    @VisibleForTesting
+    XMLInputFactory createXmlInputFactory() {
+        return XMLInputFactory.newInstance();
     }
 
     /**
@@ -274,15 +289,20 @@ public class SecureXmlParserFactory {
     @SuppressFBWarnings(value = {"XXE_DTD_TRANSFORM_FACTORY", "XXE_XSLT_TRANSFORM_FACTORY"}, justification = "The transformer is secured in the called method")
     public Transformer createTransformer() {
         try {
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            var transformerFactory = createTransformerFactory();
 
             clearAttributes(transformerFactory);
 
             return transformerFactory.newTransformer();
         }
         catch (TransformerConfigurationException exception) {
-            throw new ParsingException(exception);
+            throw new IllegalArgumentException("Can't create instance of Transformer", exception);
         }
+    }
+
+    @VisibleForTesting
+    TransformerFactory createTransformerFactory() {
+        return TransformerFactory.newInstance();
     }
 
     /**
