@@ -281,7 +281,7 @@
             </path>
           </annotationProcessorPaths>
           <compilerArgs>
-            <arg>-Xlint:all</arg>
+            <arg>-Xlint:-varargs</arg>
             <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</arg>
             <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED</arg>
             <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED</arg>
@@ -362,7 +362,7 @@
         <version>${maven-javadoc-plugin.version}</version>
         <configuration>
           <source>${java.version}</source>
-          <additionalOptions>-Xdoclint:all</additionalOptions>
+          <doclint>all,-missing</doclint>
           <quiet>true</quiet>
         </configuration>
         <executions>
