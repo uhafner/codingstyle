@@ -33,15 +33,15 @@ jobs:
                 "tools": [
                   {
                     "id": "error-prone",
-                    "pattern": "maven.log"
+                    "pattern": "**/*.log"
                   },
                   {
                     "id": "java",
-                    "pattern": "maven.log"
+                    "pattern": "**/*.log"
                   },
                   {
                     "id": "javadoc-warnings",
-                    "pattern": "maven.log"
+                    "pattern": "**/*.log"
                   },
                   {
                     "id": "checkstyle",
