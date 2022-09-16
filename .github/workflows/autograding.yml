@@ -45,15 +45,15 @@ jobs:
                   },
                   {
                     "id": "checkstyle",
-                    "pattern": "target/checkstyle-result.xml"
+                    "pattern": "**/checkstyle-result.xml"
                   },
                   {
                     "id": "pmd",
-                    "pattern": "target/pmd.xml"
+                    "pattern": "**/pmd.xml"
                   },
                   {
                     "id": "spotbugs",
-                    "pattern": "target/spotbugsXml.xml"
+                    "pattern": "**/spotbugsXml.xml"
                   }
                 ],
                 "maxScore": 100,
