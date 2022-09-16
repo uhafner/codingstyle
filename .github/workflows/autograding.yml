@@ -18,8 +18,10 @@ jobs:
           java-version: '11'
           check-latest: true
           cache: 'maven'
+      - name: Create target folder
+        run: mkdir target
       - name: Compile, Test and Analysis
-        run: mvn -V -ntp clean verify -Dmaven.test.failure.ignore=true
+        run: mvn -V -ntp --color always clean verify -Dmaven.test.failure.ignore=true | tee target/maven.log
       - name: Mutation Coverage
         run: mvn -V -ntp org.pitest:pitest-maven:mutationCoverage
       - name: Autograding
@@ -30,6 +32,32 @@ jobs:
           CONFIG: >
             {
               "analysis": {
+                "tools": [
+                  {
+                    "id": "error-prone",
+                    "pattern": "target/maven.log"
+                  },
+                  {
+                    "id": "java",
+                    "pattern": "target/maven.log"
+                  },
+                  {
+                    "id": "javadoc-warnings",
+                    "pattern": "target/maven.log"
+                  },
+                  {
+                    "id": "checkstyle",
+                    "pattern": "target/checkstyle-result.xml"
+                  },
+                  {
+                    "id": "pmd",
+                    "pattern": "target/pmd.xml"
+                  },
+                  {
+                    "id": "spotbugs",
+                    "pattern": "target/spotbugsXml.xml"
+                  }
+                ],
                 "maxScore": 100,
                 "errorImpact": -5,
                 "highImpact": -2,
