@@ -548,7 +548,7 @@
         </executions>
         <configuration>
           <linkXRef>false</linkXRef>
-          <excludes>**/*Assert*.java,**/*_jmh*</excludes>
+          <excludes>**/*Assert*.java,**/*_jmh*,**/module-info.java</excludes>
           <failOnViolation>false</failOnViolation>
           <configLocation>etc/checkstyle-configuration.xml</configLocation>
           <includeTestSourceDirectory>true</includeTestSourceDirectory>
