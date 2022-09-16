@@ -23,13 +23,13 @@ class PrefixLoggerTest {
     @Test @SuppressWarnings("PMD.CloseResource")
     void shouldLogSingleAndMultipleLines() {
         PrintStream printStream = mock(PrintStream.class);
-        PrefixLogger logger = new PrefixLogger(printStream, TOOL_NAME);
+        var logger = new PrefixLogger(printStream, TOOL_NAME);
 
         logger.log(LOG_MESSAGE);
 
         verify(printStream).println(EXPECTED_TOOL_PREFIX + " " + LOG_MESSAGE);
 
-        PrefixLogger loggerWithBraces = new PrefixLogger(printStream, EXPECTED_TOOL_PREFIX);
+        var loggerWithBraces = new PrefixLogger(printStream, EXPECTED_TOOL_PREFIX);
 
         loggerWithBraces.log(LOG_MESSAGE);
 

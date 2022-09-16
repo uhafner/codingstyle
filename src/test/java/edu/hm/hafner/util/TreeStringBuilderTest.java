@@ -22,17 +22,17 @@ class TreeStringBuilderTest {
     @Test
     @SuppressWarnings({"ConstantConditions", "NullAway"})
     void shouldCreateSimpleTreeStringsWithBuilder() {
-        TreeStringBuilder builder = new TreeStringBuilder();
-        TreeString foo = builder.intern("foo");
+        var builder = new TreeStringBuilder();
+        var foo = builder.intern("foo");
         assertThat(foo).hasToString("foo");
         assertThat(foo.getLabel()).isEqualTo("foo");
 
-        TreeString treeString = builder.intern("foo/bar/zot");
+        var treeString = builder.intern("foo/bar/zot");
         assertThat(treeString).hasToString("foo/bar/zot");
         assertThat(treeString.getLabel()).isEqualTo("/bar/zot");
         assertThat(treeString.getParent()).isSameAs(foo);
 
-        TreeString interned = builder.intern(treeString);
+        var interned = builder.intern(treeString);
         assertThat(interned).hasToString("foo/bar/zot");
         assertThat(interned.getLabel()).isEqualTo("/bar/zot");
 
@@ -40,11 +40,11 @@ class TreeStringBuilderTest {
 
         assertThat(builder.intern("")).hasToString("");
 
-        TreeString otherMiddleChild = builder.intern("foo/bar/xxx");
+        var otherMiddleChild = builder.intern("foo/bar/xxx");
         assertThat(otherMiddleChild).hasToString("foo/bar/xxx");
         assertThat(otherMiddleChild.getLabel()).isEqualTo("xxx");
 
-        TreeString parent = otherMiddleChild.getParent();
+        var parent = otherMiddleChild.getParent();
         assertThat(parent).isSameAs(treeString.getParent());
         assertThat(Objects.requireNonNull(parent.getParent())).isSameAs(foo);
 
@@ -58,11 +58,11 @@ class TreeStringBuilderTest {
 
     @Test
     void shouldProvideProperEqualsAndHashCode() {
-        TreeStringBuilder builder = new TreeStringBuilder();
+        var builder = new TreeStringBuilder();
 
-        TreeString foo = builder.intern("foo");
-        TreeString bar = builder.intern("foo/bar");
-        TreeString zot = builder.intern("foo/bar/zot");
+        var foo = builder.intern("foo");
+        var bar = builder.intern("foo/bar");
+        var zot = builder.intern("foo/bar/zot");
 
         assertThat(new TreeStringBuilder().intern("foo")).isEqualTo(foo);
         assertThat(new TreeStringBuilder().intern("foo/bar")).isEqualTo(bar);
@@ -84,15 +84,15 @@ class TreeStringBuilderTest {
     @Test
     void shouldCreateRandomTreeStrings() {
         String[] dictionary = {"aa", "b", "aba", "ba"};
-        TreeStringBuilder builder = new TreeStringBuilder();
+        var builder = new TreeStringBuilder();
 
-        Random random = new Random(0);
+        var random = new Random(0);
 
         List<String> a = new ArrayList<>();
         List<TreeString> o = new ArrayList<>();
 
         for (int i = 0; i < 1000; i++) {
-            StringBuilder b = new StringBuilder();
+            var b = new StringBuilder();
             for (int j = 0; j < random.nextInt(10) + 3; j++) {
                 b.append(dictionary[random.nextInt(4)]);
             }

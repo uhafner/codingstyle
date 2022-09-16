@@ -16,7 +16,7 @@ class FilteredLogTest extends SerializableTest<FilteredLog> {
 
     @Test
     void shouldLogNothing() {
-        FilteredLog filteredLog = new FilteredLog(TITLE, 5);
+        var filteredLog = new FilteredLog(TITLE, 5);
 
         assertThat(filteredLog).hasNoErrorMessages();
         filteredLog.logSummary();
@@ -25,7 +25,7 @@ class FilteredLogTest extends SerializableTest<FilteredLog> {
 
     @Test
     void shouldLogAllErrors() {
-        FilteredLog filteredLog = new FilteredLog(TITLE, 5);
+        var filteredLog = new FilteredLog(TITLE, 5);
 
         filteredLog.logError("1");
         filteredLog.logError("2");
@@ -43,7 +43,7 @@ class FilteredLogTest extends SerializableTest<FilteredLog> {
 
     @Test
     void shouldSkipAdditionalErrors() {
-        FilteredLog filteredLog = new FilteredLog(TITLE, 5);
+        var filteredLog = new FilteredLog(TITLE, 5);
 
         filteredLog.logError("1");
         filteredLog.logError("2");
@@ -68,12 +68,12 @@ class FilteredLogTest extends SerializableTest<FilteredLog> {
 
     @Test
     void shouldMergeLogger() {
-        FilteredLog parent = new FilteredLog("Parent Errors");
+        var parent = new FilteredLog("Parent Errors");
 
         parent.logInfo("parent Info 1");
         parent.logError("parent Error 1");
 
-        FilteredLog child = new FilteredLog("Child Errors");
+        var child = new FilteredLog("Child Errors");
         child.logInfo("child Info 1");
         child.logError("child Error 1");
 
@@ -85,7 +85,7 @@ class FilteredLogTest extends SerializableTest<FilteredLog> {
 
     @Test
     void shouldLogExceptions() {
-        FilteredLog filteredLog = new FilteredLog(TITLE, 1);
+        var filteredLog = new FilteredLog(TITLE, 1);
 
         filteredLog.logException(new IllegalArgumentException("Cause"), "Message");
         filteredLog.logException(new IllegalArgumentException(""), "Message");
@@ -103,7 +103,7 @@ class FilteredLogTest extends SerializableTest<FilteredLog> {
     }
 
     private FilteredLog createLogWith20Elements() {
-        FilteredLog filteredLog = new FilteredLog(TITLE);
+        var filteredLog = new FilteredLog(TITLE);
 
         for (int i = 0; i < 25; i++) {
             filteredLog.logError("error%d", i);

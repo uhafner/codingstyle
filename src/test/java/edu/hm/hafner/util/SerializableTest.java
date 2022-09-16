@@ -90,7 +90,7 @@ public abstract class SerializableTest<T extends Serializable> extends ResourceT
      * @return the object serialization
      */
     protected byte[] toByteArray(final Serializable object) {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        var out = new ByteArrayOutputStream();
         try (ObjectOutputStream stream = new ObjectOutputStream(out)) {
             stream.writeObject(object);
         }

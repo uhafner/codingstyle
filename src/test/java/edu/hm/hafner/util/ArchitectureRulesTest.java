@@ -82,7 +82,7 @@ class ArchitectureRulesTest {
         return new ClassFileImporter().importClasses(classes);
     }
 
-    @SuppressWarnings("all") // This class is just there to be used in architecture tests
+    @SuppressWarnings("all") @Generated // This class is just there to be used in architecture tests
     public static class ArchitectureRulesViolatedTest {
         @javax.annotation.Nonnull
         private final String empty = "";
