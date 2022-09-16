@@ -19,11 +19,9 @@ jobs:
           check-latest: true
           cache: 'maven'
       - name: Compile, Test and Analysis
-        run: pwd && mvn -V -ntp --color always clean verify -Dmaven.test.failure.ignore=true | tee maven.log
+        run: mvn -V -ntp --color always clean verify -Dmaven.test.failure.ignore=true | tee maven.log
       - name: Mutation Coverage
         run: mvn -V -ntp org.pitest:pitest-maven:mutationCoverage
-      - name: List files
-        run: ls -l /home/runner/work/codingstyle/codingstyle
       - name: Autograding
         uses: uhafner/autograding-github-action@v1.7.0
         with:
