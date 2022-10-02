@@ -44,6 +44,7 @@
   <rule ref="category/java/codestyle.xml/LinguisticNaming">
     <properties>
       <property name="checkSetters" value="false"/>
+      <property name="booleanMethodPrefixes" value="is|has|can|have|will" />
     </properties>
   </rule>
   <rule ref="category/java/codestyle.xml/ConfusingTernary">
