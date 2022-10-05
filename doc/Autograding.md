@@ -18,14 +18,14 @@ Eine Voraussetzung zur Nutzung von GitHub in unserer Veranstaltung ist das Anleg
 
 Anschließend treten Sie den einzelnen Classrooms bei, indem Sie ein von mir jeweils versendetes bzw. in Moodle hinterlegtes Link auswählen. I.A. erstelle ich pro Abgabe einen eigenen Classroom. In fortgeschrittenen Semestern gibt es aber auch Classrooms, die über mehrere Abgaben verwendet werden.
 
-Über jeden Classroom bekommen Sie (oder Ihr Team) dann ein eigenes Git Repository, indem Sie alle Dateien (Dokumente, Programmtexte, etc.) Ihrer Abgaben hinzufügen. Im ersten Semester können Sie zum Hochladen die GitHub Oberfläche nutzen. Je erfahrener Sie werden, umso schneller können Sie auf einen direkten Zugang über die Versionsverwaltung Git nutzen, das macht dann vieles einfacher und komfortabler.  
+Über jeden Classroom bekommen Sie (oder Ihr Team) dann ein eigenes Git Repository, indem Sie alle Dateien (Dokumente, Programmtexte, etc.) Ihrer Abgaben hinzufügen. Im ersten Semester können Sie zum Hochladen die GitHub Oberfläche nutzen. Je erfahrener Sie werden, umso schneller können Sie den direkten Zugang über die Versionsverwaltung Git nutzen, das macht dann vieles einfacher und komfortabler.  
 
 Wenn Sie weitere Fragen zu GitHub Classroom haben, nutzen Sie bitte auch die [Online Hilfe](https://classroom.github.com/help). Fragen können Sie auch direkt im Praktikum (oder im jeweiligen RocketChat Kanal der Veranstaltung) stellen.
 
 ## Autograding
 
 Im Laufe Ihres Studiums lernen Sie in meinen Lehrveranstaltungen, dass Softwareentwicklung auch ein Handwerk ist, auf das man stolz sein kann. Damit Sie das erreichen, ist es wichtig, nicht nur auf Funktionalität, sondern auch auf Qualität zu achten. In meinem [Coding Style](https://github.com/uhafner/codingstyle) versuche ich, die dazu aus meiner Sicht wichtigsten Elemente vorzustellen. Damit das nicht nur trockene Theorie bleibt, haben Sie die Möglichkeit, Ihre Abgaben automatisiert von verschiedenen Tools bewerten zu lassen. So bekommen Sie ein schnelles Feedback zu Ihrer Lösung: 
-- Haben Sie und Ihre Teampartner alle Dateien korrekt hochgeladen, sodass alles ohne Fehler übersetzt werden kann?
+- Haben Sie bzw. Ihr Team alle Dateien korrekt hochgeladen, sodass alles ohne Fehler übersetzt werden kann?
 - Ist ihr Ergebnis richtig? D.h. besteht ihr Code die von mir vorgegebenen Tests?
 - Hält sich Ihr Code an den vorgegebenen Styleguide?
 - Enthält Ihr Code Bugs oder mögliche Fehlerquellen?
@@ -39,7 +39,7 @@ Die Analyse im *Autograding* umfasst folgende Schritte:
 2. Automatisierte Tests zu den Aufgaben werden ausgeführt. Zu jeder Abgabe habe ich einen oder mehrere Tests verfasst, die Ihre Lösung prüfen. Diese Tests zeigen, ob Sie an alle Fallstricke gedacht haben. Auch diese Verarbeitung können Sie lokal prüfen, indem Sie das Kommando `mvn clean test` ausführen.
 3. Ihre Klassen werden einer statischen Analyse unterzogen: dabei untersuchen verschiedene Tools Ihre Abgaben auf
 typische Programmierfehler und auf die Einhaltung meiner [Kodierungsrichtlinien](https://github.com/uhafner/codingstyle). Zum lokalen Starten dieser Analyse müssen Sie das Kommando `mvn clean verify` ausführen.
-4. Falls Sie eigenen Tests geschrieben haben: wie gut ist die Qualität dieser Tests? Haben Sie alle Zeilen oder Zweige Ihres Codes benutzt (technisch: *Line und Branch Code Coverage*)? Finden Ihre Tests Fehler, wenn Ihr Programm von mir mutwillig sabotiert wird (technisch: *Mutation Coverage*)? Zum lokalen Starten dieser beiden Analysen müssen Sie das Kommando `mvn clean verify` (für die Code Coverage) bzw.  `mvn org.pitest:pitest-maven:mutationCoverage` (für die Mutation Coverage) ausführen.
+4. Falls Sie eigenen Tests geschrieben haben: Wie gut ist die Qualität dieser Tests? Haben Sie alle Zeilen oder Zweige Ihres Codes benutzt (technisch: *Line und Branch Code Coverage*)? Finden Ihre Tests Fehler, wenn Ihr Programm von mir mutwillig sabotiert wird (technisch: *Mutation Coverage*)? Zum lokalen Starten dieser beiden Analysen müssen Sie das Kommando `mvn clean verify` (für die Code Coverage) bzw.  `mvn org.pitest:pitest-maven:mutationCoverage` (für die Mutation Coverage) ausführen.
 
 Für technisch Interessierte: Damit das ganze funktioniert, benötigt es einen [GitHub Action Workflow](https://github.com/uhafner/codingstyle/blob/main/.github/workflows/autograding.yml), der das Projekt kompiliert und dann mit meiner [Autograding Github Action](https://github.com/uhafner/autograding-github-action) anreichert. Diese Action ist Open Source und kann gerne auch in anderen Projekte verwendet werden.
 
