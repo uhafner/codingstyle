@@ -59,3 +59,4 @@ Das wichtigste Ergebnis für die Abgabe ist dann die Zusammenfassung aus dem Aut
 
 Bei Testfehlern wird die Ausgabe der Tests direkt unter den Testpunkten als ausklappbarer Text angezeigt. Bei den Warnungen erhalten Sie gezieltes Feedback direkt als Markierung innerhalb des Quelltextes. 
  
+![Annotation](images/actions-annotation.png)
