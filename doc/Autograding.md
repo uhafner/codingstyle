@@ -43,17 +43,13 @@ typische Programmierfehler und auf die Einhaltung meiner [Kodierungsrichtlinien]
 
 Für technisch Interessierte: Damit das ganze funktioniert, benötigt es einen [GitHub Action Workflow](https://github.com/uhafner/codingstyle/blob/main/.github/workflows/autograding.yml), der das Projekt kompiliert und dann mit meiner [Autograding Github Action](https://github.com/uhafner/autograding-github-action) anreichert. Diese Action ist Open Source und kann gerne auch in anderen Projekte verwendet werden.
 
-Die Ergebnisse dieser Schritte können Sie für Ihre Abgaben sehr einfach nachvollziehen, indem Sie den Karteireiter *Actions* in Ihrem GitHub Projekt öffnen. Dort finden Sie für jedes neue Hochladen (d.h. technisch gesehen für  jeden Commit) eine auswählbares Link, das zu den Ergebnissen führt.
+Die Ergebnisse dieser Schritte können Sie für Ihre Abgaben sehr einfach nachvollziehen, indem Sie den Karteireiter *Actions* in Ihrem GitHub Projekt öffnen. Dort finden Sie für jedes neue Hochladen (d.h. technisch gesehen für jeden Commit) eine auswählbares Link, das zu den Ergebnissen führt.
  
 ![Actions Summary](images/actions-overview.png)
 
 Wenn neben dem Commit ein grüner Haken (✅) angezeigt wird, haben Sie Schritt 1 schon mal erfolgreich absolviert: Ihr Programm kompiliert fehlerfrei. Bei einem roten Kreuz (❌) müssen Sie den Fehler beheben und nochmal neu hochladen. Eine Abgabe, die nicht übersetzbar ist, wird automatisch mit 0 Punkten bewertet. Die Fehlermeldungen des Java Compiler sind manchmal für Neulinge etwas kryptisch, meist steht aber Zeilennummer und Ursache dabei, sodass das Problem hoffentlich schnell zu finden ist. Wenn nicht, wenn Sie sich an uns im Chat oder Praktikum, dann bekommen Sie auch dort Hilfe.
 
-Die Ergebnisse der Schritte 2 bis 4 (und damit die eigentlichen Punkte Ihrer Abgabe) können Sie durch die Detailansicht des jeweiligen Commits einsehen. Dazu müssen Sie erst in die Detailsicht navigieren:
-
-![Actions Details](images/actions-details.png)
-
-Von dort haben Sie Zugriff auf das Ergebnis des Java Compilers. Dort müssen Sie nur hineinschauen, falls Sie hier ein rotes Kreuz sehen. Diese Ausgabe können Sie auch lokal über Maven erhalten (siehe oben):
+Die Ergebnisse der Schritte 2 bis 4 (und damit die eigentlichen Punkte Ihrer Abgabe) können Sie durch die Detailansicht des jeweiligen Commits einsehen. Dazu müssen Sie erst in die Detailsicht navigieren. Von dort haben Sie Zugriff auf das Ergebnis des Java Compilers. Dort müssen Sie nur hineinschauen, falls Sie hier ein rotes Kreuz sehen. Diese Ausgabe können Sie auch lokal über Maven erhalten (siehe oben):
 
 ![Compiler Build Log](images/actions-buildlog.png)
 
