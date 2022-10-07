@@ -24,9 +24,9 @@ Wenn Sie weitere Fragen zu GitHub Classroom haben, nutzen Sie bitte auch die [On
 
 ## Im Classroom einem Assignment beitreten
 
-Der erste Schritt für eine Abgabe ist der Beitritt zum entsprechenden Classroom. Dazu müssen Sie das von mir versendete Link anklicken und bestätigen. Wenn Sie noch keinen GitHub Account haben, ist das jetzt die Gelegenheit. Nach dem Beitritt in den Classroom müssen Sie zunächst Ihren Namen aus der Liste der Teilnehmer:innen auswählen. Damit helfen Sie mir hinterher bei der Zuordnung von Hochschul- zu GitHub-Account. Die Namen habe ich aus dem ZPA exportiert, wenn Sie sich nicht finden geben Sie mir bitte Bescheid (Sie können trotzdem schon beginnen).
+Der erste Schritt für eine Abgabe ist der Beitritt zum entsprechenden Classroom. Dazu müssen Sie das von mir versendete Link anklicken und bestätigen. Wenn Sie noch keinen GitHub Account haben, ist das jetzt die Gelegenheit. Nach dem Beitritt in den Classroom müssen Sie zunächst Ihren Namen aus der Liste der vorhandenen Namen auswählen. Damit helfen Sie mir hinterher bei der Zuordnung von Hochschul- zu GitHub-Account. Die Namen habe ich aus dem ZPA exportiert, wenn Sie sich nicht finden geben Sie mir bitte Bescheid (Sie können trotzdem schon beginnen).
     
-Ist die Aufgabenstellung eine Teamaufgabe, dann müssen Sie sich Ihrem Team zuordnen. Dazu treten Sie dem bereits erstellten Team Ihres Partners (oder Ihrer Partner) bei. Falls noch kein dementsprechendes Team existiert, können Sie es neu anlegen. Sprechen Sie sich bitte vorher ab, wer das Team erstellt, sonst haben wir hinterher zu viele Teams. 
+Ist die Aufgabenstellung eine Teamaufgabe, dann müssen Sie sich Ihrem Team zuordnen. Dazu treten Sie entweder dem bereits von einem andern Teammitglied erstellten Team bei. Falls noch kein dementsprechendes Team existiert, können Sie selbst es neu anlegen. Sprechen Sie sich bitte vorher ab, wer das Team erstellt, sonst haben wir hinterher zu viele Teams. 
 
 Als letzten Schritt müssen Sie dem Beitritt mit *Accept* bestätigen. Dann wird automatisch ein neues Repository angelegt und mit meinem Template gefüllt. 
 
