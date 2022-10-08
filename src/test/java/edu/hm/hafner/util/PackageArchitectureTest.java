@@ -1,6 +1,7 @@
 package edu.hm.hafner.util;
 
 import java.net.URL;
+import java.util.Objects;
 
 import com.tngtech.archunit.core.importer.ImportOption.DoNotIncludeTests;
 import com.tngtech.archunit.junit.AnalyzeClasses;
@@ -8,8 +9,8 @@ import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
-import static com.tngtech.archunit.library.plantuml.PlantUmlArchCondition.Configurations.*;
-import static com.tngtech.archunit.library.plantuml.PlantUmlArchCondition.*;
+import static com.tngtech.archunit.library.plantuml.rules.PlantUmlArchCondition.Configuration.*;
+import static com.tngtech.archunit.library.plantuml.rules.PlantUmlArchCondition.*;
 
 /**
  * Checks the package architecture of this module.
@@ -23,6 +24,6 @@ class PackageArchitectureTest {
 
     @ArchTest
     static final ArchRule ADHERES_TO_PACKAGE_DESIGN
-            = classes().should(adhereToPlantUmlDiagram(PACKAGE_DESIGN,
-            consideringOnlyDependenciesInAnyPackage("edu.hm.hafner..")));
+            = classes().should(adhereToPlantUmlDiagram(Objects.requireNonNull(PACKAGE_DESIGN),
+                    consideringOnlyDependenciesInAnyPackage("edu.hm.hafner..")));
 }

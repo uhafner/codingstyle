@@ -128,7 +128,7 @@ public final class ArchitectureRules {
         }
 
         @Override
-        public boolean apply(final JavaCall<?> input) {
+        public boolean test(final JavaCall<?> input) {
             return isVisibleForTesting(input.getTarget())
                     && !input.getOriginOwner().equals(input.getTargetOwner())
                     && !isVisibleForTesting(input.getOrigin());
@@ -159,7 +159,7 @@ public final class ArchitectureRules {
         }
 
         @Override
-        public boolean apply(final JavaConstructorCall javaConstructorCall) {
+        public boolean test(final JavaConstructorCall javaConstructorCall) {
             ConstructorCallTarget target = javaConstructorCall.getTarget();
             if (target.getRawParameterTypes().size() > 0) {
                 return false;
