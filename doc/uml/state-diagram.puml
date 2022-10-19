@@ -31,7 +31,7 @@ state AnotherEnd <<end>>
 A --> A : Trigger für Transition in selben Zustand
 A: entry / Eintrittsaktivität
 A: do / Andauernde Aktivität
-A: exit / Austrittssaktivität
+A: exit / Austrittsaktivität
 
 A --> B : \tTrigger [Bedingung für Zustandswechsel] / Verhalten
 B -> [*] : \twhen [Bedingung für Ende]
