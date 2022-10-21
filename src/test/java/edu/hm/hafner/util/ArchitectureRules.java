@@ -27,6 +27,13 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
  * @author Ullrich Hafner
  */
 public final class ArchitectureRules {
+    /** Tests should not use fields. Recommendation is to use factory methods for stubs and mocks. */
+    public static final ArchRule NO_FIELDS_IN_TESTS =
+            fields().that().areDeclaredInClassesThat().haveSimpleNameEndingWith("Test")
+                    .should().beFinal().andShould().haveModifier(JavaModifier.STATIC)
+                    .because("use factory methods in favor of instance fields when creating stubs or mocks in tests")
+                    .allowEmptyShould(true);
+
     /** Never create exception without any context. */
     public static final ArchRule NO_EXCEPTIONS_WITH_NO_ARG_CONSTRUCTOR =
             noClasses().that().haveSimpleNameNotContaining("Benchmark")

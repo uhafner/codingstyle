@@ -31,6 +31,16 @@ class ArchitectureRulesTest {
     }
 
     @Test
+    void shouldVerifyThatTestsDoNotUseFields() {
+        assertThatExceptionOfType(AssertionError.class).isThrownBy(
+                        () -> ArchitectureRules.NO_FIELDS_IN_TESTS.check(importBrokenClass()))
+                .withMessageContainingAll(BROKEN_CLASS_NAME, "use factory methods in favor of instance fields when creating stubs or mocks in tests");
+
+        assertThatNoException().isThrownBy(
+                () -> ArchitectureRules.NO_FIELDS_IN_TESTS.check(importPassingClass()));
+    }
+
+    @Test
     void shouldVerifyForbiddenAnnotations() {
         assertThatExceptionOfType(AssertionError.class).isThrownBy(
                         () -> ArchitectureRules.NO_FORBIDDEN_CLASSES_CALLED.check(importBrokenClass()))

@@ -26,6 +26,9 @@ class ArchitectureTest {
     static final ArchRule ONLY_PACKAGE_PRIVATE_ARCHITECTURE_TESTS = ArchitectureRules.ONLY_PACKAGE_PRIVATE_ARCHITECTURE_TESTS;
 
     @ArchTest
+    static final ArchRule NO_FIELDS_IN_TESTS = ArchitectureRules.NO_FIELDS_IN_TESTS;
+
+    @ArchTest
     static final ArchRule NO_TEST_API_CALLED = ArchitectureRules.NO_TEST_API_CALLED;
 
     @ArchTest
