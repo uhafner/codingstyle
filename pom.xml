@@ -64,7 +64,6 @@
     <!-- Project Test Dependencies Configuration -->
     <equalsverifier.version>3.11</equalsverifier.version>
     <junit.version>5.9.1</junit.version>
-    <junit-platform-launcher.version>1.9.1</junit-platform-launcher.version>
     <mockito.version>4.8.1</mockito.version>
     <assertj.version>3.23.1</assertj.version>
     <archunit.version>1.0.0</archunit.version>
@@ -113,6 +112,20 @@
         <artifactId>nullaway</artifactId>
         <version>${nullaway.version}</version>
       </dependency>
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>${junit.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-bom</artifactId>
+        <version>${mockito.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -153,37 +166,31 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
-      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.platform</groupId>
       <artifactId>junit-platform-launcher</artifactId>
-      <version>${junit-platform-launcher.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-params</artifactId>
-      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>${mockito.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-inline</artifactId>
-      <version>${mockito.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -277,6 +284,11 @@
               <groupId>com.uber.nullaway</groupId>
               <artifactId>nullaway</artifactId>
               <version>${nullaway.version}</version>
+            </path>
+            <path>
+              <groupId>org.mockito</groupId>
+              <artifactId>mockito-errorprone</artifactId>
+              <version>${mockito.version}</version>
             </path>
           </annotationProcessorPaths>
           <compilerArgs>
