@@ -42,7 +42,7 @@ public class FilteredLog implements Serializable {
     }
 
     /**
-     * Creates a new {@link FilteredLog}..
+     * Creates a new {@link FilteredLog}.
      *
      * @param title
      *         the title of the error messages
@@ -60,8 +60,8 @@ public class FilteredLog implements Serializable {
      * @param format
      *         A <a href="../util/Formatter.html#syntax">format string</a>
      * @param args
-     *         Arguments referenced by the format specifiers in the format string.  If there are more arguments than
-     *         format specifiers, the extra arguments are ignored.  The number of arguments is variable and may be
+     *         Arguments referenced by the format specifiers in the format string. If there are more arguments than
+     *         format specifiers, the extra arguments are ignored. The number of arguments is variable and may be
      *         zero.
      */
     @FormatMethod
@@ -75,8 +75,8 @@ public class FilteredLog implements Serializable {
      * @param format
      *         A <a href="../util/Formatter.html#syntax">format string</a>
      * @param args
-     *         Arguments referenced by the format specifiers in the format string.  If there are more arguments than
-     *         format specifiers, the extra arguments are ignored.  The number of arguments is variable and may be
+     *         Arguments referenced by the format specifiers in the format string. If there are more arguments than
+     *         format specifiers, the extra arguments are ignored. The number of arguments is variable and may be
      *         zero.
      */
     @FormatMethod
@@ -103,8 +103,8 @@ public class FilteredLog implements Serializable {
      * @param format
      *         A <a href="../util/Formatter.html#syntax">format string</a>
      * @param args
-     *         Arguments referenced by the format specifiers in the format string.  If there are more arguments than
-     *         format specifiers, the extra arguments are ignored.  The number of arguments is variable and may be
+     *         Arguments referenced by the format specifiers in the format string. If there are more arguments than
+     *         format specifiers, the extra arguments are ignored. The number of arguments is variable and may be
      *         zero.
      */
     @FormatMethod
@@ -138,7 +138,7 @@ public class FilteredLog implements Serializable {
     }
 
     /**
-     * Returns the info messages that have been reported since the creation of this set of issues.
+     * Returns all info messages.
      *
      * @return the info messages
      */
@@ -147,12 +147,21 @@ public class FilteredLog implements Serializable {
     }
 
     /**
-     * Returns the error messages that have been reported since the creation of this set of issues.
+     * Returns all error messages up to the configured limit.
      *
      * @return the error messages
      */
     public List<String> getErrorMessages() {
         return Collections.unmodifiableList(errorMessages);
+    }
+
+    /**
+     * Returns whether there have been error messages recorded.
+     *
+     * @return {@code true} if error messages have been recorded, {@code false} otherwise
+     */
+    public boolean hasErrors() {
+        return !errorMessages.isEmpty();
     }
 
     /**

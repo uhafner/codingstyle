@@ -27,7 +27,10 @@ class FilteredLogTest extends SerializableTest<FilteredLog> {
     void shouldLogAllErrors() {
         var filteredLog = new FilteredLog(TITLE, 5);
 
+        assertThat(filteredLog).doesNotHaveErrors();
         filteredLog.logError("1");
+        assertThat(filteredLog).hasErrors();
+
         filteredLog.logError("2");
         filteredLog.logError("3");
         filteredLog.logError("4");
