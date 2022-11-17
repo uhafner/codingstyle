@@ -19,7 +19,7 @@
   </description>
 
   <scm>
-    <connection>scm:git:git://github.com/uhafner/codingstyle.git</connection>
+    <connection>scm:git:https://github.com/uhafner/codingstyle.git</connection>
     <developerConnection>scm:git:git@github.com:uhafner/codingstyle.git</developerConnection>
     <url>https://github.com/uhafner/codingstyle</url>
     <tag>HEAD</tag>
