@@ -54,7 +54,7 @@ public abstract class SerializableTest<T extends Serializable> extends ResourceT
      *         the byte stream of the serializable
      */
     protected void assertThatSerializableCanBeRestoredFrom(final byte... serializedInstance) {
-        assertThat(restore(serializedInstance)).isEqualTo(createSerializable());
+        assertThat(restore(serializedInstance)).usingRecursiveComparison().isEqualTo(createSerializable());
     }
 
     /**
