@@ -17,6 +17,7 @@
     <exclude name="UnusedPrivateMethod"/>
   </rule>
   <rule ref="category/java/codestyle.xml">
+    <exclude name="DuplicateImports"/>
     <exclude name="AtLeastOneConstructor"/>
     <exclude name="UnnecessaryConstructor"/>
     <exclude name="FieldDeclarationsShouldBeAtStartOfClass"/>
