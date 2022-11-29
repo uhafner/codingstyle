@@ -140,7 +140,6 @@
     <module name="StringLiteralEquality"/>
     <module name="SuperClone"/>
     <module name="SuperFinalize"/>
-    <module name="UnnecessaryParentheses"/>
     <module name="InterfaceIsType"/>
     <module name="MutableException"/>
     <module name="ThrowsCount">
