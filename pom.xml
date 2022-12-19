@@ -653,6 +653,12 @@
                   <annotationType>edu.umd.cs.findbugs.annotations.*</annotationType>
                   <justification>Annotation should be safe to change</justification>
                 </item>
+                <item>
+                  <ignore>true</ignore>
+                  <code>java.class.removed</code>
+                  <classQualifiedName>edu.hm.hafner.util.StringContainsUtils</classQualifiedName>
+                  <justification>Major release 3.x</justification>
+                </item>
               </differences>
             </revapi.differences>
             <revapi.versions>
