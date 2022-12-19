@@ -21,7 +21,13 @@ node('java-agent') {
         publishCoverage adapters: [jacocoAdapter('**/*/jacoco.xml')], sourceFileResolver: sourceFiles('STORE_ALL_BUILD')
 
         recordCoverage(tools: [[parser: 'JACOCO']],
-                id: 'jacoco', name: 'Coverage (JaCoCo)',
+                id: 'jacoco1', name: 'Coverage Business Layer',
+                sourceCodeRetention: 'EVERY_BUILD',
+                qualityGates: [
+                    [threshold: 60.0, metric: 'LINE', baseline: 'PROJECT', unstable: true],
+                    [threshold: 60.0, metric: 'BRANCH', baseline: 'PROJECT', unstable: true]])
+        recordCoverage(tools: [[parser: 'JACOCO']],
+                id: 'jacoco2', name: 'Coverage Persistence Layer',
                 sourceCodeRetention: 'EVERY_BUILD',
                 qualityGates: [
                     [threshold: 60.0, metric: 'LINE', baseline: 'PROJECT', unstable: true],
