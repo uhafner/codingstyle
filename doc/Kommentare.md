@@ -47,9 +47,9 @@ und müssen für alle Klassen und Methoden verfasst werden, die mindestens die S
 serialisiert (z.B. wenn sie die Schnittstelle `Serializable` implementiert), dann müssen auch
 private Attribute kommentiert werden, da in diesem Fall auch diese zur öffentlichen Schnittstelle einer Klasse gehören. 
 
-Die [Java Bibliotheken](http://docs.oracle.com/javase/8/docs/api/) selbst bieten schöne Beispiele, wie solche Kommentare 
+Die [Java Bibliotheken](https://docs.oracle.com/javase/8/docs/api/) selbst bieten schöne Beispiele, wie solche Kommentare 
 auszusehen haben und wie nützlich diese sind. Eine kleine Einführung zu diesem Thema ist auf den
-[Oracle Seiten](http://www.oracle.com/technetwork/java/javase/documentation/javadoc-137458.html) zu finden.
+[Oracle Seiten](https://www.oracle.com/java/technologies/javase/javadoc.html) zu finden.
 
 JavaDoc Kommentare werden im aktiv geschrieben. Der erste Satz (der mit einem Punkt abgeschlossen wird) muss eine
 Zusammenfassung sein. Dieser wird im generierten HTML Dokument als Überschrift dargestellt. Das zu beschreibende Element 
