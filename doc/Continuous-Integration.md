@@ -30,7 +30,7 @@ ein test-jar konfiguriert, so dass alle Tests (und abstrakte Testklassen) auch a
 
 [![GitHub Actions](https://github.com/uhafner/codingstyle/workflows/GitHub%20CI/badge.svg?branch=master)](https://github.com/uhafner/codingstyle/actions)
 
-Die Konfiguration der Continuous Integration in GitHub Actions is sehr [einfach](../.github/workflows/maven.yml). 
+Die Konfiguration der Continuous Integration in GitHub Actions is sehr [einfach](../.github/workflows/ci.yml). 
 Da der gesamte Build über Maven automatisiert ist, besteht die Konfiguration eigentlich nur aus einem Maven Aufruf,
 der das Projekt baut, alle Tests (Unit und Integrationstests) ausgeführt, die statische Code Analyse durchführt
 und schließlich werden nochmals alle Test mit dem Code Coverage Tool JaCoCo analysiert. Bei einem erfolgreichen 
@@ -55,9 +55,10 @@ lauffähige Jenkins Installation enthalten (im Sinne von *Infrastructure as Code
 Diese kann über `jenkins.sh` im Hauptverzeichnis gestartet werden. Anschließend wird die
 aktuelle Jenkins LTS Version mit allen benötigten Plugins in einem Docker Container gebaut und gestartet (das dauert
 beim ersten Aufruf etwas). Dazu wird ebenso ein als Docker Container initialisierter Java Agent (**Achtung**: Java 8) 
-verbunden, der die Builds ausführt. Nach einem erfolgreichem Start von Jenkins ist dann unter 
-[http://localhost:8080/job/Codingstyle/](http://localhost:8080/job/Codingstyle/) 
-der entsprechende Jenkins Job sichtbar. Der Zugang auf diesen lokalen Rechner erfolgt zur Vereinfachung 
+verbunden, der die Builds ausführt. 
+<!-- markdown-link-check-disable-next-line -->
+Nach einem erfolgreichen Start von Jenkins ist dann unter [http://localhost:8080/job/Codingstyle/](http://localhost:8080/job/Codingstyle/) der entsprechende Jenkins Job sichtbar. 
+Der Zugang auf diesen lokalen Rechner erfolgt zur Vereinfachung 
 mit Benutzer `admin` und Passwort `admin`, anschließend hat man volle Jenkins Administrationsrechte. 
 Der Job `Codingstyle` muss danach manuell gestartet werden,
 die Ergebnisse der Tests, Code und Mutation Coverage sowie statischen Analyse werden dann automatisch
