@@ -75,7 +75,6 @@
 
   <rule ref="category/java/errorprone.xml">
     <exclude name="DataflowAnomalyAnalysis"/>
-    <exclude name="BeanMembersShouldSerialize"/>
     <exclude name="AvoidDuplicateLiterals"/>
     <exclude name="TestClassWithoutTestCases"/>
     <exclude name="EmptyCatchBlock"/>
