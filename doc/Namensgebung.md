@@ -24,7 +24,7 @@ Zum Thema Abkürzung noch ein schönes Zitat von Ken Thompson auf die Frage was 
 nochmals erfinden dürfte: “I‘d spell creat with an e.“
 
 Zum Thema Namensgebung finden sich einige schöne Anti-Beispiele im Essay
-["How To Write Unmaintainable Code"](https://www.doc.ic.ac.uk/~susan/475/unmain.html) von Roedy Green.
+["How To Write Unmaintainable Code"](https://github.com/Droogans/unmaintainable-code) von Roedy Green.
                   
 ### Methodennamen
 
