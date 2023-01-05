@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
+import org.assertj.core.api.ObjectAssert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -54,7 +55,23 @@ public abstract class SerializableTest<T extends Serializable> extends ResourceT
      *         the byte stream of the serializable
      */
     protected void assertThatSerializableCanBeRestoredFrom(final byte... serializedInstance) {
-        assertThat(restore(serializedInstance)).usingRecursiveComparison().isEqualTo(createSerializable());
+        assertThatRestoredInstanceEqualsOriginalInstance(createSerializable(), restore(serializedInstance));
+    }
+
+    /**
+     * Asserts that the instance restored from the serialization is equal to the original instance before the
+     * serialization. By default, the {@link ObjectAssert#usingRecursiveComparison() recursive comparison strategy} of
+     * AssertJ is used to compare these instances. If your subject under test overrides
+     * {@link Object#equals(Object) equals}, then you should override this method with {@code original.equals(restored)}
+     * so the customized equals method will be used.
+     *
+     * @param original
+     *         the instance before the serialization
+     * @param restored
+     *         the instance restored by the de-serialization
+     */
+    protected void assertThatRestoredInstanceEqualsOriginalInstance(final T original, final T restored) {
+        assertThat(restored).usingRecursiveComparison().isEqualTo(original);
     }
 
     /**
@@ -62,6 +79,7 @@ public abstract class SerializableTest<T extends Serializable> extends ResourceT
      *
      * @param serializedInstance
      *         the byte stream of the serializable
+     *
      * @return the deserialized instance
      */
     @SuppressWarnings({"unchecked", "BanSerializableRead"})
@@ -108,6 +126,7 @@ public abstract class SerializableTest<T extends Serializable> extends ResourceT
      */
     @SuppressFBWarnings("DMI")
     protected void createSerializationFile() throws IOException {
-        Files.write(Paths.get("/tmp/serializable.ser"), toByteArray(createSerializable()), StandardOpenOption.CREATE_NEW);
+        Files.write(Paths.get("/tmp/serializable.ser"), toByteArray(createSerializable()),
+                StandardOpenOption.CREATE_NEW);
     }
 }
