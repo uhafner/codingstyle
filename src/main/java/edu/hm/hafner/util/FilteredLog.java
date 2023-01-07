@@ -57,6 +57,16 @@ public class FilteredLog implements Serializable {
     /**
      * Logs the specified information message. Use this method to log any useful information when composing this log.
      *
+     * @param message
+     *         the message to log
+     */
+    public void logInfo(final String message) {
+        infoMessages.add(message);
+    }
+
+    /**
+     * Logs the specified information message. Use this method to log any useful information when composing this log.
+     *
      * @param format
      *         A <a href="../util/Formatter.html#syntax">format string</a>
      * @param args
