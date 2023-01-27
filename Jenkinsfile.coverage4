@@ -18,7 +18,6 @@ node('java-agent') {
         recordIssues tool: errorProne(), healthy: 1, unhealthy: 20
 
         junit testResults: '**/target/*-reports/TEST-*.xml'
-        publishCoverage adapters: [jacocoAdapter('**/*/jacoco.xml')], sourceFileResolver: sourceFiles('STORE_ALL_BUILD')
 
         recordCoverage(tools: [[parser: 'JACOCO']],
                 id: 'jacoco', name: 'JaCoCo Coverage',
