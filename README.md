@@ -52,7 +52,7 @@ A lot of ideas in this style are based on the following path-breaking books abou
 
 All documents in this project use the 
 [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/). 
-Source code (snippets, examples, and classes) are using the [MIT license](https://opensource.org/licenses/MIT).
+Source code (snippets, examples, and classes) are using the [MIT license](https://opensource.org/license/MIT).
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](https://opensource.org/license/MIT)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
