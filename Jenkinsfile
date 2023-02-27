@@ -11,14 +11,20 @@ node('java-agent') {
 
     stage ('Build, Test, and Static Analysis') {
         withMaven(mavenLocalRepo: '/var/data/m2repository', mavenOpts: '-Xmx768m -Xms512m') {
-            sh 'mvn -V -e clean verify -Dmaven.test.failure.ignore -Dgpg.skip'
+            sh 'mvn -V -e clean verify -Dmaven.test.failure.ignore -Dgpg.skip -Drevapi.skip'
         }
 
         recordIssues tools: [java(), javaDoc()], aggregatingResults: 'true', id: 'java', name: 'Java'
         recordIssues tool: errorProne(), healthy: 1, unhealthy: 20
 
         junit testResults: '**/target/*-reports/TEST-*.xml'
-        publishCoverage adapters: [jacocoAdapter('**/*/jacoco.xml')], sourceFileResolver: sourceFiles('STORE_ALL_BUILD')
+
+        recordCoverage(tools: [[parser: 'JACOCO']],
+                id: 'jacoco', name: 'JaCoCo Coverage',
+                sourceCodeRetention: 'EVERY_BUILD',
+                qualityGates: [
+                    [threshold: 60.0, metric: 'LINE', baseline: 'PROJECT', unstable: true],
+                    [threshold: 60.0, metric: 'BRANCH', baseline: 'PROJECT', unstable: true]])
 
         recordIssues tools: [checkStyle(pattern: 'target/checkstyle-result.xml'),
             spotBugs(pattern: 'target/spotbugsXml.xml'),
@@ -32,7 +38,11 @@ node('java-agent') {
         withMaven(mavenLocalRepo: '/var/data/m2repository', mavenOpts: '-Xmx768m -Xms512m') {
             sh "mvn org.pitest:pitest-maven:mutationCoverage"
         }
-        step([$class: 'PitPublisher', mutationStatsFile: 'target/pit-reports/**/mutations.xml'])
+        recordCoverage(tools: [[parser: 'PIT']],
+                id: 'pit', name: 'Mutation Coverage',
+                sourceCodeRetention: 'EVERY_BUILD',
+                qualityGates: [
+                    [threshold: 60.0, metric: 'MUTATION', baseline: 'PROJECT', unstable: true]])
     }
 
     stage ('Collect Maven Warnings') {
