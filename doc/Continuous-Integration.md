@@ -14,11 +14,11 @@ U.a. sind die folgenden Plugins vorkonfiguriert:
   Version kann beliebig aktualisert werden. 
 - maven-javadoc-plugin: aktiviert die strikte Prüfung von JavaDoc Kommentaren
 - maven-jar-plugin: legt einen Modulnamen fest, falls das Projekt in Java 9 oder höher verwendet wird. Außerdem wird
-ein test-jar konfiguriert, so dass alle Tests (und abstrakte Testklassen) auch als Dependencies genutzt werden können.
+ein test-jar konfiguriert, sodass alle Tests (und abstrakte Testklassen) auch als Dependencies genutzt werden können.
 - maven-pmd-plugin: prüft das Projekt mit PMD, die Regeln liegen in der Datei [pmd-configuration.xml](../etc/pmd-configuration.xml).
 - maven-checkstyle-plugin: prüft das Projekt mit CheckStyle, die Regeln liegen in der Datei [checkstyle-configuration.xml](../etc/checkstyle-configuration.xml).
 - spotbugs-maven-plugin: prüft das Projekt mit SpotBugs, alle Regeln werden verwendet mit den Ausnahmen definiert in der Datei [spotbugs-exclusion-filter.xml](../etc/spotbugs-exclusion-filter.xml).
-- org.revapi: prüft ob die aktuelle Versionsnummer die [semantische Versionierung](https://semver.org) berücksichtigt (source and binary). D.h. es gilt:
+- org.revapi: prüft, ob die aktuelle Versionsnummer die [semantische Versionierung](https://semver.org) berücksichtigt (source and binary). D.h. es gilt:
     1. Eine neue **Major** Version wurde definiert, wenn das API nicht mehr abwärtskompatibel ist.
     2. Eine neue **Minor** Version wurde definiert, wenn eine neue Funktionalität abwärtskompatibel hinzugefügt wurde.
     3. Eine neue **Patch** Version wurde definiert, wenn Fehler abwärtskompatibel behoben wurden.
