@@ -1,5 +1,4 @@
 name: "CodeQL config"
-queries:
 paths-ignore:
   - generated-test-sources
   - generated-sources
