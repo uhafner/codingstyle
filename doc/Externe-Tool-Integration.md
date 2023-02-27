@@ -32,4 +32,4 @@ App [LGTM](https://lgtm.com).
 ## Bewertung der Code Coverage 
 
 Die Code Coverage der Unit Tests wird ebenfalls nach jeder Änderung (bzw. für jeden Pull Request) an den Service
-[Codecov](https://codecov.io/gh/uhafner/codingstyle) weitergeleitet, der die Resultate grafisch visualisiert.
+[Codecov](https://app.codecov.io/gh/uhafner/codingstyle) weitergeleitet, der die Resultate grafisch visualisiert.

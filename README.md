@@ -1,7 +1,6 @@
 [![GitHub Actions](https://github.com/uhafner/codingstyle/workflows/GitHub%20CI/badge.svg?branch=master)](https://github.com/uhafner/codingstyle/actions)
-[![Codecov](https://codecov.io/gh/uhafner/codingstyle/branch/master/graph/badge.svg)](https://codecov.io/gh/uhafner/codingstyle)
-[![LGTM grade](https://img.shields.io/lgtm/grade/java/g/uhafner/codingstyle.svg?logo=lgtm&logoWidth=18&label=lgtm%20grade)](https://lgtm.com/projects/g/uhafner/codingstyle/context:java)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/uhafner/codingstyle.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/uhafner/codingstyle/alerts/)
+[![Codecov](https://codecov.io/gh/uhafner/codingstyle/branch/main/graph/badge.svg)](https://app.codecov.io/gh/uhafner/codingstyle)
+[![CodeQL](https://github.com/uhafner/codingstyle/workflows/CodeQL/badge.svg?branch=main)](https://github.com/uhafner/codingstyle/actions/workflows/codeql.yml)
 
 Each Java project should follow a given coding style. I.e., all contributions to the source code should use the same 
 formatting rules, design principles, code patterns, idioms, etc. This coding style provides the set of rules that I 

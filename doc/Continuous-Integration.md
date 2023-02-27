@@ -34,7 +34,7 @@ Die Konfiguration der Continuous Integration in GitHub Actions is sehr [einfach]
 Da der gesamte Build über Maven automatisiert ist, besteht die Konfiguration eigentlich nur aus einem Maven Aufruf,
 der das Projekt baut, alle Tests (Unit und Integrationstests) ausgeführt, die statische Code Analyse durchführt
 und schließlich werden nochmals alle Test mit dem Code Coverage Tool JaCoCo analysiert. Bei einem erfolgreichen 
-Build werden die Code Coverage Ergebnisse in die Platform [CodeCov](https://codecov.io/gh/uhafner/codingstyle) hochgeladen.
+Build werden die Code Coverage Ergebnisse in die Platform [CodeCov](https://app.codecov.io/gh/uhafner/codingstyle) hochgeladen.
 GitHub Actions bietet die Möglichkeit, Matrix Builds durchzuführen: d.h., der Build wird auf den Plattformen Linux, 
 Windows und macOS parallel durchgeführt.
 
