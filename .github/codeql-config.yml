@@ -1,4 +1,4 @@
 name: "CodeQL config"
 paths-ignore:
-  - generated-test-sources
-  - generated-sources
+  - target/generated-test-sources
+  - target/generated-sources
