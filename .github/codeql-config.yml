@@ -1,4 +1,5 @@
 name: "CodeQL config"
-paths-ignore:
-  - target/generated-test-sources
-  - target/generated-sources
+
+extractor:
+  java:
+    exclude: target/generated-test-sources/**
