@@ -2,4 +2,4 @@ name: "CodeQL config"
 
 extractor:
   java:
-    exclude: target/generated-test-sources/**
+    exclude: '**/*Assert*'
