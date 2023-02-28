@@ -1,5 +1,0 @@
-name: "CodeQL config"
-
-extractor:
-  java:
-    exclude: '**/*Assert*'
