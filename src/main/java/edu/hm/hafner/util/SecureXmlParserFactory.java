@@ -220,6 +220,7 @@ public class SecureXmlParserFactory {
      *
      * @return a new instance of a {@link XMLStreamReader}
      */
+    @SuppressFBWarnings("XXE_XMLSTREAMREADER")
     public XMLStreamReader createXmlStreamReader(final Reader reader) {
         try {
             return createSecureInputFactory().createXMLStreamReader(reader);
@@ -237,6 +238,7 @@ public class SecureXmlParserFactory {
      *
      * @return a new instance of a {@link XMLStreamReader}
      */
+    @SuppressFBWarnings("XXE_XMLSTREAMREADER")
     public XMLEventReader createXmlEventReader(final Reader reader) {
         try {
             return createSecureInputFactory().createXMLEventReader(reader);
@@ -328,6 +330,7 @@ public class SecureXmlParserFactory {
     }
 
     @VisibleForTesting
+    @SuppressFBWarnings("XXE_DTD_TRANSFORM_FACTORY")
     TransformerFactory createTransformerFactory() {
         return TransformerFactory.newInstance();
     }
