@@ -220,7 +220,7 @@ public class SecureXmlParserFactory {
      *
      * @return a new instance of a {@link XMLStreamReader}
      */
-    @SuppressFBWarnings("XXE_XMLSTREAMREADER")
+    @SuppressFBWarnings(value = "XXE_XMLSTREAMREADER", justification = "The reader is secured in the called method")
     public XMLStreamReader createXmlStreamReader(final Reader reader) {
         try {
             return createSecureInputFactory().createXMLStreamReader(reader);
@@ -238,7 +238,7 @@ public class SecureXmlParserFactory {
      *
      * @return a new instance of a {@link XMLStreamReader}
      */
-    @SuppressFBWarnings("XXE_XMLSTREAMREADER")
+    @SuppressFBWarnings(value = "XXE_XMLSTREAMREADER", justification = "The reader is secured in the called method")
     public XMLEventReader createXmlEventReader(final Reader reader) {
         try {
             return createSecureInputFactory().createXMLEventReader(reader);
@@ -330,7 +330,7 @@ public class SecureXmlParserFactory {
     }
 
     @VisibleForTesting
-    @SuppressFBWarnings("XXE_DTD_TRANSFORM_FACTORY")
+    @SuppressFBWarnings(value = {"XXE_DTD_TRANSFORM_FACTORY", "XXE_XSLT_TRANSFORM_FACTORY"}, justification = "The transformer is secured in the called method")
     TransformerFactory createTransformerFactory() {
         return TransformerFactory.newInstance();
     }
