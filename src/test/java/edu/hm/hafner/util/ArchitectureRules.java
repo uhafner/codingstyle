@@ -11,10 +11,14 @@ import com.tngtech.archunit.core.domain.AccessTarget.ConstructorCallTarget;
 import com.tngtech.archunit.core.domain.JavaCall;
 import com.tngtech.archunit.core.domain.JavaClass;
 import com.tngtech.archunit.core.domain.JavaConstructorCall;
+import com.tngtech.archunit.core.domain.JavaMethod;
 import com.tngtech.archunit.core.domain.JavaModifier;
 import com.tngtech.archunit.core.domain.properties.CanBeAnnotated;
 import com.tngtech.archunit.junit.ArchTest;
+import com.tngtech.archunit.lang.ArchCondition;
 import com.tngtech.archunit.lang.ArchRule;
+import com.tngtech.archunit.lang.ConditionEvents;
+import com.tngtech.archunit.lang.SimpleConditionEvent;
 
 import static com.tngtech.archunit.core.domain.JavaAccess.Predicates.*;
 import static com.tngtech.archunit.lang.conditions.ArchConditions.*;
@@ -107,7 +111,7 @@ public final class ArchitectureRules {
     public static final ArchRule READ_RESOLVE_SHOULD_BE_PROTECTED =
             methods().that().haveName("readResolve").and().haveRawReturnType(Object.class)
                     .should().beDeclaredInClassesThat().implement(Serializable.class)
-                    .andShould().beProtected().allowEmptyShould(true);
+                    .andShould(beProtected()).allowEmptyShould(true);
 
     private static ExceptionHasNoContext exceptionHasNoContextAsParameter() {
         return new ExceptionHasNoContext();
@@ -122,6 +126,13 @@ public final class ArchitectureRules {
     }
 
     /**
+     * Predicate to match exception constructor calls without contexts.
+     */
+    private static ArchCondition<JavaMethod> beProtected() {
+        return new ShouldBeProtectedCondition();
+    }
+
+    /**
      * Matches if a call from outside the defining class uses a method or constructor annotated with
      * {@link VisibleForTesting}. There are two exceptions:
      * <ul>
@@ -130,6 +141,7 @@ public final class ArchitectureRules {
      * </ul>
      */
     private static class AccessRestrictedToTests extends DescribedPredicate<JavaCall<?>> {
+
         AccessRestrictedToTests() {
             super("access is restricted to tests");
         }
@@ -140,16 +152,13 @@ public final class ArchitectureRules {
                     && !input.getOriginOwner().equals(input.getTargetOwner())
                     && !isVisibleForTesting(input.getOrigin());
         }
-
         private boolean isVisibleForTesting(final CanBeAnnotated target) {
             return target.isAnnotatedWith(VisibleForTesting.class);
         }
-    }
 
-    /**
-     * Predicate to match exception constructor calls without contexts.
-     */
+    }
     public static class ExceptionHasNoContext extends DescribedPredicate<JavaConstructorCall> {
+
         private final List<Class<? extends Throwable>> allowedExceptions;
 
         /**
@@ -177,6 +186,26 @@ public final class ArchitectureRules {
 
         private boolean isPermittedException(final JavaClass owner) {
             return allowedExceptions.stream().anyMatch(owner::isAssignableTo);
+        }
+
+    }
+
+    private static class ShouldBeProtectedCondition extends ArchCondition<JavaMethod> {
+        ShouldBeProtectedCondition() {
+            super("should be protected");
+        }
+
+        @Override
+        public void check(final JavaMethod method, final ConditionEvents events) {
+            if (method.getModifiers().contains(JavaModifier.PROTECTED)) {
+                return;
+            }
+            if (method.getOwner().getModifiers().contains(JavaModifier.FINAL)) {
+                return;
+            }
+            events.add(SimpleConditionEvent.violated(method,
+                    String.format("%s is not protected but the class might be extended in %s",
+                            method.getDescription(), method.getSourceCodeLocation())));
         }
     }
 }

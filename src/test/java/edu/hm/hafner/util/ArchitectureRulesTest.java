@@ -1,5 +1,7 @@
 package edu.hm.hafner.util;
 
+import java.io.Serializable;
+
 import org.junit.jupiter.api.Test;
 
 import com.tngtech.archunit.core.domain.JavaClasses;
@@ -14,6 +16,19 @@ import static org.assertj.core.api.Assertions.*;
  */
 class ArchitectureRulesTest {
     private static final String BROKEN_CLASS_NAME = ArchitectureRulesViolatedTest.class.getTypeName();
+
+    @Test
+    void shouldUseProtectedForReadResolve() {
+        assertThatExceptionOfType(AssertionError.class).isThrownBy(
+                        () -> ArchitectureRules.READ_RESOLVE_SHOULD_BE_PROTECTED.check(importBrokenClass()))
+                .withMessageContainingAll(BROKEN_CLASS_NAME, "was violated (3 times)",
+                        "Method <edu.hm.hafner.util.ArchitectureRulesTest$ArchitectureRulesAlsoViolatedTest.readResolve()> is not protected but the class might be extended in (ArchitectureRulesTest.java:",
+                        "Method <edu.hm.hafner.util.ArchitectureRulesTest$ArchitectureRulesViolatedTest.readResolve()> is not declared in classes that implement java.io.Serializable in (ArchitectureRulesTest.java:",
+                        "Method <edu.hm.hafner.util.ArchitectureRulesTest$ArchitectureRulesViolatedTest.readResolve()> is not protected but the class might be extended in (ArchitectureRulesTest.java:");
+
+        assertThatNoException().isThrownBy(
+                () -> ArchitectureRules.READ_RESOLVE_SHOULD_BE_PROTECTED.check(importPassingClass()));
+    }
 
     @Test
     void shouldNotUseJsr305Annotations() {
@@ -81,11 +96,13 @@ class ArchitectureRulesTest {
     }
 
     private JavaClasses importPassingClass() {
-        return new ClassFileImporter().importClasses(ArchitectureRulesPassedTest.class);
+        return new ClassFileImporter().importClasses(ArchitectureRulesPassedTest.class,
+                ArchitectureRulesAlsoPassedTest.class);
     }
 
     private JavaClasses importBrokenClass() {
-        return importClasses(ArchitectureRulesViolatedTest.class);
+        return importClasses(ArchitectureRulesViolatedTest.class,
+                ArchitectureRulesAlsoViolatedTest.class);
     }
 
     private JavaClasses importClasses(final Class<?>... classes) {
@@ -110,13 +127,55 @@ class ArchitectureRulesTest {
         protected String method(@javax.annotation.Nonnull String param) {
             return null;
         }
+
+        /**
+         * Called after de-serialization to retain backward compatibility.
+         *
+         * @return this
+         */
+        private Object readResolve() {
+            return this;
+        }
+    }
+
+    @SuppressWarnings("all") @Generated // This class is just there to be used in architecture tests
+    public static class ArchitectureRulesAlsoViolatedTest implements Serializable {
+        /**
+         * Called after de-serialization to retain backward compatibility.
+         *
+         * @return this
+         */
+        private Object readResolve() {
+            return this;
+        }
     }
 
     @SuppressWarnings("all") // This class is just there to be used in architecture tests
-    static class ArchitectureRulesPassedTest {
+    static final class ArchitectureRulesPassedTest implements Serializable {
         @Test
         void shouldPass() {
             throw new IllegalArgumentException("context");
+        }
+
+        /**
+         * Called after de-serialization to retain backward compatibility.
+         *
+         * @return this
+         */
+        private Object readResolve() {
+            return this;
+        }
+    }
+
+    @SuppressWarnings("all") // This class is just there to be used in architecture tests
+    static class ArchitectureRulesAlsoPassedTest implements Serializable {
+        /**
+         * Called after de-serialization to retain backward compatibility.
+         *
+         * @return this
+         */
+        protected Object readResolve() {
+            return this;
         }
     }
 }
