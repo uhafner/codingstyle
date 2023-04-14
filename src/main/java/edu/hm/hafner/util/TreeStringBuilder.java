@@ -19,7 +19,7 @@ import java.util.Map;
  * @author Kohsuke Kawaguchi
  */
 public class TreeStringBuilder {
-    private Child root = new Child(new TreeString());
+    private final Child root = new Child(new TreeString());
 
     /**
      * Interns a string.
@@ -52,15 +52,11 @@ public class TreeStringBuilder {
         getRoot().dedup(new HashMap<>());
     }
 
-    /** Place holder that represents no child node, until one is added. */
+    /** Placeholder that represents no child node, until one is added. */
     private static final Map<String, Child> NO_CHILDREN = Collections.emptyMap();
 
     Child getRoot() {
         return root;
-    }
-
-    void setRoot(final Child root) {
-        this.root = root;
     }
 
     /**
