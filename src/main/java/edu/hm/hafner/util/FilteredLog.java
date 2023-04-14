@@ -3,7 +3,6 @@ package edu.hm.hafner.util;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.locks.ReentrantLock;
@@ -181,6 +180,17 @@ public class FilteredLog implements Serializable {
     }
 
     /**
+     * Writes a summary message to the reports' error log that denotes the total number of errors that have been
+     * reported.
+     *
+     * @deprecated not useful anymore
+     */
+    @Deprecated
+    public void logSummary() {
+        // do nothing
+    }
+
+    /**
      * Returns all info messages.
      *
      * @return the info messages
@@ -188,7 +198,7 @@ public class FilteredLog implements Serializable {
     public List<String> getInfoMessages() {
         lock.lock();
         try {
-            return Collections.unmodifiableList(infoMessages);
+            return List.copyOf(infoMessages);
         }
         finally {
             lock.unlock();
@@ -203,10 +213,10 @@ public class FilteredLog implements Serializable {
     public List<String> getErrorMessages() {
         lock.lock();
         try {
-            if (errorMessages.isEmpty()) {
-                return Collections.emptyList();
-            }
             var messages = new ArrayList<String>();
+            if (errorMessages.isEmpty()) {
+                return messages;
+            }
             if (StringUtils.isNotBlank(title)) {
                 messages.add(title);
             }
