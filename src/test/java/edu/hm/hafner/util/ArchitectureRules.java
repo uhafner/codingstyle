@@ -76,7 +76,9 @@ public final class ArchitectureRules {
     public static final ArchRule NO_TEST_API_CALLED =
             noClasses().that().haveSimpleNameNotEndingWith("Test")
                     .and().haveSimpleNameNotContaining("Benchmark")
-                    .should().callCodeUnitWhere(accessIsRestrictedForTests());
+                    .should().callCodeUnitWhere(accessIsRestrictedForTests())
+                    .because("Production code should never access methods that are marked with @VisibleForTesting")
+                    .allowEmptyShould(true);
 
     /** Prevents that classes use visible but forbidden API. */
     public static final ArchRule NO_FORBIDDEN_PACKAGE_ACCESSED =
@@ -93,18 +95,29 @@ public final class ArchitectureRules {
 
     /** Prevents that classes use visible but forbidden annotations. */
     public static final ArchRule NO_FORBIDDEN_ANNOTATION_USED =
-            noClasses().should().dependOnClassesThat().haveNameMatching("javax.annotation.Check.*")
-                    .orShould().dependOnClassesThat().haveNameMatching("javax.annotation.Nonnull")
-                    .orShould().dependOnClassesThat().haveNameMatching("javax.annotation.Nullable")
-                    .orShould().dependOnClassesThat().haveNameMatching("javax.annotation.Parameters.*")
-                    .orShould().dependOnClassesThat().haveNameMatching("edu.umd.cs.findbugs.annotations.Nullable") // only CheckForNull and NonNull is allowed
+            noClasses().should()
+                    .dependOnClassesThat()
+                    .haveNameMatching("javax.annotation.Check.*")
+                    .orShould()
+                    .dependOnClassesThat()
+                    .haveNameMatching("javax.annotation.Nonnull")
+                    .orShould()
+                    .dependOnClassesThat()
+                    .haveNameMatching("javax.annotation.Nullable")
+                    .orShould()
+                    .dependOnClassesThat()
+                    .haveNameMatching("javax.annotation.Parameters.*")
+                    .orShould()
+                    .dependOnClassesThat()
+                    .haveNameMatching(
+                            "edu.umd.cs.findbugs.annotations.Nullable") // only CheckForNull and NonNull is allowed
                     .because("JSR 305 annotations are now part of edu.umd.cs.findbugs.annotations package");
 
     /** Prevents that classes use visible but forbidden API. */
     public static final ArchRule NO_FORBIDDEN_CLASSES_CALLED =
             noClasses().should().callCodeUnitWhere(targetOwner(has(
-                    fullyQualifiedName("org.junit.jupiter.api.Assertions")
-                            .or(fullyQualifiedName("org.junit.Assert")))))
+                            fullyQualifiedName("org.junit.jupiter.api.Assertions")
+                                    .or(fullyQualifiedName("org.junit.Assert")))))
                     .because("only AssertJ should be used for assertions");
 
     /** Ensures that the {@code readResolve} methods are protected so subclasses can call the parent method. */
@@ -117,12 +130,12 @@ public final class ArchitectureRules {
         return new ExceptionHasNoContext();
     }
 
-    private ArchitectureRules() {
-        // prevents instantiation
-    }
-
     private static DescribedPredicate<? super JavaCall<?>> accessIsRestrictedForTests() {
         return new AccessRestrictedToTests();
+    }
+
+    private ArchitectureRules() {
+        // prevents instantiation
     }
 
     /**
@@ -141,7 +154,6 @@ public final class ArchitectureRules {
      * </ul>
      */
     private static class AccessRestrictedToTests extends DescribedPredicate<JavaCall<?>> {
-
         AccessRestrictedToTests() {
             super("access is restricted to tests");
         }
@@ -152,13 +164,17 @@ public final class ArchitectureRules {
                     && !input.getOriginOwner().equals(input.getTargetOwner())
                     && !isVisibleForTesting(input.getOrigin());
         }
+
         private boolean isVisibleForTesting(final CanBeAnnotated target) {
             return target.isAnnotatedWith(VisibleForTesting.class);
         }
 
     }
-    public static class ExceptionHasNoContext extends DescribedPredicate<JavaConstructorCall> {
 
+    /**
+     * Matches if an exception has no context, i.e., the constructor is invoked without a message.
+     */
+    private static class ExceptionHasNoContext extends DescribedPredicate<JavaConstructorCall> {
         private final List<Class<? extends Throwable>> allowedExceptions;
 
         /**
@@ -168,7 +184,7 @@ public final class ArchitectureRules {
          *         exceptions that are allowed to be instantiated without arguments
          */
         @SafeVarargs
-        public ExceptionHasNoContext(final Class<? extends Throwable>... allowedExceptions) {
+        ExceptionHasNoContext(final Class<? extends Throwable>... allowedExceptions) {
             super("exception context is missing");
 
             this.allowedExceptions = List.of(allowedExceptions);
