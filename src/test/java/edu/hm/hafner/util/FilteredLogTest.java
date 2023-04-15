@@ -48,24 +48,22 @@ class FilteredLogTest extends SerializableTest<FilteredLog> {
 
     @Test
     void shouldSkipAdditionalErrors() {
-        var filteredLog = new FilteredLog(StringUtils.EMPTY, 5);
-
-        filteredLog.logError("1");
-        filteredLog.logError("2");
-        filteredLog.logError("3");
-        filteredLog.logError("4");
-        filteredLog.logError("5");
-        filteredLog.logError("6");
-        filteredLog.logError("7");
+        FilteredLog filteredLog = create5ErrorsLogWithTitle(StringUtils.EMPTY);
 
         assertThat(filteredLog).hasOnlyErrorMessages("1", "2", "3", "4", "5",
                 "  ... skipped logging of 2 additional errors ...");
-        assertThat(filteredLog.size()).isEqualTo(7);
     }
 
     @Test
     void shouldSkipAdditionalErrorsWithTitle() {
-        var filteredLog = new FilteredLog(TITLE, 5);
+        FilteredLog filteredLog = create5ErrorsLogWithTitle(TITLE);
+
+        assertThat(filteredLog).hasOnlyErrorMessages(TITLE, "1", "2", "3", "4", "5",
+                "  ... skipped logging of 2 additional errors ...");
+    }
+
+    private FilteredLog create5ErrorsLogWithTitle(final String title) {
+        var filteredLog = new FilteredLog(title, 5);
 
         filteredLog.logError("1");
         filteredLog.logError("2");
@@ -75,9 +73,9 @@ class FilteredLogTest extends SerializableTest<FilteredLog> {
         filteredLog.logError("6");
         filteredLog.logError("7");
 
-        assertThat(filteredLog).hasOnlyErrorMessages(TITLE, "1", "2", "3", "4", "5",
-                "  ... skipped logging of 2 additional errors ...");
         assertThat(filteredLog.size()).isEqualTo(7);
+
+        return filteredLog;
     }
 
     private void assertThatExactly5MessagesAreLogged(final FilteredLog filteredLog) {
