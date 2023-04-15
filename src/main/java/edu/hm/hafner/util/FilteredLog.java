@@ -3,10 +3,11 @@ package edu.hm.hafner.util;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.locks.ReentrantLock;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import com.google.errorprone.annotations.FormatMethod;
@@ -15,7 +16,8 @@ import edu.umd.cs.findbugs.annotations.CheckForNull;
 
 /**
  * Provides a log of info messages and a limited number of error messages. If the number of errors exceeds this limit,
- * then subsequent error messages will be skipped.
+ * then subsequent error messages will be skipped. This class is thread-safe and can be used in a distributed
+ * environment.
  *
  * @author Ullrich Hafner
  */
@@ -30,6 +32,17 @@ public class FilteredLog implements Serializable {
 
     private final List<String> infoMessages = new ArrayList<>();
     private final List<String> errorMessages = new ArrayList<>();
+
+    private transient ReentrantLock lock = new ReentrantLock();
+
+    /**
+     * Creates a new {@link FilteredLog}. The error messages will not have a pre-defined title, you need to make sure
+     * that there is a meaningful title before each error message. The maximum number of printed errors is given
+     * by {@link #DEFAULT_MAX_LINES}.
+     */
+    public FilteredLog() {
+        this(StringUtils.EMPTY, DEFAULT_MAX_LINES);
+    }
 
     /**
      * Creates a new {@link FilteredLog}. The maximum number of printed errors is given by {@link #DEFAULT_MAX_LINES}.
@@ -55,20 +68,37 @@ public class FilteredLog implements Serializable {
     }
 
     /**
+     * Called after de-serialization to improve the memory usage.
+     *
+     * @return this
+     */
+    protected Object readResolve() {
+        lock = new ReentrantLock();
+
+        return this;
+    }
+
+    /**
      * Logs the specified information message. Use this method to log any useful information when composing this log.
      *
      * @param message
      *         the message to log
      */
     public void logInfo(final String message) {
-        infoMessages.add(message);
+        lock.lock();
+        try {
+            infoMessages.add(message);
+        }
+        finally {
+            lock.unlock();
+        }
     }
 
     /**
      * Logs the specified information message. Use this method to log any useful information when composing this log.
      *
      * @param format
-     *         A <a href="../util/Formatter.html#syntax">format string</a>
+     *        a <a href="../util/Formatter.html#syntax">format string</a>
      * @param args
      *         Arguments referenced by the format specifiers in the format string. If there are more arguments than
      *         format specifiers, the extra arguments are ignored. The number of arguments is variable and may be
@@ -76,14 +106,33 @@ public class FilteredLog implements Serializable {
      */
     @FormatMethod
     public void logInfo(final String format, final Object... args) {
-        infoMessages.add(String.format(format, args));
+        logInfo(String.format(format, args));
+    }
+
+    /**
+     * Logs the specified error message. Use this method to log any error when composing this log.
+     *
+     * @param message
+     *         the error message
+     */
+    public void logError(final String message) {
+        lock.lock();
+        try {
+            if (lines < maxLines) {
+                errorMessages.add(message);
+            }
+            lines++;
+        }
+        finally {
+            lock.unlock();
+        }
     }
 
     /**
      * Logs the specified error message. Use this method to log any error when composing this log.
      *
      * @param format
-     *         A <a href="../util/Formatter.html#syntax">format string</a>
+     *         a <a href="../util/Formatter.html#syntax">format string</a>
      * @param args
      *         Arguments referenced by the format specifiers in the format string. If there are more arguments than
      *         format specifiers, the extra arguments are ignored. The number of arguments is variable and may be
@@ -91,18 +140,7 @@ public class FilteredLog implements Serializable {
      */
     @FormatMethod
     public void logError(final String format, final Object... args) {
-        printTitle();
-
-        if (lines < maxLines) {
-            errorMessages.add(String.format(format, args));
-        }
-        lines++;
-    }
-
-    private void printTitle() {
-        if (lines == 0) {
-            errorMessages.add(title);
-        }
+        logError(String.format(format, args));
     }
 
     /**
@@ -119,13 +157,17 @@ public class FilteredLog implements Serializable {
      */
     @FormatMethod
     public void logException(final Exception exception, final String format, final Object... args) {
-        printTitle();
-
-        if (lines < maxLines) {
-            errorMessages.add(String.format(format, args));
-            errorMessages.addAll(Arrays.asList(ExceptionUtils.getRootCauseStackTrace(exception)));
+        lock.lock();
+        try {
+            if (lines < maxLines) {
+                errorMessages.add(String.format(format, args));
+                errorMessages.addAll(Arrays.asList(ExceptionUtils.getRootCauseStackTrace(exception)));
+            }
+            lines++;
         }
-        lines++;
+        finally {
+            lock.unlock();
+        }
     }
 
     /**
@@ -140,11 +182,12 @@ public class FilteredLog implements Serializable {
     /**
      * Writes a summary message to the reports' error log that denotes the total number of errors that have been
      * reported.
+     *
+     * @deprecated not useful anymore
      */
+    @Deprecated
     public void logSummary() {
-        if (lines > maxLines) {
-            errorMessages.add(String.format("  ... skipped logging of %d additional errors ...", lines - maxLines));
-        }
+        // do nothing
     }
 
     /**
@@ -153,7 +196,13 @@ public class FilteredLog implements Serializable {
      * @return the info messages
      */
     public List<String> getInfoMessages() {
-        return Collections.unmodifiableList(infoMessages);
+        lock.lock();
+        try {
+            return List.copyOf(infoMessages);
+        }
+        finally {
+            lock.unlock();
+        }
     }
 
     /**
@@ -162,7 +211,24 @@ public class FilteredLog implements Serializable {
      * @return the error messages
      */
     public List<String> getErrorMessages() {
-        return Collections.unmodifiableList(errorMessages);
+        lock.lock();
+        try {
+            var messages = new ArrayList<String>();
+            if (errorMessages.isEmpty()) {
+                return messages;
+            }
+            if (StringUtils.isNotBlank(title)) {
+                messages.add(title);
+            }
+            messages.addAll(errorMessages);
+            if (lines > maxLines) {
+                messages.add(String.format("  ... skipped logging of %d additional errors ...", lines - maxLines));
+            }
+            return messages;
+        }
+        finally {
+            lock.unlock();
+        }
     }
 
     /**
@@ -171,7 +237,13 @@ public class FilteredLog implements Serializable {
      * @return {@code true} if error messages have been recorded, {@code false} otherwise
      */
     public boolean hasErrors() {
-        return !errorMessages.isEmpty();
+        lock.lock();
+        try {
+            return !errorMessages.isEmpty();
+        }
+        finally {
+            lock.unlock();
+        }
     }
 
     /**
@@ -181,8 +253,15 @@ public class FilteredLog implements Serializable {
      *         the log to merge
      */
     public void merge(final FilteredLog other) {
-        infoMessages.addAll(other.infoMessages);
-        errorMessages.addAll(other.errorMessages);
+        lock.lock();
+        try {
+            infoMessages.addAll(other.getInfoMessages());
+            errorMessages.addAll(other.getErrorMessages());
+            lines += other.lines;
+        }
+        finally {
+            lock.unlock();
+        }
     }
 
     @Override @Generated
