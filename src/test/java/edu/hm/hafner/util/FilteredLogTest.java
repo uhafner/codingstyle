@@ -1,12 +1,8 @@
 package edu.hm.hafner.util;
 
-import java.util.concurrent.locks.ReentrantLock;
-
 import org.apache.commons.lang3.StringUtils;
+import org.assertj.core.api.recursive.comparison.RecursiveComparisonConfiguration;
 import org.junit.jupiter.api.Test;
-
-import nl.jqno.equalsverifier.EqualsVerifier;
-import nl.jqno.equalsverifier.Warning;
 
 import static edu.hm.hafner.util.assertions.Assertions.*;
 
@@ -128,7 +124,7 @@ class FilteredLogTest extends SerializableTest<FilteredLog> {
     @Override
     protected void assertThatRestoredInstanceEqualsOriginalInstance(final FilteredLog original,
             final FilteredLog restored) {
-        assertThat(original).isEqualTo(restored);
+        assertThat(original).usingRecursiveComparison(RecursiveComparisonConfiguration.builder().withIgnoredFields("lock").build()).isEqualTo(restored);
     }
 
     private FilteredLog createLogWith20Elements() {
@@ -154,16 +150,6 @@ class FilteredLogTest extends SerializableTest<FilteredLog> {
         byte[] bytes = toByteArray(serializable);
         FilteredLog restored = restore(bytes);
 
-        assertThat(restored).isEqualTo(serializable);
-    }
-
-    @Test
-    void shouldObeyEqualsContract() {
-        EqualsVerifier.forClass(FilteredLog.class)
-                .usingGetClass()
-                .withPrefabValues(ReentrantLock.class, new ReentrantLock(), new ReentrantLock())
-                .withRedefinedSuperclass()
-                .suppress(Warning.NONFINAL_FIELDS)
-                .verify();
+        assertThatRestoredInstanceEqualsOriginalInstance(serializable, restored);
     }
 }
