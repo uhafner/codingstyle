@@ -60,6 +60,7 @@
     <commons.lang.version>3.12.0</commons.lang.version>
     <commons.io.version>2.11.0</commons.io.version>
     <javax.annotation-api.version>1.3.2</javax.annotation-api.version>
+    <byte-buddy.version>1.14.4</byte-buddy.version>
 
     <!-- Project Test Dependencies Configuration -->
     <equalsverifier.version>3.14.1</equalsverifier.version>
@@ -125,6 +126,11 @@
         <version>${mockito.version}</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>net.bytebuddy</groupId>
+        <artifactId>byte-buddy</artifactId>
+        <version>${byte-buddy.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
