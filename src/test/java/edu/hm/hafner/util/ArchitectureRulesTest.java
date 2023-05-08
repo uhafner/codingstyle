@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import static org.assertj.core.api.Assertions.*;
 
 /**
@@ -139,7 +141,9 @@ class ArchitectureRulesTest {
     }
 
     @SuppressWarnings("all") @Generated // This class is just there to be used in architecture tests
+    @SuppressFBWarnings("SE")
     public static class ArchitectureRulesAlsoViolatedTest implements Serializable {
+
         /**
          * Called after de-serialization to retain backward compatibility.
          *
@@ -150,7 +154,8 @@ class ArchitectureRulesTest {
         }
     }
 
-    @SuppressWarnings("all") // This class is just there to be used in architecture tests
+    @SuppressWarnings("all") @Generated // This class is just there to be used in architecture tests
+    @SuppressFBWarnings("SE")
     static final class ArchitectureRulesPassedTest implements Serializable {
         @Test
         void shouldPass() {
@@ -168,6 +173,7 @@ class ArchitectureRulesTest {
     }
 
     @SuppressWarnings("all") // This class is just there to be used in architecture tests
+    @SuppressFBWarnings("SE")
     static class ArchitectureRulesAlsoPassedTest implements Serializable {
         /**
          * Called after de-serialization to retain backward compatibility.
