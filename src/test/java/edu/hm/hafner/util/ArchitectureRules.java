@@ -138,9 +138,6 @@ public final class ArchitectureRules {
         // prevents instantiation
     }
 
-    /**
-     * Predicate to match exception constructor calls without contexts.
-     */
     private static ArchCondition<JavaMethod> beProtected() {
         return new ShouldBeProtectedCondition();
     }

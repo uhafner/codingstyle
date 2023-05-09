@@ -4,15 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import com.google.errorprone.annotations.FormatMethod;
-
-import edu.umd.cs.findbugs.annotations.CheckForNull;
 
 /**
  * Provides a log of info messages and a limited number of error messages. If the number of errors exceeds this limit,
@@ -262,35 +259,5 @@ public class FilteredLog implements Serializable {
         finally {
             lock.unlock();
         }
-    }
-
-    @Override @Generated
-    public boolean equals(@CheckForNull final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        FilteredLog that = (FilteredLog) o;
-        return maxLines == that.maxLines && lines == that.lines && title.equals(that.title)
-                && infoMessages.equals(that.infoMessages)
-                && errorMessages.equals(that.errorMessages);
-    }
-
-    @Override @Generated
-    public int hashCode() {
-        return Objects.hash(title, maxLines, lines, infoMessages, errorMessages);
-    }
-
-    @Override @Generated
-    public String toString() {
-        return "FilteredLog{"
-                + "title='" + title + '\''
-                + ", maxLines=" + maxLines
-                + ", lines=" + lines
-                + ", infoMessages=" + infoMessages
-                + ", errorMessages=" + errorMessages
-                + '}';
     }
 }
