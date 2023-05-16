@@ -108,14 +108,14 @@ public class PathUtil {
     }
 
     /**
-     * Returns the relative path of specified path with respect to the provided base directory. The given path will be
+     * Returns the relative path of the specified path with respect to the provided base directory. The given path will be
      * actually resolved in the file system (which may lead to a different fully qualified absolute path). Then the base
      * directory prefix will be removed (if possible). In case of an error, i.e., if the file is not found or could not
      * be resolved in the parent, then the provided {@code path} will be returned unchanged (but normalized using the
      * UNIX path separator and upper case drive letter).
      *
      * @param base
-     *         the base directory that should be  to get the absolute path for
+     *         the base directory that should be used to get the absolute path for
      * @param path
      *         the path to get the absolute path for
      *
@@ -131,7 +131,7 @@ public class PathUtil {
     }
 
     /**
-     * Returns the relative path of specified path with respect to the provided base directory. The given path will be
+     * Returns the relative path of the specified path with respect to the provided base directory. The given path will be
      * actually resolved in the file system (which may lead to a different fully qualified absolute path). Then the base
      * directory prefix will be removed (if possible). In case of an error, i.e., if the file is not found or could not
      * be resolved in the parent, then the provided {@code path} will be returned unchanged (but normalized using the
@@ -154,7 +154,7 @@ public class PathUtil {
     }
 
     /**
-     * Returns the relative path of specified path with respect to the provided base directory. The given path will be
+     * Returns the relative path of the specified path with respect to the provided base directory. The given path will be
      * actually resolved in the file system (which may lead to a different fully qualified absolute path). Then the base
      * directory prefix will be removed (if possible). In case of an error, i.e., if the file is not found or could not
      * be resolved in the parent, then the provided {@code path} will be returned unchanged (but normalized using the
@@ -183,7 +183,7 @@ public class PathUtil {
     }
 
     /**
-     * Returns a normalized relative path of specified path. The given path will be actually resolved in the file system
+     * Returns a normalized relative path of the specified path. The given path will be actually resolved in the file system
      * (which may lead to a different path). In case of an error, i.e., if the file is not found or could not be
      * resolved in the parent, then the provided {@code path} will be returned unchanged (but normalized using the UNIX
      * path separator and upper case drive letter).
@@ -198,7 +198,7 @@ public class PathUtil {
     }
 
     /**
-     * Returns a normalized relative path of specified path. The given path will be actually resolved in the file system
+     * Returns a normalized relative path of the specified path. The given path will be actually resolved in the file system
      * (which may lead to a different path). In case of an error, i.e., if the file is not found or could not be
      * resolved in the parent, then the provided {@code path} will be returned unchanged (but normalized using the UNIX
      * path separator and upper case drive letter).
