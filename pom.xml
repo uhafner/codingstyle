@@ -629,7 +629,6 @@
           </dependency>
         </dependencies>
         <configuration>
-          <skip>true</skip>
           <versionFormat>[-0-9.]*</versionFormat>
           <failBuildOnProblemsFound>true</failBuildOnProblemsFound>
           <checkDependencies>true</checkDependencies>
@@ -775,7 +774,6 @@
         <checkstyle.skip>true</checkstyle.skip>
         <skipTests>true</skipTests>
         <skipITs>true</skipITs>
-        <revapi.skip>true</revapi.skip>
         <gpg.skip>true</gpg.skip>
       </properties>
     </profile>
