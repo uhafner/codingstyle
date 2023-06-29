@@ -768,6 +768,7 @@
     <profile>
       <id>skip</id>
       <properties>
+        <revapi.skip>true</revapi.skip>
         <maven.javadoc.skip>true</maven.javadoc.skip>
         <pmd.skip>true</pmd.skip>
         <spotbugs.skip>true</spotbugs.skip>
