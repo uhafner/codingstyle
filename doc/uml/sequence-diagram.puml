@@ -14,12 +14,12 @@ skinparam sequence {
   LifeLineBorderColor black
   LifeLineBackgroundColor AE396
 
-  ParticipantBackgroundColor 4AD386
+  ParticipantBackgroundColor f4f4f4
   ParticipantBorderColor black
 }
 
 skinparam actor {
-  BackgroundColor #4AD386
+  BackgroundColor #f4f4f4
   BorderColor #a0a0a0
   BackgroundColor<<Main>> gold
   BorderColor black

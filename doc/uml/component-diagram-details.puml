@@ -12,7 +12,7 @@ skinparam component {
 }
 
 skinparam package {
-  BackgroundColor #dddddd
+  BackgroundColor #e4e4e4
   BorderColor #a0a0a0
   BackgroundColor<<Main>> gold
   BorderColor black
@@ -22,7 +22,7 @@ skinparam package {
 }
 
 skinparam class {
-  BackgroundColor #4AD386
+  BackgroundColor #f4f4f4
   BorderColor #a0a0a0
   BackgroundColor<<Main>> gold
   BorderColor black
@@ -57,7 +57,7 @@ component "Anwendung" <<component>> as anwendung {
 component "Fachkomponente" <<component>> as fachkomponente {
 }
 
-component "org.apache.commons:commons-lang3" <<component>> as library {
+component " org.apache.commons:commons-lang3      " <<component>> as library {
     artifact commons-lang3-3.12.jar <<artifact>> as lang {
     }
 }

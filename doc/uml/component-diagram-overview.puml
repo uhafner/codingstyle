@@ -1,0 +1,70 @@
+@startuml
+
+skinparam component {
+  BackgroundColor #f8f8f8
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> #FFFF00
+  BorderColor black
+  FontName  Arial Unicode MS
+  FontSize 20
+  ArrowFontName  Arial Unicode MS
+  ArrowFontSize 18
+}
+
+skinparam classFontSize 24
+skinparam classAttributeIconSize 0
+skinparam defaultFontSize 20
+
+skinparam ArrowColor black
+skinparam ArrowThickness 2
+
+hide circle
+
+skinparam componentStyle uml2
+
+component "Anwendung" <<component>> as anwendung {
+    artifact anwendung-1.0.0.war <<artifact>> as war {
+    }
+}
+
+component "Fachkomponente" <<component>> as fachkomponente {
+    artifact fachlogik-1.0.0.jar <<artifact>> as jar {
+    }
+}
+
+component " org.apache.commons:commons-lang3      " <<component>> as library {
+    artifact commons-lang3-3.12.jar <<artifact>> as lang {
+    }
+}
+
+anwendung .up.> library : " <<use>>"
+
+note "Artefakt" as artefact
+note "Komponente" as component
+note "Schnittstelle" as schnittstelle
+note "Implementierung" as Implementierung
+note "Aufruf" as Use
+note "gerichtete Abhängigkeit" as Dependency
+
+circle "   \t\t\t           Fassade " as fassade
+circle "RestApi " as api
+
+
+anwendung ..> fassade : " <<use>>"
+fassade -- fachkomponente
+
+anwendung .down. Use
+fassade .up. Use
+
+api .up. schnittstelle
+library .up. component
+lang .left. artefact
+
+anwendung -up- api : " "
+api .down. Implementierung
+anwendung .right. Implementierung
+
+anwendung .up. Dependency
+library .down. Dependency
+
+@enduml

@@ -1,7 +1,7 @@
 @startuml
 
 skinparam package {
-  BackgroundColor #dddddd
+  BackgroundColor #efefef
   BorderColor #a0a0a0
   BackgroundColor<<Main>> gold
   BorderColor black
@@ -11,8 +11,8 @@ skinparam package {
 }
 
 skinparam class {
-  BackgroundColor #4AD386
-  BorderColor #a0a0a0
+  BackgroundColor #white
+  BorderColor #f4f4f4
   BackgroundColor<<Main>> gold
   BorderColor black
   ArrowColor black
@@ -40,10 +40,20 @@ package java.util {
     interface Observer <<interface>> {
         +update() {abstract}
     }
-
 }
+
+note "Package" as Package
+note "Subpackage" as Subpackage
+note "Klasse" as Class
+note "Interface" as Interface
+note "Vererbung" as Vererbung
+note "Implementierung" as Implementierung
+note "gerichtete Assoziation" as Assoziation
+note "generischen Typ binden" as Generics
+note "gerichtete Abhängigkeit" as Dependency
+
 class ConcreteObservable {
-    -state: State
+    -concreteState: State
     +getState(): State
     +setState(s: State)
 }
@@ -52,13 +62,72 @@ Observable <|-- ConcreteObservable
 
 hide interface fields
 
-class ConcreteObserver {
+abstract class AbstractObserver < T extends Observer >  {
     +update()
+    #handleUpdate(o: Observer) {abstract}
 }
+
+class ConcreteObserver {
+    #handleUpdate(o: Observer)
+}
+
+class StringUtils {
+    +isEmpty(value: String) {static}
+}
+
+note right of ConcreteObservable::concreteState
+  Objektvariable
+  vom Typ <i>State</i>
+end note
+
+note right of ConcreteObservable::getState
+  Methode mit
+  Rückgabetyp <i>State</i>
+end note
+
+note right of ConcreteObservable::setState
+  Methode mit
+  Parametertyp <i>State</i>
+end note
+
 
 Observable o- Observer : \t\t
 
-Observer <|.. ConcreteObserver
-ConcreteObservable <- ConcreteObserver : \t\t\t
+Observer <|.. AbstractObserver
+AbstractObserver <|-- ConcreteObserver : <<bind>> \n<T -> ConcreteObserver>
+ConcreteObservable <-left- ConcreteObserver : \t\t
+
+java .up. Package
+util .up. Subpackage
+Observable .up. Class
+Observable .. Vererbung
+ConcreteObservable .up. Vererbung
+Observer .up. Interface
+
+Observer .down. Implementierung
+AbstractObserver .up. Implementierung
+
+ConcreteObserver .down. Assoziation
+ConcreteObservable .down. Assoziation
+ConcreteObservable .down.> StringUtils : <<use>>
+
+ConcreteObserver .up. Generics
+AbstractObserver .down. Generics
+
+ConcreteObservable .down. Dependency
+StringUtils .up. Dependency
+
+note right of StringUtils::isEmpty
+  statische Methode
+end note
+
+note as floating
+  <u><b>Sichtbarkeiten</b></u>
+
+    + public
+    # protected
+    ~ package private
+    - private
+end note
 
 @enduml
