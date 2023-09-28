@@ -28,7 +28,7 @@ jobs:
       - name: Set up JDK ${{ matrix.jdk }}
         uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'
+          distribution: 'zulu'
           java-version: '${{ matrix.jdk }}'
           check-latest: true
           cache: 'maven'
