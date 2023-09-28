@@ -494,6 +494,7 @@
           <entryPointClassPackage>edu.hm.hafner.util.assertions</entryPointClassPackage>
           <excludes>
             <exclude>.*Condition</exclude>
+            <exclude>.*LineRangeList</exclude>
           </excludes>
         </configuration>
         <dependencies>
