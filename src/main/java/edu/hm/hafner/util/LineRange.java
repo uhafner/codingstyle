@@ -66,6 +66,15 @@ public class LineRange implements Serializable {
         return end;
     }
 
+    /**
+     * Returns whether this range is just a single line.
+     *
+     * @return {@code true} if this range is just a single line, {@code false} otherwise
+     */
+    public boolean isSingleLine() {
+        return start == end;
+    }
+
     @Override
     public boolean equals(@CheckForNull final Object obj) {
         if (this == obj) {
