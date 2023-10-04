@@ -11,6 +11,8 @@ import java.util.ListIterator;
 import java.util.NoSuchElementException;
 import java.util.stream.StreamSupport;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
+
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -132,10 +134,10 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
     @Override
     public boolean contains(final Object o) {
         if (o instanceof LineRange) {
-            LineRange lr = (LineRange) o;
+            var other = (LineRange) o;
 
-            for (Cursor c = new Cursor(); c.hasNext();) {
-                if (c.compare(lr)) {
+            for (var cursor = new Cursor(); cursor.hasNext();) {
+                if (cursor.compare(other)) {
                     return true;
                 }
             }
@@ -329,6 +331,7 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
          *
          * @return this cursor
          */
+        @CanIgnoreReturnValue
         private Cursor skip(final int n) {
             int i = n;
             for (; i > 0; i--) {

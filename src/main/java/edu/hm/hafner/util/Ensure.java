@@ -102,7 +102,7 @@ public final class Ensure {
      *
      * @return an array condition
      */
-    @SuppressWarnings("PMD.UseVarargs")
+    @SuppressWarnings({"PMD.UseVarargs", "AvoidObjectArrays"})
     @CheckReturnValue
     public static ArrayCondition that(@CheckForNull final Object[] value) {
         return new ArrayCondition(value);
@@ -355,7 +355,7 @@ public final class Ensure {
          * @param values
          *         value of the condition
          */
-        @SuppressWarnings("PMD.UseVarargs")
+        @SuppressWarnings({"PMD.UseVarargs", "AvoidObjectArrays"})
         public ArrayCondition(@CheckForNull final Object[] values) {
             super(values);
         }

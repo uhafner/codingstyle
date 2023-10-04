@@ -14,7 +14,6 @@ import static org.assertj.core.api.Assertions.*;
  */
 class EnsureTest {
     private static final String SOME_STRING = "-";
-    private static final String EMPTY_STRING = "";
     private static final String ERROR_MESSAGE = "assertThatThrownBy Error.";
 
     /**
@@ -25,16 +24,16 @@ class EnsureTest {
         assertThatCode(() -> {
             Ensure.that(false).isFalse();
             Ensure.that(true).isTrue();
-            Ensure.that(EMPTY_STRING).isNotNull();
-            Ensure.that(EMPTY_STRING, EMPTY_STRING).isNotNull();
+            Ensure.that("").isNotNull();
+            Ensure.that("", "").isNotNull();
             Ensure.that(null, (Object)null).isNull();
-            Ensure.that(new String[]{EMPTY_STRING}).isNotEmpty();
+            Ensure.that(new String[]{""}).isNotEmpty();
             Ensure.that(SOME_STRING).isNotEmpty();
             Ensure.that(SOME_STRING).isNotBlank();
-            Ensure.that(EMPTY_STRING).isInstanceOf(String.class);
-            Ensure.that(Collections.singleton(EMPTY_STRING)).isNotEmpty();
-            Ensure.that(Collections.singleton(EMPTY_STRING)).contains(EMPTY_STRING);
-            Ensure.that(Collections.singleton(EMPTY_STRING)).doesNotContain(SOME_STRING);
+            Ensure.that("").isInstanceOf(String.class);
+            Ensure.that(Collections.singleton("")).isNotEmpty();
+            Ensure.that(Collections.singleton("")).contains("");
+            Ensure.that(Collections.singleton("")).doesNotContain(SOME_STRING);
         }).doesNotThrowAnyException();
     }
 
@@ -75,13 +74,13 @@ class EnsureTest {
             Ensure.that(SOME_STRING, SOME_STRING).isNull(ERROR_MESSAGE);
         }).isInstanceOf(AssertionError.class).hasMessage(ERROR_MESSAGE);
         assertThatThrownBy(() -> {
-            Ensure.that(Collections.emptySet()).contains(EMPTY_STRING);
+            Ensure.that(Collections.emptySet()).contains("");
         }).isInstanceOf(AssertionError.class);
         assertThatThrownBy(() -> {
-            Ensure.that(Collections.singleton(EMPTY_STRING)).contains(SOME_STRING);
+            Ensure.that(Collections.singleton("")).contains(SOME_STRING);
         }).isInstanceOf(AssertionError.class);
         assertThatThrownBy(() -> {
-            Ensure.that(Collections.singleton(EMPTY_STRING)).doesNotContain(EMPTY_STRING);
+            Ensure.that(Collections.singleton("")).doesNotContain("");
         }).isInstanceOf(AssertionError.class);
     }
 
@@ -137,37 +136,37 @@ class EnsureTest {
             Ensure.that(new String[0]).isNotEmpty(ERROR_MESSAGE);
         }).isInstanceOf(AssertionError.class);
         assertThatThrownBy(() -> {
-            Ensure.that(Lists.newArrayList(EMPTY_STRING, null, EMPTY_STRING)).isNotEmpty(ERROR_MESSAGE);
+            Ensure.that(Lists.newArrayList("", null, "")).isNotEmpty(ERROR_MESSAGE);
         }).isInstanceOf(AssertionError.class);
         assertThatThrownBy(() -> {
-            Ensure.that(new String[]{EMPTY_STRING, null, EMPTY_STRING}).isNotEmpty(ERROR_MESSAGE);
+            Ensure.that(new String[]{"", null, ""}).isNotEmpty(ERROR_MESSAGE);
         }).isInstanceOf(AssertionError.class);
         assertThatThrownBy(() -> {
-            Ensure.that(EMPTY_STRING).isNotEmpty(ERROR_MESSAGE);
+            Ensure.that("").isNotEmpty(ERROR_MESSAGE);
         }).isInstanceOf(AssertionError.class);
         assertThatThrownBy(() -> {
             Ensure.that(" ").isNotBlank(ERROR_MESSAGE);
         }).isInstanceOf(AssertionError.class);
         assertThatThrownBy(() -> {
-            Ensure.that(EMPTY_STRING).isInstanceOf(Integer.class, ERROR_MESSAGE);
+            Ensure.that("").isInstanceOf(Integer.class, ERROR_MESSAGE);
         }).isInstanceOf(AssertionError.class);
         assertThatThrownBy(() -> {
             Ensure.that(new String[0]).isNotEmpty();
         }).isInstanceOf(AssertionError.class);
         assertThatThrownBy(() -> {
-            Ensure.that(Lists.newArrayList(EMPTY_STRING, null, EMPTY_STRING)).isNotEmpty();
+            Ensure.that(Lists.newArrayList("", null, "")).isNotEmpty();
         }).isInstanceOf(AssertionError.class);
         assertThatThrownBy(() -> {
-            Ensure.that(new String[]{EMPTY_STRING, null, EMPTY_STRING}).isNotEmpty();
+            Ensure.that(new String[]{"", null, ""}).isNotEmpty();
         }).isInstanceOf(AssertionError.class);
         assertThatThrownBy(() -> {
-            Ensure.that(EMPTY_STRING).isNotEmpty();
+            Ensure.that("").isNotEmpty();
         }).isInstanceOf(AssertionError.class);
         assertThatThrownBy(() -> {
             Ensure.that(" ").isNotBlank();
         }).isInstanceOf(AssertionError.class);
         assertThatThrownBy(() -> {
-            Ensure.that(EMPTY_STRING).isInstanceOf(Integer.class, ERROR_MESSAGE);
+            Ensure.that("").isInstanceOf(Integer.class, ERROR_MESSAGE);
         }).isInstanceOf(AssertionError.class);
     }
 
@@ -177,7 +176,7 @@ class EnsureTest {
     @Test
     void shouldThrowExceptionWithCorrectMessage() {
         assertThatThrownBy(() -> {
-            Ensure.that(EMPTY_STRING).isInstanceOf(Integer.class, "This error uses '%s' to print the number %d.", "String.format", 42);
+            Ensure.that("").isInstanceOf(Integer.class, "This error uses '%s' to print the number %d.", "String.format", 42);
         }).isInstanceOf(AssertionError.class).hasMessage("This error uses 'String.format' to print the number 42.");
     }
 }
