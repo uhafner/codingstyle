@@ -13,39 +13,39 @@ import static org.assertj.core.api.Assertions.*;
 class LineRangeListTest {
     @Test
     void shouldStoreBigValues() {
-        LineRangeList list = new LineRangeList();
-        LineRange range = new LineRange(1350, Integer.MAX_VALUE);
+        var list = new LineRangeList();
+        var range = new LineRange(1350, Integer.MAX_VALUE);
         list.add(range);
         assertThat(list).containsExactly(range);
     }
 
     @Test
     void shouldStoreRangeWithOneLines() {
-        LineRangeList list = new LineRangeList();
-        LineRange range = new LineRange(0, 0);
+        var list = new LineRangeList();
+        var range = new LineRange(0, 0);
         list.add(range);
         assertThat(list).containsExactly(range);
     }
 
     @Test
     void shouldStoreRangeWithTwoLines() {
-        LineRangeList list = new LineRangeList();
-        LineRange range = new LineRange(128, 129);
+        var list = new LineRangeList();
+        var range = new LineRange(128, 129);
         list.add(range);
         assertThat(list).containsExactly(range);
     }
 
     @Test
     void shouldSupportSetOperations() {
-        LineRangeList list = new LineRangeList();
-        LineRange range = new LineRange(1, 2);
+        var list = new LineRangeList();
+        var range = new LineRange(1, 2);
         list.add(range);
 
         assertThat(list.get(0)).isEqualTo(range);
         assertThat(list.get(0)).isNotSameAs(range);
         assertThat(list).hasSize(1);
 
-        LineRange other = new LineRange(3, 4);
+        var other = new LineRange(3, 4);
         assertThat(list.set(0, other)).isEqualTo(range);
         assertThat(list.get(0)).isEqualTo(other);
         assertThat(list.get(0)).isNotSameAs(other);
@@ -58,7 +58,7 @@ class LineRangeListTest {
     /** Tests the internal buffer resize operation. */
     @Test
     void shouldResizeCorrectly() {
-        LineRangeList list = new LineRangeList();
+        var list = new LineRangeList();
         for (int i = 0; i < 100; i++) {
             list.add(new LineRange(i * 2, i * 2 + 1));
         }
@@ -96,7 +96,7 @@ class LineRangeListTest {
     }
 
     private LineRangeList createThreeElements() {
-        LineRangeList range = new LineRangeList();
+        var range = new LineRangeList();
         range.add(new LineRange(0, 1));
         range.add(new LineRange(2, 3));
         range.add(new LineRange(4, 5));
