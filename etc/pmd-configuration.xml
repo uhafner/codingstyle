@@ -31,6 +31,7 @@
     <exclude name="OnlyOneReturn"/>
     <exclude name="EmptyMethodInAbstractClassShouldBeAbstract"/>
     <exclude name="ConfusingTernary"/>
+    <exclude name="LocalVariableNamingConventions"/>
     <exclude name="ClassNamingConventions"/>
   </rule>
   <rule ref="category/java/codestyle.xml/UnnecessaryConstructor">
