@@ -306,9 +306,8 @@ public class SecureXmlParserFactory {
         }
     }
 
-    private InputSource createInputSource(final Reader reader, final Charset charset) throws IOException {
-        var inputStream = ReaderInputStream.builder().setCharset(charset).setReader(reader).get();
-        return new InputSource(inputStream);
+    private InputSource createInputSource(final Reader reader, final Charset charset) {
+        return new InputSource(new ReaderInputStream(reader, charset));
     }
 
     /**
