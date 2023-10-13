@@ -1,6 +1,6 @@
 ![JDK8](https://img.shields.io/badge/jdk-8-yellow.svg)
 [![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](https://en.wikipedia.org/wiki/MIT_License)
-[![GitHub Actions](https://github.com/uhafner/codingstyle/workflows/GitHub%20CI/badge.svg?branch=master)](https://github.com/uhafner/codingstyle/actions)
+[![GitHub Actions](https://github.com/uhafner/codingstyle/workflows/GitHub%20CI/badge.svg?branch=main)](https://github.com/uhafner/codingstyle/actions)
 [![Codecov](https://codecov.io/gh/uhafner/codingstyle/branch/master/graph/badge.svg)](https://codecov.io/gh/uhafner/codingstyle)
 [![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/uhafner/codingstyle.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/uhafner/codingstyle/context:java)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/uhafner/codingstyle.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/uhafner/codingstyle/alerts/)

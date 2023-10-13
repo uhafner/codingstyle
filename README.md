@@ -1,4 +1,4 @@
-[![GitHub Actions](https://github.com/uhafner/codingstyle/workflows/GitHub%20CI/badge.svg?branch=master)](https://github.com/uhafner/codingstyle/actions)
+[![GitHub Actions](https://github.com/uhafner/codingstyle/workflows/GitHub%20CI/badge.svg?branch=main)](https://github.com/uhafner/codingstyle/actions)
 [![Codecov](https://codecov.io/gh/uhafner/codingstyle/branch/main/graph/badge.svg)](https://app.codecov.io/gh/uhafner/codingstyle)
 [![CodeQL](https://github.com/uhafner/codingstyle/workflows/CodeQL/badge.svg?branch=main)](https://github.com/uhafner/codingstyle/actions/workflows/codeql.yml)
 
