@@ -137,11 +137,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>javax.annotation</groupId>
-      <artifactId>javax.annotation-api</artifactId>
-      <version>${javax.annotation-api.version}</version>
-    </dependency>
-    <dependency>
       <groupId>com.github.spotbugs</groupId>
       <artifactId>spotbugs-annotations</artifactId>
       <version>${spotbugs.version}</version>
@@ -487,6 +482,7 @@
             <assertionsEntryPointClass>assertions_entry_point_class_template.txt</assertionsEntryPointClass>
             <softEntryPointAssertionClass>soft_assertions_entry_point_class_template.txt</softEntryPointAssertionClass>
             <objectAssertion>has_assertion_template.txt</objectAssertion>
+            <assertionClass>assertion_class_template.txt</assertionClass>
           </templates>
           <packages>
             <package>edu.hm.hafner.util</package>
