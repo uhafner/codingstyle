@@ -1,7 +1,7 @@
 {
-  "name": "analysis-model",
+  "name": "codingstyle",
   "version": "1.0.0",
-  "description": "Static Analysis Model and Parsers",
+  "description": "Java coding style",
   "directories": {
     "doc": "doc"
   },

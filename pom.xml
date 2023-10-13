@@ -12,8 +12,8 @@
   <name>Java coding style</name>
   <description>Provides all necessary resources for a Java project to enforce the coding style that I am using
     in my lectures about software development at Munich University of Applied Sciences and in all of my
-    open source projects. It configures several static analysis tools for Maven and IntelliJ. Moreover,
-    it provides some sample classes that already use this style guide. This classes can be used as such but are not
+    open-source projects. It configures several static analysis tools for Maven and IntelliJ. Moreover,
+    it provides some sample classes that already use this style guide. These classes can be used as such but are not
     required in this project. These classes also use some additional libraries that are included using the Maven
     dependency mechanism. If the sample classes are deleted then the dependencies can be safely deleted, too.
   </description>
