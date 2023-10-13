@@ -8,8 +8,8 @@ import static java.lang.annotation.RetentionPolicy.*;
 
 /**
  * This annotation is used to mark source code that has been generated or is somehow not relevant for style checking or
- * code coverage analysis. This annotation is quite similar to the annotation @{@link javax.annotation.Generated}. The
- * main difference is that it has class retention on so is available for tools that work on the bytecode (like JaCoCo,
+ * code coverage analysis. It is quite similar to the {@code javax.annotation.Generated} annotation. The
+ * main difference is that it has class retention on so is available for tools that work on bytecode (like JaCoCo,
  * PIT, or SpotBugs).
  */
 @Retention(CLASS)
