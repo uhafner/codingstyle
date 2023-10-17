@@ -60,7 +60,14 @@ node {
                 "maxScore": 100,
                 "coveredPercentageImpact": 0,
                 "missedPercentageImpact": -1
-              }
+              },
+              "pit": {
+                  "maxScore": 100,
+                  "detectedImpact": 0,
+                  "undetectedImpact": 0,
+                  "detectedPercentageImpact": 0,
+                  "undetectedPercentageImpact": -1
+                }
             }
             ''')
     }
