@@ -3,10 +3,14 @@ node {
 
     stage ('Checkout') {
         git branch:'master', url: 'https://github.com/uhafner/codingstyle.git', credentialsId: 'github-app'
-
     }
 
-    stage ('Build and Static Analysis') {
+    stage ('Git mining') {
+        discoverGitReferenceBuild()
+        mineRepository()
+    }
+
+    stage ('Build, Test and Static Analysis') {
         withMaven(maven: 'mvn-default', mavenLocalRepo: '/var/data/m2repository', mavenOpts: '-Xmx768m -Xms512m') {
             sh 'mvn -ntp -V -e clean verify -Dmaven.test.failure.ignore -Dgpg.skip'
         }
@@ -15,6 +19,7 @@ node {
         recordIssues tool: errorProne(), healthy: 1, unhealthy: 20
 
         junit testResults: '**/target/*-reports/TEST-*.xml'
+        recordCoverage tools: [[parser: 'JACOCO']], sourceCodeRetention: 'EVERY_BUILD'
 
         recordIssues tools: [checkStyle(pattern: 'target/checkstyle-result.xml'),
             spotBugs(pattern: 'target/spotbugsXml.xml'),
@@ -24,18 +29,11 @@ node {
             qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
     }
 
-    stage ('Line and Branch Coverage') {
-        withMaven(maven: 'mvn-default', mavenLocalRepo: '/var/data/m2repository', mavenOpts: '-Xmx768m -Xms512m') {
-            sh "mvn -ntp -V -U -e jacoco:prepare-agent test jacoco:report -Dmaven.test.failure.ignore"
-        }
-        publishCoverage adapters: [jacocoAdapter('**/*/jacoco.xml')], sourceFileResolver: sourceFiles('STORE_ALL_BUILD')
-    }
-
     stage ('Mutation Coverage') {
         withMaven(maven: 'mvn-default', mavenLocalRepo: '/var/data/m2repository', mavenOpts: '-Xmx768m -Xms512m') {
             sh "mvn -ntp org.pitest:pitest-maven:mutationCoverage"
         }
-        step([$class: 'PitPublisher', mutationStatsFile: 'target/pit-reports/**/mutations.xml'])
+        recordCoverage tools: [[parser: 'PIT']], sourceCodeRetention: 'EVERY_BUILD'
     }
 
     stage ('Collect Maven Warnings') {
@@ -43,6 +41,27 @@ node {
     }
 
     stage ('Autograding') {
-        autoGrade('{"analysis":{"maxScore":100,"weightError":-10,"weightHigh":-5,"weightNormal":-2,"weightLow":-1}, "tests":{"maxScore":100,"weightPassed":1,"weightFailures":-5,"weightSkipped":-1}, "coverage":{"maxScore":100,"weightCovered":1,"weightMissed":-1}, "pit":{"maxScore":100,"weightDetected":1,"weightUndetected":-1}}')
+        autoGrade('''
+            {
+              "analysis": {
+                "maxScore": 100,
+                "errorImpact": -5,
+                "highImpact": -2,
+                "normalImpact": -1,
+                "lowImpact": -1
+              },
+              "tests": {
+                "maxScore": 100,
+                "passedImpact": 0,
+                "failureImpact": -5,
+                "skippedImpact": -1
+              },
+              "coverage": {
+                "maxScore": 100,
+                "coveredPercentageImpact": 0,
+                "missedPercentageImpact": -1
+              }
+            }
+            ''')
     }
 }
