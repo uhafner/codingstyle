@@ -28,7 +28,7 @@ ein test-jar konfiguriert, sodass alle Tests (und abstrakte Testklassen) auch al
 
 ## GitHub Actions
 
-[![GitHub Actions](https://github.com/uhafner/codingstyle/workflows/GitHub%20CI/badge.svg?branch=main)](https://github.com/uhafner/codingstyle/actions)
+[![GitHub Actions](https://github.com/uhafner/codingstyle/workflows/GitHub%20CI/badge.svg)](https://github.com/uhafner/codingstyle/actions)
 
 Die Konfiguration der Continuous Integration in GitHub Actions is sehr [einfach](../.github/workflows/ci.yml). 
 Da der gesamte Build über Maven automatisiert ist, besteht die Konfiguration eigentlich nur aus einem Maven Aufruf,
