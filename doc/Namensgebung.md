@@ -16,7 +16,7 @@ Underscore `_` wird i.A. nicht verwendet. Auch angehängte Zahlen sind untypisch
 Stil (*Code Smell* [6]).
  
 Bezeichner sind stets aussagekräftig und bestehen damit oft aus mehreren Teilwörtern. Wir verwenden dann die Schreibweise 
-[CamelCase](http://c2.com/cgi/wiki?CamelCase). Bezeichner nutzen i.A. keine Abkürzungen, die Autovervollständigung der 
+[CamelCase](https://en.wikipedia.org/wiki/Camel_case). Bezeichner nutzen i.A. keine Abkürzungen, die Autovervollständigung der 
 Entwicklungsumgebungen ergänzt lange Bezeichner komfortabel. Wenn ein Bezeichner doch einmal eine Abkürzung enthält,
 dann wird auch hier nur der erste Buchstabe groß geschrieben, z.B. `loadXmlDocument`, `writeAsJson`.
 
