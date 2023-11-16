@@ -1,8 +1,13 @@
 package edu.hm.hafner.util;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.recursive.comparison.RecursiveComparisonConfiguration;
 import org.junit.jupiter.api.Test;
+
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 import static edu.hm.hafner.util.assertions.Assertions.*;
 
@@ -119,6 +124,15 @@ class FilteredLogTest extends SerializableTest<FilteredLog> {
         assertThat(filteredLog.getInfoMessages()).hasSize(25)
                 .contains("info0")
                 .contains("info24");
+    }
+
+    @Test
+    void shouldAdhereToEquals() {
+        EqualsVerifier.forClass(FilteredLog.class)
+                .withIgnoredFields("lock")
+                .withPrefabValues(ReentrantLock.class, new ReentrantLock(), new ReentrantLock())
+                .suppress(Warning.NONFINAL_FIELDS)
+                .verify();
     }
 
     @Override

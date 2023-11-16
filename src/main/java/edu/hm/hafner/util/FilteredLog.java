@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.commons.lang3.StringUtils;
@@ -18,7 +19,7 @@ import com.google.errorprone.annotations.FormatMethod;
  *
  * @author Ullrich Hafner
  */
-public class FilteredLog implements Serializable {
+public final class FilteredLog implements Serializable {
     private static final long serialVersionUID = -8552323621953159904L;
 
     private static final int DEFAULT_MAX_LINES = 20;
@@ -69,7 +70,7 @@ public class FilteredLog implements Serializable {
      *
      * @return this
      */
-    protected Object readResolve() {
+    private Object readResolve() {
         lock = new ReentrantLock();
 
         return this;
@@ -259,5 +260,41 @@ public class FilteredLog implements Serializable {
         finally {
             lock.unlock();
         }
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        FilteredLog log = (FilteredLog) o;
+
+        if (maxLines != log.maxLines) {
+            return false;
+        }
+        if (lines != log.lines) {
+            return false;
+        }
+        if (!Objects.equals(title, log.title)) {
+            return false;
+        }
+        if (!infoMessages.equals(log.infoMessages)) {
+            return false;
+        }
+        return errorMessages.equals(log.errorMessages);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = title != null ? title.hashCode() : 0;
+        result = 31 * result + maxLines;
+        result = 31 * result + lines;
+        result = 31 * result + infoMessages.hashCode();
+        result = 31 * result + errorMessages.hashCode();
+        return result;
     }
 }
