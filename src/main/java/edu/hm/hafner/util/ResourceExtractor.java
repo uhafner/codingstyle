@@ -22,6 +22,8 @@ import java.util.stream.Collectors;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * A proxy for resources. Extracts a given collection of files from the classpath and copies them to a target path.
  *
@@ -42,7 +44,7 @@ public class ResourceExtractor {
         this(targetClass, targetClass.getProtectionDomain());
     }
 
-    @VisibleForTesting
+    @VisibleForTesting @SuppressFBWarnings("CT_CONSTRUCTOR_THROW")
     ResourceExtractor(final Class<?> targetClass, final ProtectionDomain protectionDomain) {
         CodeSource codeSource = protectionDomain.getCodeSource();
         if (codeSource == null) {
