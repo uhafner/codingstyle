@@ -1,13 +1,13 @@
 Disclaimer: The following guide was created with significant help from the two tutorials listed below:
 
-- How To Create a Pull Request on GitHub
-- GitHub Standard Fork & Pull Request Workflow
+- [How To Create a Pull Request on GitHub](https://www.digitalocean.com/community/tutorials/how-to-create-a-pull-request-on-github)
+- [GitHub Standard Fork & Pull Request Workflow](https://gist.github.com/Chaser324/ce0505fbed06b947d962)
 
 # Working with Pull Requests in GitHub
 Submissions in GitHub are made through pull requests. The steps described in the following sections are necessary for this process.
 
 ### Creating a Fork
-To submit a pull request with your results, you first need to create a fork of the respective project. This cannot be done through the command line but only in the GitHub interface, as outlined in the guide. This newly created fork is initially an exact copy of the original project, meaning it contains all commits, branches, and tags.
+To submit a pull request with your results, you first need to create a [fork](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) of the respective project. This cannot be done through the command line but only in the GitHub interface, as outlined [in the guide](https://help.github.com/en/github/getting-started-with-github/fork-a-repo#fork-an-example-repository). This newly created fork is initially an exact copy of the original project, meaning it contains all commits, branches, and tags.
 
 ### Working with the Fork
 Once the fork is created, it becomes visible under your own GitHub user account as a copy. This copy can be retrieved to your local machine using the following command:
@@ -47,7 +47,7 @@ Now it's time to program, and all changes are made step by step. Test Driven Dev
 
 Another useful approach is incremental development: development is not done in one go and then completed with a commit, but in several iterations. Each step that can be translated without errors and passes all tests afterward should be individually completed with a commit. This makes it easier to understand the changes afterward.
 
-When committing, it is important to give a good commit message. Chris Beam has written a helpful article on this, titled "How to Write a Git Commit Message."
+When committing, it is important to give a good commit message. Chris Beam has written a helpful article on this, titled ["How to Write a Git Commit Message."](https://chris.beams.io/posts/git-commit/)
 
 # Prepare and Submit a Pull Request
 Once all changes have been locally completed with a commit, they can be integrated into the fork on GitHub. Only a push is required for this:
@@ -57,7 +57,7 @@ Once all changes have been locally completed with a commit, they can be integrat
 git push --set-upstream origin newfeature
 ```
 
-Now these changes are also visible online in your GitHub project. GitHub automatically recognizes that a new branch has been created and offers a corresponding button in the interface. Alternatively, a new pull request can be created through the Pull Request dialog.
+Now these changes are also visible online in your GitHub project. GitHub automatically recognizes that a new branch has been created and offers a corresponding button in the interface. Alternatively, a new pull request can be created through the [Pull Request dialog](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork).
 
 When creating the pull request, a title and description must be entered. The title should contain the task's name, and the description may include additional details. The use of salutation, closing, or closing formulas is not meaningful.
 
@@ -66,7 +66,7 @@ Before finally creating the pull request, it must be checked whether the pull re
 If the pull request looks as desired, it can be created with "Create."
 
 # Update the Pull Request
-Once the pull request is created, it is automatically checked with various tools. The tools used depend on the project. Typically, continuous integration is started, executing a development lifecycle:
+Once the pull request is created, it is automatically checked with various tools. The tools used depend on the project. Typically, [continuous integration](Continuous-Integration.md) is started, executing a development lifecycle:
 
 1. Compile
 2. Test
@@ -111,4 +111,4 @@ git branch -va
 git checkout master
 git merge upstream/master
 ```
-Normally, there should be no other commits on the local master branch, so a fast-forward will be applied.
+Normally, there should be no other commits on the local master branch, so a [fast-forward](https://git-scm.com/book/de/v2/Git-Branching-Einfaches-Branching-und-Merging) will be applied.
