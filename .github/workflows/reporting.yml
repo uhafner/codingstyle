@@ -24,7 +24,7 @@ jobs:
       - name: Generate coverage with JaCoCo
         run: mvn -V --color always -ntp clean verify --file pom.xml '-Dgpg.skip'
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3.1.1
+        uses: codecov/codecov-action@v3.1.4
         with:
           token: ${{secrets.CODECOV_TOKEN}}
       - name: Mutation Coverage
