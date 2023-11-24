@@ -65,10 +65,10 @@ jobs:
                       "pattern": "**/target/pmd.xml"
                     }
                   ],
-                  "errorImpact": 1,
-                  "highImpact": 2,
-                  "normalImpact": 3,
-                  "lowImpact": 4,
+                  "errorImpact": -1,
+                  "highImpact": -1,
+                  "normalImpact": -1,
+                  "lowImpact": -1,
                   "maxScore": 100
                 },
                 {
@@ -80,10 +80,10 @@ jobs:
                       "pattern": "**/target/spotbugsXml.xml"
                     }
                   ],
-                  "errorImpact": -11,
-                  "highImpact": -12,
-                  "normalImpact": -13,
-                  "lowImpact": -14,
+                  "errorImpact": -3,
+                  "highImpact": -3,
+                  "normalImpact": -3,
+                  "lowImpact": -3,
                   "maxScore": 100
                 }
               ],
@@ -105,7 +105,6 @@ jobs:
                   ],
                   "name": "JaCoCo",
                   "maxScore": 100,
-                  "coveredPercentageImpact": 1,
                   "missedPercentageImpact": -1
                 },
                 {
@@ -119,7 +118,6 @@ jobs:
                   ],
                   "name": "PIT",
                   "maxScore": 100,
-                  "coveredPercentageImpact": 1,
                   "missedPercentageImpact": -1
                 }
               ]
