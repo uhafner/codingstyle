@@ -30,29 +30,97 @@ jobs:
       - name: Mutation Coverage
         run: mvn -V --color always -ntp org.pitest:pitest-maven:mutationCoverage
       - name: Autograding
-        uses: uhafner/autograding-github-action@v1.7.3
+        uses: uhafner/autograding-github-action@v2.0.0-alpha
         with:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
           HEAD_SHA: ${{github.event.pull_request.head.sha}}
           CONFIG: >
             {
-              "analysis": {
-                "maxScore": 100,
-                "errorImpact": -5,
-                "highImpact": -2,
-                "normalImpact": -1,
-                "lowImpact": -1
-              },
               "tests": {
-                "maxScore": 100,
-                "failureImpact": -10
+                "tools": [
+                  {
+                    "id": "test",
+                    "name": "Unittests",
+                    "pattern": "**/target/*-reports/TEST*.xml"
+                  }
+                ],
+                "name": "JUnit",
+                "passedImpact": 0,
+                "skippedImpact": -1,
+                "failureImpact": -5,
+                "maxScore": 100
               },
-              "coverage": {
-                "maxScore": 100,
-                "missedPercentageImpact": -1
-              },
-              "pit": {
-                "maxScore": 100,
-                "undetectedPercentageImpact": -1
-              }
+              "analysis": [
+                {
+                  "name": "Style",
+                  "tools": [
+                    {
+                      "id": "checkstyle",
+                      "name": "CheckStyle",
+                      "pattern": "**/target/checkstyle-result.xml"
+                    },
+                    {
+                      "id": "pmd",
+                      "name": "PMD",
+                      "pattern": "**/target/pmd.xml"
+                    }
+                  ],
+                  "errorImpact": 1,
+                  "highImpact": 2,
+                  "normalImpact": 3,
+                  "lowImpact": 4,
+                  "maxScore": 100
+                },
+                {
+                  "name": "Bugs",
+                  "tools": [
+                    {
+                      "id": "spotbugs",
+                      "name": "SpotBugs",
+                      "pattern": "**/target/spotbugsXml.xml"
+                    }
+                  ],
+                  "errorImpact": -11,
+                  "highImpact": -12,
+                  "normalImpact": -13,
+                  "lowImpact": -14,
+                  "maxScore": 100
+                }
+              ],
+              "coverage": [
+                {
+                  "tools": [
+                    {
+                      "id": "jacoco",
+                      "name": "Line Coverage",
+                      "metric": "line",
+                      "pattern": "**/target/site/jacoco/jacoco.xml"
+                    },
+                    {
+                      "id": "jacoco",
+                      "name": "Branch Coverage",
+                      "metric": "branch",
+                      "pattern": "**/target/site/jacoco/jacoco.xml"
+                    }
+                  ],
+                  "name": "JaCoCo",
+                  "maxScore": 100,
+                  "coveredPercentageImpact": 1,
+                  "missedPercentageImpact": -1
+                },
+                {
+                  "tools": [
+                    {
+                      "id": "pit",
+                      "name": "Mutation Coverage",
+                      "metric": "mutation",
+                      "pattern": "**/target/pit-reports/mutations.xml"
+                    }
+                  ],
+                  "name": "PIT",
+                  "maxScore": 100,
+                  "coveredPercentageImpact": 1,
+                  "missedPercentageImpact": -1
+                }
+              ]
             }
