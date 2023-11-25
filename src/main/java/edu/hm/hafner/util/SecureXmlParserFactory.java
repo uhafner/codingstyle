@@ -43,7 +43,7 @@ import static javax.xml.XMLConstants.*;
  */
 public class SecureXmlParserFactory {
     /**
-     * The following constants are copied from the Xerces distribution 2.12.2. This avoids to add a dependency to
+     * The following constants are copied from the Xerces distribution 2.12.2. This avoids adding a dependency to
      * Xerces.
      */
     private static final String SAX_FEATURE_PREFIX = "http://xml.org/sax/features/";
