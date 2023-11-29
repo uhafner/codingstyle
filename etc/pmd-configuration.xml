@@ -7,6 +7,7 @@
   <description>Ullrich Hafner's PMD rules</description>
 
   <rule ref="category/java/bestpractices.xml">
+    <exclude name="LiteralsFirstInComparisons"/>
     <exclude name="JUnitTestContainsTooManyAsserts"/>
     <exclude name="JUnitTestsShouldIncludeAssert"/>
     <exclude name="JUnitAssertionsShouldIncludeMessage"/>
