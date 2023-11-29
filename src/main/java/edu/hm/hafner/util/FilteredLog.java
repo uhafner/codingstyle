@@ -19,7 +19,7 @@ import com.google.errorprone.annotations.FormatMethod;
  *
  * @author Ullrich Hafner
  */
-public final class FilteredLog implements Serializable {
+public class FilteredLog implements Serializable {
     private static final long serialVersionUID = -8552323621953159904L;
 
     private static final int DEFAULT_MAX_LINES = 20;

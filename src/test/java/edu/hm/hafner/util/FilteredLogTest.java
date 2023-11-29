@@ -132,6 +132,7 @@ class FilteredLogTest extends SerializableTest<FilteredLog> {
                 .withIgnoredFields("lock")
                 .withPrefabValues(ReentrantLock.class, new ReentrantLock(), new ReentrantLock())
                 .suppress(Warning.NONFINAL_FIELDS)
+                .suppress(Warning.STRICT_INHERITANCE)
                 .verify();
     }
 
