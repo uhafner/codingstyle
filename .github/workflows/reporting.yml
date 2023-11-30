@@ -69,8 +69,8 @@ jobs:
                     "pattern": "**/target/pmd.xml"
                   },
                   {
-                    "id": "errorprone",
-                    "name": "ErrorProne",
+                    "id": "error-prone",
+                    "name": "Error Prone",
                     "pattern": "**/maven.log"
                   },
                   {
