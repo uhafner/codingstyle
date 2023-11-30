@@ -34,7 +34,7 @@ jobs:
         uses: uhafner/autograding-github-action@v2.1.0
         with:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CHECK_NAME: 'Grading Badges'
+          CHECKS_NAME: 'Grading Badges'
           CONFIG: >
             {
               "tests": {
