@@ -25,8 +25,8 @@ jobs:
         uses: stCarolas/setup-maven@v4.5
         with:
           maven-version: 3.9.5
-      - name: Generate coverage with JaCoCo
-        run: mvn -V --color always -ntp clean verify --file pom.xml '-Dgpg.skip'
+      - name: Build and test with Maven
+        run: mvn -V --color always -ntp clean verify --file pom.xml '-Dgpg.skip' | tee maven.log
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3.1.4
         with:
@@ -67,6 +67,11 @@ jobs:
                     "id": "pmd",
                     "name": "PMD",
                     "pattern": "**/target/pmd.xml"
+                  },
+                  {
+                    "id": "errorprone",
+                    "name": "ErrorProne",
+                    "pattern": "**/maven.log"
                   },
                   {
                     "id": "spotbugs",
