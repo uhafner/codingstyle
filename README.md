@@ -3,7 +3,7 @@
 [![Line Coverage](https://raw.githubusercontent.com/uhafner/codingstyle/main/badges/line-coverage.svg)](https://app.codecov.io/gh/uhafner/codingstyle)
 [![Branch Coverage](https://raw.githubusercontent.com/uhafner/codingstyle/main/badges/branch-coverage.svg)](https://app.codecov.io/gh/uhafner/codingstyle)
 [![Mutation Coverage](https://raw.githubusercontent.com/uhafner/codingstyle/main/badges/mutation-coverage.svg)](https://github.com/uhafner/codingstyle/actions/workflows/ci.yml)
-[![Potential Bugs](https://raw.githubusercontent.com/uhafner/codingstyle/main/badges/warnings.svg)](https://github.com/uhafner/codingstyle/actions/workflows/ci.yml)
+[![Warnings](https://raw.githubusercontent.com/uhafner/codingstyle/main/badges/warnings.svg)](https://github.com/uhafner/codingstyle/actions/workflows/ci.yml)
 
 
 Each Java project should follow a given coding style. I.e., all contributions to the source code should use the same 
