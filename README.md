@@ -1,6 +1,11 @@
 [![GitHub Actions](https://github.com/uhafner/codingstyle/workflows/GitHub%20CI/badge.svg)](https://github.com/uhafner/codingstyle/actions)
-[![Codecov](https://codecov.io/gh/uhafner/codingstyle/branch/main/graph/badge.svg)](https://app.codecov.io/gh/uhafner/codingstyle)
 [![CodeQL](https://github.com/uhafner/codingstyle/workflows/CodeQL/badge.svg)](https://github.com/uhafner/codingstyle/actions/workflows/codeql.yml)
+[![Line Coverage](https://raw.githubusercontent.com/uhafner/codingstyle/main/badges/line-coverage.svg)](https://app.codecov.io/gh/uhafner/codingstyle)
+[![Branch Coverage](https://raw.githubusercontent.com/uhafner/codingstyle/main/badges/branch-coverage.svg)](https://app.codecov.io/gh/uhafner/codingstyle)
+[![Mutation Coverage](https://raw.githubusercontent.com/uhafner/codingstyle/main/badges/mutation-coverage.svg)](https://github.com/uhafner/autograding-github-action/actions/workflows/dogfood.yml)
+[![Warnings](https://raw.githubusercontent.com/uhafner/codingstyle/main/badges/style-warnings.svg)](https://github.com/uhafner/autograding-github-action/actions/workflows/dogfood.yml)
+[![Potential Bugs](https://raw.githubusercontent.com/uhafner/codingstyle/main/badges/bugs.svg)](https://github.com/uhafner/autograding-github-action/actions/workflows/dogfood.yml)
+
 
 Each Java project should follow a given coding style. I.e., all contributions to the source code should use the same 
 formatting rules, design principles, code patterns, idioms, etc. This coding style provides the set of rules that I 
@@ -16,16 +21,16 @@ static analysis tools via Maven (and partly in IntelliJ):
 
 ❗This project requires a JDK version of 11 or higher.❗  
 
-Moreover, this project provides some sample classes that already use this style guide. This classes can be used 
+Moreover, this project provides some sample classes that already use this style guide. These classes can be used 
 as such but are not required in this project. These classes also use some additional libraries that are included
-using the Maven dependency mechanism. If the sample classes are deleted then the dependencies can be safely 
+using the Maven dependency mechanism. If the sample classes are deleted, then the dependencies can be safely 
 deleted, too.
 
 This project and the associated static analysis tools are already running in continuous integration: an example 
 CI pipeline is active for GitHub Actions. For [Jenkins](https://jenkins.io/) a full CI pipeline has been 
 configured that includes stages to compile, test, run static code analysis, run code coverage analysis, 
 and run mutation coverage analysis, see section [Continuous Integration](doc/Continuous-Integration.md) for details. 
-Additionally, some development tools are configured in this GitHub project, that evaluate the quality of pull requests, 
+Additionally, some development tools are configured in this GitHub project to evaluate the quality of pull requests, 
 see section [integration of external tools](doc/Externe-Tool-Integration.md).
 
 Content of the style guide (only in German):
