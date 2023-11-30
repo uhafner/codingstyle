@@ -32,6 +32,91 @@ jobs:
         with:
           maven-version: 3.9.5
       - name: Build with Maven
-        env:
-          BROWSER: chrome-container
-        run: mvn -V --color always -ntp clean verify --file pom.xml '-Djenkins.test.timeout=5000' '-Dgpg.skip'
+        run: mvn -V --color always -ntp clean verify --file pom.xml '-Djenkins.test.timeout=5000' '-Dgpg.skip' '-Ppit' | tee maven.log
+      - name: Autograding
+        uses: uhafner/autograding-github-action@v2.1.0
+        with:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CONFIG: >
+            {
+              "tests": {
+                "tools": [
+                  {
+                    "id": "test",
+                    "name": "Unittests",
+                    "pattern": "**/target/*-reports/TEST*.xml"
+                  }
+                ],
+                "name": "JUnit",
+                "passedImpact": 0,
+                "skippedImpact": -1,
+                "failureImpact": -5,
+                "maxScore": 100
+              },
+              "analysis": {
+                "name": "Warnings",
+                "id": "warnings",
+                "tools": [
+                  {
+                    "id": "checkstyle",
+                    "name": "CheckStyle",
+                    "pattern": "**/target/checkstyle-result.xml"
+                  },
+                  {
+                    "id": "pmd",
+                    "name": "PMD",
+                    "pattern": "**/target/pmd.xml"
+                  },
+                  {
+                    "id": "error-prone",
+                    "name": "Error Prone",
+                    "pattern": "**/maven.log"
+                  },
+                  {
+                    "id": "spotbugs",
+                    "name": "SpotBugs",
+                    "pattern": "**/target/spotbugsXml.xml"
+                  }
+
+                ],
+                "errorImpact": -1,
+                "highImpact": -1,
+                "normalImpact": -1,
+                "lowImpact": -1,
+                "maxScore": 100
+              },
+              "coverage": [
+                {
+                  "tools": [
+                    {
+                      "id": "jacoco",
+                      "name": "Line Coverage",
+                      "metric": "line",
+                      "pattern": "**/target/site/jacoco/jacoco.xml"
+                    },
+                    {
+                      "id": "jacoco",
+                      "name": "Branch Coverage",
+                      "metric": "branch",
+                      "pattern": "**/target/site/jacoco/jacoco.xml"
+                    }
+                  ],
+                  "name": "JaCoCo",
+                  "maxScore": 100,
+                  "missedPercentageImpact": -1
+                },
+                {
+                  "tools": [
+                    {
+                      "id": "pit",
+                      "name": "Mutation Coverage",
+                      "metric": "mutation",
+                      "pattern": "**/target/pit-reports/mutations.xml"
+                    }
+                  ],
+                  "name": "PIT",
+                  "maxScore": 100,
+                  "missedPercentageImpact": -1
+                }
+              ]
+            }

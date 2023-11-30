@@ -25,17 +25,16 @@ jobs:
         with:
           maven-version: 3.9.5
       - name: Build and test with Maven
-        run: mvn -V --color always -ntp clean verify --file pom.xml '-Dgpg.skip' | tee maven.log
+        run: mvn -V --color always -ntp clean verify --file pom.xml '-Dgpg.skip' '-Ppit' | tee maven.log
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3.1.4
         with:
           token: ${{secrets.CODECOV_TOKEN}}
-      - name: Mutation Coverage
-        run: mvn -V --color always -ntp org.pitest:pitest-maven:mutationCoverage
       - name: Autograding
         uses: uhafner/autograding-github-action@v2.1.0
         with:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CHECK_NAME: 'Grading Badges'
           CONFIG: >
             {
               "tests": {
