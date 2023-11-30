@@ -5,7 +5,6 @@
 [![Mutation Coverage](https://raw.githubusercontent.com/uhafner/codingstyle/main/badges/mutation-coverage.svg)](https://github.com/uhafner/codingstyle/actions/workflows/ci.yml)
 [![Warnings](https://raw.githubusercontent.com/uhafner/codingstyle/main/badges/warnings.svg)](https://github.com/uhafner/codingstyle/actions/workflows/ci.yml)
 
-
 Each Java project should follow a given coding style. I.e., all contributions to the source code should use the same 
 formatting rules, design principles, code patterns, idioms, etc. This coding style provides the set of rules that I 
 am using in my lectures about software development at Munich University of Applied Sciences.  
