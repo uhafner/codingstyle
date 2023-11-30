@@ -53,6 +53,7 @@ jobs:
               "analysis": [
                 {
                   "name": "Style",
+                  "id": "style",
                   "tools": [
                     {
                       "id": "checkstyle",
@@ -73,6 +74,7 @@ jobs:
                 },
                 {
                   "name": "Bugs",
+                  "id": "bugs",
                   "tools": [
                     {
                       "id": "spotbugs",
