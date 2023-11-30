@@ -56,8 +56,8 @@ jobs:
               },
               "analysis": [
                 {
-                  "name": "Style",
-                  "id": "style",
+                  "name": "Warnings",
+                  "id": "warnings",
                   "tools": [
                     {
                       "id": "checkstyle",
@@ -68,7 +68,13 @@ jobs:
                       "id": "pmd",
                       "name": "PMD",
                       "pattern": "**/target/pmd.xml"
+                    },
+                    {
+                      "id": "spotbugs",
+                      "name": "SpotBugs",
+                      "pattern": "**/target/spotbugsXml.xml"
                     }
+
                   ],
                   "errorImpact": -1,
                   "highImpact": -1,
@@ -76,23 +82,6 @@ jobs:
                   "lowImpact": -1,
                   "maxScore": 100
                 },
-                {
-                  "name": "Bugs",
-                  "id": "bugs",
-                  "tools": [
-                    {
-                      "id": "spotbugs",
-                      "name": "SpotBugs",
-                      "pattern": "**/target/spotbugsXml.xml"
-                    }
-                  ],
-                  "errorImpact": -3,
-                  "highImpact": -3,
-                  "normalImpact": -3,
-                  "lowImpact": -3,
-                  "maxScore": 100
-                }
-              ],
               "coverage": [
                 {
                   "tools": [
@@ -154,20 +143,13 @@ jobs:
           status: ${{ steps.metrics.outputs.mutation }}%
           color: 'green'
           path: badges/mutation-coverage.svg
-      - name: Generate the badge SVG image for the style warnings
+      - name: Generate the badge SVG image for the warnings
         uses: emibcn/badge-action@v2.0.2
         with:
-          label: 'Style warnings'
-          status: ${{ steps.metrics.outputs.style }}
+          label: 'Warnings'
+          status: ${{ steps.metrics.outputs.warnings }}
           color: 'orange'
-          path: badges/style-warnings.svg
-      - name: Generate the badge SVG image for the potential bugs
-        uses: emibcn/badge-action@v2.0.2
-        with:
-          label: 'Potential Bugs'
-          status: ${{ steps.metrics.outputs.bugs }}
-          color: 'red'
-          path: badges/bugs.svg
+          path: badges/warnings.svg
       - name: Commit badge
         continue-on-error: true
         run: |
