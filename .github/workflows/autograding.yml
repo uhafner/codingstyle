@@ -1,40 +1,39 @@
-name: 'Generate reports'
+name: 'Autograding PR'
 
 on:
-  push:
-    branches:
-      - main
+  pull_request:
 
 jobs:
-  coverage:
+  build:
 
     runs-on: [ubuntu-latest]
-    name: Reporting on Ubuntu
+    name: Build, test and autograde on Ubuntu
 
     steps:
       - uses: actions/checkout@v4
-      - name: Set up JDK 21
+      - name: Set up JDK ${{ matrix.jdk }}
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '21'
+          java-version: 21
           check-latest: true
           cache: 'maven'
       - name: Set up Maven
         uses: stCarolas/setup-maven@v4.5
         with:
           maven-version: 3.9.5
-      - name: Build and test with Maven
-        run: mvn -V --color always -ntp clean verify --file pom.xml '-Dgpg.skip' '-Ppit' | tee maven.log
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3.1.4
-        with:
-          token: ${{secrets.CODECOV_TOKEN}}
+      - name: Build with Maven
+        env:
+          BROWSER: chrome-container
+        run: mvn -V --color always -ntp clean verify --file pom.xml '-Djenkins.test.timeout=5000' '-Dgpg.skip' -Ppit | tee maven.log
+      - uses: jwalton/gh-find-current-pr@v1
+        id: pr
       - name: Run Autograding
         uses: uhafner/autograding-github-action@v3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          checks-name: 'Grading Badges'
+          pr-number: ${{ steps.pr.outputs.number }}
+          checks-name: 'Quality Checks'
           config: >
             {
               "tests": {
@@ -118,49 +117,3 @@ jobs:
                 }
               ]
             }
-      - name: Write metrics to GitHub output
-        id: metrics
-        run: |
-          cat metrics.env >> "${GITHUB_OUTPUT}"
-          mkdir -p badges
-      - name: Generate the badge SVG image for the line coverage
-        uses: emibcn/badge-action@v2.0.2
-        with:
-          label: 'Line coverage'
-          status: ${{ steps.metrics.outputs.line }}%
-          color: 'green'
-          path: badges/line-coverage.svg
-      - name: Generate the badge SVG image for the branch coverage
-        uses: emibcn/badge-action@v2.0.2
-        with:
-          label: 'Branch coverage'
-          status: ${{ steps.metrics.outputs.branch }}%
-          color: 'green'
-          path: badges/branch-coverage.svg
-      - name: Generate the badge SVG image for the mutation coverage
-        uses: emibcn/badge-action@v2.0.2
-        with:
-          label: 'Mutation coverage'
-          status: ${{ steps.metrics.outputs.mutation }}%
-          color: 'green'
-          path: badges/mutation-coverage.svg
-      - name: Generate the badge SVG image for the warnings
-        uses: emibcn/badge-action@v2.0.2
-        with:
-          label: 'Warnings'
-          status: ${{ steps.metrics.outputs.warnings }}
-          color: 'orange'
-          path: badges/warnings.svg
-      - name: Commit badge
-        continue-on-error: true
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add badges/*.svg
-          git commit -m "Update badges with results from latest autograding"
-      - name: Push badge commit
-        uses: ad-m/github-push-action@master
-        if: ${{ success() }}
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: main
