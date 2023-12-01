@@ -75,7 +75,6 @@ jobs:
                     "name": "SpotBugs",
                     "pattern": "**/target/spotbugsXml.xml"
                   }
-
                 ],
                 "errorImpact": -1,
                 "highImpact": -1,
@@ -126,21 +125,21 @@ jobs:
       - name: Generate the badge SVG image for the line coverage
         uses: emibcn/badge-action@v2.0.2
         with:
-          label: 'Line coverage'
+          label: 'Line Coverage'
           status: ${{ steps.metrics.outputs.line }}%
           color: 'green'
           path: badges/line-coverage.svg
       - name: Generate the badge SVG image for the branch coverage
         uses: emibcn/badge-action@v2.0.2
         with:
-          label: 'Branch coverage'
+          label: 'Branch Coverage'
           status: ${{ steps.metrics.outputs.branch }}%
           color: 'green'
           path: badges/branch-coverage.svg
       - name: Generate the badge SVG image for the mutation coverage
         uses: emibcn/badge-action@v2.0.2
         with:
-          label: 'Mutation coverage'
+          label: 'Mutation Coverage'
           status: ${{ steps.metrics.outputs.mutation }}%
           color: 'green'
           path: badges/mutation-coverage.svg
