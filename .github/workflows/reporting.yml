@@ -44,6 +44,7 @@ jobs:
         uses: uhafner/autograding-github-action@v3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          pr-number: ${{ steps.pr.outputs.pr-number }}
           checks-name: 'Grading Badges'
           config: >
             {
