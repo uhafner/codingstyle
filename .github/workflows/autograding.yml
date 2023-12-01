@@ -26,7 +26,8 @@ jobs:
         env:
           BROWSER: chrome-container
         run: mvn -V --color always -ntp clean verify --file pom.xml '-Djenkins.test.timeout=5000' '-Dgpg.skip' -Ppit | tee maven.log
-      - uses: jwalton/gh-find-current-pr@v1
+      - name: Extract pull request number
+        uses: jwalton/gh-find-current-pr@v1
         id: pr
       - name: Run Autograding
         uses: uhafner/autograding-github-action@v3
