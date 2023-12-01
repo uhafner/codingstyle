@@ -4,7 +4,10 @@ on:
   push:
     branches:
       - main
-
+  pull_request:
+    branches:
+      - master
+      - main
 jobs:
   coverage:
 
@@ -30,12 +33,19 @@ jobs:
         uses: codecov/codecov-action@v3.1.4
         with:
           token: ${{secrets.CODECOV_TOKEN}}
-      - name: Autograding
-        uses: uhafner/autograding-github-action@v2.1.0
+      - name: Obtain PR number to write the comments to
+        id: pr
+        run: |
+          PR_NUMBER=$(gh pr view --json "number" --jq ".number")
+          echo "pr-number=${PR_NUMBER}" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run Autograding
+        uses: uhafner/autograding-github-action@v3
         with:
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CHECKS_NAME: 'Grading Badges'
-          CONFIG: >
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          checks-name: 'Grading Badges'
+          config: >
             {
               "tests": {
                 "tools": [
