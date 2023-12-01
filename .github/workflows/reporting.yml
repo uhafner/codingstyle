@@ -4,10 +4,7 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - master
-      - main
+
 jobs:
   coverage:
 
@@ -16,8 +13,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: jwalton/gh-find-current-pr@v1
-        id: pr
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
@@ -39,7 +34,6 @@ jobs:
         uses: uhafner/autograding-github-action@v3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          pr-number: ${{ steps.pr.outputs.number }}
           checks-name: 'Grading Badges'
           config: >
             {
