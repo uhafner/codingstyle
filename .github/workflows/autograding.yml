@@ -1,4 +1,4 @@
-name: 'Autograding Pull Request'
+name: 'Autograding PR'
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ jobs:
   build:
 
     runs-on: [ubuntu-latest]
-    name: Autograding Pull Request
+    name: Build, test and autograde on Ubuntu
 
     steps:
       - uses: actions/checkout@v4
