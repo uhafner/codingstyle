@@ -16,13 +16,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Obtain PR number to write the comments to
+      - uses: jwalton/gh-find-current-pr@v1
         id: pr
-        run: |
-          PR_NUMBER=$(gh pr view --json "number" --jq ".number")
-          echo "pr-number=${PR_NUMBER}" >> $GITHUB_OUTPUT
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
@@ -44,7 +39,7 @@ jobs:
         uses: uhafner/autograding-github-action@v3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          pr-number: ${{ steps.pr.outputs.pr-number }}
+          pr-number: ${{ steps.pr.outputs.number }}
           checks-name: 'Grading Badges'
           config: >
             {
