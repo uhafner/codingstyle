@@ -26,7 +26,7 @@ jobs:
         env:
           BROWSER: chrome-container
         run: mvn -V --color always -ntp clean verify --file pom.xml '-Djenkins.test.timeout=5000' '-Dgpg.skip' -Ppit | tee maven.log
-      - name: 'Extract pull request number'
+      - name: Extract pull request number
         uses: jwalton/gh-find-current-pr@v1
         id: pr
       - name: Run Autograding
@@ -73,6 +73,7 @@ jobs:
                   {
                     "id": "spotbugs",
                     "name": "SpotBugs",
+                    "sourcePath": "src/main/java",
                     "pattern": "**/target/spotbugsXml.xml"
                   }
 
@@ -90,12 +91,14 @@ jobs:
                       "id": "jacoco",
                       "name": "Line Coverage",
                       "metric": "line",
+                      "sourcePath": "src/main/java",
                       "pattern": "**/target/site/jacoco/jacoco.xml"
                     },
                     {
                       "id": "jacoco",
                       "name": "Branch Coverage",
                       "metric": "branch",
+                      "sourcePath": "src/main/java",
                       "pattern": "**/target/site/jacoco/jacoco.xml"
                     }
                   ],
@@ -109,6 +112,7 @@ jobs:
                       "id": "pit",
                       "name": "Mutation Coverage",
                       "metric": "mutation",
+                      "sourcePath": "src/main/java",
                       "pattern": "**/target/pit-reports/mutations.xml"
                     }
                   ],
