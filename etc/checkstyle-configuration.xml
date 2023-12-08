@@ -8,6 +8,14 @@
         "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
 <module name="Checker">
   <property name="severity" value="warning"/>
+  <module name="RegexpMultiline">
+    <property name="format" value="\{\s*\R\s*\R"/>
+    <property name="message" value="No empty lines after opening curly braces allowed" />
+  </module>
+  <module name="RegexpMultiline">
+    <property name="format" value="\R\s*\R\s*\}"/>
+    <property name="message" value="No empty lines before closing curly braces allowed" />
+  </module>
   <module name="TreeWalker">
     <module name="SuppressWarningsHolder" />
 

@@ -653,7 +653,6 @@ public final class Ensure {
             if (!type.isInstance(value)) {
                 throwException(explanation, args);
             }
-
         }
     }
 
