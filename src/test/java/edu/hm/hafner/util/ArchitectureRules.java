@@ -165,7 +165,6 @@ public final class ArchitectureRules {
         private boolean isVisibleForTesting(final CanBeAnnotated target) {
             return target.isAnnotatedWith(VisibleForTesting.class);
         }
-
     }
 
     /**
@@ -200,7 +199,6 @@ public final class ArchitectureRules {
         private boolean isPermittedException(final JavaClass owner) {
             return allowedExceptions.stream().anyMatch(owner::isAssignableTo);
         }
-
     }
 
     private static class ShouldBeProtectedCondition extends ArchCondition<JavaMethod> {

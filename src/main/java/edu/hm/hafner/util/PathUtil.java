@@ -174,7 +174,6 @@ public class PathUtil {
                 return makeUnixPath(normalizedBase.relativize(normalize(path)).toString());
             }
             return makeUnixPath(normalizedBase.relativize(normalize(base.resolve(path))).toString());
-
         }
         catch (IOException | IllegalArgumentException ignored) {
             // ignore and return the path as such
