@@ -19,7 +19,7 @@ node {
         recordIssues tool: errorProne(), healthy: 1, unhealthy: 20
 
         junit testResults: '**/target/*-reports/TEST-*.xml'
-        recordCoverage tools: [[parser: 'JACOCO']], sourceCodeRetention: 'EVERY_BUILD'
+        recordCoverage tools: [[parser: 'JACOCO']], sourceCodeRetention: 'EVERY_BUILD', name: 'Code Coverage'
 
         recordIssues tools: [checkStyle(pattern: 'target/checkstyle-result.xml'),
             spotBugs(pattern: 'target/spotbugsXml.xml'),
@@ -33,7 +33,7 @@ node {
         withMaven(maven: 'mvn-default', mavenLocalRepo: '/var/data/m2repository', mavenOpts: '-Xmx768m -Xms512m') {
             sh "mvn -ntp org.pitest:pitest-maven:mutationCoverage"
         }
-        recordCoverage tools: [[parser: 'PIT']], id: 'pit', sourceCodeRetention: 'EVERY_BUILD'
+        recordCoverage tools: [[parser: 'PIT']], id: 'pit', name: 'Mutation Coverage', sourceCodeRetention: 'EVERY_BUILD'
     }
 
     stage ('Collect Maven Warnings') {
@@ -101,7 +101,7 @@ node {
                           "metric": "line"
                         },
                         {
-                          "id": "jacoco",
+                          "id": "coverage",
                           "name": "Branch Coverage",
                           "metric": "branch"
                         }
