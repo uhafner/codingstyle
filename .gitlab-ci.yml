@@ -5,10 +5,5 @@ stages:
 job_build:
   stage: build
   script:
-    - java -version
-
-job_test:
-  stage: test
-  script:
-    - echo "Running tests"
+    - mvn -V --color always -ntp clean verify --file pom.xml '-Dgpg.skip'
 
