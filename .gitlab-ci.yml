@@ -1,9 +1,14 @@
 stages:
   - build
-  - test
+  - autograding
 
 job_build:
   stage: build
   script:
     - mvn -V --color always -ntp clean verify --file pom.xml '-Dgpg.skip'
+
+job_autograding:
+  stage: autograding
+  script:
+    - docker run uhafner/autograding-github-action:3.6.0
 
