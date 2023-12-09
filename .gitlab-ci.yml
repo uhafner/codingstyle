@@ -10,7 +10,7 @@ variables:
   # the daemon started inside of the service. The daemon is available
   # with a network connection instead of the default
   # /var/run/docker.sock socket.
-  DOCKER_HOST: tcp://docker:2375
+  DOCKER_HOST: tcp://docker:2376
   #
   # The 'docker' hostname is the alias of the service container as described at
   # https://docs.gitlab.com/ee/ci/services/#accessing-the-services.
@@ -19,9 +19,19 @@ variables:
   # Kubernetes executor connects services to the job container
   # DOCKER_HOST: tcp://localhost:2376
   #
-  # This instructs Docker not to start over TLS.
-  DOCKER_TLS_CERTDIR: ""
+  # Specify to Docker where to create the certificates. Docker
+  # creates them automatically on boot, and creates
+  # `/certs/client` to share between the service and job
+  # container, thanks to volume mount from config.toml
+  DOCKER_TLS_CERTDIR: "/certs"
+  # These are usually specified by the entrypoint, however the
+  # Kubernetes executor doesn't run entrypoints
+  # https://gitlab.com/gitlab-org/gitlab-runner/-/issues/4125
+  DOCKER_TLS_VERIFY: 1
+  DOCKER_CERT_PATH: "$DOCKER_TLS_CERTDIR/client"
+
 build:
   stage: build
   script:
-    - docker run uhafner/autograding-github-action:3.6.0
+    - docker build -t my-docker-image .
+    - docker run my-docker-image /script/to/run/tests
