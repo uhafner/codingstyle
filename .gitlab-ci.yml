@@ -5,7 +5,7 @@ stages:
 job_build:
   stage: build
   script:
-    - echo "Building the project"
+    - java -version
 
 job_test:
   stage: test
