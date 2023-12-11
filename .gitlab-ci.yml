@@ -1,4 +1,5 @@
-job_pre:
+setup:
+  name: 'Setup'
   stage: .pre
   script:
     - java -version
@@ -11,8 +12,11 @@ job_pre:
     - echo CI_PROJECT_ID = $CI_PROJECT_ID
     - echo CI_COMMIT_SHA = $CI_COMMIT_SHA
 
-job_test:
+build:
   stage: build
   script:
     - mvn -V --color always -ntp clean verify --file pom.xml '-Dgpg.skip'
 
+test:
+  image: docker.io://uhafner/autograding-github-action:3.10.0
+  stage: test
