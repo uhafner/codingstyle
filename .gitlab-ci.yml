@@ -17,7 +17,7 @@ build:
     - mvn -V --color always -ntp clean verify --file pom.xml '-Dgpg.skip'
 
 test:
-  image: docker.io://uhafner/autograding-github-action:3.10.0
+  image: uhafner/autograding-github-action:3.10.0
   stage: test
   script:
     - echo "Hello World!"
