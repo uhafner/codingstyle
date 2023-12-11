@@ -12,7 +12,7 @@ setup:
     - echo CI_COMMIT_SHA = $CI_COMMIT_SHA
 
 test:
-  image: uhafner/autograding-github-action:3.9.0
+  image: uhafner/autograding-gitlab-action:1.0.0-SNAPSHOT
   stage: test
   script:
     - java -cp @/app/jib-classpath-file edu.hm.hafner.grading.github.GitHubAutoGradingRunner
