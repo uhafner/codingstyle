@@ -17,11 +17,4 @@ test:
   script:
     - java -cp @/app/jib-classpath-file edu.hm.hafner.grading.gitlab.GitLabAutoGradingRunner
 
-build:
-  stage: build
-  artifacts:
-    paths:
-      - target
-  script:
-    - mvn -V --color always -ntp clean verify --file pom.xml '-Dgpg.skip'
 
