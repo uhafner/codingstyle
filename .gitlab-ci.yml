@@ -16,6 +16,7 @@ test:
   stage: .pre
   script:
     - echo "Hello World!"
+    - java -cp @/app/jib-classpath-file edu.hm.hafner.grading.github.GitHubAutoGradingRunner
 
 build:
   stage: build
