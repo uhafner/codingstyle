@@ -20,3 +20,5 @@ build:
 test:
   image: docker.io://uhafner/autograding-github-action:3.10.0
   stage: test
+  script:
+    - echo "Hello World!"
