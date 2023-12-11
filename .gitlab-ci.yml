@@ -16,3 +16,9 @@ test:
   stage: .pre
   script:
     - echo "Hello World!"
+
+build:
+  stage: build
+  script:
+    - mvn -V --color always -ntp clean verify --file pom.xml '-Dgpg.skip'
+
