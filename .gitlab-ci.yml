@@ -15,7 +15,7 @@ test:
   image: uhafner/autograding-gitlab-action:1.0.0-SNAPSHOT
   stage: test
   script:
-    - java -cp @/app/jib-classpath-file edu.hm.hafner.grading.github.GitHubAutoGradingRunner
+    - java -cp @/app/jib-classpath-file edu.hm.hafner.grading.gitlab.GitLabAutoGradingRunner
 
 build:
   stage: build
