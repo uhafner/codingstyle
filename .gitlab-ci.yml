@@ -1,5 +1,4 @@
 setup:
-  name: 'Setup'
   stage: .pre
   script:
     - java -version
