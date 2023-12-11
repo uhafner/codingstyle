@@ -12,16 +12,16 @@ setup:
     - echo CI_COMMIT_SHA = $CI_COMMIT_SHA
 
 test:
-  image: 
-    name: uhafner/autograding-github-action:3.9.0
-    entrypoint: [""]
+  image: uhafner/autograding-github-action:3.9.0
   stage: test
   script:
-    - echo "Hello World!"
     - java -cp @/app/jib-classpath-file edu.hm.hafner.grading.github.GitHubAutoGradingRunner
 
 build:
   stage: build
+  artifacts:
+    paths:
+      - target
   script:
     - mvn -V --color always -ntp clean verify --file pom.xml '-Dgpg.skip'
 
