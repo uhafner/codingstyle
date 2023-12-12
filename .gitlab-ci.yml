@@ -18,7 +18,7 @@ build:
     paths:
       - target
   script:
-    - mvn -V --color always -ntp clean verify --file pom.xml '-Dgpg.skip'
+    - mvn -V --color always -ntp clean verify --file pom.xml '-Dgpg.skip' -Ppit
 
 test:
   image: uhafner/autograding-gitlab-action:1.0.6-SNAPSHOT
