@@ -9,17 +9,17 @@ setup:
   script:
     - java -version
     - mvn --version
-    - echo CI_SERVER_URL = $CI_SERVER_URL
-    - echo CI_REPOSITORY_URL = $CI_REPOSITORY_URL
-    - echo CI_MERGE_REQUEST_IID = $CI_MERGE_REQUEST_IID
-    - echo CI_MERGE_REQUEST_ID = $CI_MERGE_REQUEST_ID
-    - echo CI_BUILDS_DIR = $CI_BUILDS_DIR
-    - echo CI_PROJECT_DIR = $CI_PROJECT_DIR
-    - echo CI_PROJECT_ID = $CI_PROJECT_ID
-    - echo CI_COMMIT_SHA = $CI_COMMIT_SHA
+
+build:
+  stage: build
+  artifacts:
+    paths:
+      - target
+  script:
+    - mvn -V --color always -ntp clean verify --file pom.xml '-Dgpg.skip'
 
 test:
-  image: uhafner/autograding-gitlab-action:1.0.3-SNAPSHOT
+  image: uhafner/autograding-gitlab-action:1.0.5-SNAPSHOT
   stage: test
   script:
     - java -cp @/app/jib-classpath-file edu.hm.hafner.grading.gitlab.GitLabAutoGradingRunner
