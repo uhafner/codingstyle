@@ -23,6 +23,24 @@ build:
 test:
   image: uhafner/autograding-gitlab-action:1.0.6-SNAPSHOT
   stage: test
+  variables:
+    CONFIG: >
+      {
+      "tests": {
+        "tools": [
+          {
+            "id": "test",
+            "name": "Unittests",
+            "pattern": "**/target/*-reports/TEST*.xml"
+          }
+        ],
+        "name": "Unit and integration tests",
+        "skippedImpact": -1,
+        "failureImpact": -5,
+        "maxScore": 100
+        }
+      }
+    SKIP_ANNOTATIONS: 'true'
   script:
     - java -cp @/app/jib-classpath-file edu.hm.hafner.grading.gitlab.GitLabAutoGradingRunner
 
