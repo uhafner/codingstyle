@@ -34,7 +34,7 @@ jobs:
         uses: uhafner/autograding-github-action@v3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          checks-name: 'Grading Badges'
+          checks-name: 'Quality Checks'
           config: >
             {
               "tests": {
@@ -45,11 +45,7 @@ jobs:
                     "pattern": "**/target/*-reports/TEST*.xml"
                   }
                 ],
-                "name": "JUnit",
-                "passedImpact": 0,
-                "skippedImpact": -1,
-                "failureImpact": -5,
-                "maxScore": 100
+                "name": "Tests"
               },
               "analysis": {
                 "name": "Warnings",
@@ -76,12 +72,7 @@ jobs:
                     "sourcePath": "src/main/java",
                     "pattern": "**/target/spotbugsXml.xml"
                   }
-                ],
-                "errorImpact": -1,
-                "highImpact": -1,
-                "normalImpact": -1,
-                "lowImpact": -1,
-                "maxScore": 100
+                ]
               },
               "coverage": [
                 {
@@ -101,9 +92,7 @@ jobs:
                       "pattern": "**/target/site/jacoco/jacoco.xml"
                     }
                   ],
-                  "name": "JaCoCo",
-                  "maxScore": 100,
-                  "missedPercentageImpact": -1
+                  "name": "Code Coverage"
                 },
                 {
                   "tools": [
@@ -115,9 +104,7 @@ jobs:
                       "pattern": "**/target/pit-reports/mutations.xml"
                     }
                   ],
-                  "name": "PIT",
-                  "maxScore": 100,
-                  "missedPercentageImpact": -1
+                  "name": "Mutation Coverage"
                 }
               ]
             }
