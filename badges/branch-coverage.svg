@@ -1,20 +1,20 @@
-<svg width="140.7" height="20" viewBox="0 0 1407 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Branch Coverage: 92%">
-  <title>Branch Coverage: 92%</title>
+<svg width="96.8" height="20" viewBox="0 0 968 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Branches: 92%">
+  <title>Branches: 92%</title>
   <linearGradient id="a" x2="0" y2="100%">
     <stop offset="0" stop-opacity=".1" stop-color="#EEE"/>
     <stop offset="1" stop-opacity=".1"/>
   </linearGradient>
-  <mask id="m"><rect width="1407" height="200" rx="30" fill="#FFF"/></mask>
+  <mask id="m"><rect width="968" height="200" rx="30" fill="#FFF"/></mask>
   <g mask="url(#m)">
-    <rect width="1047" height="200" fill="#555"/>
-    <rect width="360" height="200" fill="#3C1" x="1047"/>
-    <rect width="1407" height="200" fill="url(#a)"/>
+    <rect width="608" height="200" fill="#555"/>
+    <rect width="360" height="200" fill="#3C1" x="608"/>
+    <rect width="968" height="200" fill="url(#a)"/>
   </g>
   <g aria-hidden="true" fill="#fff" text-anchor="start" font-family="Verdana,DejaVu Sans,sans-serif" font-size="110">
-    <text x="60" y="148" textLength="947" fill="#000" opacity="0.25">Branch Coverage</text>
-    <text x="50" y="138" textLength="947">Branch Coverage</text>
-    <text x="1102" y="148" textLength="260" fill="#000" opacity="0.25">92%</text>
-    <text x="1092" y="138" textLength="260">92%</text>
+    <text x="60" y="148" textLength="508" fill="#000" opacity="0.25">Branches</text>
+    <text x="50" y="138" textLength="508">Branches</text>
+    <text x="663" y="148" textLength="260" fill="#000" opacity="0.25">92%</text>
+    <text x="653" y="138" textLength="260">92%</text>
   </g>
   
 </svg>

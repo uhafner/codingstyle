@@ -1,20 +1,20 @@
-<svg width="150.4" height="20" viewBox="0 0 1504 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mutation Coverage: 79%">
-  <title>Mutation Coverage: 79%</title>
+<svg width="99.9" height="20" viewBox="0 0 999 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mutations: 79%">
+  <title>Mutations: 79%</title>
   <linearGradient id="a" x2="0" y2="100%">
     <stop offset="0" stop-opacity=".1" stop-color="#EEE"/>
     <stop offset="1" stop-opacity=".1"/>
   </linearGradient>
-  <mask id="m"><rect width="1504" height="200" rx="30" fill="#FFF"/></mask>
+  <mask id="m"><rect width="999" height="200" rx="30" fill="#FFF"/></mask>
   <g mask="url(#m)">
-    <rect width="1144" height="200" fill="#555"/>
-    <rect width="360" height="200" fill="#3C1" x="1144"/>
-    <rect width="1504" height="200" fill="url(#a)"/>
+    <rect width="639" height="200" fill="#555"/>
+    <rect width="360" height="200" fill="#3C1" x="639"/>
+    <rect width="999" height="200" fill="url(#a)"/>
   </g>
   <g aria-hidden="true" fill="#fff" text-anchor="start" font-family="Verdana,DejaVu Sans,sans-serif" font-size="110">
-    <text x="60" y="148" textLength="1044" fill="#000" opacity="0.25">Mutation Coverage</text>
-    <text x="50" y="138" textLength="1044">Mutation Coverage</text>
-    <text x="1199" y="148" textLength="260" fill="#000" opacity="0.25">79%</text>
-    <text x="1189" y="138" textLength="260">79%</text>
+    <text x="60" y="148" textLength="539" fill="#000" opacity="0.25">Mutations</text>
+    <text x="50" y="138" textLength="539">Mutations</text>
+    <text x="694" y="148" textLength="260" fill="#000" opacity="0.25">79%</text>
+    <text x="684" y="138" textLength="260">79%</text>
   </g>
   
 </svg>
