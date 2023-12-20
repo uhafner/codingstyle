@@ -56,13 +56,20 @@ jobs:
           status: ${{ steps.metrics.outputs.mutation }}%
           color: 'green'
           path: badges/mutation-coverage.svg
-      - name: Generate the badge SVG image for the warnings
+      - name: Generate the badge SVG image for the style warnings
         uses: emibcn/badge-action@v2.0.2
         with:
           label: 'Warnings'
-          status: ${{ steps.metrics.outputs.warnings }}
+          status: ${{ steps.metrics.outputs.style }}
           color: 'orange'
-          path: badges/warnings.svg
+          path: badges/style.svg
+      - name: Generate the badge SVG image for the style warnings
+        uses: emibcn/badge-action@v2.0.2
+        with:
+          label: 'Bugs'
+          status: ${{ steps.metrics.outputs.bugs }}
+          color: 'orange'
+          path: badges/bugs.svg
       - name: Commit updated badges
         continue-on-error: true
         run: |
