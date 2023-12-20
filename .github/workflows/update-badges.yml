@@ -1,0 +1,85 @@
+name: 'Update project badges'
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  coverage:
+
+    runs-on: [ubuntu-latest]
+    name: Update project quality badges on Ubuntu
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          check-latest: true
+          cache: 'maven'
+      - name: Set up Maven
+        uses: stCarolas/setup-maven@v4.5
+        with:
+          maven-version: 3.9.5
+      - name: Build and test with Maven
+        run: mvn -V --color always -ntp clean verify --file pom.xml '-Dgpg.skip' '-Ppit' | tee maven.log
+      - name: Run Quality Monitor
+        uses: uhafner/quality-monitor@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Write metrics to GitHub output
+        id: metrics
+        run: |
+          cat metrics.env >> "${GITHUB_OUTPUT}"
+          mkdir -p badges
+      - name: Generate the badge SVG image for the line coverage
+        uses: emibcn/badge-action@v2.0.2
+        with:
+          label: 'Lines'
+          status: ${{ steps.metrics.outputs.line }}%
+          color: 'green'
+          path: badges/line-coverage.svg
+      - name: Generate the badge SVG image for the branch coverage
+        uses: emibcn/badge-action@v2.0.2
+        with:
+          label: 'Branches'
+          status: ${{ steps.metrics.outputs.branch }}%
+          color: 'green'
+          path: badges/branch-coverage.svg
+      - name: Generate the badge SVG image for the mutation coverage
+        uses: emibcn/badge-action@v2.0.2
+        with:
+          label: 'Mutations'
+          status: ${{ steps.metrics.outputs.mutation }}%
+          color: 'green'
+          path: badges/mutation-coverage.svg
+      - name: Generate the badge SVG image for the style warnings
+        uses: emibcn/badge-action@v2.0.2
+        with:
+          label: 'Warnings'
+          status: ${{ steps.metrics.outputs.style }}
+          color: 'orange'
+          path: badges/style.svg
+      - name: Generate the badge SVG image for the style warnings
+        uses: emibcn/badge-action@v2.0.2
+        with:
+          label: 'Bugs'
+          status: ${{ steps.metrics.outputs.bugs }}
+          color: 'orange'
+          path: badges/bugs.svg
+      - name: Commit updated badges
+        continue-on-error: true
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add badges/*.svg
+          git commit -m "Update badges with results from latest autograding" || true
+      - name: Push updated badges to GitHub repository
+        uses: ad-m/github-push-action@master
+        if: ${{ success() }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
