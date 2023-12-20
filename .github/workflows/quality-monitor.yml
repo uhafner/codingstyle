@@ -33,4 +33,5 @@ jobs:
         uses: uhafner/quality-monitor@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          checks-name: 'Quality Monitor'
           pr-number: ${{ steps.pr.outputs.number }}
