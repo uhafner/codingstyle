@@ -98,7 +98,24 @@ class FilteredLogTest extends SerializableTest<FilteredLog> {
 
         assertThat(parent).hasOnlyInfoMessages("parent Info 1", "child Info 1")
                 .hasOnlyErrorMessages("Parent Errors", "parent Error 1", "Child Errors", "child Error 1");
-        assertThat(parent.size()).isEqualTo(2);
+        assertThat(parent.size()).isEqualTo(1);
+    }
+
+    @Test
+    void shouldSkipEmptyErrorLogWhenMerging() {
+        var parent = new FilteredLog("Parent Errors");
+
+        parent.logInfo("parent Info 1");
+
+        var child = new FilteredLog("Child Errors");
+        child.logInfo("child Info 1");
+        child.logError("child Error 1");
+
+        parent.merge(child);
+
+        assertThat(parent).hasOnlyInfoMessages("parent Info 1", "child Info 1")
+                .hasOnlyErrorMessages("Child Errors", "child Error 1");
+        assertThat(parent.size()).isZero();
     }
 
     @Test
