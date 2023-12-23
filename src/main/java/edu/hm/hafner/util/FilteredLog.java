@@ -70,7 +70,7 @@ public class FilteredLog implements Serializable {
      *
      * @return this
      */
-    private Object readResolve() {
+    protected Object readResolve() {
         lock = new ReentrantLock();
 
         return this;
