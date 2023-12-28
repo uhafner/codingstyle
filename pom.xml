@@ -100,7 +100,7 @@
     <assertj-assertions-generator-maven-plugin.version>2.2.0</assertj-assertions-generator-maven-plugin.version>
     <maven-enforcer-plugin.version>3.4.1</maven-enforcer-plugin.version>
     <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
-    <depgraph-maven-plugin.version>4.0.2</depgraph-maven-plugin.version>
+    <depgraph-maven-plugin.version>4.0.3</depgraph-maven-plugin.version>
 
     <!-- Maven Surefire ArgLine -->
     <argLine>-Djava.util.logging.config.file=logging.properties</argLine>
