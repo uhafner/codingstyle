@@ -253,7 +253,6 @@
           <goals>deploy</goals>
           <tagNameFormat>v@{project.version}</tagNameFormat>
           <preparationGoals>-Prelease clean scm:checkin verify</preparationGoals>
-          <completionGoals>-Prelease clean scm:checkin verify</completionGoals>
         </configuration>
       </plugin>
       <plugin>
