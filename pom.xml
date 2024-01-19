@@ -811,6 +811,19 @@
     <profile>
       <id>release</id>
       <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-scm-plugin</artifactId>
+              <version>2.0.1</version>
+              <configuration>
+                <message>[dependency-graph] Update dependencies in UML overview.</message>
+                <includes>doc/dependency-graph.puml</includes>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
         <plugins>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -825,15 +838,6 @@
                 </goals>
               </execution>
             </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-scm-plugin</artifactId>
-            <version>2.0.1</version>
-            <configuration>
-              <message>[dependency-graph] Update dependencies in UML overview.</message>
-              <includes>doc/dependency-graph.puml</includes>
-            </configuration>
           </plugin>
         </plugins>
       </build>
