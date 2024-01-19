@@ -252,7 +252,7 @@
           <releaseProfiles>release</releaseProfiles>
           <goals>deploy</goals>
           <tagNameFormat>v@{project.version}</tagNameFormat>
-          <preparationGoals>-Prelease clean scm:checkin verify</preparationGoals>
+          <completionGoals>clean verify com.github.ferstl:depgraph-maven-plugin:graph scm:add -Dincludes=doc/dependency-graph.puml</completionGoals>
         </configuration>
       </plugin>
       <plugin>
@@ -724,32 +724,24 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>com.github.ferstl</groupId>
-        <artifactId>depgraph-maven-plugin</artifactId>
-        <version>${depgraph-maven-plugin.version}</version>
-        <configuration>
-          <graphFormat>puml</graphFormat>
-          <classpathScope>compile</classpathScope>
-          <showClassifiers>true</showClassifiers>
-          <showVersions>true</showVersions>
-          <showConflicts>true</showConflicts>
-          <showDuplicates>true</showDuplicates>
-          <outputFileName>dependency-graph</outputFileName>
-          <outputDirectory>${project.basedir}/doc</outputDirectory>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>verify</phase>
-            <goals>
-              <goal>graph</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>com.github.ferstl</groupId>
+          <artifactId>depgraph-maven-plugin</artifactId>
+          <version>${depgraph-maven-plugin.version}</version>
+          <configuration>
+            <graphFormat>puml</graphFormat>
+            <classpathScope>compile</classpathScope>
+            <showClassifiers>true</showClassifiers>
+            <showVersions>true</showVersions>
+            <showConflicts>true</showConflicts>
+            <showDuplicates>true</showDuplicates>
+            <outputFileName>dependency-graph</outputFileName>
+            <outputDirectory>${project.basedir}/doc</outputDirectory>
+          </configuration>
+        </plugin>
         <plugin>
           <groupId>org.pitest</groupId>
           <artifactId>pitest-maven</artifactId>
@@ -810,19 +802,6 @@
     <profile>
       <id>release</id>
       <build>
-        <pluginManagement>
-          <plugins>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-scm-plugin</artifactId>
-              <version>2.0.1</version>
-              <configuration>
-                <message>[dependency-graph] Update dependencies in UML overview.</message>
-                <includes>doc/dependency-graph.puml</includes>
-              </configuration>
-            </plugin>
-          </plugins>
-        </pluginManagement>
         <plugins>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
