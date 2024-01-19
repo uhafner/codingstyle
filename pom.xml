@@ -264,7 +264,7 @@
           <serverId>ossrh</serverId>
           <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
           <autoReleaseAfterClose>true</autoReleaseAfterClose>
-          <skipStaging>true</skipStaging>
+          <stagingProgressTimeoutMinutes>15</stagingProgressTimeoutMinutes>
         </configuration>
       </plugin>
       <plugin>
@@ -740,13 +740,30 @@
         </configuration>
         <executions>
           <execution>
-            <phase>verify</phase>
+            <phase>deploy</phase>
             <goals>
               <goal>graph</goal>
             </goals>
           </execution>
         </executions>
       </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-scm-plugin</artifactId>
+          <configuration>
+            <message>[depgraph-maven-plugin] Synchronize dependencies in UML component diagram</message>
+            <includes>doc/dependency-graph.puml</includes>
+            <pushChanges>true</pushChanges>
+          </configuration>
+          <executions>
+            <execution>
+              <phase>deploy</phase>
+              <goals>
+                <goal>checkin</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
     </plugins>
     <pluginManagement>
       <plugins>
