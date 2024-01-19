@@ -252,7 +252,7 @@
           <releaseProfiles>release</releaseProfiles>
           <goals>deploy</goals>
           <tagNameFormat>v@{project.version}</tagNameFormat>
-          <preparationGoals>clean verify com.github.ferstl:depgraph-maven-plugin:graph scm:add -Dincludes=doc/dependency-graph.puml</preparationGoals>
+          <completionGoals>clean verify com.github.ferstl:depgraph-maven-plugin:graph scm:add -Dincludes=doc/dependency-graph.puml</completionGoals>
         </configuration>
       </plugin>
       <plugin>
