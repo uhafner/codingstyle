@@ -252,6 +252,8 @@
           <releaseProfiles>release</releaseProfiles>
           <goals>deploy</goals>
           <tagNameFormat>v@{project.version}</tagNameFormat>
+          <preparationGoals>clean scm:checkin verify</preparationGoals>
+          <completionGoals>clean scm:checkin verify</completionGoals>
         </configuration>
       </plugin>
       <plugin>
@@ -752,12 +754,22 @@
           <version>${depgraph-maven-plugin.version}</version>
           <configuration>
             <graphFormat>puml</graphFormat>
-            <scope>compile</scope>
+            <classpathScope>compile</classpathScope>
             <showClassifiers>true</showClassifiers>
             <showVersions>true</showVersions>
             <showConflicts>true</showConflicts>
             <showDuplicates>true</showDuplicates>
+            <outputFileName>dependency-graph</outputFileName>
+            <outputDirectory>${project.basedir}/doc</outputDirectory>
           </configuration>
+          <executions>
+            <execution>
+              <phase>verify</phase>
+              <goals>
+                <goal>graph</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -813,6 +825,15 @@
                 </goals>
               </execution>
             </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-scm-plugin</artifactId>
+            <version>2.0.1</version>
+            <configuration>
+              <message>[dependency-graph] Update dependencies in UML overview.</message>
+              <includes>doc/dependency-graph.puml</includes>
+            </configuration>
           </plugin>
         </plugins>
       </build>
