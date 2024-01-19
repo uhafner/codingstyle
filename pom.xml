@@ -252,6 +252,7 @@
           <releaseProfiles>release</releaseProfiles>
           <goals>deploy</goals>
           <tagNameFormat>v@{project.version}</tagNameFormat>
+          <preparationGoals>clean install com.github.ferstl:depgraph-maven-plugin:graph scm:add -Dincludes=doc/dependency-graph.puml</preparationGoals>
         </configuration>
       </plugin>
       <plugin>
@@ -737,14 +738,6 @@
           <outputFileName>dependency-graph</outputFileName>
           <outputDirectory>${project.basedir}/doc</outputDirectory>
         </configuration>
-        <executions>
-          <execution>
-            <phase>deploy</phase>
-            <goals>
-              <goal>graph</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -754,14 +747,6 @@
             <includes>doc/dependency-graph.puml</includes>
             <pushChanges>true</pushChanges>
           </configuration>
-          <executions>
-            <execution>
-              <phase>deploy</phase>
-              <goals>
-                <goal>checkin</goal>
-              </goals>
-            </execution>
-          </executions>
         </plugin>
     </plugins>
     <pluginManagement>
