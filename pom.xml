@@ -252,7 +252,6 @@
           <releaseProfiles>release</releaseProfiles>
           <goals>deploy</goals>
           <tagNameFormat>v@{project.version}</tagNameFormat>
-          <preparationGoals>clean verify scm:add -Dincludes=doc/dependency-graph.puml</preparationGoals>
         </configuration>
       </plugin>
       <plugin>
