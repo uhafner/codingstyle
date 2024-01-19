@@ -725,6 +725,29 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>com.github.ferstl</groupId>
+        <artifactId>depgraph-maven-plugin</artifactId>
+        <version>${depgraph-maven-plugin.version}</version>
+        <configuration>
+          <graphFormat>puml</graphFormat>
+          <classpathScope>compile</classpathScope>
+          <showClassifiers>true</showClassifiers>
+          <showVersions>true</showVersions>
+          <showConflicts>true</showConflicts>
+          <showDuplicates>true</showDuplicates>
+          <outputFileName>dependency-graph</outputFileName>
+          <outputDirectory>${project.basedir}/doc</outputDirectory>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>graph</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
     <pluginManagement>
       <plugins>
@@ -747,29 +770,6 @@
               <param>*toString</param>
             </excludedMethods>
           </configuration>
-        </plugin>
-        <plugin>
-          <groupId>com.github.ferstl</groupId>
-          <artifactId>depgraph-maven-plugin</artifactId>
-          <version>${depgraph-maven-plugin.version}</version>
-          <configuration>
-            <graphFormat>puml</graphFormat>
-            <classpathScope>compile</classpathScope>
-            <showClassifiers>true</showClassifiers>
-            <showVersions>true</showVersions>
-            <showConflicts>true</showConflicts>
-            <showDuplicates>true</showDuplicates>
-            <outputFileName>dependency-graph</outputFileName>
-            <outputDirectory>${project.basedir}/doc</outputDirectory>
-          </configuration>
-          <executions>
-            <execution>
-              <phase>verify</phase>
-              <goals>
-                <goal>graph</goal>
-              </goals>
-            </execution>
-          </executions>
         </plugin>
       </plugins>
     </pluginManagement>
