@@ -732,7 +732,7 @@
           <artifactId>depgraph-maven-plugin</artifactId>
           <version>${depgraph-maven-plugin.version}</version>
           <configuration>
-            <graphFormat>puml</graphFormat>
+            <graphFormat>text</graphFormat>
             <classpathScope>compile</classpathScope>
             <showClassifiers>true</showClassifiers>
             <showVersions>true</showVersions>
