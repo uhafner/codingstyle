@@ -252,7 +252,7 @@
           <releaseProfiles>release</releaseProfiles>
           <goals>deploy</goals>
           <tagNameFormat>v@{project.version}</tagNameFormat>
-          <completionGoals>clean verify com.github.ferstl:depgraph-maven-plugin:graph scm:add -Dincludes=doc/dependency-graph.puml</completionGoals>
+          <completionGoals>clean verify scm:add -Dincludes=doc/dependency-graph.puml</completionGoals>
         </configuration>
       </plugin>
       <plugin>
@@ -732,7 +732,7 @@
           <artifactId>depgraph-maven-plugin</artifactId>
           <version>${depgraph-maven-plugin.version}</version>
           <configuration>
-            <graphFormat>text</graphFormat>
+            <graphFormat>puml</graphFormat>
             <classpathScope>compile</classpathScope>
             <showClassifiers>true</showClassifiers>
             <showVersions>true</showVersions>
@@ -741,6 +741,14 @@
             <outputFileName>dependency-graph</outputFileName>
             <outputDirectory>${project.basedir}/doc</outputDirectory>
           </configuration>
+          <executions>
+            <execution>
+              <phase>package</phase>
+              <goals>
+                <goal>graph</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <groupId>org.pitest</groupId>

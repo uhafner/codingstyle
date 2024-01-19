@@ -1,6 +1,0 @@
-codingstyle:3.39.0-SNAPSHOT::compile
-+- spotbugs-annotations:4.8.3::compile
-|  \- jsr305:3.0.2::compile
-+- error_prone_annotations:2.24.1::compile
-+- commons-lang3:3.14.0::compile
-\- commons-io:2.15.1::compile

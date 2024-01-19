@@ -1,9 +1,0 @@
-@startuml
-skinparam defaultTextAlignment center
-skinparam rectangle {
-  BackgroundColor<<optional>> beige
-  BackgroundColor<<test>> lightGreen
-  BackgroundColor<<runtime>> lightBlue
-  BackgroundColor<<provided>> lightGray
-}
-@enduml
