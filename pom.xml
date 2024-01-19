@@ -252,8 +252,8 @@
           <releaseProfiles>release</releaseProfiles>
           <goals>deploy</goals>
           <tagNameFormat>v@{project.version}</tagNameFormat>
-          <preparationGoals>clean scm:checkin verify</preparationGoals>
-          <completionGoals>clean scm:checkin verify</completionGoals>
+          <preparationGoals>-Prelease clean scm:checkin verify</preparationGoals>
+          <completionGoals>-Prelease clean scm:checkin verify</completionGoals>
         </configuration>
       </plugin>
       <plugin>
