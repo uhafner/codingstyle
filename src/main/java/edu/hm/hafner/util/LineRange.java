@@ -1,13 +1,17 @@
 package edu.hm.hafner.util;
 
 import java.io.Serializable;
+import java.util.NavigableSet;
+import java.util.TreeSet;
+
+import edu.umd.cs.findbugs.annotations.CheckForNull;
 
 /**
  * A line range in a source file is defined by its first and last line.
  *
  * @author Ullrich Hafner
  */
-public class LineRange implements Serializable {
+public final class LineRange implements Serializable {
     private static final long serialVersionUID = -4124143085672930110L;
 
     private final int start;
@@ -65,6 +69,29 @@ public class LineRange implements Serializable {
     }
 
     /**
+     * Returns the lines of this line lange in a sorted set.
+     *
+     * @return the containing lines, one by one
+     */
+    public NavigableSet<Integer> getLines() {
+        var lines = new TreeSet<Integer>();
+        for (int line = getStart(); line <= getEnd(); line++) {
+            lines.add(line);
+        }
+        return lines;
+    }
+
+    /**
+     * Returns whether the specified line is contained in this range.
+     *
+     * @param line the line to check
+     * @return {@code true} if the line is contained in this range, {@code false} otherwise
+     */
+    public boolean contains(final int line) {
+        return line >= start && line <= end;
+    }
+
+    /**
      * Returns whether this range is just a single line.
      *
      * @return {@code true} if this range is just a single line, {@code false} otherwise
@@ -74,7 +101,7 @@ public class LineRange implements Serializable {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals(@CheckForNull final Object o) {
         if (this == o) {
             return true;
         }

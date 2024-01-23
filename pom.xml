@@ -252,7 +252,6 @@
           <releaseProfiles>release</releaseProfiles>
           <goals>deploy</goals>
           <tagNameFormat>v@{project.version}</tagNameFormat>
-          <preparationGoals>clean install com.github.ferstl:depgraph-maven-plugin:graph scm:add -Dincludes=doc/dependency-graph.puml</preparationGoals>
         </configuration>
       </plugin>
       <plugin>
@@ -724,21 +723,24 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>com.github.ferstl</groupId>
-        <artifactId>depgraph-maven-plugin</artifactId>
-        <version>${depgraph-maven-plugin.version}</version>
-        <configuration>
-          <graphFormat>puml</graphFormat>
-          <classpathScope>compile</classpathScope>
-          <showClassifiers>true</showClassifiers>
-          <showVersions>true</showVersions>
-          <showConflicts>true</showConflicts>
-          <showDuplicates>true</showDuplicates>
-          <outputFileName>dependency-graph</outputFileName>
-          <outputDirectory>${project.basedir}/doc</outputDirectory>
-        </configuration>
-      </plugin>
+    </plugins>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>com.github.ferstl</groupId>
+          <artifactId>depgraph-maven-plugin</artifactId>
+          <version>${depgraph-maven-plugin.version}</version>
+          <configuration>
+            <graphFormat>puml</graphFormat>
+            <classpathScope>compile</classpathScope>
+            <showClassifiers>true</showClassifiers>
+            <showVersions>true</showVersions>
+            <showConflicts>true</showConflicts>
+            <showDuplicates>true</showDuplicates>
+            <outputFileName>dependency-graph</outputFileName>
+            <outputDirectory>${project.basedir}/doc</outputDirectory>
+          </configuration>
+        </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-scm-plugin</artifactId>
@@ -748,9 +750,6 @@
             <pushChanges>true</pushChanges>
           </configuration>
         </plugin>
-    </plugins>
-    <pluginManagement>
-      <plugins>
         <plugin>
           <groupId>org.pitest</groupId>
           <artifactId>pitest-maven</artifactId>
