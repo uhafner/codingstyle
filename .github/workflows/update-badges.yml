@@ -77,6 +77,8 @@ jobs:
           git config --local user.name "GitHub Action"
           git add badges/*.svg
           git commit -m "Update badges with results from latest autograding" || true
+          git add doc/dependency-graph.puml
+          git commit -m "Update dependency graph to latest versions from POM" || true
       - name: Push updated badges to GitHub repository
         uses: ad-m/github-push-action@master
         if: ${{ success() }}
