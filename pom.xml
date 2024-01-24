@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.hm.hafner</groupId>
   <artifactId>codingstyle</artifactId>
-  <version>3.41.0-SNAPSHOT</version>
+  <version>3.40.0-SNAPSHOT</version>
 
   <packaging>jar</packaging>
 
@@ -87,7 +87,7 @@
     <spotbugs-maven-plugin.version>4.8.3.0</spotbugs-maven-plugin.version>
     <findsecbugs-plugin.version>1.12.0</findsecbugs-plugin.version>
     <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
-    <maven-pitest-plugin.version>1.15.6</maven-pitest-plugin.version>
+    <maven-pitest-plugin.version>1.15.3</maven-pitest-plugin.version>
     <pitest-junit5-plugin.version>1.2.1</pitest-junit5-plugin.version>
     <error-prone.version>2.24.1</error-prone.version>
     <nullaway.version>0.10.21</nullaway.version>
@@ -252,6 +252,7 @@
           <releaseProfiles>release</releaseProfiles>
           <goals>deploy</goals>
           <tagNameFormat>v@{project.version}</tagNameFormat>
+          <preparationGoals>clean install com.github.ferstl:depgraph-maven-plugin:graph scm:add -Dincludes=doc/dependency-graph.puml</preparationGoals>
         </configuration>
       </plugin>
       <plugin>
@@ -723,24 +724,21 @@
           </execution>
         </executions>
       </plugin>
-    </plugins>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>com.github.ferstl</groupId>
-          <artifactId>depgraph-maven-plugin</artifactId>
-          <version>${depgraph-maven-plugin.version}</version>
-          <configuration>
-            <graphFormat>puml</graphFormat>
-            <classpathScope>compile</classpathScope>
-            <showClassifiers>true</showClassifiers>
-            <showVersions>true</showVersions>
-            <showConflicts>true</showConflicts>
-            <showDuplicates>true</showDuplicates>
-            <outputFileName>dependency-graph</outputFileName>
-            <outputDirectory>${project.basedir}/doc</outputDirectory>
-          </configuration>
-        </plugin>
+      <plugin>
+        <groupId>com.github.ferstl</groupId>
+        <artifactId>depgraph-maven-plugin</artifactId>
+        <version>${depgraph-maven-plugin.version}</version>
+        <configuration>
+          <graphFormat>puml</graphFormat>
+          <classpathScope>compile</classpathScope>
+          <showClassifiers>true</showClassifiers>
+          <showVersions>true</showVersions>
+          <showConflicts>true</showConflicts>
+          <showDuplicates>true</showDuplicates>
+          <outputFileName>dependency-graph</outputFileName>
+          <outputDirectory>${project.basedir}/doc</outputDirectory>
+        </configuration>
+      </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-scm-plugin</artifactId>
@@ -750,6 +748,9 @@
             <pushChanges>true</pushChanges>
           </configuration>
         </plugin>
+    </plugins>
+    <pluginManagement>
+      <plugins>
         <plugin>
           <groupId>org.pitest</groupId>
           <artifactId>pitest-maven</artifactId>

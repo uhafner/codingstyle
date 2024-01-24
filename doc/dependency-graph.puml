@@ -6,15 +6,4 @@ skinparam rectangle {
   BackgroundColor<<runtime>> lightBlue
   BackgroundColor<<provided>> lightGray
 }
-rectangle "spotbugs-annotations\n\n4.8.3" as com_github_spotbugs_spotbugs_annotations_jar
-rectangle "jsr305\n\n3.0.2" as com_google_code_findbugs_jsr305_jar
-rectangle "codingstyle\n\n3.41.0-SNAPSHOT" as edu_hm_hafner_codingstyle_jar
-rectangle "error_prone_annotations\n\n2.24.1" as com_google_errorprone_error_prone_annotations_jar
-rectangle "commons-lang3\n\n3.14.0" as org_apache_commons_commons_lang3_jar
-rectangle "commons-io\n\n2.15.1" as commons_io_commons_io_jar
-com_github_spotbugs_spotbugs_annotations_jar -[#000000]-> com_google_code_findbugs_jsr305_jar
-edu_hm_hafner_codingstyle_jar -[#000000]-> com_github_spotbugs_spotbugs_annotations_jar
-edu_hm_hafner_codingstyle_jar -[#000000]-> com_google_errorprone_error_prone_annotations_jar
-edu_hm_hafner_codingstyle_jar -[#000000]-> org_apache_commons_commons_lang3_jar
-edu_hm_hafner_codingstyle_jar -[#000000]-> commons_io_commons_io_jar
 @enduml
