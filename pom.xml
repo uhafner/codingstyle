@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.hm.hafner</groupId>
@@ -664,22 +665,22 @@
             <revapi.versions>
               <versionIncreaseAllows>
                 <major>
-                    <severity>BREAKING</severity>
-                    <attachments>
-                      <vetted>ok</vetted>
-                    </attachments>
+                  <severity>BREAKING</severity>
+                  <attachments>
+                    <vetted>ok</vetted>
+                  </attachments>
                 </major>
                 <minor>
-                    <severity>NON_BREAKING</severity>
-                    <attachments>
-                      <vetted>ok</vetted>
-                    </attachments>
+                  <severity>NON_BREAKING</severity>
+                  <attachments>
+                    <vetted>ok</vetted>
+                  </attachments>
                 </minor>
                 <patch>
-                    <severity>EQUIVALENT</severity>
-                    <attachments>
-                      <vetted>ok</vetted>
-                    </attachments>
+                  <severity>EQUIVALENT</severity>
+                  <attachments>
+                    <vetted>ok</vetted>
+                  </attachments>
                 </patch>
               </versionIncreaseAllows>
             </revapi.versions>
@@ -722,21 +723,6 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <groupId>com.github.ferstl</groupId>
-        <artifactId>depgraph-maven-plugin</artifactId>
-        <version>${depgraph-maven-plugin.version}</version>
-        <configuration>
-          <graphFormat>puml</graphFormat>
-          <classpathScope>compile</classpathScope>
-          <showClassifiers>true</showClassifiers>
-          <showVersions>true</showVersions>
-          <showConflicts>true</showConflicts>
-          <showDuplicates>true</showDuplicates>
-          <outputFileName>dependency-graph</outputFileName>
-          <outputDirectory>${project.basedir}/doc</outputDirectory>
-        </configuration>
       </plugin>
     </plugins>
     <pluginManagement>
@@ -791,6 +777,36 @@
                 <id>test</id>
                 <goals>
                   <goal>mutationCoverage</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>depgraph</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.github.ferstl</groupId>
+            <artifactId>depgraph-maven-plugin</artifactId>
+            <version>${depgraph-maven-plugin.version}</version>
+            <configuration>
+              <graphFormat>puml</graphFormat>
+              <classpathScope>compile</classpathScope>
+              <showClassifiers>true</showClassifiers>
+              <showVersions>true</showVersions>
+              <showConflicts>true</showConflicts>
+              <showDuplicates>true</showDuplicates>
+              <outputFileName>dependency-graph</outputFileName>
+              <outputDirectory>${project.basedir}/doc</outputDirectory>
+            </configuration>
+            <executions>
+              <execution>
+                <phase>verify</phase>
+                <goals>
+                  <goal>graph</goal>
                 </goals>
               </execution>
             </executions>

@@ -8,5 +8,7 @@ target
 pom.xml.versionsBackup
 pom.xml.releaseBackup
 release.properties
+metrics.env
+maven.log
 .DS_Store
 /package-lock.json
