@@ -63,7 +63,7 @@ jobs:
           status: ${{ steps.metrics.outputs.style }}
           color: 'orange'
           path: badges/style.svg
-      - name: Generate the badge SVG image for the style warnings
+      - name: Generate the badge SVG image for the bugs
         uses: emibcn/badge-action@v2.0.2
         with:
           label: 'Bugs'
