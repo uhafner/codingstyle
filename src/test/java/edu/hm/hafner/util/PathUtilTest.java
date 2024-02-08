@@ -74,11 +74,11 @@ class PathUtilTest extends ResourceTest {
 
     @DisplayName("Should verify valid absolute paths")
     @ParameterizedTest(name = "[{index}] path={0}")
-    @ValueSource(strings = {"/", "/tmp", "C:\\", "c:\\", "C:\\Tmp"})
+    @ValueSource(strings = {"/", "/tmp", "C:\\", "c:\\", "C:\\Tmp", "C:/tmp/absolute.txt", "file:///project/src/main/java/com/app/ui/model/Activity.kt"})
     void shouldFindAbsolutePaths(final String path) {
         var pathUtil = new PathUtil();
 
-        assertThat(pathUtil.isAbsolute(path)).isTrue();
+        assertThat(pathUtil.isAbsolute(path)).as("Show be detected as absolute path").isTrue();
     }
 
     @Test
