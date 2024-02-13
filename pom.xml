@@ -94,7 +94,7 @@
     <spotbugs-maven-plugin.version>4.8.3.0</spotbugs-maven-plugin.version>
     <findsecbugs-plugin.version>1.12.0</findsecbugs-plugin.version>
     <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
-    <maven-pitest-plugin.version>1.15.7</maven-pitest-plugin.version>
+    <maven-pitest-plugin.version>1.15.8</maven-pitest-plugin.version>
     <pitest-junit5-plugin.version>1.2.1</pitest-junit5-plugin.version>
     <error-prone.version>2.24.1</error-prone.version>
     <nullaway.version>0.10.22</nullaway.version>
