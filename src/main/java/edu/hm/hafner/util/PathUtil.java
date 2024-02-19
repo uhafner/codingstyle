@@ -1,6 +1,8 @@
 package edu.hm.hafner.util;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
@@ -259,6 +261,15 @@ public class PathUtil {
      * @return {@code true} if this path is an absolute path, {@code false} if a relative path
      */
     public boolean isAbsolute(final String fileName) {
+        try {
+            URI uri = new URI(fileName);
+            if (uri.isAbsolute()) {
+                return true;
+            }
+        }
+        catch (URISyntaxException ignored) {
+            // catch and ignore as system paths are not URI, and we need to check them separately
+        }
         return FilenameUtils.getPrefixLength(fileName) > 0;
     }
 
