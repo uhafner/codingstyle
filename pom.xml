@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
@@ -14,8 +13,7 @@
     open-source projects. It configures several static analysis tools for Maven and IntelliJ. Moreover,
     it provides some sample classes that already use this style guide. These classes can be used as such but are not
     required in this project. These classes also use some additional libraries that are included using the Maven
-    dependency mechanism. If the sample classes are deleted then the dependencies can be safely deleted, too.
-  </description>
+    dependency mechanism. If the sample classes are deleted then the dependencies can be safely deleted, too.</description>
   <url>https://www.cs.hm.edu/die_fakultaet/ansprechpartner/professoren/hafner/index.de.html</url>
   <licenses>
     <license>
@@ -30,8 +28,8 @@
 
   <developers>
     <developer>
-      <name>Ullrich Hafner</name>
       <id>uhafner</id>
+      <name>Ullrich Hafner</name>
       <email>ullrich.hafner@hm.edu</email>
       <organization>Munich University of Applied Sciences</organization>
       <organizationUrl>https://www.hm.edu/en/index.en.html</organizationUrl>
@@ -41,18 +39,18 @@
   <scm>
     <connection>scm:git:https://github.com/uhafner/codingstyle.git</connection>
     <developerConnection>scm:git:git@github.com:uhafner/codingstyle.git</developerConnection>
-    <url>https://github.com/uhafner/codingstyle</url>
     <tag>HEAD</tag>
+    <url>https://github.com/uhafner/codingstyle</url>
   </scm>
   <distributionManagement>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
     <repository>
       <id>ossrh</id>
       <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
   </distributionManagement>
 
   <properties>
@@ -218,12 +216,12 @@
   <build>
     <resources>
       <resource>
-        <directory>etc</directory>
         <filtering>true</filtering>
+        <directory>etc</directory>
       </resource>
       <resource>
-        <directory>src/main/resources</directory>
         <filtering>false</filtering>
+        <directory>src/main/resources</directory>
       </resource>
     </resources>
     <pluginManagement>
@@ -232,13 +230,6 @@
           <groupId>org.pitest</groupId>
           <artifactId>pitest-maven</artifactId>
           <version>${maven-pitest-plugin.version}</version>
-          <dependencies>
-            <dependency>
-              <groupId>org.pitest</groupId>
-              <artifactId>pitest-junit5-plugin</artifactId>
-              <version>${pitest-junit5-plugin.version}</version>
-            </dependency>
-          </dependencies>
           <configuration>
             <outputFormats>XML,HTML</outputFormats>
             <excludedMethods>
@@ -247,6 +238,13 @@
               <param>*toString</param>
             </excludedMethods>
           </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>org.pitest</groupId>
+              <artifactId>pitest-junit5-plugin</artifactId>
+              <version>${pitest-junit5-plugin.version}</version>
+            </dependency>
+          </dependencies>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -473,11 +471,11 @@
             </configuration>
           </execution>
           <execution>
-            <phase>package</phase>
             <id>config</id>
             <goals>
               <goal>jar</goal>
             </goals>
+            <phase>package</phase>
             <configuration>
               <classifier>config</classifier>
               <includes>
@@ -493,13 +491,6 @@
         <groupId>org.assertj</groupId>
         <artifactId>assertj-assertions-generator-maven-plugin</artifactId>
         <version>${assertj-assertions-generator-maven-plugin.version}</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>generate-assertions</goal>
-            </goals>
-          </execution>
-        </executions>
         <configuration>
           <quiet>true</quiet>
           <cleanTargetDir>true</cleanTargetDir>
@@ -531,21 +522,18 @@
             <version>4.13.2</version>
           </dependency>
         </dependencies>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate-assertions</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
         <version>${maven-pmd-plugin.version}</version>
-        <executions>
-          <execution>
-            <id>run-pmd</id>
-            <goals>
-              <goal>pmd</goal>
-              <goal>cpd</goal>
-            </goals>
-            <phase>verify</phase>
-          </execution>
-        </executions>
         <configuration>
           <linkXRef>false</linkXRef>
           <failOnViolation>false</failOnViolation>
@@ -572,20 +560,21 @@
             <version>${pmd.version}</version>
           </dependency>
         </dependencies>
+        <executions>
+          <execution>
+            <id>run-pmd</id>
+            <goals>
+              <goal>pmd</goal>
+              <goal>cpd</goal>
+            </goals>
+            <phase>verify</phase>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>${maven-checkstyle-plugin.version}</version>
-        <executions>
-          <execution>
-            <id>run-checkstyle</id>
-            <goals>
-              <goal>checkstyle</goal>
-            </goals>
-            <phase>verify</phase>
-          </execution>
-        </executions>
         <configuration>
           <linkXRef>false</linkXRef>
           <excludes>**/*Assert*.java,**/*_jmh*,**/module-info.java</excludes>
@@ -600,20 +589,20 @@
             <version>${checkstyle.version}</version>
           </dependency>
         </dependencies>
+        <executions>
+          <execution>
+            <id>run-checkstyle</id>
+            <goals>
+              <goal>checkstyle</goal>
+            </goals>
+            <phase>verify</phase>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
         <version>${spotbugs-maven-plugin.version}</version>
-        <executions>
-          <execution>
-            <id>run-spotbugs</id>
-            <goals>
-              <goal>spotbugs</goal>
-            </goals>
-            <phase>verify</phase>
-          </execution>
-        </executions>
         <configuration>
           <failOnError>false</failOnError>
           <xmlOutput>true</xmlOutput>
@@ -638,23 +627,20 @@
             <version>${spotbugs.version}</version>
           </dependency>
         </dependencies>
+        <executions>
+          <execution>
+            <id>run-spotbugs</id>
+            <goals>
+              <goal>spotbugs</goal>
+            </goals>
+            <phase>verify</phase>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.revapi</groupId>
         <artifactId>revapi-maven-plugin</artifactId>
         <version>${revapi-maven-plugin.version}</version>
-        <dependencies>
-          <dependency>
-            <groupId>org.revapi</groupId>
-            <artifactId>revapi-java</artifactId>
-            <version>${revapi-java.version}</version>
-          </dependency>
-          <dependency>
-            <groupId>org.revapi</groupId>
-            <artifactId>revapi-reporter-json</artifactId>
-            <version>${revapi-reporter-json-version}</version>
-          </dependency>
-        </dependencies>
         <configuration>
           <skip>true</skip>
           <versionFormat>[-0-9.]*</versionFormat>
@@ -722,6 +708,18 @@
             </revapi.reporter.json>
           </analysisConfiguration>
         </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.revapi</groupId>
+            <artifactId>revapi-java</artifactId>
+            <version>${revapi-java.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>org.revapi</groupId>
+            <artifactId>revapi-reporter-json</artifactId>
+            <version>${revapi-reporter-json-version}</version>
+          </dependency>
+        </dependencies>
         <executions>
           <execution>
             <id>run-revapi</id>
@@ -745,12 +743,34 @@
           </execution>
           <execution>
             <id>report</id>
-            <phase>verify</phase>
             <goals>
               <goal>report</goal>
             </goals>
+            <phase>verify</phase>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.openrewrite.maven</groupId>
+        <artifactId>rewrite-maven-plugin</artifactId>
+        <version>5.23.3</version>
+        <configuration>
+          <activeRecipes>
+            <recipe>org.openrewrite.java.testing.assertj.SimplifyChainedAssertJAssertions</recipe>
+          </activeRecipes>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.openrewrite.recipe</groupId>
+            <artifactId>rewrite-testing-frameworks</artifactId>
+            <version>2.4.1</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>com.github.ekryd.sortpom</groupId>
+        <artifactId>sortpom-maven-plugin</artifactId>
+        <version>3.4.0</version>
       </plugin>
     </plugins>
   </build>
@@ -759,14 +779,14 @@
     <profile>
       <id>skip</id>
       <properties>
-        <revapi.skip>true</revapi.skip>
+        <checkstyle.skip>true</checkstyle.skip>
+        <gpg.skip>true</gpg.skip>
         <maven.javadoc.skip>true</maven.javadoc.skip>
         <pmd.skip>true</pmd.skip>
-        <spotbugs.skip>true</spotbugs.skip>
-        <checkstyle.skip>true</checkstyle.skip>
-        <skipTests>true</skipTests>
+        <revapi.skip>true</revapi.skip>
         <skipITs>true</skipITs>
-        <gpg.skip>true</gpg.skip>
+        <skipTests>true</skipTests>
+        <spotbugs.skip>true</spotbugs.skip>
       </properties>
     </profile>
     <profile>
@@ -808,10 +828,10 @@
             </configuration>
             <executions>
               <execution>
-                <phase>verify</phase>
                 <goals>
                   <goal>graph</goal>
                 </goals>
+                <phase>verify</phase>
               </execution>
             </executions>
           </plugin>
@@ -829,10 +849,10 @@
             <executions>
               <execution>
                 <id>sign-artifacts</id>
-                <phase>verify</phase>
                 <goals>
                   <goal>sign</goal>
                 </goals>
+                <phase>verify</phase>
               </execution>
             </executions>
           </plugin>
