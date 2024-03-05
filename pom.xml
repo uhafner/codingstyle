@@ -106,9 +106,15 @@
     <maven-enforcer-plugin.version>3.4.1</maven-enforcer-plugin.version>
     <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
     <depgraph-maven-plugin.version>4.0.3</depgraph-maven-plugin.version>
+    <sortpom-maven-plugin.version>3.4.0</sortpom-maven-plugin.version>
+
+    <!-- OpenRewrite versions   -->
     <rewrite-maven-plugin.version>5.23.3</rewrite-maven-plugin.version>
     <rewrite-testing-frameworks.version>2.4.1</rewrite-testing-frameworks.version>
     <sortpom-maven-plugin.version>3.4.0</sortpom-maven-plugin.version>
+    <rewrite-static-analysis.version>1.3.1</rewrite-static-analysis.version>
+    <rewrite-migrate-java.version>2.9.0</rewrite-migrate-java.version>
+    <rewrite-recommendations.version>1.2.2</rewrite-recommendations.version>
 
     <!-- Maven Surefire ArgLine -->
     <argLine>-Djava.util.logging.config.file=logging.properties</argLine>
@@ -297,6 +303,7 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>${maven-compiler-plugin.version}</version>
         <configuration>
@@ -396,6 +403,7 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>${maven-javadoc-plugin.version}</version>
         <configuration>
@@ -760,6 +768,15 @@
         <configuration>
           <activeRecipes>
             <recipe>org.openrewrite.java.testing.assertj.SimplifyChainedAssertJAssertions</recipe>
+            <recipe>org.openrewrite.maven.BestPractices</recipe>
+            <recipe>org.openrewrite.staticanalysis.MissingOverrideAnnotation</recipe>
+            <recipe>org.openrewrite.staticanalysis.CommonStaticAnalysis</recipe>
+            <recipe>org.openrewrite.staticanalysis.RemoveExtraSemicolons</recipe>
+            <recipe>org.openrewrite.java.migrate.Java8toJava11</recipe>
+            <recipe>org.openrewrite.java.migrate.util.SequencedCollection</recipe>
+            <recipe>org.openrewrite.java.format.RemoveTrailingWhitespace</recipe>
+            <recipe>org.openrewrite.java.format.BlankLines</recipe>
+            <recipe>org.openrewrite.java.format.EmptyNewlineAtEndOfFile</recipe>
           </activeRecipes>
         </configuration>
         <dependencies>
@@ -767,6 +784,21 @@
             <groupId>org.openrewrite.recipe</groupId>
             <artifactId>rewrite-testing-frameworks</artifactId>
             <version>${rewrite-testing-frameworks.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>org.openrewrite.recipe</groupId>
+            <artifactId>rewrite-static-analysis</artifactId>
+            <version>${rewrite-static-analysis.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>org.openrewrite.recipe</groupId>
+            <artifactId>rewrite-migrate-java</artifactId>
+            <version>${rewrite-migrate-java.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>org.openrewrite.recipe</groupId>
+            <artifactId>rewrite-recommendations</artifactId>
+            <version>${rewrite-recommendations.version}</version>
           </dependency>
         </dependencies>
       </plugin>

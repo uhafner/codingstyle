@@ -129,4 +129,3 @@ public final class LineRange implements Serializable {
         return String.format("[%d-%d]", start, end);
     }
 }
-

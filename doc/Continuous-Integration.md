@@ -52,7 +52,7 @@ Eine solche Visualisierung ist unter GitHub Actions nicht verfügbar.
 Da es für Jenkins keinen öffentlichen Service wie bei GitHub Actions gibt, um eigene Projekte zu bauen, muss die Jenkins 
 Integration lokal durchgeführt werden. Zur Vereinfachung des Jenkins Setup ist in diesem Coding Style eine
 lauffähige Jenkins Installation enthalten (im Sinne von *Infrastructure as Code*). 
-Diese kann über `jenkins.sh` im Hauptverzeichnis gestartet werden. Anschließend wird die
+Diese kann über `bin/jenkins.sh` gestartet werden. Anschließend wird die
 aktuelle Jenkins LTS Version mit allen benötigten Plugins in einem Docker Container gebaut und gestartet (das dauert
 beim ersten Aufruf etwas). Dazu wird ebenso ein als Docker Container initialisierter Java Agent (**Achtung**: Java 8) 
 verbunden, der die Builds ausführt. 

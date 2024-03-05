@@ -2,6 +2,7 @@ node
 node_modules
 target
 *.iml
+*.bak
 .classpath
 .project
 .settings
@@ -11,4 +12,5 @@ release.properties
 metrics.env
 maven.log
 .DS_Store
+.idea
 /package-lock.json
