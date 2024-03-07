@@ -1,0 +1,31 @@
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+setup:
+  stage: .pre
+  script:
+    - java -version
+    - mvn --version
+    - echo CI_BUILDS_DIR = $CI_BUILDS_DIR
+    - echo CI_PROJECT_DIR = $CI_PROJECT_DIR
+
+build:
+  stage: build
+  artifacts:
+    paths:
+      - target
+  script:
+    - mvn -V --color always -ntp clean verify --file pom.xml '-Dgpg.skip' -Ppit
+
+test:
+  image: uhafner/autograding-gitlab-action:1.5.0
+  stage: test
+  script:
+    - java -cp @/app/jib-classpath-file edu.hm.hafner.grading.gitlab.GitLabAutoGradingRunner
+
+
+
+
