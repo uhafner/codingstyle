@@ -189,7 +189,7 @@ public final class ArchitectureRules {
         @Override
         public boolean test(final JavaConstructorCall javaConstructorCall) {
             ConstructorCallTarget target = javaConstructorCall.getTarget();
-            if (target.getRawParameterTypes().size() > 0) {
+            if (!target.getRawParameterTypes().isEmpty()) {
                 return false;
             }
             return target.getOwner().isAssignableTo(Throwable.class)
