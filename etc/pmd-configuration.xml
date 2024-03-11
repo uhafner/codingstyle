@@ -11,7 +11,6 @@
     <exclude name="JUnitTestContainsTooManyAsserts"/>
     <exclude name="JUnitTestsShouldIncludeAssert"/>
     <exclude name="JUnitAssertionsShouldIncludeMessage"/>
-    <exclude name="UnusedImports"/>
     <exclude name="GuardLogStatement"/>
     <exclude name="AccessorMethodGeneration"/>
     <exclude name="JUnit5TestShouldBePackagePrivate"/>
@@ -25,7 +24,6 @@
     <exclude name="FieldDeclarationsShouldBeAtStartOfClass"/>
     <exclude name="CommentDefaultAccessModifier"/>
     <exclude name="LocalVariableCouldBeFinal"/>
-    <exclude name="DefaultPackage"/>
     <exclude name="LongVariable"/>
     <exclude name="ShortVariable"/>
     <exclude name="ShortClassName"/>
@@ -69,16 +67,8 @@
     <exclude name="FinalFieldCouldBeStatic"/>
     <exclude name="AvoidUncheckedExceptionsInSignatures"/>
     <exclude name="ExcessiveImports"/>
-    <exclude name="ImmutableField"/>
   </rule>
-  <rule ref="category/java/design.xml/ImmutableField">
-    <properties>
-      <property name="ignoredAnnotations" value="org.junit.jupiter.api.io.TempDir|javax.inject.Inject|com.google.inject.Inject"/>
-    </properties>
-  </rule>
-
   <rule ref="category/java/errorprone.xml">
-    <exclude name="DataflowAnomalyAnalysis"/>
     <exclude name="AvoidDuplicateLiterals"/>
     <exclude name="TestClassWithoutTestCases"/>
     <exclude name="EmptyCatchBlock"/>
