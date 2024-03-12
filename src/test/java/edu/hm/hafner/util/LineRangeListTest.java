@@ -1,5 +1,7 @@
 package edu.hm.hafner.util;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
@@ -75,15 +77,15 @@ class LineRangeListTest {
 
     @Test
     void shouldProvideContains() {
-        LineRangeList last = createThreeElements();
+        var last = createThreeElements();
         last.remove(new LineRange(4, 5));
         assertThat(last).containsExactly(new LineRange(0, 1), new LineRange(2, 3));
 
-        LineRangeList middle = createThreeElements();
+        var middle = createThreeElements();
         middle.remove(new LineRange(2, 3));
         assertThat(middle).containsExactly(new LineRange(0, 1), new LineRange(4, 5));
 
-        LineRangeList first = createThreeElements();
+        var first = createThreeElements();
         assertThat(first.contains(new LineRange(0, 1))).isTrue();
         assertThat(first.contains(new LineRange(2, 3))).isTrue();
         assertThat(first.contains(new LineRange(4, 5))).isTrue();
@@ -95,7 +97,7 @@ class LineRangeListTest {
         assertThat(first.contains(new LineRange(0, 1))).isFalse();
     }
 
-    private LineRangeList createThreeElements() {
+    private List<LineRange> createThreeElements() {
         var range = new LineRangeList();
         range.add(new LineRange(0, 1));
         range.add(new LineRange(2, 3));

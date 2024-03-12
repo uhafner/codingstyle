@@ -3,7 +3,7 @@
 <ruleset xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          name="pmd-eclipse"
-         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
   <description>Ullrich Hafner's PMD rules</description>
 
   <rule ref="category/java/bestpractices.xml">
@@ -16,6 +16,12 @@
     <exclude name="JUnit5TestShouldBePackagePrivate"/>
     <exclude name="JUnit4TestShouldUseTestAnnotation"/>
     <exclude name="UnusedPrivateMethod"/>
+    <exclude name="LooseCoupling"/>
+  </rule>
+  <rule ref="category/java/bestpractices.xml/LooseCoupling">
+    <properties>
+      <property name="allowedTypes" value="com.tngtech.archunit.core.domain.JavaClasses"/>
+    </properties>
   </rule>
   <rule ref="category/java/codestyle.xml">
     <exclude name="EmptyControlStatement"/>
@@ -67,6 +73,12 @@
     <exclude name="FinalFieldCouldBeStatic"/>
     <exclude name="AvoidUncheckedExceptionsInSignatures"/>
     <exclude name="ExcessiveImports"/>
+    <exclude name="SimplifyBooleanReturns"/>
+  </rule>
+  <rule ref="category/java/design.xml/SimplifyBooleanReturns">
+    <properties>
+      <property name="violationSuppressXPath" value="./ancestor::*[@Name = 'equals']"/>
+    </properties>
   </rule>
   <rule ref="category/java/errorprone.xml">
     <exclude name="AvoidDuplicateLiterals"/>
