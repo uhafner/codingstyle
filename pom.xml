@@ -588,7 +588,6 @@
         <configuration>
           <linkXRef>false</linkXRef>
           <excludeGeneratedSources>true</excludeGeneratedSources>
-          <excludes>**/module-info.java</excludes>
           <failsOnError>false</failsOnError>
         </configuration>
         <dependencies>
@@ -606,10 +605,9 @@
             </goals>
             <phase>verify</phase>
             <configuration>
-              <linkXRef>false</linkXRef>
-              <excludes>**/*Assert*.java,**/*_jmh*,**/module-info.java</excludes>
-              <configLocation>etc/checkstyle-java-configuration.xml</configLocation>
+              <excludes>**/module-info.java</excludes>
               <includeTestSourceDirectory>false</includeTestSourceDirectory>
+              <configLocation>etc/checkstyle-java-configuration.xml</configLocation>
               <outputFile>${project.build.directory}/checkstyle-java/checkstyle-result.xml</outputFile>
             </configuration>
           </execution>
@@ -621,8 +619,8 @@
             <phase>verify</phase>
             <configuration>
               <excludes>**/*Assert*.java,**/*_jmh*,**/module-info.java</excludes>
-              <configLocation>etc/checkstyle-tests-configuration.xml</configLocation>
               <includeTestSourceDirectory>true</includeTestSourceDirectory>
+              <configLocation>etc/checkstyle-tests-configuration.xml</configLocation>
               <outputFile>${project.build.directory}/checkstyle-tests/checkstyle-result.xml</outputFile>
             </configuration>
           </execution>
