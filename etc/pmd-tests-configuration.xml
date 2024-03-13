@@ -69,6 +69,7 @@
     <exclude name="AvoidUncheckedExceptionsInSignatures"/>
     <exclude name="ExcessiveImports"/>
     <exclude name="SimplifyBooleanReturns"/>
+    <exclude name="DataClass"/>
   </rule>
   <rule ref="category/java/design.xml/SimplifyBooleanReturns">
     <properties>

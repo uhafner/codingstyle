@@ -30,8 +30,7 @@ import static org.assertj.core.api.Assumptions.*;
  *
  * @author Ullrich Hafner
  */
-@SuppressWarnings("PMD.AbstractClassWithoutAbstractMethod")
-public abstract class ResourceTest {
+public class ResourceTest {
     /**
      * Returns whether the OS under test is Windows or Unix.
      *

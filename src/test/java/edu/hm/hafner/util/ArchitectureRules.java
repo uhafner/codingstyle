@@ -30,7 +30,6 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
  *
  * @author Ullrich Hafner
  */
-@SuppressWarnings("PMD.DataClass")
 public final class ArchitectureRules {
     /** Tests should not use fields. Recommendation is to use factory methods for stubs and mocks. */
     public static final ArchRule NO_FIELDS_IN_TESTS =

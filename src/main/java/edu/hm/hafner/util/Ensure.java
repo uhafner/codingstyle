@@ -13,7 +13,7 @@ import edu.umd.cs.findbugs.annotations.CheckReturnValue;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * Provides several helper methods to validate method arguments and class invariants thus supporting the design by
+ * Provides several helper methods to validate method arguments and class invariants, thus supporting the design by
  * contract concept (DBC).
  *
  * <p>
@@ -34,7 +34,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * @author Ullrich Hafner
  * @see <a href="http://se.ethz.ch/~meyer/publications/computer/contract.pdf"> Design by Contract (Meyer, Bertrand)</a>
  */
-@SuppressWarnings({"NonBooleanMethodNameMayNotStartWithQuestion", "CyclicClassDependency", "NullAway"})
 public final class Ensure {
     /**
      * Returns a boolean condition.
@@ -44,7 +43,6 @@ public final class Ensure {
      *
      * @return a boolean condition
      */
-    @SuppressWarnings("BooleanParameter")
     @CheckReturnValue
     public static BooleanCondition that(final boolean value) {
         return new BooleanCondition(value);
@@ -169,7 +167,7 @@ public final class Ensure {
      *         always thrown
      */
     @FormatMethod
-    private static void throwException(final String message, final Object... args) {
+    private static void throwException(final String message, @CheckForNull final Object... args) {
         throw new AssertionError(String.format(message, args));
     }
 
@@ -260,7 +258,6 @@ public final class Ensure {
          * @param value
          *         value of the condition
          */
-        @SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
         public CollectionCondition(@CheckForNull final Collection<?> value) {
             super(value);
         }
@@ -503,6 +500,7 @@ public final class Ensure {
     public static class ObjectCondition<T> {
         @CheckForNull
         private final T value;
+        @CheckForNull
         private final Object[] additionalValues;
 
         /**
@@ -524,8 +522,8 @@ public final class Ensure {
          *         additional values of the condition
          */
         @SuppressFBWarnings("EI2")
-        @SuppressWarnings({"AssignmentToCollectionOrArrayFieldFromParameter", "PMD.ArrayIsStoredDirectly"})
-        public ObjectCondition(@CheckForNull final T value, final Object... additionalValues) {
+        @SuppressWarnings("PMD.ArrayIsStoredDirectly")
+        public ObjectCondition(@CheckForNull final T value, @CheckForNull final Object... additionalValues) {
             this.value = value;
             this.additionalValues = additionalValues;
         }
@@ -555,12 +553,14 @@ public final class Ensure {
          */
         @FormatMethod
         public void isNotNull(final String explanation, final Object... args) {
-            if (value == null) {
+            if (value == null || additionalValues == null) {
                 throwNullPointerException(explanation, args);
             }
-            for (Object additionalValue : additionalValues) {
-                if (additionalValue == null) {
-                    throwNullPointerException(explanation, args);
+            else {
+                for (Object additionalValue : additionalValues) {
+                    if (additionalValue == null) {
+                        throwNullPointerException(explanation, args);
+                    }
                 }
             }
         }
@@ -597,7 +597,6 @@ public final class Ensure {
          * @throws AssertionError
          *         if the object is not {@code null}
          */
-        @SuppressWarnings("VariableNotUsedInsideIf")
         @FormatMethod
         public void isNull(final String explanation, final Object... args) {
             if (value != null) {
@@ -669,7 +668,6 @@ public final class Ensure {
          * @param value
          *         value of the condition
          */
-        @SuppressWarnings("BooleanParameter")
         public BooleanCondition(final boolean value) {
             this.value = value;
         }
