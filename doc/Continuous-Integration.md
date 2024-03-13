@@ -11,12 +11,12 @@ definiert, d.h. eine Aktualisierung lässt sich im entsprechenden Abschnitt leic
 über den [Dependabot](https://dependabot.com) Roboter von GitHub automatisch über einen Pull Request aktualisiert. 
 U.a. sind die folgenden Plugins vorkonfiguriert:
 - maven-compiler-plugin: konfiguriert die Java Version auf Java 8 und legt alle Error Prone Regeln fest. Die Java 
-  Version kann beliebig aktualisert werden. 
+  Version kann beliebig aktualisiert werden. 
 - maven-javadoc-plugin: aktiviert die strikte Prüfung von JavaDoc Kommentaren
 - maven-jar-plugin: legt einen Modulnamen fest, falls das Projekt in Java 9 oder höher verwendet wird. Außerdem wird
 ein test-jar konfiguriert, sodass alle Tests (und abstrakte Testklassen) auch als Dependencies genutzt werden können.
 - maven-pmd-plugin: prüft das Projekt mit PMD, die Regeln liegen in der Datei [pmd-configuration.xml](../etc/pmd-configuration.xml).
-- maven-checkstyle-plugin: prüft das Projekt mit CheckStyle, die Regeln liegen in der Datei [checkstyle-configuration.xml](../etc/checkstyle-configuration.xml).
+- maven-checkstyle-plugin: prüft das Projekt mit CheckStyle, die Regeln liegen in den Dateien [checkstyle-java-configuration.xml](../etc/checkstyle-java-configuration.xml) und [checkstyle-tests-configuration.xml](../etc/checkstyle-tests-configuration.xml).
 - spotbugs-maven-plugin: prüft das Projekt mit SpotBugs, alle Regeln werden verwendet mit den Ausnahmen definiert in der Datei [spotbugs-exclusion-filter.xml](../etc/spotbugs-exclusion-filter.xml).
 - org.revapi: prüft, ob die aktuelle Versionsnummer die [semantische Versionierung](https://semver.org) berücksichtigt (source and binary). D.h. es gilt:
     1. Eine neue **Major** Version wurde definiert, wenn das API nicht mehr abwärtskompatibel ist.

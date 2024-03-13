@@ -587,10 +587,8 @@
         <version>${maven-checkstyle-plugin.version}</version>
         <configuration>
           <linkXRef>false</linkXRef>
-          <excludes>**/*Assert*.java,**/*_jmh*,**/module-info.java</excludes>
-          <failOnViolation>false</failOnViolation>
-          <configLocation>etc/checkstyle-configuration.xml</configLocation>
-          <includeTestSourceDirectory>true</includeTestSourceDirectory>
+          <excludeGeneratedSources>true</excludeGeneratedSources>
+          <failsOnError>false</failsOnError>
         </configuration>
         <dependencies>
           <dependency>
@@ -601,11 +599,30 @@
         </dependencies>
         <executions>
           <execution>
-            <id>run-checkstyle</id>
+            <id>run-checkstyle-java</id>
             <goals>
               <goal>checkstyle</goal>
             </goals>
             <phase>verify</phase>
+            <configuration>
+              <excludes>**/module-info.java</excludes>
+              <includeTestSourceDirectory>false</includeTestSourceDirectory>
+              <configLocation>etc/checkstyle-java-configuration.xml</configLocation>
+              <outputFile>${project.build.directory}/checkstyle-java/checkstyle-result.xml</outputFile>
+            </configuration>
+          </execution>
+          <execution>
+            <id>run-checkstyle-tests</id>
+            <goals>
+              <goal>checkstyle</goal>
+            </goals>
+            <phase>verify</phase>
+            <configuration>
+              <excludes>**/*Assert*.java,**/*_jmh*,**/module-info.java</excludes>
+              <includeTestSourceDirectory>true</includeTestSourceDirectory>
+              <configLocation>etc/checkstyle-tests-configuration.xml</configLocation>
+              <outputFile>${project.build.directory}/checkstyle-tests/checkstyle-result.xml</outputFile>
+            </configuration>
           </execution>
         </executions>
       </plugin>
