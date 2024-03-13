@@ -490,7 +490,7 @@
               <classifier>config</classifier>
               <includes>
                 <include>**/checkstyle-configuration.xml</include>
-                <include>**/pmd-configuration.xml</include>
+                <include>**/pmd-*-configuration.xml</include>
                 <include>**/spotbugs-exclusion-filter.xml</include>
               </includes>
             </configuration>
@@ -547,16 +547,7 @@
         <configuration>
           <linkXRef>false</linkXRef>
           <failOnViolation>false</failOnViolation>
-          <rulesets>
-            <ruleset>etc/pmd-configuration.xml</ruleset>
-          </rulesets>
           <targetJdk>${java.version}</targetJdk>
-          <includeTests>true</includeTests>
-          <minimumTokens>50</minimumTokens>
-          <excludeRoots>
-            <excludeRoot>target/generated-test-sources/test-annotations</excludeRoot>
-            <excludeRoot>target/generated-test-sources/assertj-assertions</excludeRoot>
-          </excludeRoots>
         </configuration>
         <dependencies>
           <dependency>
@@ -587,12 +578,41 @@
         </dependencies>
         <executions>
           <execution>
-            <id>run-pmd</id>
+            <id>run-pmd-java</id>
             <goals>
               <goal>pmd</goal>
               <goal>cpd</goal>
             </goals>
             <phase>verify</phase>
+            <configuration>
+              <targetDirectory>${project.build.directory}/pmd-java</targetDirectory>
+              <rulesets>
+                <ruleset>etc/pmd-java-configuration.xml</ruleset>
+              </rulesets>
+              <includeTests>false</includeTests>
+              <minimumTokens>50</minimumTokens>
+            </configuration>
+          </execution>
+          <execution>
+            <id>run-pmd-tests</id>
+            <goals>
+              <goal>pmd</goal>
+              <goal>cpd</goal>
+            </goals>
+            <phase>verify</phase>
+            <configuration>
+              <targetDirectory>${project.build.directory}/pmd-tests</targetDirectory>
+              <rulesets>
+                <ruleset>etc/pmd-tests-configuration.xml</ruleset>
+              </rulesets>
+              <includeTests>true</includeTests>
+              <minimumTokens>100</minimumTokens>
+              <excludeRoots>
+                <excludeRoot>src/main/java</excludeRoot>
+                <excludeRoot>${project.build.directory}/generated-test-sources/test-annotations</excludeRoot>
+                <excludeRoot>${project.build.directory}/generated-test-sources/assertj-assertions</excludeRoot>
+              </excludeRoots>
+            </configuration>
           </execution>
         </executions>
       </plugin>
