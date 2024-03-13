@@ -30,8 +30,7 @@ import static org.assertj.core.api.Assumptions.*;
  *
  * @author Ullrich Hafner
  */
-@SuppressWarnings("PMD.AbstractClassWithoutAbstractMethod")
-public abstract class ResourceTest {
+public class ResourceTest {
     /**
      * Returns whether the OS under test is Windows or Unix.
      *
@@ -223,7 +222,7 @@ public abstract class ResourceTest {
      *
      * @return the content represented by a byte array
      */
-    @SuppressWarnings({"resource", "IOResourceOpenedButNotSafelyClosed"})
+    @SuppressWarnings("IOResourceOpenedButNotSafelyClosed")
     protected Stream<String> getTextLinesAsStream(final String text) {
         return new BufferedReader(new StringReader(text)).lines();
     }

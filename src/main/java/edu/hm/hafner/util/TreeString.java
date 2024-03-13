@@ -52,7 +52,7 @@ public final class TreeString implements Serializable {
     }
 
     String getLabel() {
-        return new String(label);
+        return String.valueOf(label);
     }
 
     /**

@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assumptions.*;
  * @author Ullrich Hafner
  */
 @SuppressFBWarnings("DMI")
-@SuppressWarnings("NullAway")
+@SuppressWarnings("NullAway") // in tests, we do not care about null values when the path does not exist
 class PathUtilTest extends ResourceTest {
     private static final String NOT_EXISTING = "/should/not/exist";
     private static final String ILLEGAL = "\0 Null-Byte";

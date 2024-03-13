@@ -118,7 +118,6 @@ public class TreeStringBuilder {
         /**
          * Makes sure {@link #children} is writable.
          */
-        @SuppressWarnings("PMD.CompareObjectsWithEquals")
         private void makeWritable() {
             if (children == NO_CHILDREN) {
                 children = new HashMap<>();

@@ -1,6 +1,6 @@
 # Continuous Integration des Coding Style
 
-Gemäß des Grundsatzes **eat your own dogfood** ist dieser Coding Style bereits für die Continuous Integration
+Gemäß dem Grundsatz **eat your own dogfood** ist dieser Coding Style bereits für die Continuous Integration
 in [GitHub Actions](https://github.com/features/actions) und [Jenkins](https://jenkins.io) vorbereitet. 
 
 ## Maven Konfiguration
@@ -15,7 +15,7 @@ U.a. sind die folgenden Plugins vorkonfiguriert:
 - maven-javadoc-plugin: aktiviert die strikte Prüfung von JavaDoc Kommentaren
 - maven-jar-plugin: legt einen Modulnamen fest, falls das Projekt in Java 9 oder höher verwendet wird. Außerdem wird
 ein test-jar konfiguriert, sodass alle Tests (und abstrakte Testklassen) auch als Dependencies genutzt werden können.
-- maven-pmd-plugin: prüft das Projekt mit PMD, die Regeln liegen in der Datei [pmd-configuration.xml](../etc/pmd-configuration.xml).
+- maven-pmd-plugin: prüft das Projekt mit PMD, die Regeln liegen in den Dateien [pmd-java-configuration.xml](../etc/pmd-java-configuration.xml), [pmd-tests-configuration.xml](../etc/pmd-tests-configuration.xml) und [pmd-javascript-configuration.xml](../etc/pmd-javascript-configuration.xml).
 - maven-checkstyle-plugin: prüft das Projekt mit CheckStyle, die Regeln liegen in den Dateien [checkstyle-java-configuration.xml](../etc/checkstyle-java-configuration.xml) und [checkstyle-tests-configuration.xml](../etc/checkstyle-tests-configuration.xml).
 - spotbugs-maven-plugin: prüft das Projekt mit SpotBugs, alle Regeln werden verwendet mit den Ausnahmen definiert in der Datei [spotbugs-exclusion-filter.xml](../etc/spotbugs-exclusion-filter.xml).
 - org.revapi: prüft, ob die aktuelle Versionsnummer die [semantische Versionierung](https://semver.org) berücksichtigt (source and binary). D.h. es gilt:

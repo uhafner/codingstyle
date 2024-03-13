@@ -13,7 +13,6 @@ import edu.hm.hafner.util.ArchitectureTest.DoNotIncludeRulesUnderTest;
  *
  * @author Ullrich Hafner
  */
-@SuppressWarnings("hideutilityclassconstructor")
 @AnalyzeClasses(packages = "edu.hm.hafner", importOptions = DoNotIncludeRulesUnderTest.class)
 class ArchitectureTest {
     @ArchTest
