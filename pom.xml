@@ -94,7 +94,7 @@
     <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
     <maven-pitest-plugin.version>1.15.8</maven-pitest-plugin.version>
     <pitest-junit5-plugin.version>1.2.1</pitest-junit5-plugin.version>
-    <error-prone.version>2.25.0</error-prone.version>
+    <error-prone.version>2.26.1</error-prone.version>
     <nullaway.version>0.10.24</nullaway.version>
     <revapi-maven-plugin.version>0.15.0</revapi-maven-plugin.version>
     <revapi-java.version>0.28.1</revapi-java.version>
@@ -110,9 +110,9 @@
 
     <!-- OpenRewrite versions   -->
     <rewrite-maven-plugin.version>5.24.0</rewrite-maven-plugin.version>
-    <rewrite-testing-frameworks.version>2.4.1</rewrite-testing-frameworks.version>
+    <rewrite-testing-frameworks.version>2.5.0</rewrite-testing-frameworks.version>
     <rewrite-static-analysis.version>1.3.1</rewrite-static-analysis.version>
-    <rewrite-migrate-java.version>2.9.1</rewrite-migrate-java.version>
+    <rewrite-migrate-java.version>2.10.0</rewrite-migrate-java.version>
     <rewrite-recommendations.version>1.2.3</rewrite-recommendations.version>
 
     <!-- Maven Surefire ArgLine -->
@@ -622,10 +622,8 @@
         <version>${maven-checkstyle-plugin.version}</version>
         <configuration>
           <linkXRef>false</linkXRef>
-          <excludes>**/*Assert*.java,**/*_jmh*,**/module-info.java</excludes>
-          <failOnViolation>false</failOnViolation>
-          <configLocation>etc/checkstyle-configuration.xml</configLocation>
-          <includeTestSourceDirectory>true</includeTestSourceDirectory>
+          <excludeGeneratedSources>true</excludeGeneratedSources>
+          <failsOnError>false</failsOnError>
         </configuration>
         <dependencies>
           <dependency>
@@ -636,11 +634,30 @@
         </dependencies>
         <executions>
           <execution>
-            <id>run-checkstyle</id>
+            <id>run-checkstyle-java</id>
             <goals>
               <goal>checkstyle</goal>
             </goals>
             <phase>verify</phase>
+            <configuration>
+              <excludes>**/module-info.java</excludes>
+              <includeTestSourceDirectory>false</includeTestSourceDirectory>
+              <configLocation>etc/checkstyle-java-configuration.xml</configLocation>
+              <outputFile>${project.build.directory}/checkstyle-java/checkstyle-result.xml</outputFile>
+            </configuration>
+          </execution>
+          <execution>
+            <id>run-checkstyle-tests</id>
+            <goals>
+              <goal>checkstyle</goal>
+            </goals>
+            <phase>verify</phase>
+            <configuration>
+              <excludes>**/*Assert*.java,**/*_jmh*,**/module-info.java</excludes>
+              <includeTestSourceDirectory>true</includeTestSourceDirectory>
+              <configLocation>etc/checkstyle-tests-configuration.xml</configLocation>
+              <outputFile>${project.build.directory}/checkstyle-tests/checkstyle-result.xml</outputFile>
+            </configuration>
           </execution>
         </executions>
       </plugin>
