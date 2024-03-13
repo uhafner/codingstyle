@@ -222,7 +222,7 @@ public class ResourceTest {
      *
      * @return the content represented by a byte array
      */
-    @SuppressWarnings({"resource", "IOResourceOpenedButNotSafelyClosed"})
+    @SuppressWarnings("IOResourceOpenedButNotSafelyClosed")
     protected Stream<String> getTextLinesAsStream(final String text) {
         return new BufferedReader(new StringReader(text)).lines();
     }
