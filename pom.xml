@@ -104,7 +104,7 @@
     <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
     <assertj-assertions-generator-maven-plugin.version>2.2.0</assertj-assertions-generator-maven-plugin.version>
     <maven-enforcer-plugin.version>3.4.1</maven-enforcer-plugin.version>
-    <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
+    <maven-dependency-plugin.version>3.6.1</maven-dependency-plugin.version>
     <depgraph-maven-plugin.version>4.0.3</depgraph-maven-plugin.version>
     <sortpom-maven-plugin.version>3.4.1</sortpom-maven-plugin.version>
 
@@ -253,6 +253,11 @@
               <version>${pitest-junit5-plugin.version}</version>
             </dependency>
           </dependencies>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>${maven-dependency-plugin.version}</version>
         </plugin>
       </plugins>
     </pluginManagement>
