@@ -51,7 +51,7 @@ Zunächst müssen Sie das Repository auf den eigenen Rechner holen. Git ist ein 
 git clone git clone git@gitlab.lrz.de:dev/courses/summer-2024/arc/assignment1/assignment1-gruppe1.git 
 ```
 
-Falls noch kein [SSH Schlüssel auf GitLab](https://docs.GitLab.com/en/free-pro-team@latest/GitLab/authenticating-to-GitLab/adding-a-new-ssh-key-to-your-GitLab-account) hinterlegt ist, lässt sich das alternativ auch mit HTTPS erledigen:
+Falls noch kein [SSH Schlüssel auf GitLab](https://docs.gitlab.com/ee/user/ssh.html) hinterlegt ist, lässt sich das alternativ auch mit HTTPS erledigen:
 
 ```shell
 # Clone your repository to your local machine using HTTPS
