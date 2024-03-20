@@ -11,9 +11,6 @@ können. Diese können bei Bedarf mit einem einfachen Kommando angewendet werden
 die korrekte Formatierung eines Quelltextstücks zu sehen, ist lediglich das entsprechende
 Kommando der Entwicklungsumgebung aufzurufen.
 
-**Achtung:** Die Entwicklungsumgebung [Greenfoot](http://www.greenfoot.org) selbst ist nicht 
-so mächtig und korrigiert nur die Einrückung, nicht aber die Verwendung von Leerzeichen.
-
 ## Einrücken
 
 Die öffnende Klammer eines Blocks steht immer auf der gleichen Zeile wie die Anweisung davor. Die folgenden Anweisungen
@@ -263,7 +260,7 @@ public final class StringContainsUtils {
         if (StringUtils.isEmpty(input)) {
             return false;
         }
-        if (searchTexts == null || searchTexts.length == 0) {
+        if (searchTexts == null) {
             return false;
         }
 
