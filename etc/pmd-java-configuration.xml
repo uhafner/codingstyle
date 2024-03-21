@@ -7,41 +7,41 @@
   <description>Ullrich Hafner's PMD rules</description>
 
   <rule ref="category/java/bestpractices.xml">
-    <exclude name="LiteralsFirstInComparisons"/>
+    <exclude name="AccessorMethodGeneration"/>
+    <exclude name="GuardLogStatement"/>
+    <exclude name="JUnit4TestShouldUseTestAnnotation"/>
+    <exclude name="JUnit5TestShouldBePackagePrivate"/>
+    <exclude name="JUnitAssertionsShouldIncludeMessage"/>
     <exclude name="JUnitTestContainsTooManyAsserts"/>
     <exclude name="JUnitTestsShouldIncludeAssert"/>
-    <exclude name="JUnitAssertionsShouldIncludeMessage"/>
-    <exclude name="GuardLogStatement"/>
-    <exclude name="AccessorMethodGeneration"/>
-    <exclude name="JUnit5TestShouldBePackagePrivate"/>
-    <exclude name="JUnit4TestShouldUseTestAnnotation"/>
+    <exclude name="LiteralsFirstInComparisons"/>
     <exclude name="UnusedPrivateMethod"/>
   </rule>
   <rule ref="category/java/codestyle.xml">
-    <exclude name="EmptyControlStatement"/>
     <exclude name="AtLeastOneConstructor"/>
-    <exclude name="UnnecessaryConstructor"/>
-    <exclude name="FieldDeclarationsShouldBeAtStartOfClass"/>
-    <exclude name="CommentDefaultAccessModifier"/>
-    <exclude name="LocalVariableCouldBeFinal"/>
-    <exclude name="LongVariable"/>
-    <exclude name="ShortVariable"/>
-    <exclude name="ShortClassName"/>
-    <exclude name="OnlyOneReturn"/>
-    <exclude name="EmptyMethodInAbstractClassShouldBeAbstract"/>
-    <exclude name="ConfusingTernary"/>
-    <exclude name="LocalVariableNamingConventions"/>
     <exclude name="ClassNamingConventions"/>
-  </rule>
-  <rule ref="category/java/codestyle.xml/UnnecessaryConstructor">
-    <properties>
-      <property name="ignoredAnnotations" value="org.kohsuke.stapler.DataBoundConstructor"/>
-    </properties>
+    <exclude name="CommentDefaultAccessModifier"/>
+    <exclude name="ConfusingTernary"/>
+    <exclude name="EmptyControlStatement"/>
+    <exclude name="EmptyMethodInAbstractClassShouldBeAbstract"/>
+    <exclude name="FieldDeclarationsShouldBeAtStartOfClass"/>
+    <exclude name="LocalVariableCouldBeFinal"/>
+    <exclude name="LocalVariableNamingConventions"/>
+    <exclude name="LongVariable"/>
+    <exclude name="OnlyOneReturn"/>
+    <exclude name="ShortClassName"/>
+    <exclude name="ShortVariable"/>
+    <exclude name="UnnecessaryConstructor"/>
   </rule>
   <rule ref="category/java/codestyle.xml/ClassNamingConventions">
     <properties>
       <property name="utilityClassPattern" value="[A-Z][a-zA-Z0-9]+"/>
       <property name="testClassPattern" value="^[A-Z][a-zA-Z0-9]+Test.*$|^[A-Z][a-zA-Z0-9]+Benchmark.*$|"/>
+    </properties>
+  </rule>
+  <rule ref="category/java/codestyle.xml/ConfusingTernary">
+    <properties>
+      <property name="ignoreElseIf" value="true"/>
     </properties>
   </rule>
   <rule ref="category/java/codestyle.xml/LinguisticNaming">
@@ -50,24 +50,24 @@
       <property name="booleanMethodPrefixes" value="is|has|can|have|will" />
     </properties>
   </rule>
-  <rule ref="category/java/codestyle.xml/ConfusingTernary">
+  <rule ref="category/java/codestyle.xml/UnnecessaryConstructor">
     <properties>
-      <property name="ignoreElseIf" value="true"/>
+      <property name="ignoredAnnotations" value="org.kohsuke.stapler.DataBoundConstructor"/>
     </properties>
   </rule>
   <rule ref="category/java/design.xml">
-    <exclude name="LoosePackageCoupling"/>
-    <exclude name="LawOfDemeter"/>
-    <exclude name="TooManyMethods"/>
-    <exclude name="ClassWithOnlyPrivateConstructorsShouldBeFinal"/>
-    <exclude name="ExcessiveParameterList"/>
-    <exclude name="ExcessiveMethodLength"/>
-    <exclude name="UseObjectForClearerAPI"/>
     <exclude name="AvoidCatchingGenericException"/>
-    <exclude name="FinalFieldCouldBeStatic"/>
     <exclude name="AvoidUncheckedExceptionsInSignatures"/>
+    <exclude name="ClassWithOnlyPrivateConstructorsShouldBeFinal"/>
     <exclude name="ExcessiveImports"/>
+    <exclude name="ExcessiveMethodLength"/>
+    <exclude name="ExcessiveParameterList"/>
+    <exclude name="FinalFieldCouldBeStatic"/>
+    <exclude name="LawOfDemeter"/>
+    <exclude name="LoosePackageCoupling"/>
     <exclude name="SimplifyBooleanReturns"/>
+    <exclude name="TooManyMethods"/>
+    <exclude name="UseObjectForClearerAPI"/>
   </rule>
   <rule ref="category/java/design.xml/SimplifyBooleanReturns">
     <properties>
@@ -76,9 +76,9 @@
   </rule>
   <rule ref="category/java/errorprone.xml">
     <exclude name="AvoidDuplicateLiterals"/>
-    <exclude name="TestClassWithoutTestCases"/>
-    <exclude name="EmptyCatchBlock"/>
     <exclude name="AvoidLiteralsInIfCondition"/>
+    <exclude name="EmptyCatchBlock"/>
+    <exclude name="TestClassWithoutTestCases"/>
     <exclude name="UseProperClassLoader"/>
   </rule>
   <rule ref="category/java/errorprone.xml/AvoidLiteralsInIfCondition">
@@ -97,8 +97,8 @@
   <rule ref="category/java/performance.xml">
     <exclude name="AppendCharacterWithChar"/>
     <exclude name="AvoidInstantiatingObjectsInLoops"/>
-    <exclude name="RedundantFieldInitializer"/>
     <exclude name="ConsecutiveAppendsShouldReuse"/>
+    <exclude name="RedundantFieldInitializer"/>
     <exclude name="UseStringBufferForStringAppends"/>
   </rule>
   <rule ref="category/java/security.xml">
