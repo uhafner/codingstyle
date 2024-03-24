@@ -1,20 +1,20 @@
-<svg width="78.9" height="20" viewBox="0 0 789 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Warnings: 4">
-  <title>Warnings: 4</title>
+<svg width="85.9" height="20" viewBox="0 0 859 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Warnings: 95">
+  <title>Warnings: 95</title>
   <linearGradient id="a" x2="0" y2="100%">
     <stop offset="0" stop-opacity=".1" stop-color="#EEE"/>
     <stop offset="1" stop-opacity=".1"/>
   </linearGradient>
-  <mask id="m"><rect width="789" height="200" rx="30" fill="#FFF"/></mask>
+  <mask id="m"><rect width="859" height="200" rx="30" fill="#FFF"/></mask>
   <g mask="url(#m)">
     <rect width="619" height="200" fill="#555"/>
-    <rect width="170" height="200" fill="#F73" x="619"/>
-    <rect width="789" height="200" fill="url(#a)"/>
+    <rect width="240" height="200" fill="#F73" x="619"/>
+    <rect width="859" height="200" fill="url(#a)"/>
   </g>
   <g aria-hidden="true" fill="#fff" text-anchor="start" font-family="Verdana,DejaVu Sans,sans-serif" font-size="110">
     <text x="60" y="148" textLength="519" fill="#000" opacity="0.25">Warnings</text>
     <text x="50" y="138" textLength="519">Warnings</text>
-    <text x="674" y="148" textLength="70" fill="#000" opacity="0.25">4</text>
-    <text x="664" y="138" textLength="70">4</text>
+    <text x="674" y="148" textLength="140" fill="#000" opacity="0.25">95</text>
+    <text x="664" y="138" textLength="140">95</text>
   </g>
   
 </svg>
