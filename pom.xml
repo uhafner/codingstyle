@@ -109,7 +109,7 @@
     <sortpom-maven-plugin.version>3.4.1</sortpom-maven-plugin.version>
 
     <!-- OpenRewrite versions   -->
-    <rewrite-maven-plugin.version>5.26.0</rewrite-maven-plugin.version>
+    <rewrite-maven-plugin.version>5.27.0</rewrite-maven-plugin.version>
     <rewrite-testing-frameworks.version>2.6.0</rewrite-testing-frameworks.version>
     <rewrite-static-analysis.version>1.4.2</rewrite-static-analysis.version>
     <rewrite-migrate-java.version>2.11.0</rewrite-migrate-java.version>
