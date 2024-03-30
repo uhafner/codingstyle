@@ -162,7 +162,9 @@ public class FilteredLog implements Serializable {
 
         lock.lock();
         try {
-            errorMessages.addAll(Arrays.asList(ExceptionUtils.getRootCauseStackTrace(exception)));
+            if (lines <= maxLines) {
+                errorMessages.addAll(Arrays.asList(ExceptionUtils.getRootCauseStackTrace(exception)));
+            }
         }
         finally {
             lock.unlock();
