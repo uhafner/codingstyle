@@ -61,7 +61,6 @@
     <exclude name="AvoidUncheckedExceptionsInSignatures"/>
     <exclude name="ClassWithOnlyPrivateConstructorsShouldBeFinal"/>
     <exclude name="ExcessiveImports"/>
-    <exclude name="ExcessiveMethodLength"/>
     <exclude name="ExcessiveParameterList"/>
     <exclude name="FinalFieldCouldBeStatic"/>
     <exclude name="LawOfDemeter"/>
