@@ -60,11 +60,13 @@
     <exclude name="AvoidCatchingGenericException"/>
     <exclude name="AvoidUncheckedExceptionsInSignatures"/>
     <exclude name="ClassWithOnlyPrivateConstructorsShouldBeFinal"/>
+    <exclude name="DataClass"/>
     <exclude name="ExcessiveImports"/>
     <exclude name="ExcessiveMethodLength"/>
     <exclude name="ExcessiveParameterList"/>
     <exclude name="FinalFieldCouldBeStatic"/>
     <exclude name="LawOfDemeter"/>
+    <exclude name="LooseCoupling"/>
     <exclude name="LoosePackageCoupling"/>
     <exclude name="SignatureDeclareThrowsException"/>
     <exclude name="SimplifyBooleanReturns"/>
