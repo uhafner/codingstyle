@@ -51,28 +51,42 @@ class FilteredLogTest extends SerializableTest<FilteredLog> {
     void shouldSkipAdditionalErrors() {
         FilteredLog filteredLog = create5ErrorsLogWithTitle(StringUtils.EMPTY);
 
-        assertThat(filteredLog).hasOnlyErrorMessages("1", "2", "3", "4", "5",
-                "  ... skipped logging of 2 additional errors ...");
+        verifyFiveErrorMessages(filteredLog);
     }
 
     @Test
     void shouldSkipAdditionalErrorsWithTitle() {
         FilteredLog filteredLog = create5ErrorsLogWithTitle(TITLE);
 
-        assertThat(filteredLog).hasOnlyErrorMessages(TITLE, "1", "2", "3", "4", "5",
+        assertThat(filteredLog).hasErrorMessages(TITLE);
+
+        verifyFiveErrorMessages(filteredLog);
+    }
+
+    private void verifyFiveErrorMessages(final FilteredLog filteredLog) {
+        assertThat(filteredLog).hasErrorMessages(
+                "1", "2", "3", "4", "5",
+                "java.lang.IllegalStateException: 1",
+                "java.lang.IllegalStateException: 2",
+                "java.lang.IllegalStateException: 3",
+                "java.lang.IllegalStateException: 4",
+                "java.lang.IllegalStateException: 5",
                 "  ... skipped logging of 2 additional errors ...");
+
+        assertThat(filteredLog).doesNotHaveErrorMessages(
+                "6",
+                "java.lang.IllegalStateException: 6",
+                "7",
+                "java.lang.IllegalStateException: 7");
     }
 
     private FilteredLog create5ErrorsLogWithTitle(final String title) {
         var filteredLog = new FilteredLog(title, 5);
 
-        filteredLog.logError("1");
-        filteredLog.logError("2");
-        filteredLog.logError("3");
-        filteredLog.logError("4");
-        filteredLog.logError("5");
-        filteredLog.logError("6");
-        filteredLog.logError("7");
+        for (int i = 1; i < 8; i++) {
+            var number = String.valueOf(i);
+            filteredLog.logException(new IllegalStateException(number), number);
+        }
 
         assertThat(filteredLog.size()).isEqualTo(7);
 
