@@ -15,6 +15,7 @@
     <exclude name="JUnitTestContainsTooManyAsserts"/>
     <exclude name="JUnitTestsShouldIncludeAssert"/>
     <exclude name="LiteralsFirstInComparisons"/>
+    <exclude name="LooseCoupling"/>
     <exclude name="UnusedPrivateMethod"/>
   </rule>
   <rule ref="category/java/codestyle.xml">
@@ -32,6 +33,7 @@
     <exclude name="ShortClassName"/>
     <exclude name="ShortVariable"/>
     <exclude name="UnnecessaryConstructor"/>
+    <exclude name="UseExplicitTypes"/>
   </rule>
   <rule ref="category/java/codestyle.xml/ClassNamingConventions">
     <properties>
@@ -59,6 +61,7 @@
     <exclude name="AvoidCatchingGenericException"/>
     <exclude name="AvoidUncheckedExceptionsInSignatures"/>
     <exclude name="ClassWithOnlyPrivateConstructorsShouldBeFinal"/>
+    <exclude name="DataClass"/>
     <exclude name="ExcessiveImports"/>
     <exclude name="ExcessiveMethodLength"/>
     <exclude name="ExcessiveParameterList"/>
