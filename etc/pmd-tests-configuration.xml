@@ -15,6 +15,7 @@
     <exclude name="JUnitTestContainsTooManyAsserts"/>
     <exclude name="JUnitTestsShouldIncludeAssert"/>
     <exclude name="LiteralsFirstInComparisons"/>
+    <exclude name="LooseCoupling"/>
     <exclude name="UnusedPrivateMethod"/>
   </rule>
   <rule ref="category/java/codestyle.xml">
@@ -66,7 +67,6 @@
     <exclude name="ExcessiveParameterList"/>
     <exclude name="FinalFieldCouldBeStatic"/>
     <exclude name="LawOfDemeter"/>
-    <exclude name="LooseCoupling"/>
     <exclude name="LoosePackageCoupling"/>
     <exclude name="SignatureDeclareThrowsException"/>
     <exclude name="SimplifyBooleanReturns"/>
