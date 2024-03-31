@@ -2,25 +2,29 @@
 <!-- ${project.groupId}:${project.artifactId}:${project.version} -->
 <FindBugsFilter>
   <Match>
-      <Class name="~.*_jmh.*" />
+    <Class name="~.*_jmh.*" />
   </Match>
   <Match>
-      <Bug code="NM" />
-      <Class name="~.*Assertions.*" />
+    <Bug code="NM" />
+    <Class name="~.*Assertions.*" />
   </Match>
   <Match>
-      <Bug code="CD" />
-      <Class name="~.*" />
+    <Bug code="CD" />
+    <Class name="~.*" />
   </Match>
   <Match>
-      <Class name="~.*Messages" />
+    <Class name="~.*Messages" />
   </Match>
   <Match>
-      <Class name="~.*Assert" />
+    <Class name="~.*Test.*" />
+    <Bug pattern="URF_UNREAD_FIELD, UUF_UNUSED_FIELD" />
   </Match>
   <Match>
-      <Bug code="UwF, SIC, NP, Dm, UI, RV, DMI, EI, THROWS" />
-      <Class name="~.*(Test|Benchmark).*" />
+    <Class name="~.*Assert" />
+  </Match>
+  <Match>
+    <Bug code="UuF, UwF, SIC, NP, Dm, UI, RV, DMI, EI, THROWS" />
+    <Class name="~.*(Test|Benchmark).*" />
   </Match>
   <Match>
     <Bug category="SECURITY"/>
