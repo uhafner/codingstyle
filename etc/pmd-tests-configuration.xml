@@ -67,6 +67,7 @@
     <exclude name="FinalFieldCouldBeStatic"/>
     <exclude name="LawOfDemeter"/>
     <exclude name="LoosePackageCoupling"/>
+    <exclude name="GodClass"/>
     <exclude name="SignatureDeclareThrowsException"/>
     <exclude name="SimplifyBooleanReturns"/>
     <exclude name="TooManyMethods"/>
