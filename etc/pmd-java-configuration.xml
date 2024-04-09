@@ -8,6 +8,7 @@
 
   <rule ref="category/java/bestpractices.xml">
     <exclude name="AccessorMethodGeneration"/>
+    <exclude name="LooseCoupling"/>
     <exclude name="GuardLogStatement"/>
     <exclude name="JUnit4TestShouldUseTestAnnotation"/>
     <exclude name="JUnit5TestShouldBePackagePrivate"/>
@@ -16,6 +17,11 @@
     <exclude name="JUnitTestsShouldIncludeAssert"/>
     <exclude name="LiteralsFirstInComparisons"/>
     <exclude name="UnusedPrivateMethod"/>
+  </rule>
+  <rule ref="category/java/bestpractices.xml/LooseCoupling">
+    <properties>
+      <property name="allowedTypes" value="java.util.Properties, java.util.jar.Attributes, net.minidev.json.JSONArray, org.jsoup.select.Elements, edu.hm.hafner.util.LineRangeList" />
+    </properties>
   </rule>
   <rule ref="category/java/codestyle.xml">
     <exclude name="AtLeastOneConstructor"/>
