@@ -1,0 +1,47 @@
+@startuml
+
+skinparam class {
+  BackgroundColor #4AD386
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> gold
+  BorderColor black
+  ArrowColor black
+  FontName  Arial Unicode MS
+  FontSize 28
+}
+
+skinparam classFontSize 28
+skinparam classAttributeIconSize 0
+skinparam defaultFontSize 28
+
+skinparam ArrowColor black
+skinparam ArrowThickness 2
+
+hide circle
+
+interface Serializable <<interface>> {
+    writeObject(out: ObjectOutputStream)
+    readObject(in: ObjectInputStream)
+}
+
+hide Serializable fields
+
+class Person {
+    -vorname: String
+    -nachname: String
+    -email<<pk>>: String
+    +getName(): String
+    +getEmail(): String
+}
+
+Serializable <|.. Person
+class Lehrkraft {
+    /berechnet: String
+    -hatForschungsProfessur: Boolean = false
+    setSprechstunde(tag: Tag, beginn: Uhrzeit)
+}
+
+Person <|-- Lehrkraft
+
+
+@enduml

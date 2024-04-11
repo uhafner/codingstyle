@@ -1,0 +1,78 @@
+@startuml
+
+skinparam componentStyle uml2
+hide stereotype
+skinparam defaultTextAlignment center
+
+skinparam ArrowColor black
+
+skinparam interface {
+    BorderColor black
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> gold
+  BorderColor black
+  ArrowColor black
+  FontName  Arial Unicode MS
+  FontSize 20
+}
+
+skinparam DefaultFontSize 20
+
+skinparam component {
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> gold
+  BorderColor black
+  ArrowColor black
+  FontName  Arial Unicode MS
+  FontSize 20
+
+	BorderColor black
+
+    BackgroundColor<<AT>> #salmon
+    StereotypeFontColor<<AT>> #white
+    FontColor<<AT>> #white
+
+    BackgroundColor<<A>> #lightGreen
+    StereotypeFontColor<<A>> #black
+    FontColor<<A>> #black
+
+    BackgroundColor<<T>> #gold
+    StereotypeFontColor<<T>> #black
+    FontColor<<T>> #black
+
+    BackgroundColor<<0>> #deepskyblue
+    StereotypeFontColor<<0>> #white
+    FontColor<<0>> #white
+
+    BackgroundColor<<R>> #sienna
+    StereotypeFontColor<<R>> #white
+    FontColor<<R>> #white
+
+    FontName Arial Black
+    StereotypeFontName Arial Black
+}
+
+[ZPA] <<A>> as ZPA
+ZPA <. :Person: : \t
+component Berechtigungen {
+
+[Berechtigungen\nStammdatenverwaltung\nDialoge] <<AT>> as GUI
+[Berechtigungen\nAnwendungskern] <<A>> as Anwendungskern
+[Berechtigungen\nPersistenz] <<AT>> as Persistenz
+[JDBC] <<T>> as JDBC
+
+interface A
+interface O
+}
+
+Anwendungskern - A : Administrative\nSchnittstelle
+O - Anwendungskern : Operative\nSchnittstelle
+A <. GUI
+Anwendungskern ..> Persistenz
+Persistenz .> JDBC
+
+:Admin: ..> GUI
+ZPA ..> O
+
+
+@enduml

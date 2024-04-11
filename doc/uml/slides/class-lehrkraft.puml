@@ -1,0 +1,29 @@
+@startuml
+
+skinparam class {
+  BackgroundColor #4AD386
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> gold
+  BorderColor black
+  ArrowColor black
+  FontName  Arial Unicode MS
+  FontSize 20
+}
+skinparam classFontSize 24
+skinparam classAttributeIconSize 0
+skinparam defaultFontSize 20
+
+skinparam ArrowColor black
+skinparam ArrowThickness 2
+
+hide circle
+
+class Lehrkraft {
+    -vorname: String
+    -nachname: String
+    -email<<pk>>: String
+    /berechnet: String
+    -hatForschungsProfessur: Boolean = false
+}
+
+@enduml

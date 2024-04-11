@@ -1,0 +1,66 @@
+@startuml
+
+skinparam package {
+  BackgroundColor #dddddd
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> gold
+  BorderColor black
+  ArrowColor black
+  FontName  Arial Unicode MS
+  FontSize 20
+}
+
+skinparam class {
+  BackgroundColor #4AD386
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> gold
+  BorderColor black
+  ArrowColor black
+  FontName  Arial Unicode MS
+  FontSize 20
+}
+skinparam classFontSize 24
+skinparam classAttributeIconSize 0
+skinparam defaultFontSize 20
+
+skinparam ArrowColor black
+skinparam ArrowThickness 2
+
+hide circle
+package "Nutzerverwaltung   "  {
+class Person {
+    -vorname: String
+    -nachname: String
+    -email<<pk>>: String
+}
+
+class Lehrkraft {
+    -telefon: TelefonNummer
+}
+
+Person <|-- Lehrkraft
+
+}
+
+package "Raumverwaltung   " {
+class Raum {
+    -name: String
+    -anzahlTafeln: Integer
+    -anzahlBeamer: Integer
+    -sitzplätze: Integer
+}
+
+Raum <|-- Labor
+class Labor {
+    -anzahlRechner: Integer
+}
+
+class RaumBuchung {
+    -erstellungsDatum: Date
+    -belegung: Zeitraum
+}
+
+Person "*" - "*" Raum : \t\t
+(Person, Raum) . RaumBuchung
+}
+@enduml

@@ -1,0 +1,58 @@
+@startuml
+
+skinparam class {
+  BackgroundColor #4AD386
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> gold
+  BorderColor black
+  ArrowColor black
+  FontName  Arial Unicode MS
+  FontSize 28
+}
+
+skinparam classFontSize 28
+skinparam classAttributeIconSize 0
+skinparam defaultFontSize 28
+
+skinparam ArrowColor black
+skinparam ArrowThickness 2
+
+skinparam interface {
+  BackgroundColor #4AD386
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> gold
+  BorderColor black
+  ArrowColor black
+  FontName  Arial Unicode MS
+  FontSize 24
+}
+
+skinparam classFontSize 28
+skinparam classAttributeIconSize 0
+skinparam defaultFontSize 28
+
+skinparam ArrowColor black
+skinparam ArrowThickness 2
+
+hide circle
+
+circle Serializable
+
+hide Serializable fields
+
+class Person {
+    -name: String
+    -email<<pk>>: String
+    +getName(): String
+    +getEmail(): String
+}
+
+class Repository {
+    +save()
+}
+
+Repository --( Serializable
+Serializable - Person : \t
+
+
+@enduml

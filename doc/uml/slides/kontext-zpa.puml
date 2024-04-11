@@ -1,0 +1,60 @@
+@startuml
+
+skinparam componentStyle uml2
+hide stereotype
+skinparam defaultTextAlignment center
+
+skinparam actor {
+  BackgroundColor #4AD386
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> #FFFF00
+  BorderColor black
+  ArrowColor black
+  FontName  Arial Unicode MS
+  FontSize 20
+}
+
+skinparam class {
+  BackgroundColor #4AD386
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> gold
+  BorderColor black
+  ArrowColor black
+  FontName  Arial Unicode MS
+  FontSize 20
+}
+
+skinparam component {
+  BackgroundColor #f8f8f8
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> #FFFF00
+  BorderColor black
+  FontName  Arial Unicode MS
+  FontSize 20
+  ArrowFontName  Arial Unicode MS
+  ArrowFontSize 18
+}
+
+:Lehrkraft:
+:Teilnehmer:
+
+[ZPA] <<Main>>
+[Shibboleth]
+[Primuss]
+[LRZ\nSMTP\nServer] as SMTP
+
+Lehrkraft --> ZPA : Sprechstunde
+Lehrkraft --> ZPA : Kursdaten
+Lehrkraft -> ZPA : Raumbuchung
+ZPA -> Lehrkraft : Kursbelegung
+
+ZPA --> SMTP : Email Benachrichtigung
+ZPA --> Shibboleth : Zugangsdaten
+ZPA <-- Shibboleth : Zugangstoken
+
+ZPA --> Primuss : Prüfungsanmeldung
+:Teilnehmer: --> ZPA : Kursprioritäten
+:Teilnehmer: <-- ZPA : Stundenplan
+:Teilnehmer: --> ZPA : Prüfungsanmeldung
+
+@enduml
