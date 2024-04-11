@@ -1,0 +1,29 @@
+@startuml
+
+skinparam class {
+  BackgroundColor #4AD386
+  BorderColor #a0a0a0
+  BackgroundColor<<Main>> gold
+  BorderColor black
+  ArrowColor black
+  FontName  Arial Unicode MS
+  FontSize 20
+}
+skinparam classFontSize 24
+skinparam classAttributeIconSize 0
+skinparam defaultFontSize 24
+
+skinparam ArrowColor black
+skinparam ArrowThickness 2
+
+hide circle
+
+class " Lehrkraft " as Lehrkraft {
+}
+
+class " Modul " as Modul {
+}
+
+Lehrkraft - "hält <&caret-right>" Modul : \t\t
+
+@enduml
