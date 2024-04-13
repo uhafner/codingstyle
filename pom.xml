@@ -14,7 +14,7 @@
     it provides some sample classes that already use this style guide. These classes can be used as such but are not
     required in this project. These classes also use some additional libraries that are included using the Maven
     dependency mechanism. If the sample classes are deleted then the dependencies can be safely deleted, too.</description>
-  <url>https://www.cs.hm.edu/die_fakultaet/ansprechpartner/professoren/hafner/index.de.html</url>
+  <url>https://cs.hm.edu/~hafner</url>
   <licenses>
     <license>
       <name>MIT license</name>
