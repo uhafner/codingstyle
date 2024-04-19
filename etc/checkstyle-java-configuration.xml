@@ -9,11 +9,11 @@
 <module name="Checker">
   <property name="severity" value="warning"/>
   <module name="RegexpMultiline">
-    <property name="format" value="\{\s*\R\s*\R"/>
+    <property name="format" value="\{\s*(\n|\r\n)\s*(\n|\r\n)"/>
     <property name="message" value="No empty lines after opening curly braces allowed" />
   </module>
   <module name="RegexpMultiline">
-    <property name="format" value="\R\s*\R\s*\}"/>
+    <property name="format" value="(\n|\r\n)\s*(\n|\r\n)\s*\}"/>
     <property name="message" value="No empty lines before closing curly braces allowed" />
   </module>
   <module name="TreeWalker">
