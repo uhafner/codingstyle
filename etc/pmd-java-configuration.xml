@@ -20,7 +20,7 @@
   </rule>
   <rule ref="category/java/bestpractices.xml/LooseCoupling">
     <properties>
-      <property name="allowedTypes" value="java.util.Properties, java.util.jar.Attributes, net.minidev.json.JSONArray, org.jsoup.select.Elements, edu.hm.hafner.util.LineRangeList" />
+      <property name="allowedTypes" value="java.util.Properties, java.util.jar.Attributes, net.minidev.json.JSONArray, hudson.util.ListBoxModel, hudson.util.ComboBoxModel, hudson.DescriptorExtensionList, hudson.EnvVars,  org.jsoup.select.Elements, edu.hm.hafner.util.LineRangeList," />
     </properties>
   </rule>
   <rule ref="category/java/codestyle.xml">
