@@ -551,7 +551,6 @@
         <version>${maven-pmd-plugin.version}</version>
         <configuration>
           <linkXRef>false</linkXRef>
-          <failOnViolation>false</failOnViolation>
           <targetJdk>${java.version}</targetJdk>
         </configuration>
         <dependencies>
@@ -576,6 +575,7 @@
             <id>run-pmd-java</id>
             <goals>
               <goal>pmd</goal>
+              <goal>check</goal>
               <goal>cpd</goal>
             </goals>
             <phase>verify</phase>
@@ -592,6 +592,7 @@
             <id>run-pmd-tests</id>
             <goals>
               <goal>pmd</goal>
+              <goal>check</goal>
               <goal>cpd</goal>
             </goals>
             <phase>verify</phase>
@@ -618,7 +619,7 @@
         <configuration>
           <linkXRef>false</linkXRef>
           <excludeGeneratedSources>true</excludeGeneratedSources>
-          <failsOnError>false</failsOnError>
+          <violationSeverity>warning</violationSeverity>
         </configuration>
         <dependencies>
           <dependency>
@@ -631,7 +632,7 @@
           <execution>
             <id>run-checkstyle-java</id>
             <goals>
-              <goal>checkstyle</goal>
+              <goal>check</goal>
             </goals>
             <phase>verify</phase>
             <configuration>
@@ -644,7 +645,7 @@
           <execution>
             <id>run-checkstyle-tests</id>
             <goals>
-              <goal>checkstyle</goal>
+              <goal>check</goal>
             </goals>
             <phase>verify</phase>
             <configuration>
@@ -652,6 +653,7 @@
               <includeTestSourceDirectory>true</includeTestSourceDirectory>
               <configLocation>etc/checkstyle-tests-configuration.xml</configLocation>
               <outputFile>${project.build.directory}/checkstyle-tests/checkstyle-result.xml</outputFile>
+              <sourceDirectories></sourceDirectories>
             </configuration>
           </execution>
         </executions>
