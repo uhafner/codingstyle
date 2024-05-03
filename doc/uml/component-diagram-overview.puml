@@ -5,7 +5,7 @@ skinparam component {
   BorderColor #a0a0a0
   BackgroundColor<<Main>> #FFFF00
   BorderColor black
-  FontName  Arial Unicode MS
+  FontName Arial Unicode MS
   FontSize 20
   ArrowFontName  Arial Unicode MS
   ArrowFontSize 18

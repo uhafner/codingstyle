@@ -38,7 +38,7 @@ skinparam ArrowColor black
 skinparam ArrowThickness 2
 
 hide circle
-
+hide interface fields
 skinparam componentStyle uml2
 
 component "Anwendung" <<component>> as anwendung {
