@@ -552,6 +552,7 @@
         <configuration>
           <linkXRef>false</linkXRef>
           <targetJdk>${java.version}</targetJdk>
+          <skip>true</skip>
         </configuration>
         <dependencies>
           <dependency>
@@ -586,6 +587,7 @@
               </rulesets>
               <includeTests>false</includeTests>
               <minimumTokens>50</minimumTokens>
+              <skip>false</skip>
             </configuration>
           </execution>
           <execution>
@@ -608,6 +610,7 @@
                 <excludeRoot>${project.build.directory}/generated-test-sources/test-annotations</excludeRoot>
                 <excludeRoot>${project.build.directory}/generated-test-sources/assertj-assertions</excludeRoot>
               </excludeRoots>
+              <skip>false</skip>
             </configuration>
           </execution>
         </executions>
