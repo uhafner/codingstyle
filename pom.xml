@@ -329,6 +329,7 @@
               <version>${mockito.version}</version>
             </path>
           </annotationProcessorPaths>
+          <?SORTPOM IGNORE?>
           <compilerArgs>
             <arg>-Xlint:-varargs</arg>
             <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</arg>
@@ -402,6 +403,7 @@
                 https://bugs.openjdk.java.net/browse/JDK-8155674. -->
             <arg>-XDcompilePolicy=simple</arg>
           </compilerArgs>
+          <?SORTPOM RESUME?>
           <fork>true</fork>
           <showWarnings>true</showWarnings>
         </configuration>
@@ -656,7 +658,7 @@
               <includeTestSourceDirectory>true</includeTestSourceDirectory>
               <configLocation>etc/checkstyle-tests-configuration.xml</configLocation>
               <outputFile>${project.build.directory}/checkstyle-tests/checkstyle-result.xml</outputFile>
-              <sourceDirectories />
+              <sourceDirectories></sourceDirectories>
             </configuration>
           </execution>
         </executions>
