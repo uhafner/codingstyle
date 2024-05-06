@@ -84,8 +84,7 @@ class FilteredLogTest extends SerializableTest<FilteredLog> {
         var filteredLog = new FilteredLog(title, 5);
 
         for (int i = 1; i < 8; i++) {
-            var number = String.valueOf(i);
-            filteredLog.logException(new IllegalStateException(number), number);
+            filteredLog.logException(new IllegalStateException(String.valueOf(i)), "%d", i);
         }
 
         assertThat(filteredLog.size()).isEqualTo(7);
