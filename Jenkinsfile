@@ -11,7 +11,7 @@ node('java-agent') {
 
     stage ('Build, Test, and Static Analysis') {
         withMaven(mavenLocalRepo: '/var/data/m2repository', mavenOpts: '-Xmx768m -Xms512m') {
-            sh 'mvn -V -e clean verify -Dmaven.test.failure.ignore -Dgpg.skip -Drevapi.skip'
+            sh 'mvn -V -e clean verify -Dgpg.skip -Pci'
         }
 
         recordIssues tools: [java(), javaDoc()], aggregatingResults: 'true', id: 'java', name: 'Java'

@@ -25,7 +25,7 @@ jobs:
       - name: Build with Maven
         env:
           BROWSER: chrome-container
-        run: mvn -V --color always -ntp clean verify -Ppit | tee maven.log
+        run: mvn -V --color always -ntp clean verify -Ppit -Pci | tee maven.log
       - name: Extract pull request number
         uses: jwalton/gh-find-current-pr@v1
         id: pr
