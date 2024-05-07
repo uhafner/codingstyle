@@ -60,6 +60,8 @@
 
     <module.name>${project.groupId}.codingstyle</module.name>
 
+    <pmd.skip>false</pmd.skip>
+
     <!-- Project Dependencies Configuration -->
     <spotbugs.version>4.8.5</spotbugs.version>
     <commons.lang.version>3.14.0</commons.lang.version>
@@ -650,7 +652,7 @@
               </rulesets>
               <includeTests>false</includeTests>
               <minimumTokens>50</minimumTokens>
-              <skip>false</skip>
+              <skip>${pmd.skip}</skip>
             </configuration>
           </execution>
           <execution>
@@ -673,7 +675,7 @@
                 <excludeRoot>${project.build.directory}/generated-test-sources/test-annotations</excludeRoot>
                 <excludeRoot>${project.build.directory}/generated-test-sources/assertj-assertions</excludeRoot>
               </excludeRoots>
-              <skip>false</skip>
+              <skip>${pmd.skip}</skip>
             </configuration>
           </execution>
         </executions>
@@ -729,7 +731,6 @@
         <artifactId>spotbugs-maven-plugin</artifactId>
         <version>${spotbugs-maven-plugin.version}</version>
         <configuration>
-          <failOnError>true</failOnError>
           <xmlOutput>true</xmlOutput>
           <threshold>Low</threshold>
           <failThreshold>Low</failThreshold>
@@ -894,7 +895,8 @@
         <maven.test.failure.ignore>true</maven.test.failure.ignore>
         <checkstyle.failOnViolation>false</checkstyle.failOnViolation>
         <pmd.failOnViolation>false</pmd.failOnViolation>
-        <spotbugs.maxAllowedViolations>10000000</spotbugs.maxAllowedViolations>
+        <spotbugs.failOnError>false</spotbugs.failOnError>
+        <gpg.skip>true</gpg.skip>
       </properties>
     </profile>
     <profile>
