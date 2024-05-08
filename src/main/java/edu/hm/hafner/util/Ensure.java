@@ -521,7 +521,6 @@ public final class Ensure {
          * @param additionalValues
          *         additional values of the condition
          */
-        @SuppressFBWarnings("EI2")
         @SuppressWarnings("PMD.ArrayIsStoredDirectly")
         public ObjectCondition(@CheckForNull final T value, @CheckForNull final Object... additionalValues) {
             this.value = value;
