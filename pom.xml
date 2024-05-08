@@ -758,7 +758,6 @@
           <execution>
             <id>run-spotbugs</id>
             <goals>
-              <goal>spotbugs</goal>
               <goal>check</goal>
             </goals>
             <phase>verify</phase>

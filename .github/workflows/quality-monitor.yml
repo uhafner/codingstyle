@@ -34,3 +34,100 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           pr-number: ${{ steps.pr.outputs.number }}
+          config: >
+            {
+              "tests": {
+                "name": "Tests",
+                "tools": [
+                  {
+                    "id": "test",
+                    "name": "Tests",
+                    "pattern": "**/target/*-reports/TEST*.xml"
+                  }
+                ],
+                "passedImpact": 0,
+                "skippedImpact": -1,
+                "failureImpact": -5,
+                "maxScore": 100
+              },
+              "analysis": [
+                {
+                  "name": "Style",
+                  "id": "style",
+                  "tools": [
+                    {
+                      "id": "checkstyle",
+                      "pattern": "**/target/**checkstyle-result.xml"
+                    },
+                    {
+                      "id": "pmd",
+                      "pattern": "**/target/**pmd.xml"
+                    }
+                  ],
+                  "errorImpact": -1,
+                  "highImpact": -1,
+                  "normalImpact": -1,
+                  "lowImpact": -1,
+                  "maxScore": 100
+                },
+                {
+                  "name": "Bugs",
+                  "id": "bugs",
+                  "icon": "bug",
+                  "tools": [
+                    {
+                      "id": "spotbugs",
+                      "sourcePath": "src/main/java",
+                      "pattern": "**/target/spotbugsXml.xml"
+                    },
+                    {
+                      "id": "errorprone",
+                      "pattern": "**/maven.log"
+                    }
+                  ],
+                  "errorImpact": -3,
+                  "highImpact": -3,
+                  "normalImpact": -3,
+                  "lowImpact": -3,
+                  "maxScore": 100
+                }
+              ],
+              "coverage": [
+                {
+                  "name": "Code Coverage",
+                  "tools": [
+                    {
+                      "id": "jacoco",
+                      "name": "Line Coverage",
+                      "metric": "line",
+                      "sourcePath": "src/main/java",
+                      "pattern": "**/target/site/jacoco/jacoco.xml"
+                    },
+                    {
+                      "id": "jacoco",
+                      "name": "Branch Coverage",
+                      "metric": "branch",
+                      "sourcePath": "src/main/java",
+                      "pattern": "**/target/site/jacoco/jacoco.xml"
+                    }
+                  ],
+                  "maxScore": 100,
+                  "missedPercentageImpact": -1
+                },
+                {
+                  "name": "Mutation Coverage",
+                  "tools": [
+                    {
+                      "id": "pit",
+                      "name": "Mutation Coverage",
+                      "metric": "mutation",
+                      "sourcePath": "src/main/java",
+                      "pattern": "**/target/pit-reports/mutations.xml"
+                    }
+                  ],
+                  "maxScore": 100,
+                  "missedPercentageImpact": -1
+                }
+              ]
+            }
+
