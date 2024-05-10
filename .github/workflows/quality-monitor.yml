@@ -44,11 +44,7 @@ jobs:
                     "name": "Tests",
                     "pattern": "**/target/*-reports/TEST*.xml"
                   }
-                ],
-                "passedImpact": 0,
-                "skippedImpact": -1,
-                "failureImpact": -5,
-                "maxScore": 100
+                ]
               },
               "analysis": [
                 {
@@ -57,18 +53,13 @@ jobs:
                   "tools": [
                     {
                       "id": "checkstyle",
-                      "pattern": "**/target/**checkstyle-result.xml"
+                      "pattern": "**/target/checkstyle-*/checkstyle-result.xml"
                     },
                     {
                       "id": "pmd",
-                      "pattern": "**/target/**pmd.xml"
+                      "pattern": "**/target/pmd-*/pmd.xml"
                     }
-                  ],
-                  "errorImpact": -1,
-                  "highImpact": -1,
-                  "normalImpact": -1,
-                  "lowImpact": -1,
-                  "maxScore": 100
+                  ]
                 },
                 {
                   "name": "Bugs",
@@ -81,15 +72,10 @@ jobs:
                       "pattern": "**/target/spotbugsXml.xml"
                     },
                     {
-                      "id": "errorprone",
+                      "id": "error-prone",
                       "pattern": "**/maven.log"
                     }
-                  ],
-                  "errorImpact": -3,
-                  "highImpact": -3,
-                  "normalImpact": -3,
-                  "lowImpact": -3,
-                  "maxScore": 100
+                  ]
                 }
               ],
               "coverage": [
@@ -110,9 +96,7 @@ jobs:
                       "sourcePath": "src/main/java",
                       "pattern": "**/target/site/jacoco/jacoco.xml"
                     }
-                  ],
-                  "maxScore": 100,
-                  "missedPercentageImpact": -1
+                  ]
                 },
                 {
                   "name": "Mutation Coverage",
@@ -124,9 +108,7 @@ jobs:
                       "sourcePath": "src/main/java",
                       "pattern": "**/target/pit-reports/mutations.xml"
                     }
-                  ],
-                  "maxScore": 100,
-                  "missedPercentageImpact": -1
+                  ]
                 }
               ]
             }
