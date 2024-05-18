@@ -17,7 +17,7 @@
   </Match>
   <Match>
     <Class name="~.*Test.*" />
-    <Bug pattern="URF_UNREAD_FIELD, UUF_UNUSED_FIELD" />
+    <Bug pattern="URF_UNREAD_FIELD, UUF_UNUSED_FIELD, DMI_HARDCODED_ABSOLUTE_FILENAME" />
   </Match>
   <Match>
     <Class name="~.*Assert" />
