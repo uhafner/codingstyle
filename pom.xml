@@ -108,7 +108,7 @@
     <maven-enforcer-plugin.version>3.4.1</maven-enforcer-plugin.version>
     <maven-dependency-plugin.version>3.6.1</maven-dependency-plugin.version>
     <depgraph-maven-plugin.version>4.0.3</depgraph-maven-plugin.version>
-    <sortpom-maven-plugin.version>3.4.1</sortpom-maven-plugin.version>
+    <sortpom-maven-plugin.version>4.0.0</sortpom-maven-plugin.version>
 
     <!-- OpenRewrite versions   -->
     <rewrite-maven-plugin.version>5.30.0</rewrite-maven-plugin.version>
