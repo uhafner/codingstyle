@@ -114,7 +114,7 @@
     <rewrite-maven-plugin.version>5.32.1</rewrite-maven-plugin.version>
     <rewrite-testing-frameworks.version>2.10.1</rewrite-testing-frameworks.version>
     <rewrite-static-analysis.version>1.8.1</rewrite-static-analysis.version>
-    <rewrite-migrate-java.version>2.16.0</rewrite-migrate-java.version>
+    <rewrite-migrate-java.version>2.18.1</rewrite-migrate-java.version>
     <rewrite-recommendations.version>1.4.3</rewrite-recommendations.version>
 
     <!-- Maven Surefire ArgLine -->
