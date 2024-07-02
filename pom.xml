@@ -63,7 +63,7 @@
     <pmd.skip>false</pmd.skip>
 
     <!-- Project Dependencies Configuration -->
-    <spotbugs.version>4.8.5</spotbugs.version>
+    <spotbugs.version>4.8.6</spotbugs.version>
     <commons.lang.version>3.14.0</commons.lang.version>
     <commons.io.version>2.16.1</commons.io.version>
     <byte-buddy.version>1.14.17</byte-buddy.version>
