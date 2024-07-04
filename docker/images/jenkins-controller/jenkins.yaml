@@ -7,6 +7,8 @@ jenkins:
     standard:
       excludeClientIPFromCrumb: false
   disableRememberMe: false
+  disabledAdministrativeMonitors:
+    - "hudson.diagnosis.ReverseProxySetupMonitor"
   markupFormatter:
     rawHtml:
       disableSyntaxHighlighting: false
@@ -14,47 +16,104 @@ jenkins:
   myViewsTabBar: "standard"
   nodes:
     - permanent:
+        labelString: "docker linux agent java jdk21 java21"
         launcher:
           ssh:
-            credentialsId: "java-agent-ssh-private-key"
-            host: "java11-agent"
-            launchTimeoutSeconds: 210
-            maxNumRetries: 10
+            credentialsId: "jenkins-ssh-agent-private-key"
+            host: "java-agent"
             port: 22
-            retryWaitTime: 15
-            jvmOptions: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8001"
-            javaPath: "/opt/java/openjdk/bin/java"
             sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
-        name: "java11-agent"
+        name: "java-agent"
+        nodeDescription: "Jenkins Docker Agent with Java 21 and Maven"
         numExecutors: 1
-        remoteFS: "/var/data"
-        nodeProperties:
-          - envVars:
-              env:
-                - key: "JAVA_HOME"
-                  value: "/opt/java/openjdk"
-                - key: "MAVEN_HOME"
-                  value: "/opt/maven"
+        remoteFS: "/home/jenkins/agent"
+        retentionStrategy: "always"
   numExecutors: 0
   primaryView:
-    all:
-      name: "all"
+    list:
+      columns:
+        - "status"
+        - "weather"
+        - "jobName"
+        - "gitBranchSpecifierColumn"
+        - "lastSuccess"
+        - "lastFailure"
+        - "lastDuration"
+        - coverageTotalsColumn:
+            columnName: "Line Coverage"
+            metric: LINE
+        - coverageTotalsColumn:
+            columnName: "Branch Coverage"
+            metric: BRANCH
+        - "buildButton"
+      includeRegex: ".*"
+      name: "List View"
   projectNamingStrategy: "standard"
   quietPeriod: 5
-  remotingSecurity:
-    enabled: true
   scmCheckoutRetryCount: 0
   securityRealm:
     local:
       allowsSignup: false
       enableCaptcha: false
   slaveAgentPort: 50000
-  systemMessage: "<h1>Warnings Next Generation Plugin Showcase</h1>"
+  systemMessage: "<h1>Java and Maven Showcase</h1>"
   updateCenter:
     sites:
       - id: "default"
         url: "https://updates.jenkins.io/update-center.json"
+  views:
+    - list:
+        columns:
+          - "status"
+          - "weather"
+          - "jobName"
+          - "gitBranchSpecifierColumn"
+          - "lastSuccess"
+          - "lastFailure"
+          - "lastDuration"
+          - coverageTotalsColumn:
+              columnName: "Line Coverage"
+              metric: LINE
+          - coverageTotalsColumn:
+              columnName: "Branch Coverage"
+              metric: BRANCH
+          - "buildButton"
+        includeRegex: ".*"
+        name: "List View"
+    - dashboard:
+        columns:
+          - "status"
+          - "weather"
+          - "jobName"
+          - "lastSuccess"
+          - "lastFailure"
+          - "lastDuration"
+          - coverageTotalsColumn:
+              columnName: "Line Coverage"
+              metric: LINE
+          - coverageTotalsColumn:
+              columnName: "Branch Coverage"
+              metric: BRANCH
+          - "buildButton"
+        includeStdJobList: true
+        includeRegex: ".*"
+        leftPortlets:
+          - issuesChartPortlet:
+              height: 600
+              name: "Static analysis issues chart"
+        name: "Dashboard View"
+        rightPortlets:
+          - issuesTablePortlet:
+              name: "Static analysis issues per tool and job"
+              showIcons: true
   viewsTabBar: "standard"
+
+appearance:
+  locale:
+    ignoreAcceptLanguage: true
+    systemLocale: "USE_BROWSER_LOCALE"
+  prism:
+    theme: PRISM
 
 security:
   apiToken:
@@ -71,49 +130,18 @@ credentials:
     domainCredentials:
       - credentials:
           - basicSSHUserPrivateKey:
-              id: "java-agent-ssh-private-key"
+              description: "Private SSH key for Jenkins agent"
+              id: "jenkins-ssh-agent-private-key"
               privateKeySource:
                 directEntry:
-                  privateKey: "-----BEGIN RSA PRIVATE KEY----- \n
-              MIIEowIBAAKCAQEA86cZk1vZh/OwzJDEqga0nnKEh1QpCm1uSDjvuLp2pPDPHMp/ \n
-              m9Il9O8ZAZ+IVCUXygO3s1BvBF/a7uVYp7XqjDiTj5Jwrs5lEtl4/1iXXKtwbpAc \n
-              bsoiEaFDl7Amc4pUfwzsjaqY4yN4jW+JaLOf/+GqCjwpiyJxZ0N2ONlWoph9dvfH \n
-              JBK+LUcbKIqbBAADT12d6ePIBsDn9Yaeem0xSJrwEzcMTFYj6asinMlWgO7VwgZx \n
-              JPxhMG+jIq6Mh20tFbwc/XGTqSb/vMkJ8i53RnYm5PoT2xqeYlQCLJtvBRBfuBb5 \n
-              WJaQcKvTmLoTgkRCbx/QsQzIWzl4MCj56PRsjQIDAQABAoIBAAGTiy7Q4U9n3DT2 \n
-              ms8ey/xacVEO0lUm8Be3hpWDX1Eh3bUp+jlf2q8C/P5tscwZkVXVQFMAqjc1B42U \n
-              Hka3fpT5qLq9D82RuEWu8oF0aUZINaoBdK2i0SWcDXvlv9nvgyxvQPiJqgOOLzF7 \n
-              D0CGKPrW0urOCNbFmkY4wYMMpOrYXnwb6bc1p7snbzeRigaoGvSgvH7fx2Steg1o \n
-              j50C4BKVtXPKQdmckG2SFn0T+U1iCsRG+KNcENX2vX8gyrXImAH093WTjKsmM9et \n
-              ddWB+molSnXR/MNrf6BB2mpvXLNyR2/RgBd2jwSQnpDkpms4Br5nek3YYN1dBRL4 \n
-              6bofHWECgYEA+7n5OIEbvpMtGxJwOovj0KZMzPkHyQH/DZzo48rS+39goNk/0KLF \n
-              c3L3sHbT3Lr4qA/6JOCjlzw7o2AbOrRL4ke1uqcCVQMdDqZdvNezMvTzqEbQGdHD \n
-              aFnEcUV2tvEwP11q37ianBRPH5stOnEwQNuv6AJo5LKwi4mTS7qEW9cCgYEA98oJ \n
-              h+vMKpXGdJzkSDMzYBrC2tYgqjby6+zGKz8BZ58YecsL+oi2GXBaDTfK+16CKeFM \n
-              8+qQN9Kl1ZNOlk64XJXjt77h0FcFuGe+6rUpM1aEizrf9sWPVZO+QQfhnjsiAhtQ \n
-              YX783ydy9rMn1FDPMtNNq4GMhGsFCaL4RupOjjsCgYAnk9XbTHFQRVOSLhP3IIdx \n
-              BrSMhZrzv5yaR1FWf00svZozr/SYmP7yZ+EJnaUxzzPJOLnbknYmERJPXYzqbe6A \n
-              ZUXtUtTLCPJIm1+hkUhbeqfUjU2qwZA3l+WK6aEAomszizyCcEPexlKqZXt29NTh \n
-              XakKkVZsnqujRL4j6e9lgQKBgQDvhD8EQJyAyXgkvoc3dy6BBj019WdrwWO9Q4km \n
-              wmdkN3gcOnYgvUdwfZa+UiEGLAub2eldmW3AWADu2s5LIlq5PDX7Jir3DTc9UiNM \n
-              ksL5mfbS8p0M11i+uupbx/eB0N0FtktTgsGCH4rUBsdIRriSA4h/cOFYGm6rKvnc \n
-              6p32gwKBgHZYmXzuBWZlWEmPiXbTaI4egJugur5FrT6BJfiLsN2MHBJi9k1IpKEP \n
-              SaT+v0IXJ8jP4gSiu4/gyJQpkn7yiMNhwYWlQt+1zyIkHjUsEG82Z8Mqpjx2EJgG \n
-              MxDybQux1uk0hyCmMS757WkbTyi0pTWz7PgTIdfmYqhZVV8KRSUi \n
-              -----END RSA PRIVATE KEY----- \n"
-              scope: GLOBAL
-              username: "agent"
-          - gitHubApp:
-              appID: "74721"
-              description: "GitHub App"
-              id: "github-app"
-              privateKey: ${GITHUB_APP}
-              scope: GLOBAL
+                  privateKey: ${readFile:/ssh-dir/jenkins_agent_ed}
+              scope: SYSTEM
+              username: "jenkins"
 unclassified:
   globalDefaultFlowDurabilityLevel:
     durabilityHint: PERFORMANCE_OPTIMIZED
   location:
-    adminAddress: "Adresse nicht konfiguriert <nobody@nowhere>"
+    adminAddress: "Address not configured <nobody@nowhere>"
     url: "http://localhost:8080/"
   mailer:
     charset: "UTF-8"
@@ -125,21 +153,11 @@ tool:
   git:
     installations:
       - home: "git"
-        name: "Default"
+        name: "git-default"
   maven:
     installations:
-      - name: "mvn-default"
-        properties:
-          - installSource:
-              installers:
-                - maven:
-                    id: "3.6.3"
-  jdk:
-    defaultProperties:
-      - installSource:
-          installers:
-            - jdkInstaller:
-                acceptLicense: false
+      - home: "/opt/maven"
+        name: "mvn-default"
   pipelineMaven:
     publisherOptions:
       - jacocoPublisher:
@@ -152,66 +170,3 @@ tool:
     triggerDownstreamUponResultNotBuilt: false
     triggerDownstreamUponResultSuccess: true
     triggerDownstreamUponResultUnstable: false
-
-jobs:
-  - script: >
-      pipelineJob('pipeline-codingstyle') {
-          definition {
-              cpsScm {
-                  scriptPath 'Jenkinsfile'
-                  scm {
-                    git {
-                        remote { url 'https://github.com/uhafner/codingstyle.git' }
-                        branch '*/main'
-                        extensions {}
-                    }
-                  }
-              }
-          }
-      };
-      freeStyleJob('freestyle-codingstyle') {
-          scm {
-              git {
-                  remote { url 'https://github.com/uhafner/codingstyle.git' }
-                  branch '*/main'
-                  extensions {}
-              }
-          }
-          steps {
-              maven {
-                  mavenInstallation('mvn-default')
-                  goals('clean verify')
-                  properties(skipITs: true)
-              }
-          }
-          publishers {
-              recordIssues {
-                    sourceCodeEncoding('UTF-8')
-                    aggregatingResults(true)
-                    tools {
-                      mavenConsole {}
-                      java {}
-                      javaDoc {}
-                      taskScanner {
-                          highTags('FIXME')
-                          normalTags('TODO')
-                          includePattern('**/*.java')
-                          excludePattern('target/**/*')
-                      }
-                      spotBugs {
-                            pattern('**/target/spotbugsXml.xml')
-                            useRankAsPriority(true)
-                      }
-                      checkStyle {
-                            pattern('**/target/checkstyle-result.xml')
-                      }
-                      pmd {
-                            pattern('**/target/pmd.xml')
-                      }
-                      cpd {
-                            pattern('**/target/cpd.xml')
-                      }
-                  }
-              }
-        }
-      };

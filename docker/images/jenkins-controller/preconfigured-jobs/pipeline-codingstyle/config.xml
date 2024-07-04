@@ -1,0 +1,138 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@1426.v2ecb_a_a_42fd46">
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@3903.v48a_8836749e9">
+    <script>node {
+    def mvnHome = tool &apos;mvn-default&apos;
+
+    stage (&apos;Checkout&apos;) {
+        checkout([$class        : &apos;GitSCM&apos;,
+              branches          : [[name: &quot;main&quot;]],
+              userRemoteConfigs : [[url: &quot;https://github.com/uhafner/codingstyle.git&quot;]]])
+    }
+
+    stage (&apos;Git mining&apos;) {
+        discoverGitReferenceBuild()
+        mineRepository()
+    }
+
+    stage (&apos;Build, Test and Static Analysis&apos;) {
+        withMaven(maven: &apos;mvn-default&apos;, mavenOpts: &apos;-Xmx1024m -Xms512m&apos;) {
+            sh &apos;mvn -ntp -V -e clean verify -Pci -Ppit&apos;
+        }
+
+        recordIssues tools: [java(), javaDoc()], aggregatingResults: &apos;true&apos;, id: &apos;java&apos;, name: &apos;Java&apos;
+        recordIssues tool: errorProne(), healthy: 1, unhealthy: 20
+
+        junit testResults: &apos;**/target/*-reports/TEST-*.xml&apos;
+        recordCoverage tools: [[parser: &apos;JACOCO&apos;]], sourceCodeRetention: &apos;EVERY_BUILD&apos;, name: &apos;Code Coverage&apos;
+        recordCoverage tools: [[parser: &apos;PIT&apos;]], id: &apos;pit&apos;, name: &apos;Mutation Coverage&apos;, sourceCodeRetention: &apos;EVERY_BUILD&apos;
+
+        recordIssues tools: [checkStyle(pattern: &apos;target/**/checkstyle-result.xml&apos;),
+            spotBugs(pattern: &apos;target/spotbugsXml.xml&apos;),
+            pmdParser(pattern: &apos;target/**/pmd.xml&apos;),
+            cpd(pattern: &apos;target/**/cpd.xml&apos;),
+            taskScanner(highTags:&apos;FIXME&apos;, normalTags:&apos;TODO&apos;, includePattern: &apos;**/*.java&apos;, excludePattern: &apos;target/**/*&apos;)],
+            qualityGates: [[threshold: 1, type: &apos;TOTAL&apos;, unstable: true]]
+    }
+
+    stage (&apos;Collect Maven Warnings&apos;) {
+        recordIssues tool: mavenConsole()
+    }
+
+    stage (&apos;Autograding&apos;) {
+        autoGrade(&apos;&apos;&apos;
+                {
+                  &quot;tests&quot;: {
+                    &quot;tools&quot;: [
+                      {
+                        &quot;name&quot;: &quot;Tests&quot;
+                      }
+                    ],
+                    &quot;name&quot;: &quot;JUnit&quot;,
+                    &quot;passedImpact&quot;: 0,
+                    &quot;skippedImpact&quot;: -1,
+                    &quot;failureImpact&quot;: -5,
+                    &quot;maxScore&quot;: 100
+                  },
+                  &quot;analysis&quot;: [
+                    {
+                      &quot;name&quot;: &quot;Style&quot;,
+                      &quot;id&quot;: &quot;style&quot;,
+                      &quot;tools&quot;: [
+                        {
+                          &quot;id&quot;: &quot;checkstyle&quot;,
+                          &quot;name&quot;: &quot;CheckStyle&quot;
+                        },
+                        {
+                          &quot;id&quot;: &quot;pmd&quot;,
+                          &quot;name&quot;: &quot;PMD&quot;
+                        }
+                      ],
+                      &quot;errorImpact&quot;: -1,
+                      &quot;highImpact&quot;: -1,
+                      &quot;normalImpact&quot;: -1,
+                      &quot;lowImpact&quot;: -1,
+                      &quot;maxScore&quot;: 100
+                    },
+                    {
+                      &quot;name&quot;: &quot;Bugs&quot;,
+                      &quot;id&quot;: &quot;bugs&quot;,
+                      &quot;icon&quot;: &quot;bug&quot;,
+                      &quot;tools&quot;: [
+                        {
+                          &quot;id&quot;: &quot;spotbugs&quot;,
+                          &quot;name&quot;: &quot;SpotBugs&quot;
+                        }
+                      ],
+                      &quot;errorImpact&quot;: -3,
+                      &quot;highImpact&quot;: -3,
+                      &quot;normalImpact&quot;: -3,
+                      &quot;lowImpact&quot;: -3,
+                      &quot;maxScore&quot;: 100
+                    }
+                  ],
+                  &quot;coverage&quot;: [
+                    {
+                      &quot;tools&quot;: [
+                        {
+                          &quot;id&quot;: &quot;coverage&quot;,
+                          &quot;name&quot;: &quot;Line Coverage&quot;,
+                          &quot;metric&quot;: &quot;line&quot;
+                        },
+                        {
+                          &quot;id&quot;: &quot;coverage&quot;,
+                          &quot;name&quot;: &quot;Branch Coverage&quot;,
+                          &quot;metric&quot;: &quot;branch&quot;
+                        }
+                      ],
+                      &quot;name&quot;: &quot;Code Coverage&quot;,
+                      &quot;maxScore&quot;: 100,
+                      &quot;missedPercentageImpact&quot;: -1
+                    },
+                    {
+                      &quot;tools&quot;: [
+                        {
+                          &quot;id&quot;: &quot;pit&quot;,
+                          &quot;name&quot;: &quot;Mutation Coverage&quot;,
+                          &quot;metric&quot;: &quot;mutation&quot;
+                        }
+                      ],
+                      &quot;name&quot;: &quot;Mutation Coverage&quot;,
+                      &quot;maxScore&quot;: 100,
+                      &quot;missedPercentageImpact&quot;: -1
+                    }
+                  ]
+                }
+            &apos;&apos;&apos;)
+    }
+}
+</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>

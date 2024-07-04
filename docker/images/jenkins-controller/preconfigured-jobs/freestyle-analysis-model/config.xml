@@ -1,0 +1,165 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@5.2.2">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/jenkinsci/analysis-model.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/main</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="empty-list"/>
+    <extensions/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Maven>
+      <targets>clean verify -ntp -Pci</targets>
+      <mavenName>mvn-default</mavenName>
+      <properties>skipITs=true</properties>
+      <usePrivateRepository>false</usePrivateRepository>
+      <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+      <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+      <injectBuildVariables>true</injectBuildVariables>
+    </hudson.tasks.Maven>
+  </builders>
+  <publishers>
+    <io.jenkins.plugins.coverage.metrics.steps.CoverageRecorder plugin="coverage@1.16.1">
+      <tools class="java.util.ImmutableCollections$List12" resolves-to="java.util.CollSer" serialization="custom">
+        <java.util.CollSer>
+          <default>
+            <tag>1</tag>
+          </default>
+          <int>2</int>
+          <io.jenkins.plugins.coverage.metrics.steps.CoverageTool>
+            <jenkins plugin="plugin-util-api@4.1.0"/>
+            <pattern></pattern>
+            <parser>JACOCO</parser>
+          </io.jenkins.plugins.coverage.metrics.steps.CoverageTool>
+          <io.jenkins.plugins.coverage.metrics.steps.CoverageTool>
+            <jenkins plugin="plugin-util-api@4.1.0"/>
+            <pattern></pattern>
+            <parser>JUNIT</parser>
+          </io.jenkins.plugins.coverage.metrics.steps.CoverageTool>
+        </java.util.CollSer>
+      </tools>
+      <qualityGates/>
+      <id></id>
+      <name></name>
+      <skipPublishingChecks>false</skipPublishingChecks>
+      <checksName>Code Coverage</checksName>
+      <checksAnnotationScope>MODIFIED_LINES</checksAnnotationScope>
+      <ignoreParsingErrors>false</ignoreParsingErrors>
+      <failOnError>false</failOnError>
+      <enabledForFailure>false</enabledForFailure>
+      <skipSymbolicLinks>false</skipSymbolicLinks>
+      <scm></scm>
+      <sourceCodeEncoding></sourceCodeEncoding>
+      <sourceDirectories/>
+      <sourceCodeRetention>LAST_BUILD</sourceCodeRetention>
+    </io.jenkins.plugins.coverage.metrics.steps.CoverageRecorder>
+    <io.jenkins.plugins.analysis.core.steps.IssuesRecorder plugin="warnings-ng@11.3.0">
+      <analysisTools>
+        <io.jenkins.plugins.analysis.warnings.MavenConsole>
+          <id></id>
+          <name></name>
+          <jenkins plugin="plugin-util-api@4.1.0"/>
+          <pattern></pattern>
+          <reportEncoding></reportEncoding>
+          <skipSymbolicLinks>false</skipSymbolicLinks>
+        </io.jenkins.plugins.analysis.warnings.MavenConsole>
+        <io.jenkins.plugins.analysis.warnings.Java>
+          <id></id>
+          <name></name>
+          <jenkins plugin="plugin-util-api@4.1.0"/>
+          <pattern></pattern>
+          <reportEncoding></reportEncoding>
+          <skipSymbolicLinks>false</skipSymbolicLinks>
+        </io.jenkins.plugins.analysis.warnings.Java>
+        <io.jenkins.plugins.analysis.warnings.JavaDoc>
+          <id></id>
+          <name></name>
+          <jenkins plugin="plugin-util-api@4.1.0"/>
+          <pattern></pattern>
+          <reportEncoding></reportEncoding>
+          <skipSymbolicLinks>false</skipSymbolicLinks>
+        </io.jenkins.plugins.analysis.warnings.JavaDoc>
+        <io.jenkins.plugins.analysis.warnings.tasks.OpenTasks>
+          <id></id>
+          <name></name>
+          <jenkins plugin="plugin-util-api@4.1.0"/>
+          <highTags>FIXME</highTags>
+          <normalTags>TODO</normalTags>
+          <lowTags></lowTags>
+          <ignoreCase>false</ignoreCase>
+          <isRegularExpression>false</isRegularExpression>
+          <includePattern>**/*.java</includePattern>
+          <excludePattern></excludePattern>
+        </io.jenkins.plugins.analysis.warnings.tasks.OpenTasks>
+        <io.jenkins.plugins.analysis.warnings.SpotBugs>
+          <id></id>
+          <name></name>
+          <jenkins plugin="plugin-util-api@4.1.0"/>
+          <pattern></pattern>
+          <reportEncoding></reportEncoding>
+          <skipSymbolicLinks>false</skipSymbolicLinks>
+          <useRankAsPriority>true</useRankAsPriority>
+        </io.jenkins.plugins.analysis.warnings.SpotBugs>
+        <io.jenkins.plugins.analysis.warnings.Pmd>
+          <id></id>
+          <name></name>
+          <jenkins plugin="plugin-util-api@4.1.0"/>
+          <pattern></pattern>
+          <reportEncoding></reportEncoding>
+          <skipSymbolicLinks>false</skipSymbolicLinks>
+        </io.jenkins.plugins.analysis.warnings.Pmd>
+        <io.jenkins.plugins.analysis.warnings.Cpd>
+          <id></id>
+          <name></name>
+          <jenkins plugin="plugin-util-api@4.1.0"/>
+          <pattern></pattern>
+          <reportEncoding></reportEncoding>
+          <skipSymbolicLinks>false</skipSymbolicLinks>
+          <highThreshold>50</highThreshold>
+          <normalThreshold>25</normalThreshold>
+        </io.jenkins.plugins.analysis.warnings.Cpd>
+      </analysisTools>
+      <sourceCodeEncoding>UTF-8</sourceCodeEncoding>
+      <sourceDirectories/>
+      <sourceCodeRetention>EVERY_BUILD</sourceCodeRetention>
+      <ignoreQualityGate>false</ignoreQualityGate>
+      <failOnError>false</failOnError>
+      <healthy>0</healthy>
+      <unhealthy>0</unhealthy>
+      <minimumSeverity plugin="analysis-model-api@12.3.3">
+        <name>LOW</name>
+      </minimumSeverity>
+      <filters/>
+      <isEnabledForFailure>false</isEnabledForFailure>
+      <isAggregatingResults>false</isAggregatingResults>
+      <quiet>false</quiet>
+      <isBlameDisabled>false</isBlameDisabled>
+      <skipPublishingChecks>true</skipPublishingChecks>
+      <checksAnnotationScope>NEW</checksAnnotationScope>
+      <skipPostProcessing>false</skipPostProcessing>
+      <qualityGates/>
+      <trendChartType>AGGREGATION_TOOLS</trendChartType>
+      <scm></scm>
+    </io.jenkins.plugins.analysis.core.steps.IssuesRecorder>
+  </publishers>
+  <buildWrappers/>
+</project>

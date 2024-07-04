@@ -1,5 +1,5 @@
-ace-editor
 analysis-model-api
+ansicolor
 antisamy-markup-formatter
 apache-httpcomponents-client-4-api
 authentication-tokens
@@ -7,7 +7,7 @@ autograding
 bouncycastle-api
 branch-api
 cloudbees-folder
-code-coverage-api
+coverage
 command-launcher
 configuration-as-code
 credentials
@@ -18,7 +18,6 @@ docker-commons
 docker-workflow
 durable-task
 email-ext
-filesystem_scm
 file-operations
 form-element-path
 git
@@ -27,13 +26,12 @@ git-forensics
 git-server
 github
 github-api
+github-checks
 github-branch-source
-handlebars
 jackson2-api
 javadoc
 jdk-tool
 job-dsl
-jquery-detached
 jsch
 junit
 locale
@@ -42,9 +40,7 @@ mailer
 matrix-auth
 matrix-project
 maven-plugin
-metrics-aggregation
 mock-security-realm
-momentjs
 pam-auth
 pipeline-build-step
 pipeline-graph-analysis
@@ -57,7 +53,6 @@ pipeline-model-extensions
 pipeline-rest-api
 pipeline-stage-step
 pipeline-stage-tags-metadata
-pitmutation
 plain-credentials
 resource-disposer
 scm-api
