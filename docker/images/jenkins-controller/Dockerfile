@@ -1,5 +1,5 @@
 # Prepare a Debian-based Docker image with several utilities installed to automatically generate SSH keys
-FROM jenkins/jenkins:latest-jdk21
+FROM jenkins/jenkins:lts-jdk21
 
 # We switch back to the Jenkins user for the remaining operations.
 USER jenkins

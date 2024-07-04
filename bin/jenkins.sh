@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker pull jenkins/jenkins:latest-jdk21
+docker pull jenkins/jenkins:lts-jdk21
 
 docker compose build --pull
 
