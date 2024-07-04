@@ -1,20 +1,70 @@
-version: "3"
+name: codingstyle
+
 services:
-  jenkins-controller:
+  jenkins:
+    container_name: jenkins
     build:
       context: docker/images/jenkins-controller
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./docker/volumes/jenkins-home:/var/jenkins_home:cached
+      - ./docker/volumes/jenkins-home:/var/jenkins_home # Mounts the local jenkins_home volume to the /var/jenkins_home path inside the container
+      - agent-ssh-dir:/ssh-dir # Mounts the shared volume agent-ssh-dir to a path inside the container
     ports:
       - 8081:8080   # Jenkins UI - HOST:CONTAINER
     environment:
       - TRY_UPGRADE_IF_NO_MARKER=true
-      - JAVA_OPTS= -Dstapler.jelly.noCache=true  -Dhudson.remoting.ClassFilter=com.google.common.collect.ImmutableListMultimap -DexecutableWar.jetty.disableCustomSessionIdCookieName=true -DexecutableWar.jetty.sessionIdCookieName=warnings-ng-devenv
+      - JAVA_OPTS= -Dstapler.jelly.noCache=true  -Dhudson.remoting.ClassFilter=com.google.common.collect.ImmutableListMultimap -DexecutableWar.jetty.disableCustomSessionIdCookieName=true -DexecutableWar.jetty.sessionIdCookieName=codingstyle
     user: ${CURRENT_UID}
     restart: unless-stopped
-  java11-agent:
-    build: ./docker/images/java11-agent
     depends_on:
-      - jenkins-controller
+      key-generator:
+        condition: service_completed_successfully # Depends on the successful completion of the sidekick_service
+    healthcheck:
+      test: ["CMD-SHELL", "[ -f /ssh-dir/conductor_ok ] || exit 1"]
+      # Checks if the conductor_ok file exists in the /ssh-dir path
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+  key-generator:
+    container_name: key-generator
+    build:
+      context: docker/images/key-generator
+    stdin_open: true
+    tty: true
+    # The entrypoint script generates the SSH keys and outputs them to the /ssh-dir directory.
+    entrypoint: sh -c "/usr/local/bin/keygen.sh /ssh-dir" # Runs the keygen.sh script and specifies the output directory
+    volumes:
+      - agent-ssh-dir:/ssh-dir # Mounts the agent-ssh-dir volume to the /ssh-dir path inside the container
+    # The healthcheck command checks if the conductor_ok file exists in the /ssh-dir directory.
+    healthcheck:
+      test: ["CMD-SHELL", "[ -f /ssh-dir/conductor_ok ] || exit 1"]
+      # Checks if the conductor_ok file exists in the /ssh-dir path
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+  java-agent:
+    container_name: java-agent
+    build: docker/images/java-agent
+    depends_on:
+      key-generator:
+        condition: service_completed_successfully # Depends on the successful completion of the sidekick_service
+      jenkins:
+        condition: service_started
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "[ -f /ssh-dir/conductor_ok ] || exit 1"]
+      # Checks if the conductor_ok file exists in the /ssh-dir path
+      interval: 5s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - agent-ssh-dir:/home/jenkins/.ssh:ro # Mounts the agent-ssh-dir volume to the /home/jenkins/.ssh path inside the container as read-only
+      - ${HOME}/.m2/repository:/home/jenkins/.m2/repository # Mounts the local Maven repository to the /home/jenkins/.m2 path inside the container
+
+volumes:
+  agent-ssh-dir:
+    name: agent-ssh-dir # Creates a named volume called agent-ssh-dir
+  jenkins_home:
+    name: jenkins_home # Creates a named volume called jenkins_home
+    external: true
