@@ -5,6 +5,7 @@ services:
     container_name: codingstyle-jenkins
     build:
       context: docker/images/jenkins-controller
+    image: codingstyle/jenkins-controller
     volumes:
       - ./docker/volumes/jenkins-home:/var/jenkins_home # Mounts the local jenkins_home volume to the /var/jenkins_home path inside the container
       - agent-ssh-dir:/ssh-dir # Mounts the shared volume agent-ssh-dir to a path inside the container
@@ -29,6 +30,7 @@ services:
     container_name: codingstyle-key-generator
     build:
       context: docker/images/key-generator
+    image: codingstyle/key-generator
     stdin_open: true
     tty: true
     # The entrypoint script generates the SSH keys and outputs them to the /ssh-dir directory.
@@ -46,6 +48,7 @@ services:
   java-agent:
     container_name: codingstyle-java-agent
     build: docker/images/java-agent
+    image: codingstyle/java-agent
     depends_on:
       key-generator:
         condition: service_completed_successfully # Depends on the successful completion of the sidekick_service
