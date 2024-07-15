@@ -2,14 +2,14 @@ name: codingstyle
 
 services:
   jenkins:
-    container_name: jenkins
+    container_name: codingstyle-jenkins
     build:
       context: docker/images/jenkins-controller
     volumes:
       - ./docker/volumes/jenkins-home:/var/jenkins_home # Mounts the local jenkins_home volume to the /var/jenkins_home path inside the container
       - agent-ssh-dir:/ssh-dir # Mounts the shared volume agent-ssh-dir to a path inside the container
     ports:
-      - 8081:8080   # Jenkins UI - HOST:CONTAINER
+      - 8080:8080   # Jenkins UI - HOST:CONTAINER
     environment:
       - TRY_UPGRADE_IF_NO_MARKER=true
       - JAVA_OPTS= -Dstapler.jelly.noCache=true  -Dhudson.remoting.ClassFilter=com.google.common.collect.ImmutableListMultimap -DexecutableWar.jetty.disableCustomSessionIdCookieName=true -DexecutableWar.jetty.sessionIdCookieName=codingstyle
@@ -26,7 +26,7 @@ services:
       retries: 5
 
   key-generator:
-    container_name: key-generator
+    container_name: codingstyle-key-generator
     build:
       context: docker/images/key-generator
     stdin_open: true
@@ -44,7 +44,7 @@ services:
       retries: 5
 
   java-agent:
-    container_name: java-agent
+    container_name: codingstyle-java-agent
     build: docker/images/java-agent
     depends_on:
       key-generator:
@@ -64,7 +64,7 @@ services:
 
 volumes:
   agent-ssh-dir:
-    name: agent-ssh-dir # Creates a named volume called agent-ssh-dir
+    name: codingstyle-agent-ssh-dir # Creates a named volume called agent-ssh-dir
   jenkins_home:
-    name: jenkins_home # Creates a named volume called jenkins_home
+    name: codingstyle-jenkins-home # Creates a named volume called jenkins-home
     external: true
