@@ -15,7 +15,8 @@ import org.apache.commons.lang3.StringUtils;
 import edu.umd.cs.findbugs.annotations.CheckForNull;
 
 /**
- * Utilities for {@link Path} instances.
+ * Utilities for {@link Path} instances. These methods handle file paths in Windows and Unix file system
+ * implementations transparently. Moreover, these methods do not throw exceptions when illegal paths are specified.
  *
  * @author Ullrich Hafner
  */
@@ -71,7 +72,7 @@ public class PathUtil {
 
     /**
      * Returns the string representation of the specified path. The path will be actually resolved in the file system
-     * and will be returned as fully qualified absolute path. In case of an error, i.e. if the file is not found, the
+     * and will be returned as a fully qualified absolute path. In case of an error, i.e., if the file is not found, the
      * provided {@code path} will be returned unchanged (but normalized using the UNIX path separator and upper case
      * drive letter).
      *
@@ -91,7 +92,7 @@ public class PathUtil {
 
     /**
      * Returns the string representation of the specified path. The path will be actually resolved in the file system
-     * and will be returned as fully qualified absolute path. In case of an error, i.e. if the file is not found, the
+     * and will be returned as a fully qualified absolute path. In case of an error, i.e., if the file is not found, the
      * provided {@code path} will be returned unchanged (but normalized using the UNIX path separator and upper case
      * drive letter).
      *
@@ -140,7 +141,7 @@ public class PathUtil {
      * UNIX path separator and upper case drive letter).
      *
      * @param base
-     *         the base directory that should be  to get the absolute path for
+     *         the base directory that should be to get the absolute path for
      * @param path
      *         the path to get the absolute path for
      *
@@ -163,7 +164,7 @@ public class PathUtil {
      * UNIX path separator and upper case drive letter).
      *
      * @param base
-     *         the base directory that should be  to get the absolute path for
+     *         the base directory that should be to get the absolute path for
      * @param path
      *         the path to get the absolute path for
      *

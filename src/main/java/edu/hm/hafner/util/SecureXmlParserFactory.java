@@ -292,7 +292,7 @@ public class SecureXmlParserFactory {
      * @param charset
      *         the charset to use when reading the content
      *
-     * @return the file content as document
+     * @return the file content as a document
      * @throws ParsingException
      *         if the file could not be parsed
      */
@@ -306,8 +306,10 @@ public class SecureXmlParserFactory {
         }
     }
 
-    private InputSource createInputSource(final Reader reader, final Charset charset) {
-        return new InputSource(new ReaderInputStream(reader, charset));
+    private InputSource createInputSource(final Reader reader, final Charset charset) throws IOException {
+        var inputStream = ReaderInputStream.builder().setReader(reader).setCharset(charset).get();
+
+        return new InputSource(inputStream);
     }
 
     /**
