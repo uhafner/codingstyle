@@ -24,7 +24,7 @@ skinparam actor {
   BackgroundColor<<Main>> gold
   BorderColor black
   ArrowColor black
-  FontName  Arial Unicode MS
+  FontName Arial Unicode MS
   FontSize 20
 
   LifeLineBorderColor black
@@ -50,6 +50,7 @@ participant "blau:ZweiteKlasse" as blau
 activate unnamed
 Akteur -> unnamed: start(1, 3, 2)
 create rot
+
 unnamed -->> rot : new
 unnamed -> rot: synchronerAufruf({1, 3, 2})
 activate rot
