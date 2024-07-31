@@ -5,6 +5,9 @@ services:
     container_name: codingstyle-jenkins
     build:
       context: docker/images/jenkins-controller
+      args:
+        - uid=${CURRENT_UID}
+        - gid=${CURRENT_GID}
     image: codingstyle/jenkins-controller
     volumes:
       - ./docker/volumes/jenkins-home:/var/jenkins_home # Mounts the local jenkins_home volume to the /var/jenkins_home path inside the container
@@ -14,7 +17,7 @@ services:
     environment:
       - TRY_UPGRADE_IF_NO_MARKER=true
       - JAVA_OPTS= -Dstapler.jelly.noCache=true  -Dhudson.remoting.ClassFilter=com.google.common.collect.ImmutableListMultimap -DexecutableWar.jetty.disableCustomSessionIdCookieName=true -DexecutableWar.jetty.sessionIdCookieName=codingstyle
-    user: ${CURRENT_UID}
+    user: ${CURRENT_USER}
     restart: unless-stopped
     depends_on:
       key-generator:
@@ -47,7 +50,11 @@ services:
 
   java-agent:
     container_name: codingstyle-java-agent
-    build: docker/images/java-agent
+    build:
+      context: docker/images/java-agent
+      args:
+        - uid=${CURRENT_UID}
+        - gid=${CURRENT_GID}
     image: codingstyle/java-agent
     depends_on:
       key-generator:

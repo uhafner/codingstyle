@@ -24,4 +24,7 @@ RUN curl -sS -L -O --output-dir /tmp/ --create-dirs  https://archive.apache.org/
              export PATH=${M2_HOME}/bin:${PATH}" > /etc/profile.d/maven.sh
 ENV M2_HOME="/opt/maven"
 ENV PATH="${M2_HOME}/bin/:${PATH}"
-RUN echo "PATH=${PATH}" >> /etc/environment && chown -R jenkins:jenkins "${JENKINS_AGENT_HOME}"
+
+RUN echo "PATH=${PATH}" >> /etc/environment && \
+    mkdir -pv "${JENKINS_AGENT_HOME}/.m2/repository" && \
+    chown -R jenkins:jenkins "${JENKINS_AGENT_HOME}"
