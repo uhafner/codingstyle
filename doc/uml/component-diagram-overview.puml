@@ -7,7 +7,7 @@ skinparam component {
   BorderColor black
   FontName Arial Unicode MS
   FontSize 20
-  ArrowFontName  Arial Unicode MS
+  ArrowFontName Arial Unicode MS
   ArrowFontSize 18
 }
 
@@ -42,27 +42,24 @@ anwendung .up.> library : " <<use>>"
 note "Artefakt" as artefact
 note "Komponente" as component
 note "Schnittstelle" as schnittstelle
-note "Implementierung" as Implementierung
-note "Aufruf" as Use
-note "gerichtete Abhängigkeit" as Dependency
+note "Implementierung\neiner Schnittstelle" as Implementierung
+note "Aufruf einer\nSchnittstelle" as Use
+note "gerichtete Abhängigkeit\nohne Angabe Interface" as Dependency
 
-circle "   \t\t\t           Fassade " as fassade
-circle "RestApi " as api
-
+circle "\t         Fassade " as fassade
 
 anwendung ..> fassade : " <<use>>"
-fassade -- fachkomponente
+fassade -up- fachkomponente
 
 anwendung .down. Use
 fassade .up. Use
 
-api .up. schnittstelle
+fassade .left. schnittstelle
 library .up. component
-lang .left. artefact
+lang .down. artefact
 
-anwendung -up- api : " "
-api .down. Implementierung
-anwendung .right. Implementierung
+fassade .down. Implementierung
+fachkomponente .right. Implementierung
 
 anwendung .up. Dependency
 library .down. Dependency

@@ -6,7 +6,7 @@ skinparam package {
   BackgroundColor<<Main>> gold
   BorderColor black
   ArrowColor black
-  FontName  Arial Unicode MS
+  FontName Arial Unicode MS
   FontSize 20
 }
 
@@ -16,7 +16,7 @@ skinparam class {
   BackgroundColor<<Main>> gold
   BorderColor black
   ArrowColor black
-  FontName  Arial Unicode MS
+  FontName Arial Unicode MS
   FontSize 20
 }
 skinparam classFontSize 24
@@ -50,7 +50,7 @@ note "Vererbung" as Vererbung
 note "Implementierung" as Implementierung
 note "gerichtete Assoziation" as Assoziation
 note "generischen Typ binden" as Generics
-note "gerichtete Abhängigkeit" as Dependency
+note "gerichtete Abhängigkeit:\n<<use>> benutzt\n<<create>> erzeugt\n<<call>> Aufruf" as Dependency
 
 class ConcreteObservable {
     -concreteState: State
@@ -97,8 +97,8 @@ Observer <|.. AbstractObserver
 AbstractObserver <|-- ConcreteObserver : <<bind>> \n<T -> ConcreteObserver>
 ConcreteObservable <-left- ConcreteObserver : \t\t
 
-java .up. Package
-util .up. Subpackage
+java .right. Package
+util .down. Subpackage
 Observable .up. Class
 Observable .. Vererbung
 ConcreteObservable .up. Vererbung
