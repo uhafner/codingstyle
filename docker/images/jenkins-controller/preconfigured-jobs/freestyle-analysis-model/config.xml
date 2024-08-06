@@ -137,6 +137,14 @@
           <highThreshold>50</highThreshold>
           <normalThreshold>25</normalThreshold>
         </io.jenkins.plugins.analysis.warnings.Cpd>
+        <io.jenkins.plugins.analysis.warnings.CheckStyle>
+          <id></id>
+          <name></name>
+          <jenkins plugin="plugin-util-api@4.1.0"/>
+          <pattern></pattern>
+          <reportEncoding></reportEncoding>
+          <skipSymbolicLinks>false</skipSymbolicLinks>
+        </io.jenkins.plugins.analysis.warnings.CheckStyle>
       </analysisTools>
       <sourceCodeEncoding>UTF-8</sourceCodeEncoding>
       <sourceDirectories/>
@@ -145,7 +153,7 @@
       <failOnError>false</failOnError>
       <healthy>0</healthy>
       <unhealthy>0</unhealthy>
-      <minimumSeverity plugin="analysis-model-api@12.3.3">
+      <minimumSeverity plugin="analysis-model-api@12.4.0">
         <name>LOW</name>
       </minimumSeverity>
       <filters/>
