@@ -20,11 +20,10 @@ skinparam artifact {
   BackgroundColor #e4e4e4
   BorderColor #a0a0a0
   ArrowColor black
-  FontName  Arial Unicode MS
+  FontName Arial Unicode MS
   FontSize 20
   StereotypeFontSize 14
 }
-
 
 node ":MacBook" <<device>> {
     node ":macOS Monterey" <<execution environment>>  {
@@ -62,7 +61,7 @@ note "Execution Environment" as env
 ":Server" .. channel
 ":MacBook" .. channel
 
-W .right. artifact
+C .left. artifact
 
 
 @enduml

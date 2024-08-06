@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  * Builds {@link TreeString}s that share common prefixes. Call {@link #intern(String)} and you get the {@link
- * TreeString} that represents the same string, but as you interns more strings that share the same prefixes, those
+ * TreeString} that represents the same string, but as you intern more strings that share the same prefixes, those
  * {@link TreeString}s that you get back start to share data.
  *
  * <p>

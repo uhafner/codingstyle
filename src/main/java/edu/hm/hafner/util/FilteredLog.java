@@ -14,7 +14,7 @@ import com.google.errorprone.annotations.FormatMethod;
 
 /**
  * Provides a log of info messages and a limited number of error messages. If the number of errors exceeds this limit,
- * then subsequent error messages will be skipped. This class is thread-safe and can be used in a distributed
+ * then further error messages will be skipped. This class is thread-safe and can be used in a distributed
  * environment.
  *
  * @author Ullrich Hafner
