@@ -6,8 +6,8 @@ services:
     build:
       context: docker/images/jenkins-controller
       args:
-        - uid=${CURRENT_UID}
-        - gid=${CURRENT_GID}
+        - CURRENT_UID=${CURRENT_UID}
+        - CURRENT_GID=${CURRENT_GID}
     image: codingstyle/jenkins-controller
     volumes:
       - ./docker/volumes/jenkins-home:/var/jenkins_home # Mounts the local jenkins_home volume to the /var/jenkins_home path inside the container
@@ -53,8 +53,8 @@ services:
     build:
       context: docker/images/java-agent
       args:
-        - uid=${CURRENT_UID}
-        - gid=${CURRENT_GID}
+        - CURRENT_UID=${CURRENT_UID}
+        - CURRENT_GID=${CURRENT_GID}
     image: codingstyle/java-agent
     depends_on:
       key-generator:
@@ -70,7 +70,6 @@ services:
       retries: 5
     volumes:
       - agent-ssh-dir:/home/jenkins/.ssh:ro # Mounts the agent-ssh-dir volume to the /home/jenkins/.ssh path inside the container as read-only
-      - ${HOME}/.m2/repository:/home/jenkins/.m2/repository # Mounts the local Maven repository to the /home/jenkins/.m2 path inside the container
 
 volumes:
   agent-ssh-dir:
