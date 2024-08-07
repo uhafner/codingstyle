@@ -45,6 +45,7 @@ jenkins:
         - coverageTotalsColumn:
             columnName: "Branch Coverage"
             metric: BRANCH
+        - "issueTotalsColumn"
         - "buildButton"
       includeRegex: ".*"
       name: "List View"
@@ -77,6 +78,7 @@ jenkins:
           - coverageTotalsColumn:
               columnName: "Branch Coverage"
               metric: BRANCH
+          - "issueTotalsColumn"
           - "buildButton"
         includeRegex: ".*"
         name: "List View"
@@ -94,6 +96,7 @@ jenkins:
           - coverageTotalsColumn:
               columnName: "Branch Coverage"
               metric: BRANCH
+          - "issueTotalsColumn"
           - "buildButton"
         includeStdJobList: true
         includeRegex: ".*"
