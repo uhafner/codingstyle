@@ -1,20 +1,20 @@
-<svg width="99.9" height="20" viewBox="0 0 999 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mutations: 80%">
-  <title>Mutations: 80%</title>
+<svg width="92.9" height="20" viewBox="0 0 929 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mutations: 0%">
+  <title>Mutations: 0%</title>
   <linearGradient id="a" x2="0" y2="100%">
     <stop offset="0" stop-opacity=".1" stop-color="#EEE"/>
     <stop offset="1" stop-opacity=".1"/>
   </linearGradient>
-  <mask id="m"><rect width="999" height="200" rx="30" fill="#FFF"/></mask>
+  <mask id="m"><rect width="929" height="200" rx="30" fill="#FFF"/></mask>
   <g mask="url(#m)">
     <rect width="639" height="200" fill="#555"/>
-    <rect width="360" height="200" fill="#3C1" x="639"/>
-    <rect width="999" height="200" fill="url(#a)"/>
+    <rect width="290" height="200" fill="#3C1" x="639"/>
+    <rect width="929" height="200" fill="url(#a)"/>
   </g>
   <g aria-hidden="true" fill="#fff" text-anchor="start" font-family="Verdana,DejaVu Sans,sans-serif" font-size="110">
     <text x="60" y="148" textLength="539" fill="#000" opacity="0.25">Mutations</text>
     <text x="50" y="138" textLength="539">Mutations</text>
-    <text x="694" y="148" textLength="260" fill="#000" opacity="0.25">80%</text>
-    <text x="684" y="138" textLength="260">80%</text>
+    <text x="694" y="148" textLength="190" fill="#000" opacity="0.25">0%</text>
+    <text x="684" y="138" textLength="190">0%</text>
   </g>
   
 </svg>
