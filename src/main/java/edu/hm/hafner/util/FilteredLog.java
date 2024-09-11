@@ -263,6 +263,7 @@ public class FilteredLog implements Serializable {
     }
 
     @Override
+    @Generated
     public boolean equals(final Object o) {
         if (this == o) {
             return true;
@@ -275,12 +276,12 @@ public class FilteredLog implements Serializable {
                 && lines == that.lines
                 && Objects.equals(title, that.title)
                 && Objects.equals(infoMessages, that.infoMessages)
-                && Objects.equals(errorMessages, that.errorMessages)
-                && Objects.equals(lock, that.lock);
+                && Objects.equals(errorMessages, that.errorMessages);
     }
 
     @Override
+    @Generated
     public int hashCode() {
-        return Objects.hash(title, maxLines, lines, infoMessages, errorMessages, lock);
+        return Objects.hash(title, maxLines, lines, infoMessages, errorMessages);
     }
 }

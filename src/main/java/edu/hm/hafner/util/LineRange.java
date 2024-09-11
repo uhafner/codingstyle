@@ -101,6 +101,7 @@ public final class LineRange implements Serializable {
     }
 
     @Override
+    @Generated
     public boolean equals(final Object o) {
         if (this == o) {
             return true;
@@ -109,10 +110,12 @@ public final class LineRange implements Serializable {
             return false;
         }
         var lineRange = (LineRange) o;
-        return start == lineRange.start && end == lineRange.end;
+        return start == lineRange.start
+                && end == lineRange.end;
     }
 
     @Override
+    @Generated
     public int hashCode() {
         return Objects.hash(start, end);
     }
