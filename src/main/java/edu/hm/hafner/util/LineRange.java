@@ -1,10 +1,10 @@
 package edu.hm.hafner.util;
 
 import java.io.Serializable;
+import java.util.Locale;
 import java.util.NavigableSet;
+import java.util.Objects;
 import java.util.TreeSet;
-
-import edu.umd.cs.findbugs.annotations.CheckForNull;
 
 /**
  * A line range in a source file is defined by its first and last line.
@@ -101,31 +101,24 @@ public final class LineRange implements Serializable {
     }
 
     @Override
-    public boolean equals(@CheckForNull final Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
-        LineRange lineRange = (LineRange) o;
-
-        if (start != lineRange.start) {
-            return false;
-        }
-        return end == lineRange.end;
+        var lineRange = (LineRange) o;
+        return start == lineRange.start && end == lineRange.end;
     }
 
     @Override
     public int hashCode() {
-        int result = start;
-        result = 31 * result + end;
-        return result;
+        return Objects.hash(start, end);
     }
 
     @Override
     public String toString() {
-        return String.format("[%d-%d]", start, end);
+        return String.format(Locale.ENGLISH, "[%d-%d]", start, end);
     }
 }

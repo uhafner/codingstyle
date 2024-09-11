@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -220,7 +221,7 @@ public class FilteredLog implements Serializable {
             }
             messages.addAll(errorMessages);
             if (lines > maxLines) {
-                messages.add(String.format("  ... skipped logging of %d additional errors ...", lines - maxLines));
+                messages.add(String.format(Locale.ENGLISH, "  ... skipped logging of %d additional errors ...", lines - maxLines));
             }
             return messages;
         }
@@ -269,31 +270,16 @@ public class FilteredLog implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
-        FilteredLog log = (FilteredLog) o;
-
-        if (maxLines != log.maxLines) {
-            return false;
-        }
-        if (lines != log.lines) {
-            return false;
-        }
-        if (!Objects.equals(title, log.title)) {
-            return false;
-        }
-        if (!infoMessages.equals(log.infoMessages)) {
-            return false;
-        }
-        return errorMessages.equals(log.errorMessages);
+        var that = (FilteredLog) o;
+        return maxLines == that.maxLines
+                && lines == that.lines
+                && Objects.equals(title, that.title)
+                && Objects.equals(infoMessages, that.infoMessages)
+                && Objects.equals(errorMessages, that.errorMessages);
     }
 
     @Override
     public int hashCode() {
-        int result = title != null ? title.hashCode() : 0;
-        result = 31 * result + maxLines;
-        result = 31 * result + lines;
-        result = 31 * result + infoMessages.hashCode();
-        result = 31 * result + errorMessages.hashCode();
-        return result;
+        return Objects.hash(title, maxLines, lines, infoMessages, errorMessages);
     }
 }

@@ -263,7 +263,7 @@ public class PathUtil {
      */
     public boolean isAbsolute(final String fileName) {
         try {
-            URI uri = new URI(fileName);
+            var uri = new URI(fileName);
             if (uri.isAbsolute()) {
                 return true;
             }
