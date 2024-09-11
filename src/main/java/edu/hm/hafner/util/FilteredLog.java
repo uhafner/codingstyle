@@ -275,11 +275,12 @@ public class FilteredLog implements Serializable {
                 && lines == that.lines
                 && Objects.equals(title, that.title)
                 && Objects.equals(infoMessages, that.infoMessages)
-                && Objects.equals(errorMessages, that.errorMessages);
+                && Objects.equals(errorMessages, that.errorMessages)
+                && Objects.equals(lock, that.lock);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, maxLines, lines, infoMessages, errorMessages);
+        return Objects.hash(title, maxLines, lines, infoMessages, errorMessages, lock);
     }
 }
