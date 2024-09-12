@@ -86,15 +86,15 @@ class LineRangeListTest {
         assertThat(middle).containsExactly(new LineRange(0, 1), new LineRange(4, 5));
 
         var first = createThreeElements();
-        assertThat(first.contains(new LineRange(0, 1))).isTrue();
-        assertThat(first.contains(new LineRange(2, 3))).isTrue();
-        assertThat(first.contains(new LineRange(4, 5))).isTrue();
+        assertThat(first).contains(new LineRange(0, 1));
+        assertThat(first).contains(new LineRange(2, 3));
+        assertThat(first).contains(new LineRange(4, 5));
 
         first.remove(new LineRange(0, 1));
         assertThat(first).containsExactly(new LineRange(2, 3), new LineRange(4, 5));
 
-        assertThat(first.contains(new LineRange(2, 3))).isTrue();
-        assertThat(first.contains(new LineRange(0, 1))).isFalse();
+        assertThat(first).contains(new LineRange(2, 3));
+        assertThat(first).doesNotContain(new LineRange(0, 1));
     }
 
     private List<LineRange> createThreeElements() {

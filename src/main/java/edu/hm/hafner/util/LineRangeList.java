@@ -125,7 +125,7 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
      */
     private void ensure(final int n) {
         if (data.length < n) {
-            byte[] buf = new byte[Math.max(n, data.length * 2)];
+            var buf = new byte[Math.max(n, data.length * 2)];
             System.arraycopy(data, 0, buf, 0, len);
             data = buf;
         }
@@ -204,7 +204,7 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
      */
     public void trim() {
         if (len != data.length) {
-            byte[] small = new byte[len];
+            var small = new byte[len];
             System.arraycopy(data, 0, small, 0, len);
             data = small;
         }
@@ -390,8 +390,8 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
          * @return the changed line range
          */
         public LineRange rewrite(final LineRange other) {
-            Cursor c = copy();
-            LineRange old = c.next();
+            var c = copy();
+            var old = c.next();
             int oldSize = c.position - position;
             int newSize = sizeOf(other);
             adjust(newSize - oldSize);
@@ -420,8 +420,8 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
          * @return the deleted element
          */
         public LineRange delete() {
-            Cursor c = copy();
-            LineRange old = c.next();
+            var c = copy();
+            var old = c.next();
             adjust(position - c.position);
             return old;
         }

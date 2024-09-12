@@ -478,7 +478,7 @@ public final class Ensure {
         }
 
         private boolean isBlank() {
-            String string = getValue();
+            var string = getValue();
             if (string.isEmpty()) {
                 return true;
             }

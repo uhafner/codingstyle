@@ -27,7 +27,7 @@ public class FilteredLog implements Serializable {
 
     private final String title;
     private final int maxLines;
-    private int lines = 0;
+    private int lines;
 
     private final List<String> infoMessages = new ArrayList<>();
     private final List<String> errorMessages = new ArrayList<>();

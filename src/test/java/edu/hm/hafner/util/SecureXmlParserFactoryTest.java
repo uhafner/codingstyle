@@ -12,7 +12,6 @@ import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
 
 import org.junit.jupiter.api.Test;
-import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -76,12 +75,12 @@ class SecureXmlParserFactoryTest {
     void shouldParseEmptyDocument() throws SAXException {
         var factory = new SecureXmlParserFactory();
 
-        DefaultHandler handler = mock(DefaultHandler.class);
+        var handler = mock(DefaultHandler.class);
         factory.parse(createEmptyXmlReader(), StandardCharsets.UTF_8, handler);
 
         verify(handler).startDocument();
 
-        Document document = factory.readDocument(createEmptyXmlReader(), StandardCharsets.UTF_8);
+        var document = factory.readDocument(createEmptyXmlReader(), StandardCharsets.UTF_8);
         assertThat(document.getChildNodes().getLength()).isOne();
         assertThat(document.getChildNodes().item(0).getNodeName()).isEqualTo("xml");
     }

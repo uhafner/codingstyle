@@ -3,7 +3,6 @@ package edu.hm.hafner.util;
 import java.io.IOException;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -42,7 +41,7 @@ class PathUtilTest extends ResourceTest {
 
         assertThat(pathUtil.exists(fileName)).isFalse();
         assertThat(pathUtil.exists(fileName, "/")).isFalse();
-        assertThat(pathUtil.getRelativePath(Paths.get("/"), fileName)).isEqualTo(fileName);
+        assertThat(pathUtil.getRelativePath(Path.of("/"), fileName)).isEqualTo(fileName);
         assertThat(pathUtil.getRelativePath("/", fileName)).isEqualTo(fileName);
         assertThat(pathUtil.getRelativePath(fileName)).isEqualTo(fileName);
         assertThat(pathUtil.getAbsolutePath(fileName)).isEqualTo(fileName);
@@ -114,7 +113,7 @@ class PathUtilTest extends ResourceTest {
     void shouldConvertToRelative() {
         var pathUtil = new PathUtil();
 
-        Path absolutePath = getResourceAsFile(FILE_NAME);
+        var absolutePath = getResourceAsFile(FILE_NAME);
 
         assertThat(pathUtil.getRelativePath(absolutePath.getParent(), FILE_NAME)).isEqualTo(FILE_NAME);
         assertThat(pathUtil.getRelativePath(FILE_NAME)).isEqualTo(FILE_NAME);
@@ -125,9 +124,9 @@ class PathUtilTest extends ResourceTest {
                 "util/" + FILE_NAME);
 
         assertThat(pathUtil.getRelativePath(absolutePath.getParent(), absolutePath.toString())).isEqualTo(FILE_NAME);
-        assertThat(pathUtil.getRelativePath(Paths.get(NOT_EXISTING), absolutePath.toString())).isEqualTo(
+        assertThat(pathUtil.getRelativePath(Path.of(NOT_EXISTING), absolutePath.toString())).isEqualTo(
                 pathUtil.getAbsolutePath(absolutePath));
-        assertThat(pathUtil.getRelativePath(Paths.get(NOT_EXISTING), FILE_NAME)).isEqualTo(FILE_NAME);
+        assertThat(pathUtil.getRelativePath(Path.of(NOT_EXISTING), FILE_NAME)).isEqualTo(FILE_NAME);
 
         assertThat(pathUtil.getRelativePath(NOT_EXISTING, FILE_NAME)).isEqualTo(FILE_NAME);
     }
@@ -136,7 +135,7 @@ class PathUtilTest extends ResourceTest {
     void shouldConvertNotResolvedToRelative() {
         var pathUtil = new PathUtil();
 
-        Path absolutePath = getResourceAsFile(FILE_NAME);
+        var absolutePath = getResourceAsFile(FILE_NAME);
 
         assertThat(pathUtil.getRelativePath(absolutePath.getParent().getParent(), "./util/" + FILE_NAME)).isEqualTo(
                 "util/" + FILE_NAME);
@@ -171,14 +170,14 @@ class PathUtilTest extends ResourceTest {
 
     @Test
     void shouldStayInSymbolicLinks() throws IOException {
-        Path current = Paths.get(".");
-        Path real = current.toRealPath();
-        Path realWithSymbolic = current.toRealPath(LinkOption.NOFOLLOW_LINKS);
+        var current = Path.of(".");
+        var real = current.toRealPath();
+        var realWithSymbolic = current.toRealPath(LinkOption.NOFOLLOW_LINKS);
 
         assumeThat(real).as("Current working directory path is not based on symbolic links").isNotEqualTo(realWithSymbolic);
 
-        String fromUtil = new PathUtil().getAbsolutePath(current);
-        String unixStyle = realWithSymbolic.toString().replace('\\', '/');
+        var fromUtil = new PathUtil().getAbsolutePath(current);
+        var unixStyle = realWithSymbolic.toString().replace('\\', '/');
         assertThat(fromUtil).isEqualTo(unixStyle);
     }
 }

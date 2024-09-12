@@ -175,8 +175,10 @@ class EnsureTest {
      */
     @Test
     void shouldThrowExceptionWithCorrectMessage() {
-        assertThatThrownBy(() -> {
-            Ensure.that("").isInstanceOf(Integer.class, "This error uses '%s' to print the number %d.", "String.format", 42);
-        }).isInstanceOf(AssertionError.class).hasMessage("This error uses 'String.format' to print the number 42.");
+        assertThatThrownBy(() ->
+            Ensure.that("")
+                    .isInstanceOf(Integer.class, "'%s' prints %d", "String.format", 42))
+                .isInstanceOf(AssertionError.class)
+                .hasMessage("'String.format' prints 42");
     }
 }

@@ -96,11 +96,11 @@ class TreeStringBuilderTest {
             for (int j = 0; j < random.nextInt(10) + 3; j++) {
                 b.append(dictionary[random.nextInt(4)]);
             }
-            String s = b.toString();
+            var s = b.toString();
 
             a.add(s);
 
-            TreeString p = builder.intern(s);
+            var p = builder.intern(s);
             assertThat(p).hasToString(s);
             o.add(p);
         }

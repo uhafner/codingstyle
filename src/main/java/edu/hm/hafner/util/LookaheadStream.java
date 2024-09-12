@@ -18,9 +18,9 @@ public class LookaheadStream implements AutoCloseable {
     private final Iterator<String> lineIterator;
     private final String fileName;
 
-    private boolean isLookaheadFilled = false;
+    private boolean isLookaheadFilled;
     private String lookaheadLine = StringUtils.EMPTY;
-    private int line = 0;
+    private int line;
 
     /**
      * Wraps the specified stream of lines into a {@link LookaheadStream}.

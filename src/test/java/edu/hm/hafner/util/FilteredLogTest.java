@@ -49,14 +49,14 @@ class FilteredLogTest extends SerializableTest<FilteredLog> {
 
     @Test
     void shouldSkipAdditionalErrors() {
-        FilteredLog filteredLog = create5ErrorsLogWithTitle(StringUtils.EMPTY);
+        var filteredLog = create5ErrorsLogWithTitle(StringUtils.EMPTY);
 
         verifyFiveErrorMessages(filteredLog);
     }
 
     @Test
     void shouldSkipAdditionalErrorsWithTitle() {
-        FilteredLog filteredLog = create5ErrorsLogWithTitle(TITLE);
+        var filteredLog = create5ErrorsLogWithTitle(TITLE);
 
         assertThat(filteredLog).hasErrorMessages(TITLE);
 
@@ -144,7 +144,7 @@ class FilteredLogTest extends SerializableTest<FilteredLog> {
 
     @Test
     void shouldLog20ErrorsByDefault() {
-        FilteredLog filteredLog = createLogWith20Elements();
+        var filteredLog = createLogWith20Elements();
 
         assertThat(filteredLog.getErrorMessages()).hasSize(22)
                 .contains(TITLE)
@@ -190,10 +190,10 @@ class FilteredLogTest extends SerializableTest<FilteredLog> {
     /** Actually tests {@link edu.hm.hafner.util.SerializableTest}. */
     @Test
     void shouldManuallyUseSerializationHelpers() {
-        FilteredLog serializable = createSerializable();
+        var serializable = createSerializable();
 
-        byte[] bytes = toByteArray(serializable);
-        FilteredLog restored = restore(bytes);
+        var bytes = toByteArray(serializable);
+        var restored = restore(bytes);
 
         assertThatRestoredInstanceEqualsOriginalInstance(serializable, restored);
     }
