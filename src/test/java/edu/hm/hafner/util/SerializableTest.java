@@ -40,7 +40,7 @@ public abstract class SerializableTest<T extends Serializable> extends ResourceT
     @Test
     @DisplayName("should be serializable: instance -> byte array -> instance")
     void shouldBeSerializable() {
-        T serializableInstance = createSerializable();
+        var serializableInstance = createSerializable();
 
         var bytes = toByteArray(serializableInstance);
 
@@ -84,16 +84,13 @@ public abstract class SerializableTest<T extends Serializable> extends ResourceT
      */
     @SuppressWarnings({"unchecked", "BanSerializableRead"})
     protected T restore(final byte[] serializedInstance) {
-        Object object;
-
         try (var inputStream = new ObjectInputStream(new ByteArrayInputStream(serializedInstance))) {
-            object = inputStream.readObject();
+            var object = inputStream.readObject();
+            return (T) object;
         }
         catch (IOException | ClassNotFoundException e) {
             throw new AssertionError("Can't resolve instance from byte array", e);
         }
-
-        return (T) object;
     }
 
     /**
