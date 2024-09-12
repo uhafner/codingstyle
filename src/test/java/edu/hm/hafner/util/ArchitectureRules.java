@@ -110,7 +110,7 @@ public final class ArchitectureRules {
                     .dependOnClassesThat()
                     .haveNameMatching(
                             "edu.umd.cs.findbugs.annotations.Nullable") // only CheckForNull and NonNull is allowed
-                    .because("JSR 305 annotations are now part of edu.umd.cs.findbugs.annotations package");
+                    .because("JSR 305 annotations are forbidden, as well as the Nullable annotation from FindBugs");
 
     /** Prevents that classes use visible but forbidden API. */
     public static final ArchRule NO_FORBIDDEN_CLASSES_CALLED =

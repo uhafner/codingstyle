@@ -4,11 +4,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import static java.lang.annotation.ElementType.*;
-import static java.lang.annotation.RetentionPolicy.CLASS;
+import static java.lang.annotation.RetentionPolicy.*;
 
 /**
  * This annotation is used to mark source code that has been generated or is somehow not relevant for style checking or
- * code coverage analysis. It is quite similar to the {@code javax.annotation.Generated} annotation. The
+ * code coverage analysis. It is quite similar to the JSR305 annotation. The
  * main difference is that it has class retention, so it is available for tools that work on bytecode (like JaCoCo,
  * PIT, or SpotBugs).
  */

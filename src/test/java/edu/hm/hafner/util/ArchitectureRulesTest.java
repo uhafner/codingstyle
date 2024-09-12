@@ -37,11 +37,10 @@ class ArchitectureRulesTest {
         assertThatExceptionOfType(AssertionError.class).isThrownBy(
                         () -> ArchitectureRules.NO_FORBIDDEN_ANNOTATION_USED.check(
                                 importClasses(ArchitectureRulesViolatedTest.class)))
-                .withMessageContainingAll("was violated (4 times)", "edu.umd.cs.findbugs.annotations",
-                        "Field <edu.hm.hafner.util.ArchitectureRulesTest$ArchitectureRulesViolatedTest.empty> is annotated with <javax.annotation.Nonnull>",
+                .withMessageContainingAll("was violated (3 times)", "edu.umd.cs.findbugs.annotations",
                         "Field <edu.hm.hafner.util.ArchitectureRulesTest$ArchitectureRulesViolatedTest.noNullable> is annotated with <edu.umd.cs.findbugs.annotations.Nullable>",
-                        "Method <edu.hm.hafner.util.ArchitectureRulesTest$ArchitectureRulesViolatedTest.method(java.lang.String)> is annotated with <javax.annotation.CheckForNull>",
-                        "Parameter <java.lang.String> of method <edu.hm.hafner.util.ArchitectureRulesTest$ArchitectureRulesViolatedTest.method(java.lang.String)> is annotated with <javax.annotation.Nonnull>");
+                        "Method <edu.hm.hafner.util.ArchitectureRulesTest$ArchitectureRulesViolatedTest.method(java.lang.String)> is annotated with <edu.umd.cs.findbugs.annotations.Nullable>",
+                        "Parameter <java.lang.String> of method <edu.hm.hafner.util.ArchitectureRulesTest$ArchitectureRulesViolatedTest.method(java.lang.String)> is annotated with <edu.umd.cs.findbugs.annotations.Nullable>");
 
         assertThatNoException().isThrownBy(
                 () -> ArchitectureRules.NO_FORBIDDEN_ANNOTATION_USED.check(importPassingClass()));
@@ -113,8 +112,6 @@ class ArchitectureRulesTest {
 
     @SuppressWarnings("all") @Generated // This class is just there to be used in architecture tests
     public static class ArchitectureRulesViolatedTest {
-        @javax.annotation.Nonnull
-        private final String empty = "";
         @edu.umd.cs.findbugs.annotations.Nullable
         private final String noNullable = null;
 
@@ -125,8 +122,8 @@ class ArchitectureRulesTest {
             throw new IllegalArgumentException();
         }
 
-        @javax.annotation.CheckForNull
-        protected String method(@javax.annotation.Nonnull String param) {
+        @edu.umd.cs.findbugs.annotations.Nullable
+        protected String method(@edu.umd.cs.findbugs.annotations.Nullable String param) {
             return null;
         }
 
