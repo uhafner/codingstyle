@@ -70,7 +70,7 @@ public final class TreeString implements Serializable {
     TreeString split(final String prefix) {
         Ensure.that(getLabel().startsWith(prefix)).isTrue();
 
-        char[] suffix = new char[label.length - prefix.length()];
+        var suffix = new char[label.length - prefix.length()];
         System.arraycopy(label, prefix.length(), suffix, 0, suffix.length);
 
         var middle = new TreeString(parent, prefix);
@@ -94,7 +94,7 @@ public final class TreeString implements Serializable {
      */
     private int depth() {
         int i = 0;
-        for (TreeString p = this; p != null; p = p.parent) {
+        for (var p = this; p != null; p = p.parent) {
             i++;
         }
         return i;
@@ -121,10 +121,10 @@ public final class TreeString implements Serializable {
      */
     @Override
     public String toString() {
-        char[][] tokens = new char[depth()][];
+        var tokens = new char[depth()][];
         int i = tokens.length;
         int sz = 0;
-        for (TreeString p = this; p != null; p = p.parent) {
+        for (var p = this; p != null; p = p.parent) {
             tokens[--i] = p.label;
             sz += p.label.length;
         }
@@ -144,8 +144,8 @@ public final class TreeString implements Serializable {
      *         the table containing the existing strings
      */
     void dedup(final Map<String, char[]> table) {
-        String l = getLabel();
-        char[] v = table.get(l);
+        var l = getLabel();
+        var v = table.get(l);
         if (v == null) {
             table.put(l, label);
         }

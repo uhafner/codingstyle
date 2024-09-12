@@ -20,7 +20,7 @@ class LookaheadStreamTest extends ResourceTest {
 
     @Test
     void shouldHandleEmptyLines() {
-        try (LookaheadStream stream = new LookaheadStream(getTextLinesAsStream(""))) {
+        try (var stream = new LookaheadStream(getTextLinesAsStream(""))) {
             assertThat(stream).doesNotHaveNext().hasLine(0).hasFileName(EMPTY);
 
             assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(stream::peekNext);
@@ -30,7 +30,7 @@ class LookaheadStreamTest extends ResourceTest {
 
     @Test
     void shouldReturnSingleLine() {
-        try (LookaheadStream stream = new LookaheadStream(getTextLinesAsStream(FIRST_LINE))) {
+        try (var stream = new LookaheadStream(getTextLinesAsStream(FIRST_LINE))) {
             assertThat(stream).hasNext().hasLine(0);
             assertThat(stream.peekNext()).isEqualTo(FIRST_LINE);
             // Now reading from the buffer:
@@ -44,7 +44,7 @@ class LookaheadStreamTest extends ResourceTest {
 
     @Test
     void shouldReturnMultipleLines() {
-        try (LookaheadStream stream = new LookaheadStream(getTextLinesAsStream("First Line\nSecond Line"))) {
+        try (var stream = new LookaheadStream(getTextLinesAsStream("First Line\nSecond Line"))) {
             assertThat(stream.hasNext()).isTrue();
             assertThat(stream.next()).isEqualTo(FIRST_LINE);
             assertThat(stream.getLine()).isEqualTo(1);
@@ -58,7 +58,7 @@ class LookaheadStreamTest extends ResourceTest {
 
     @Test
     void shouldReturnLookAheadLines() {
-        try (LookaheadStream stream = new LookaheadStream(getTextLinesAsStream("First Line\nSecond Line"))) {
+        try (var stream = new LookaheadStream(getTextLinesAsStream("First Line\nSecond Line"))) {
             assertThat(stream.hasNext()).isTrue();
             assertThat(stream.hasNext("Line$")).isTrue();
             assertThat(stream.hasNext("Second.*")).isFalse();
@@ -80,7 +80,7 @@ class LookaheadStreamTest extends ResourceTest {
     @SuppressWarnings("unchecked")
     void shouldCloseStream() {
         try (Stream<String> lines = mock(Stream.class)) {
-            try (LookaheadStream stream = new LookaheadStream(lines)) {
+            try (var stream = new LookaheadStream(lines)) {
                 assertThat(stream.getLine()).isZero();
             }
 

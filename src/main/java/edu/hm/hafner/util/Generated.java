@@ -4,7 +4,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import static java.lang.annotation.ElementType.*;
-import static java.lang.annotation.RetentionPolicy.*;
+import static java.lang.annotation.RetentionPolicy.CLASS;
 
 /**
  * This annotation is used to mark source code that has been generated or is somehow not relevant for style checking or

@@ -90,9 +90,9 @@ public class TreeStringBuilder {
                 if (plen > 0) {
                     if (plen < entry.getKey().length()) {
                         // insert a node between this and entry.value
-                        Child child = entry.getValue();
-                        String prefix = string.substring(0, plen);
-                        Child middle = child.split(prefix);
+                        var child = entry.getValue();
+                        var prefix = string.substring(0, plen);
+                        var middle = child.split(prefix);
 
                         // add 'middle' instead of 'child'
                         children.remove(entry.getKey());
@@ -107,7 +107,7 @@ public class TreeStringBuilder {
             }
 
             // no common prefix. an entirely new node.
-            Child t = children.get(string);
+            var t = children.get(string);
             if (t == null) {
                 t = new Child(new TreeString(getNode(), string));
                 children.put(string, t);
@@ -134,7 +134,7 @@ public class TreeStringBuilder {
          * @return the node
          */
         private Child split(final String prefix) {
-            String suffix = getNode().getLabel().substring(prefix.length());
+            var suffix = getNode().getLabel().substring(prefix.length());
 
             var middle = new Child(getNode().split(prefix));
             middle.makeWritable();

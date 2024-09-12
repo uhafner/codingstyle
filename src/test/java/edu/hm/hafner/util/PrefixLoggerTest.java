@@ -22,7 +22,7 @@ class PrefixLoggerTest {
 
     @Test @SuppressWarnings("PMD.CloseResource")
     void shouldLogSingleAndMultipleLines() {
-        PrintStream printStream = mock(PrintStream.class);
+        var printStream = mock(PrintStream.class);
         var logger = new PrefixLogger(printStream, TOOL_NAME);
 
         logger.log(LOG_MESSAGE);

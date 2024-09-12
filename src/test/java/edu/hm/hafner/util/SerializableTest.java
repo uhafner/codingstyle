@@ -7,7 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
 import org.assertj.core.api.ObjectAssert;
@@ -42,7 +42,7 @@ public abstract class SerializableTest<T extends Serializable> extends ResourceT
     void shouldBeSerializable() {
         T serializableInstance = createSerializable();
 
-        byte[] bytes = toByteArray(serializableInstance);
+        var bytes = toByteArray(serializableInstance);
 
         assertThatSerializableCanBeRestoredFrom(bytes);
     }
@@ -86,7 +86,7 @@ public abstract class SerializableTest<T extends Serializable> extends ResourceT
     protected T restore(final byte[] serializedInstance) {
         Object object;
 
-        try (ObjectInputStream inputStream = new ObjectInputStream(new ByteArrayInputStream(serializedInstance))) {
+        try (var inputStream = new ObjectInputStream(new ByteArrayInputStream(serializedInstance))) {
             object = inputStream.readObject();
         }
         catch (IOException | ClassNotFoundException e) {
@@ -109,7 +109,7 @@ public abstract class SerializableTest<T extends Serializable> extends ResourceT
      */
     protected byte[] toByteArray(final Serializable object) {
         var out = new ByteArrayOutputStream();
-        try (ObjectOutputStream stream = new ObjectOutputStream(out)) {
+        try (var stream = new ObjectOutputStream(out)) {
             stream.writeObject(object);
         }
         catch (IOException exception) {
@@ -126,7 +126,7 @@ public abstract class SerializableTest<T extends Serializable> extends ResourceT
      */
     @SuppressFBWarnings("DMI")
     protected void createSerializationFile() throws IOException {
-        Files.write(Paths.get("/tmp/serializable.ser"), toByteArray(createSerializable()),
+        Files.write(Path.of("/tmp/serializable.ser"), toByteArray(createSerializable()),
                 StandardOpenOption.CREATE_NEW);
     }
 }

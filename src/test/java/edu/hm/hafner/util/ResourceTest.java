@@ -6,12 +6,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 import org.apache.commons.io.IOUtils;
@@ -72,7 +70,7 @@ public class ResourceTest {
      */
     protected byte[] readAllBytes(final String fileName) {
         try {
-            URL resource = getTestResourceClass().getResource(fileName);
+            var resource = getTestResourceClass().getResource(fileName);
 
             ensureThatResourceExists(resource, fileName);
 
@@ -107,9 +105,9 @@ public class ResourceTest {
 
     @SuppressFBWarnings("UI_INHERITANCE_UNSAFE_GETRESOURCE")
     private Path getPath(final String name) throws URISyntaxException {
-        URL resource = getTestResourceClass().getResource(name);
+        var resource = getTestResourceClass().getResource(name);
         ensureThatResourceExists(resource, name);
-        return Paths.get(resource.toURI());
+        return Path.of(resource.toURI());
     }
 
     /**
@@ -164,7 +162,7 @@ public class ResourceTest {
      * @return the content represented as an {@link InputStream}
      */
     protected InputStream asInputStream(final String fileName) {
-        InputStream stream = getTestResourceClass().getResourceAsStream(fileName);
+        var stream = getTestResourceClass().getResourceAsStream(fileName);
 
         ensureThatResourceExists(stream, fileName);
 
@@ -238,11 +236,11 @@ public class ResourceTest {
      */
     protected Path getResourceAsFile(final String fileName) {
         try {
-            URL resource = getTestResourceClass().getResource(fileName);
+            var resource = getTestResourceClass().getResource(fileName);
 
             ensureThatResourceExists(resource, fileName);
 
-            return Paths.get(resource.toURI());
+            return Path.of(resource.toURI());
         }
         catch (URISyntaxException e) {
             throw new AssertionError("Can't open file " + fileName, e);

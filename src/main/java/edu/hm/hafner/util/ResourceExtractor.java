@@ -2,14 +2,10 @@ package edu.hm.hafner.util;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.UncheckedIOException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.security.CodeSource;
 import java.security.ProtectionDomain;
 import java.util.Arrays;
 import java.util.Enumeration;
@@ -44,19 +40,19 @@ public class ResourceExtractor {
 
     @VisibleForTesting
     ResourceExtractor(final Class<?> targetClass, final ProtectionDomain protectionDomain) {
-        CodeSource codeSource = protectionDomain.getCodeSource();
+        var codeSource = protectionDomain.getCodeSource();
         if (codeSource == null) {
             throw new IllegalArgumentException("There is no CodeSource for " + targetClass);
         }
-        URL location = codeSource.getLocation();
+        var location = codeSource.getLocation();
         if (location == null) {
             throw new IllegalArgumentException("There is no CodeSource location for " + targetClass);
         }
-        String locationPath = location.getPath();
+        var locationPath = location.getPath();
         if (StringUtils.isBlank(locationPath)) {
             throw new IllegalArgumentException("The CodeSource location path is not set for " + targetClass);
         }
-        Path entryPoint = new File(locationPath).toPath();
+        var entryPoint = new File(locationPath).toPath();
         readingFromJarFile = Files.isRegularFile(entryPoint);
         if (readingFromJarFile) {
             extractor = new JarExtractor(entryPoint);
@@ -90,7 +86,7 @@ public class ResourceExtractor {
             throw new IllegalArgumentException(
                     "Target directory must be an existing directory: " + targetDirectory); // implement
         }
-        String[] allSources = Arrays.copyOf(sources, sources.length + 1);
+        var allSources = Arrays.copyOf(sources, sources.length + 1);
         allSources[sources.length] = source;
         extractor.extractFiles(targetDirectory, allSources);
     }
@@ -124,7 +120,7 @@ public class ResourceExtractor {
         public void extractFiles(final Path targetDirectory, final String... sources) {
             try {
                 for (String source : sources) {
-                    Path targetFile = targetDirectory.resolve(source);
+                    var targetFile = targetDirectory.resolve(source);
                     Files.createDirectories(targetFile);
                     copy(targetFile, source);
                 }
@@ -155,11 +151,11 @@ public class ResourceExtractor {
         @Override
         public void extractFiles(final Path targetDirectory, final String... sources) {
             Set<String> remaining = Arrays.stream(sources).collect(Collectors.toSet());
-            try (JarFile jar = new JarFile(getEntryPoint().toFile())) {
+            try (var jar = new JarFile(getEntryPoint().toFile())) {
                 Enumeration<JarEntry> entries = jar.entries();
                 while (entries.hasMoreElements()) {
-                    JarEntry entry = entries.nextElement();
-                    String name = entry.getName();
+                    var entry = entries.nextElement();
+                    var name = entry.getName();
                     if (remaining.contains(name)) {
                         copy(targetDirectory, jar, entry, name);
                         remaining.remove(name);
@@ -176,15 +172,15 @@ public class ResourceExtractor {
 
         private void copy(final Path targetDirectory, final JarFile jar, final JarEntry entry, final String name)
                 throws IOException {
-            Path targetFile = targetDirectory.resolve(name);
+            var targetFile = targetDirectory.resolve(name);
             if (!targetFile.normalize().startsWith(targetDirectory)) {
                 throw new IllegalArgumentException("Corrupt jar structure, contains invalid path: " + name);
             }
-            Path parent = targetFile.getParent();
+            var parent = targetFile.getParent();
             if (parent != null) {
                 Files.createDirectories(parent);
             }
-            try (InputStream inputStream = jar.getInputStream(entry); OutputStream outputStream = Files.newOutputStream(targetFile)) {
+            try (var inputStream = jar.getInputStream(entry); var outputStream = Files.newOutputStream(targetFile)) {
                 IOUtils.copy(inputStream, outputStream);
             }
         }

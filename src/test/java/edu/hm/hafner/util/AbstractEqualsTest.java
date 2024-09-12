@@ -36,7 +36,7 @@ public abstract class AbstractEqualsTest {
     @SuppressWarnings("EqualsWithItself")
     @Test
     void shouldReturnTrueOnEqualsThis() {
-        Object sut = createSut();
+        var sut = createSut();
 
         assertThat(sut.equals(sut)).isTrue();
     }

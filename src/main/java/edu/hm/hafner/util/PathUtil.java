@@ -6,7 +6,6 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Objects;
 
 import org.apache.commons.io.FilenameUtils;
@@ -42,7 +41,7 @@ public class PathUtil {
      */
     public boolean exists(final String fileName) {
         try {
-            return Files.exists(Paths.get(fileName));
+            return Files.exists(Path.of(fileName));
         }
         catch (IllegalArgumentException ignore) {
             return false;
@@ -83,7 +82,7 @@ public class PathUtil {
      */
     public String getAbsolutePath(final String path) {
         try {
-            return getAbsolutePath(Paths.get(path));
+            return getAbsolutePath(Path.of(path));
         }
         catch (IllegalArgumentException ignored) {
             return makeUnixPath(path);
@@ -126,7 +125,7 @@ public class PathUtil {
      */
     public String getRelativePath(final Path base, final String path) {
         try {
-            return getRelativePath(base, Paths.get(path));
+            return getRelativePath(base, Path.of(path));
         }
         catch (IllegalArgumentException ignored) {
             return makeUnixPath(path);
@@ -149,7 +148,7 @@ public class PathUtil {
      */
     public String getRelativePath(final String base, final String path) {
         try {
-            return getRelativePath(Paths.get(base), Paths.get(path));
+            return getRelativePath(Path.of(base), Path.of(path));
         }
         catch (IllegalArgumentException ignored) {
             return makeUnixPath(path);
@@ -172,7 +171,7 @@ public class PathUtil {
      */
     public String getRelativePath(final Path base, final Path path) {
         try {
-            Path normalizedBase = normalize(base);
+            var normalizedBase = normalize(base);
             if (path.isAbsolute()) {
                 return makeUnixPath(normalizedBase.relativize(normalize(path)).toString());
             }
@@ -212,7 +211,7 @@ public class PathUtil {
      */
     public String getRelativePath(final String relative) {
         try {
-            return getRelativePath(Paths.get(relative));
+            return getRelativePath(Path.of(relative));
         }
         catch (IllegalArgumentException ignored) {
             // ignore and return the path as such
@@ -234,7 +233,7 @@ public class PathUtil {
         if (isAbsolute(fileName) || StringUtils.isBlank(directory)) {
             return makeUnixPath(fileName);
         }
-        String path = makeUnixPath(Objects.requireNonNull(directory));
+        var path = makeUnixPath(Objects.requireNonNull(directory));
 
         String separator;
         if (path.endsWith(SLASH)) {
@@ -245,7 +244,7 @@ public class PathUtil {
         }
 
         try {
-            String normalized = FilenameUtils.normalize(String.join(separator, path, fileName));
+            var normalized = FilenameUtils.normalize(String.join(separator, path, fileName));
             return makeUnixPath(normalized == null ? fileName : normalized);
         }
         catch (IllegalArgumentException ignored) {
@@ -279,7 +278,7 @@ public class PathUtil {
     }
 
     private String makeUnixPath(final String fileName) {
-        String unixStyle = fileName.replace(BACK_SLASH, SLASH);
+        var unixStyle = fileName.replace(BACK_SLASH, SLASH);
         if (unixStyle.matches(DRIVE_LETTER_PREFIX)) {
             unixStyle = StringUtils.capitalize(unixStyle);
         }

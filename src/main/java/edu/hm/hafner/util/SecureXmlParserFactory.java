@@ -153,7 +153,7 @@ public class SecureXmlParserFactory {
             var factory = createSaxParserFactory();
             configureSaxParserFactory(factory);
 
-            SAXParser parser = factory.newSAXParser();
+            var parser = factory.newSAXParser();
             secureParser(parser);
             return parser;
         }
