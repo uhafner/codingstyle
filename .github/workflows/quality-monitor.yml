@@ -28,6 +28,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.m2/repository/org/owasp/dependency-check-data
+          key: dependency-check
       - name: Build with Maven
         env:
           BROWSER: chrome-container
