@@ -25,7 +25,7 @@ jobs:
         with:
           maven-version: 3.9.9
       - name: Cache the NVD database
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.m2/repository/org/owasp/dependency-check-data
           key: dependency-check
