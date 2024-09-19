@@ -275,16 +275,22 @@
             <exclusions>
               <exclusion>**/docker/**</exclusion>
               <exclusion>**/AbstractComparableTest.java</exclusion>
+              <exclusion>**/AbstractEqualsTest.java</exclusion>
+              <exclusion>**/EnsureTest.java</exclusion>
               <exclusion>**/ResourceExtractorTest.java</exclusion>
             </exclusions>
             <activeRecipes>
               <recipe>org.openrewrite.maven.BestPractices</recipe>
+              <recipe>org.openrewrite.maven.RemoveRedundantDependencyVersions</recipe>
               <recipe>org.openrewrite.staticanalysis.MissingOverrideAnnotation</recipe>
               <recipe>org.openrewrite.staticanalysis.CommonStaticAnalysis</recipe>
               <recipe>org.openrewrite.staticanalysis.RemoveExtraSemicolons</recipe>
               <recipe>org.openrewrite.java.migrate.UpgradeToJava17</recipe>
               <recipe>org.openrewrite.java.migrate.util.SequencedCollection</recipe>
               <recipe>org.openrewrite.java.migrate.lang.var.UseVarForObject</recipe>
+              <recipe>org.openrewrite.java.migrate.net.JavaNetAPIs</recipe>
+              <recipe>org.openrewrite.java.migrate.util.JavaUtilAPIs</recipe>
+              <recipe>org.openrewrite.java.migrate.lang.StringRulesRecipes</recipe>
               <recipe>org.openrewrite.java.format.RemoveTrailingWhitespace</recipe>
               <recipe>org.openrewrite.java.format.BlankLines</recipe>
               <recipe>org.openrewrite.java.format.EmptyNewlineAtEndOfFile</recipe>
