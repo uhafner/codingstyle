@@ -24,6 +24,10 @@ jobs:
         uses: stCarolas/setup-maven@v5
         with:
           maven-version: 3.9.9
+      - name: Cache the NVD database
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository/org/owasp/dependency-check-data
       - name: Build with Maven
         env:
           BROWSER: chrome-container
