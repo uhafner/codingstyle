@@ -87,7 +87,8 @@ jobs:
                   "tools": [
                     {
                       "id": "owasp-dependency-check",
-                      "pattern": "**/target/dependency-check-report.json"                    }
+                      "pattern": "**/target/dependency-check-report.json"                    
+                    }
                   ]
                 }
               ],
