@@ -18,7 +18,7 @@ static analysis tools via Maven (and partly in IntelliJ):
 - [SpotBugs](https://spotbugs.github.io)
 - [Error Prone](https://errorprone.info)
 
-❗This project requires a JDK version of 11 or higher.❗  
+❗This project requires a JDK version of 17 or higher.❗  
 
 Moreover, this project provides some sample classes that already use this style guide. These classes can be used 
 as such but are not required in this project. These classes also use some additional libraries that are included
