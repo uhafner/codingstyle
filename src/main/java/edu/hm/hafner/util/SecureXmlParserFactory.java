@@ -368,7 +368,7 @@ public class SecureXmlParserFactory {
          */
         @FormatMethod
         public ParsingException(final String messageFormat, final Object... args) {
-            super(String.format(messageFormat, args));
+            super(messageFormat.formatted(args));
         }
 
         /**
@@ -388,11 +388,11 @@ public class SecureXmlParserFactory {
          */
         @FormatMethod
         public ParsingException(final Throwable cause, final String messageFormat, final Object... args) {
-            super(createMessage(cause, String.format(messageFormat, args)), cause);
+            super(createMessage(cause, messageFormat.formatted(args)), cause);
         }
 
         private static String createMessage(final Throwable cause, final String message) {
-            return String.format("%s%n%s%n%s", message,
+            return "%s%n%s%n%s".formatted(message,
                     ExceptionUtils.getMessage(cause), ExceptionUtils.getStackTrace(cause));
         }
     }

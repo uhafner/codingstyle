@@ -282,8 +282,7 @@
               <recipe>org.openrewrite.staticanalysis.MissingOverrideAnnotation</recipe>
               <recipe>org.openrewrite.staticanalysis.CommonStaticAnalysis</recipe>
               <recipe>org.openrewrite.staticanalysis.RemoveExtraSemicolons</recipe>
-              <recipe>org.openrewrite.java.migrate.Java8toJava11</recipe>
-              <recipe>org.openrewrite.java.RemoveUnusedImports</recipe>
+              <recipe>org.openrewrite.java.migrate.UpgradeToJava17</recipe>
               <recipe>org.openrewrite.java.migrate.util.SequencedCollection</recipe>
               <recipe>org.openrewrite.java.migrate.lang.var.UseVarForObject</recipe>
               <recipe>org.openrewrite.java.format.RemoveTrailingWhitespace</recipe>
