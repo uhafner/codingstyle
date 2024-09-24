@@ -77,15 +77,16 @@
     <archunit.version>1.3.0</archunit.version>
 
     <!-- Maven Plug-ins Configuration -->
-    <maven-deploy-plugin.version>3.1.2</maven-deploy-plugin.version>
-    <maven-site-plugin.version>3.12.1</maven-site-plugin.version>
-    <maven-install-plugin.version>3.1.2</maven-install-plugin.version>
-    <maven-clean-plugin.version>3.3.2</maven-clean-plugin.version>
+    <maven-deploy-plugin.version>3.1.3</maven-deploy-plugin.version>
+    <maven-site-plugin.version>3.20.0</maven-site-plugin.version>
+    <maven-install-plugin.version>3.1.3</maven-install-plugin.version>
+    <maven-clean-plugin.version>3.4.0</maven-clean-plugin.version>
     <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
     <maven-javadoc-plugin.version>3.10.0</maven-javadoc-plugin.version>
     <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
     <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
     <maven-surefire-plugin.version>3.5.0</maven-surefire-plugin.version>
+    <maven-failsafe-plugin.version>3.5.0</maven-failsafe-plugin.version>
     <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
     <maven-pmd-plugin.version>3.25.0</maven-pmd-plugin.version>
     <pmd.version>7.5.0</pmd.version>
@@ -109,6 +110,8 @@
     <maven-dependency-plugin.version>3.8.0</maven-dependency-plugin.version>
     <depgraph-maven-plugin.version>4.0.3</depgraph-maven-plugin.version>
     <sortpom-maven-plugin.version>4.0.0</sortpom-maven-plugin.version>
+    <git-commit-id-maven-plugin.version>9.0.1</git-commit-id-maven-plugin.version>
+    <dependency-check-maven.version>10.0.4</dependency-check-maven.version>
 
     <!-- OpenRewrite versions   -->
     <rewrite-maven-plugin.version>5.40.2</rewrite-maven-plugin.version>
@@ -123,17 +126,12 @@
 
   <dependencyManagement>
     <dependencies>
-      <dependency>
-        <groupId>com.uber.nullaway</groupId>
-        <artifactId>nullaway</artifactId>
-        <version>${nullaway.version}</version>
-      </dependency>
+      <!-- Production Dependencies -->
       <dependency>
         <groupId>net.bytebuddy</groupId>
         <artifactId>byte-buddy</artifactId>
         <version>${byte-buddy.version}</version>
       </dependency>
-
       <!-- Test Dependencies -->
       <dependency>
         <groupId>org.junit</groupId>
@@ -210,8 +208,8 @@
       <scope>test</scope>
       <exclusions>
         <exclusion>
-          <artifactId>slf4j-api</artifactId>
           <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -221,6 +219,8 @@
       <version>${slf4j.version}</version>
       <scope>test</scope>
     </dependency>
+
+    <!-- Test Dependencies for architecture test of JSR 305 annotations usage -->
     <dependency>
       <groupId>com.google.code.findbugs</groupId>
       <artifactId>jsr305</artifactId>
@@ -243,29 +243,130 @@
     <pluginManagement>
       <plugins>
         <plugin>
-          <groupId>org.pitest</groupId>
-          <artifactId>pitest-maven</artifactId>
-          <version>${maven-pitest-plugin.version}</version>
+          <groupId>com.github.ekryd.sortpom</groupId>
+          <artifactId>sortpom-maven-plugin</artifactId>
+          <version>${sortpom-maven-plugin.version}</version>
           <configuration>
-            <outputFormats>XML,HTML</outputFormats>
-            <excludedMethods>
-              <param>*equals</param>
-              <param>*hashCode</param>
-              <param>*toString</param>
-            </excludedMethods>
+            <expandEmptyElements>false</expandEmptyElements>
+            <spaceBeforeCloseEmptyElement>true</spaceBeforeCloseEmptyElement>
+            <createBackupFile>false</createBackupFile>
+            <sortPlugins>groupId,artifactId</sortPlugins>
+            <sortExecutions>true</sortExecutions>
           </configuration>
-          <dependencies>
-            <dependency>
-              <groupId>org.pitest</groupId>
-              <artifactId>pitest-junit5-plugin</artifactId>
-              <version>${pitest-junit5-plugin.version}</version>
-            </dependency>
-          </dependencies>
+        </plugin>
+        <plugin>
+          <groupId>com.github.ferstl</groupId>
+          <artifactId>depgraph-maven-plugin</artifactId>
+          <version>${depgraph-maven-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>com.github.spotbugs</groupId>
+          <artifactId>spotbugs-maven-plugin</artifactId>
+          <version>${spotbugs-maven-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>io.github.git-commit-id</groupId>
+          <artifactId>git-commit-id-maven-plugin</artifactId>
+          <version>${git-commit-id-maven-plugin.version}</version>
+          <configuration>
+            <generateGitPropertiesFile>true</generateGitPropertiesFile>
+            <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
+            <includeOnlyProperties>
+              <includeOnlyProperty>^git.build.(time|version)$</includeOnlyProperty>
+              <includeOnlyProperty>^git.commit.id.(abbrev|full)$</includeOnlyProperty>
+            </includeOnlyProperties>
+            <commitIdGenerationMode>full</commitIdGenerationMode>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-checkstyle-plugin</artifactId>
+          <version>${maven-checkstyle-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${maven-compiler-plugin.version}</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-dependency-plugin</artifactId>
           <version>${maven-dependency-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <version>${maven-enforcer-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>${maven-failsafe-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-gpg-plugin</artifactId>
+          <version>${maven-gpg-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>${maven-jar-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>${maven-javadoc-plugin.version}</version>
+          <configuration>
+            <source>${java.version}</source>
+            <doclint>all,-missing</doclint>
+            <quiet>true</quiet>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-pmd-plugin</artifactId>
+          <version>${maven-pmd-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>${maven-release-plugin.version}</version>
+          <configuration>
+            <autoVersionSubmodules>true</autoVersionSubmodules>
+            <useReleaseProfile>false</useReleaseProfile>
+            <releaseProfiles>release</releaseProfiles>
+            <goals>deploy</goals>
+            <tagNameFormat>v@{project.version}</tagNameFormat>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>${maven-resources-plugin.version}</version>
+          <configuration>
+            <encoding>${source.encoding}</encoding>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>${maven-source-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${maven-surefire-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.assertj</groupId>
+          <artifactId>assertj-assertions-generator-maven-plugin</artifactId>
+          <version>${assertj-assertions-generator-maven-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>${jacoco-maven-plugin.version}</version>
         </plugin>
         <plugin>
           <groupId>org.openrewrite.maven</groupId>
@@ -279,6 +380,7 @@
             </exclusions>
             <activeRecipes>
               <recipe>org.openrewrite.maven.BestPractices</recipe>
+              <recipe>org.openrewrite.maven.RemoveRedundantDependencyVersions</recipe>
               <recipe>org.openrewrite.staticanalysis.MissingOverrideAnnotation</recipe>
               <recipe>org.openrewrite.staticanalysis.CommonStaticAnalysis</recipe>
               <recipe>org.openrewrite.staticanalysis.RemoveExtraSemicolons</recipe>
@@ -316,61 +418,151 @@
           </dependencies>
         </plugin>
         <plugin>
-          <groupId>com.github.ekryd.sortpom</groupId>
-          <artifactId>sortpom-maven-plugin</artifactId>
-          <version>${sortpom-maven-plugin.version}</version>
+          <groupId>org.owasp</groupId>
+          <artifactId>dependency-check-maven</artifactId>
+          <version>${dependency-check-maven.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.pitest</groupId>
+          <artifactId>pitest-maven</artifactId>
+          <version>${maven-pitest-plugin.version}</version>
+          <configuration>
+            <outputFormats>XML,HTML</outputFormats>
+            <excludedTestClasses>
+              <param>*ITest</param>
+            </excludedTestClasses>
+            <excludedMethods>
+              <param>*equals</param>
+              <param>*hashCode</param>
+              <param>*toString</param>
+            </excludedMethods>
+          </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>org.pitest</groupId>
+              <artifactId>pitest-junit5-plugin</artifactId>
+              <version>${pitest-junit5-plugin.version}</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+        <plugin>
+          <groupId>org.revapi</groupId>
+          <artifactId>revapi-maven-plugin</artifactId>
+          <version>${revapi-maven-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.sonatype.plugins</groupId>
+          <artifactId>nexus-staging-maven-plugin</artifactId>
+          <version>${nexus-staging-maven-plugin.version}</version>
+          <extensions>true</extensions>
+          <configuration>
+            <serverId>ossrh</serverId>
+            <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+            <stagingProgressTimeoutMinutes>15</stagingProgressTimeoutMinutes>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-enforcer-plugin</artifactId>
-        <version>${maven-enforcer-plugin.version}</version>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <configuration>
+          <xmlOutput>true</xmlOutput>
+          <threshold>Low</threshold>
+          <failThreshold>Low</failThreshold>
+          <effort>Max</effort>
+          <relaxed>false</relaxed>
+          <fork>true</fork>
+          <excludeFilterFile>etc/spotbugs-exclusion-filter.xml</excludeFilterFile>
+          <includeTests>true</includeTests>
+          <plugins>
+            <plugin>
+              <groupId>com.h3xstream.findsecbugs</groupId>
+              <artifactId>findsecbugs-plugin</artifactId>
+              <version>${findsecbugs-plugin.version}</version>
+            </plugin>
+          </plugins>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs</artifactId>
+            <version>${spotbugs.version}</version>
+          </dependency>
+        </dependencies>
         <executions>
           <execution>
-            <id>enforce-java</id>
+            <id>run-spotbugs</id>
             <goals>
-              <goal>enforce</goal>
+              <goal>check</goal>
             </goals>
+            <phase>verify</phase>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>io.github.git-commit-id</groupId>
+        <artifactId>git-commit-id-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>get-the-git-infos</id>
+            <goals>
+              <goal>revision</goal>
+            </goals>
+            <phase>initialize</phase>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <configuration>
+          <linkXRef>false</linkXRef>
+          <excludeGeneratedSources>true</excludeGeneratedSources>
+          <violationSeverity>warning</violationSeverity>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>${checkstyle.version}</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <id>run-checkstyle-java</id>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <phase>verify</phase>
             <configuration>
-              <rules>
-                <requireJavaVersion>
-                  <version>11</version>
-                </requireJavaVersion>
-              </rules>
+              <excludes>**/module-info.java</excludes>
+              <includeTestSourceDirectory>false</includeTestSourceDirectory>
+              <configLocation>etc/checkstyle-java-configuration.xml</configLocation>
+              <outputFile>${project.build.directory}/checkstyle-java/checkstyle-result.xml</outputFile>
+            </configuration>
+          </execution>
+          <execution>
+            <id>run-checkstyle-tests</id>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <phase>verify</phase>
+            <configuration>
+              <excludes>**/*Assert*.java,**/*_jmh*,**/module-info.java</excludes>
+              <includeTestSourceDirectory>true</includeTestSourceDirectory>
+              <configLocation>etc/checkstyle-tests-configuration.xml</configLocation>
+              <outputFile>${project.build.directory}/checkstyle-tests/checkstyle-result.xml</outputFile>
+              <sourceDirectories />
             </configuration>
           </execution>
         </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-release-plugin</artifactId>
-        <version>${maven-release-plugin.version}</version>
-        <configuration>
-          <autoVersionSubmodules>true</autoVersionSubmodules>
-          <useReleaseProfile>false</useReleaseProfile>
-          <releaseProfiles>release</releaseProfiles>
-          <goals>deploy</goals>
-          <tagNameFormat>v@{project.version}</tagNameFormat>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
-        <version>${nexus-staging-maven-plugin.version}</version>
-        <extensions>true</extensions>
-        <configuration>
-          <serverId>ossrh</serverId>
-          <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-          <autoReleaseAfterClose>true</autoReleaseAfterClose>
-          <stagingProgressTimeoutMinutes>15</stagingProgressTimeoutMinutes>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>${maven-compiler-plugin.version}</version>
         <configuration>
           <release>${java.version}</release>
           <annotationProcessorPaths>
@@ -422,6 +614,10 @@
                 NullAway configuration:
                 --> -XepOpt:NullAway:AnnotatedPackages=edu.hm.hafner <!--
                 Disabled ErrorProne rule:
+                --> -Xep:PreferredInterfaceType:OFF <!--
+                Disabled ErrorProne rule:
+                --> -Xep:YodaCondition:OFF <!--
+                Disabled ErrorProne rule:
                 --> -Xep:ReturnMissingNullable:OFF <!--
                 Disabled ErrorProne rule:
                 --> -Xep:CannotMockFinalMethod:OFF <!--
@@ -471,59 +667,44 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>${maven-javadoc-plugin.version}</version>
-        <configuration>
-          <source>${java.version}</source>
-          <doclint>all,-missing</doclint>
-          <quiet>true</quiet>
-        </configuration>
+        <artifactId>maven-enforcer-plugin</artifactId>
         <executions>
           <execution>
-            <id>attach-javadocs</id>
+            <id>enforce-java</id>
             <goals>
-              <goal>jar</goal>
+              <goal>enforce</goal>
             </goals>
+            <configuration>
+              <rules>
+                <requireJavaVersion>
+                  <version>11</version>
+                </requireJavaVersion>
+              </rules>
+            </configuration>
           </execution>
         </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-resources-plugin</artifactId>
-        <version>${maven-resources-plugin.version}</version>
+        <artifactId>maven-failsafe-plugin</artifactId>
         <configuration>
-          <encoding>${source.encoding}</encoding>
+          <includes>
+            <include>**/*ITest.*</include>
+          </includes>
+          <reuseForks>false</reuseForks>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <version>${maven-source-plugin.version}</version>
         <executions>
           <execution>
-            <id>attach-sources</id>
             <goals>
-              <goal>jar</goal>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
             </goals>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>${maven-surefire-plugin.version}</version>
-        <dependencies>
-          <dependency>
-            <groupId>com.tngtech.archunit</groupId>
-            <artifactId>archunit-junit5-engine</artifactId>
-            <version>${archunit.version}</version>
-          </dependency>
-        </dependencies>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>${maven-jar-plugin.version}</version>
         <configuration>
           <archive>
             <manifestEntries>
@@ -566,44 +747,13 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.assertj</groupId>
-        <artifactId>assertj-assertions-generator-maven-plugin</artifactId>
-        <version>${assertj-assertions-generator-maven-plugin.version}</version>
-        <configuration>
-          <quiet>true</quiet>
-          <cleanTargetDir>true</cleanTargetDir>
-          <hierarchical>false</hierarchical>
-          <generateBddAssertions>false</generateBddAssertions>
-          <generateJUnitSoftAssertions>false</generateJUnitSoftAssertions>
-          <generateSoftAssertions>true</generateSoftAssertions>
-          <templates>
-            <templatesDirectory>${project.basedir}/etc/assertj-templates/</templatesDirectory>
-            <assertionsEntryPointClass>assertions_entry_point_class_template.txt</assertionsEntryPointClass>
-            <softEntryPointAssertionClass>soft_assertions_entry_point_class_template.txt</softEntryPointAssertionClass>
-            <objectAssertion>has_assertion_template.txt</objectAssertion>
-            <assertionClass>assertion_class_template.txt</assertionClass>
-          </templates>
-          <packages>
-            <package>edu.hm.hafner.util</package>
-          </packages>
-          <entryPointClassPackage>edu.hm.hafner.util.assertions</entryPointClassPackage>
-          <excludes>
-            <exclude>.*Condition</exclude>
-            <exclude>.*LineRangeList</exclude>
-          </excludes>
-        </configuration>
-        <dependencies>
-          <!-- Without this dependency mvn test will fail due to a class not found exception -->
-          <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.2</version>
-          </dependency>
-        </dependencies>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
         <executions>
           <execution>
+            <id>attach-javadocs</id>
             <goals>
-              <goal>generate-assertions</goal>
+              <goal>jar</goal>
             </goals>
           </execution>
         </executions>
@@ -611,7 +761,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>${maven-pmd-plugin.version}</version>
         <configuration>
           <linkXRef>false</linkXRef>
           <targetJdk>${java.version}</targetJdk>
@@ -680,92 +829,89 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>${maven-checkstyle-plugin.version}</version>
-        <configuration>
-          <linkXRef>false</linkXRef>
-          <excludeGeneratedSources>true</excludeGeneratedSources>
-          <violationSeverity>warning</violationSeverity>
-        </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>com.puppycrawl.tools</groupId>
-            <artifactId>checkstyle</artifactId>
-            <version>${checkstyle.version}</version>
-          </dependency>
-        </dependencies>
+        <artifactId>maven-release-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
         <executions>
           <execution>
-            <id>run-checkstyle-java</id>
+            <id>attach-sources</id>
             <goals>
-              <goal>check</goal>
+              <goal>jar</goal>
             </goals>
-            <phase>verify</phase>
-            <configuration>
-              <excludes>**/module-info.java</excludes>
-              <includeTestSourceDirectory>false</includeTestSourceDirectory>
-              <configLocation>etc/checkstyle-java-configuration.xml</configLocation>
-              <outputFile>${project.build.directory}/checkstyle-java/checkstyle-result.xml</outputFile>
-            </configuration>
-          </execution>
-          <execution>
-            <id>run-checkstyle-tests</id>
-            <goals>
-              <goal>check</goal>
-            </goals>
-            <phase>verify</phase>
-            <configuration>
-              <excludes>**/*Assert*.java,**/*_jmh*,**/module-info.java</excludes>
-              <includeTestSourceDirectory>true</includeTestSourceDirectory>
-              <configLocation>etc/checkstyle-tests-configuration.xml</configLocation>
-              <outputFile>${project.build.directory}/checkstyle-tests/checkstyle-result.xml</outputFile>
-              <sourceDirectories />
-            </configuration>
           </execution>
         </executions>
       </plugin>
       <plugin>
-        <groupId>com.github.spotbugs</groupId>
-        <artifactId>spotbugs-maven-plugin</artifactId>
-        <version>${spotbugs-maven-plugin.version}</version>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
-          <xmlOutput>true</xmlOutput>
-          <threshold>Low</threshold>
-          <failThreshold>Low</failThreshold>
-          <effort>Max</effort>
-          <relaxed>false</relaxed>
-          <fork>true</fork>
-          <excludeFilterFile>etc/spotbugs-exclusion-filter.xml</excludeFilterFile>
-          <includeTests>true</includeTests>
-          <plugins>
-            <plugin>
-              <groupId>com.h3xstream.findsecbugs</groupId>
-              <artifactId>findsecbugs-plugin</artifactId>
-              <version>${findsecbugs-plugin.version}</version>
-            </plugin>
-          </plugins>
+          <trimStackTrace>false</trimStackTrace>
+          <!-- SUREFIRE-1798 -->
+          <excludes>
+            <exclude>**/*ITest.*</exclude>
+            <exclude>**/*ArchitectureRulesTest$*</exclude>
+          </excludes>
         </configuration>
         <dependencies>
           <dependency>
-            <groupId>com.github.spotbugs</groupId>
-            <artifactId>spotbugs</artifactId>
-            <version>${spotbugs.version}</version>
+            <groupId>com.tngtech.archunit</groupId>
+            <artifactId>archunit-junit5-engine</artifactId>
+            <version>${archunit.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-assertions-generator-maven-plugin</artifactId>
+        <configuration>
+          <quiet>true</quiet>
+          <cleanTargetDir>true</cleanTargetDir>
+          <hierarchical>false</hierarchical>
+          <generateBddAssertions>false</generateBddAssertions>
+          <generateJUnitSoftAssertions>false</generateJUnitSoftAssertions>
+          <generateSoftAssertions>true</generateSoftAssertions>
+          <templates>
+            <templatesDirectory>${project.basedir}/etc/assertj-templates/</templatesDirectory>
+            <assertionsEntryPointClass>assertions_entry_point_class_template.txt</assertionsEntryPointClass>
+            <softEntryPointAssertionClass>soft_assertions_entry_point_class_template.txt</softEntryPointAssertionClass>
+            <objectAssertion>has_assertion_template.txt</objectAssertion>
+            <assertionClass>assertion_class_template.txt</assertionClass>
+          </templates>
+          <packages>
+            <package>edu.hm.hafner.util</package>
+          </packages>
+          <entryPointClassPackage>edu.hm.hafner.util.assertions</entryPointClassPackage>
+          <excludes>
+            <exclude>.*Test</exclude>
+            <exclude>.*Condition</exclude>
+            <exclude>.*LineRangeList</exclude>
+          </excludes>
+        </configuration>
+        <dependencies>
+          <!-- Without this dependency mvn test will fail due to a class not found exception -->
+          <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
           </dependency>
         </dependencies>
         <executions>
           <execution>
-            <id>run-spotbugs</id>
             <goals>
-              <goal>check</goal>
+              <goal>generate-assertions</goal>
             </goals>
-            <phase>verify</phase>
           </execution>
         </executions>
       </plugin>
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>${jacoco-maven-plugin.version}</version>
         <executions>
           <execution>
             <goals>
@@ -785,7 +931,6 @@
       <plugin>
         <groupId>org.revapi</groupId>
         <artifactId>revapi-maven-plugin</artifactId>
-        <version>${revapi-maven-plugin.version}</version>
         <configuration>
           <skip>true</skip>
           <versionFormat>[-0-9.]*</versionFormat>
@@ -869,6 +1014,11 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <extensions>true</extensions>
+      </plugin>
     </plugins>
   </build>
 
@@ -922,7 +1072,6 @@
           <plugin>
             <groupId>org.owasp</groupId>
             <artifactId>dependency-check-maven</artifactId>
-            <version>10.0.4</version>
             <configuration>
               <nvdApiKeyEnvironmentVariable>NVD_API_KEY</nvdApiKeyEnvironmentVariable>
               <format>JSON</format>
@@ -945,7 +1094,6 @@
           <plugin>
             <groupId>com.github.ferstl</groupId>
             <artifactId>depgraph-maven-plugin</artifactId>
-            <version>${depgraph-maven-plugin.version}</version>
             <configuration>
               <graphFormat>puml</graphFormat>
               <classpathScope>compile</classpathScope>
@@ -975,7 +1123,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
-            <version>${maven-gpg-plugin.version}</version>
             <executions>
               <execution>
                 <id>sign-artifacts</id>
