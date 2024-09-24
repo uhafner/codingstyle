@@ -255,6 +255,16 @@
           </configuration>
         </plugin>
         <plugin>
+          <groupId>com.github.ferstl</groupId>
+          <artifactId>depgraph-maven-plugin</artifactId>
+          <version>${depgraph-maven-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>com.github.spotbugs</groupId>
+          <artifactId>spotbugs-maven-plugin</artifactId>
+          <version>${spotbugs-maven-plugin.version}</version>
+        </plugin>
+        <plugin>
           <groupId>io.github.git-commit-id</groupId>
           <artifactId>git-commit-id-maven-plugin</artifactId>
           <version>${git-commit-id-maven-plugin.version}</version>
@@ -292,6 +302,11 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-failsafe-plugin</artifactId>
           <version>${maven-failsafe-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-gpg-plugin</artifactId>
+          <version>${maven-gpg-plugin.version}</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -365,7 +380,6 @@
             </exclusions>
             <activeRecipes>
               <recipe>org.openrewrite.maven.BestPractices</recipe>
-              <recipe>org.openrewrite.maven.ManageDependencies</recipe>
               <recipe>org.openrewrite.maven.RemoveRedundantDependencyVersions</recipe>
               <recipe>org.openrewrite.staticanalysis.MissingOverrideAnnotation</recipe>
               <recipe>org.openrewrite.staticanalysis.CommonStaticAnalysis</recipe>
@@ -404,11 +418,19 @@
           </dependencies>
         </plugin>
         <plugin>
+          <groupId>org.owasp</groupId>
+          <artifactId>dependency-check-maven</artifactId>
+          <version>${dependency-check-maven.version}</version>
+        </plugin>
+        <plugin>
           <groupId>org.pitest</groupId>
           <artifactId>pitest-maven</artifactId>
           <version>${maven-pitest-plugin.version}</version>
           <configuration>
             <outputFormats>XML,HTML</outputFormats>
+            <excludedTestClasses>
+              <param>*ITest</param>
+            </excludedTestClasses>
             <excludedMethods>
               <param>*equals</param>
               <param>*hashCode</param>
@@ -446,7 +468,6 @@
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
-        <version>${spotbugs-maven-plugin.version}</version>
         <configuration>
           <xmlOutput>true</xmlOutput>
           <threshold>Low</threshold>
@@ -1051,7 +1072,6 @@
           <plugin>
             <groupId>org.owasp</groupId>
             <artifactId>dependency-check-maven</artifactId>
-            <version>${dependency-check-maven.version}</version>
             <configuration>
               <nvdApiKeyEnvironmentVariable>NVD_API_KEY</nvdApiKeyEnvironmentVariable>
               <format>JSON</format>
@@ -1074,7 +1094,6 @@
           <plugin>
             <groupId>com.github.ferstl</groupId>
             <artifactId>depgraph-maven-plugin</artifactId>
-            <version>${depgraph-maven-plugin.version}</version>
             <configuration>
               <graphFormat>puml</graphFormat>
               <classpathScope>compile</classpathScope>
@@ -1104,7 +1123,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
-            <version>${maven-gpg-plugin.version}</version>
             <executions>
               <execution>
                 <id>sign-artifacts</id>
