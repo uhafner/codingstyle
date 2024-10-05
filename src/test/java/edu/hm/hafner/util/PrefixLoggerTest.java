@@ -1,11 +1,12 @@
 package edu.hm.hafner.util;
 
 import java.io.PrintStream;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import static java.util.Arrays.*;
-import static java.util.Collections.*;
+import static java.util.Collections.emptyList;
 import static org.mockito.Mockito.*;
 
 /**
@@ -39,7 +40,7 @@ class PrefixLoggerTest {
 
         verifyNoMoreInteractions(printStream);
 
-        logger.logEachLine(singletonList(FIRST_MESSAGE));
+        logger.logEachLine(List.of(FIRST_MESSAGE));
 
         verify(printStream).println(EXPECTED_TOOL_PREFIX + " " + FIRST_MESSAGE);
 

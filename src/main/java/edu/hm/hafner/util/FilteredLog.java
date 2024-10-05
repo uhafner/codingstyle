@@ -105,7 +105,7 @@ public class FilteredLog implements Serializable {
      */
     @FormatMethod
     public void logInfo(final String format, final Object... args) {
-        logInfo(String.format(format, args));
+        logInfo(format.formatted(args));
     }
 
     /**
@@ -142,7 +142,7 @@ public class FilteredLog implements Serializable {
      */
     @FormatMethod
     public void logError(final String format, final Object... args) {
-        logError(String.format(format, args));
+        logError(format.formatted(args));
     }
 
     /**

@@ -27,7 +27,7 @@ public class PrefixLogger {
             this.toolName = prefix + " ";
         }
         else {
-            this.toolName = String.format("[%s] ", prefix);
+            this.toolName = "[%s] ".formatted(prefix);
         }
         delegate = logger;
     }
@@ -44,7 +44,7 @@ public class PrefixLogger {
      */
     @FormatMethod
     public void log(final String format, final Object... args) {
-        print(String.format(format, args));
+        print(format.formatted(args));
     }
 
     /**

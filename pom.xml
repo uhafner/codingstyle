@@ -4,7 +4,7 @@
 
   <groupId>edu.hm.hafner</groupId>
   <artifactId>codingstyle</artifactId>
-  <version>4.15.0-SNAPSHOT</version>
+  <version>5.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>Java coding style</name>
@@ -57,7 +57,7 @@
   <properties>
     <source.encoding>UTF-8</source.encoding>
     <project.build.sourceEncoding>${source.encoding}</project.build.sourceEncoding>
-    <java.version>11</java.version>
+    <java.version>17</java.version>
 
     <module.name>${project.groupId}.codingstyle</module.name>
 
@@ -377,6 +377,8 @@
             <exclusions>
               <exclusion>**/docker/**</exclusion>
               <exclusion>**/AbstractComparableTest.java</exclusion>
+              <exclusion>**/AbstractEqualsTest.java</exclusion>
+              <exclusion>**/EnsureTest.java</exclusion>
               <exclusion>**/ResourceExtractorTest.java</exclusion>
             </exclusions>
             <activeRecipes>
@@ -385,10 +387,12 @@
               <recipe>org.openrewrite.staticanalysis.MissingOverrideAnnotation</recipe>
               <recipe>org.openrewrite.staticanalysis.CommonStaticAnalysis</recipe>
               <recipe>org.openrewrite.staticanalysis.RemoveExtraSemicolons</recipe>
-              <recipe>org.openrewrite.java.migrate.Java8toJava11</recipe>
-              <recipe>org.openrewrite.java.RemoveUnusedImports</recipe>
+              <recipe>org.openrewrite.java.migrate.UpgradeToJava17</recipe>
               <recipe>org.openrewrite.java.migrate.util.SequencedCollection</recipe>
               <recipe>org.openrewrite.java.migrate.lang.var.UseVarForObject</recipe>
+              <recipe>org.openrewrite.java.migrate.net.JavaNetAPIs</recipe>
+              <recipe>org.openrewrite.java.migrate.util.JavaUtilAPIs</recipe>
+              <recipe>org.openrewrite.java.migrate.lang.StringRulesRecipes</recipe>
               <recipe>org.openrewrite.java.format.RemoveTrailingWhitespace</recipe>
               <recipe>org.openrewrite.java.format.BlankLines</recipe>
               <recipe>org.openrewrite.java.format.EmptyNewlineAtEndOfFile</recipe>
@@ -499,8 +503,6 @@
             <goals>
               <goal>check</goal>
             </goals>
-            <phase>verify</phase>
-          </execution>
         </executions>
       </plugin>
       <plugin>
@@ -678,7 +680,7 @@
             <configuration>
               <rules>
                 <requireJavaVersion>
-                  <version>11</version>
+                  <version>17</version>
                 </requireJavaVersion>
               </rules>
             </configuration>

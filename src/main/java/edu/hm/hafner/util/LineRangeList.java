@@ -133,9 +133,7 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
 
     @Override
     public boolean contains(final Object o) {
-        if (o instanceof LineRange) {
-            var other = (LineRange) o;
-
+        if (o instanceof final LineRange other) {
             for (var cursor = new Cursor(); cursor.hasNext();) {
                 if (cursor.compare(other)) {
                     return true;
