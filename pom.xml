@@ -104,7 +104,7 @@
     <revapi-java.version>0.28.1</revapi-java.version>
     <revapi-reporter-json-version>0.5.0</revapi-reporter-json-version>
     <nexus-staging-maven-plugin.version>1.7.0</nexus-staging-maven-plugin.version>
-    <maven-gpg-plugin.version>3.2.6</maven-gpg-plugin.version>
+    <maven-gpg-plugin.version>3.2.7</maven-gpg-plugin.version>
     <maven-release-plugin.version>3.1.1</maven-release-plugin.version>
     <assertj-assertions-generator-maven-plugin.version>2.2.0</assertj-assertions-generator-maven-plugin.version>
     <maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
