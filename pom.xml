@@ -73,7 +73,7 @@
     <!-- Project Test Dependencies Configuration -->
     <equalsverifier.version>3.17</equalsverifier.version>
     <junit.version>5.11.1</junit.version>
-    <mockito.version>5.13.0</mockito.version>
+    <mockito.version>5.14.1</mockito.version>
     <assertj.version>3.26.3</assertj.version>
     <archunit.version>1.3.0</archunit.version>
 
