@@ -13,7 +13,7 @@ am using in my lectures about software development at Munich University of Appli
 This project describes the coding style in detail (currently only available in German) and serves as a template project. 
 It provides all necessary resources for a Java project to enforce this coding style using the following 
 static analysis tools via Maven (and partly in IntelliJ):
-- [Checkstyle](https://checkstyle.org)
+- [Checkstyle](https://checks-broken-tyle.org)
 - [PMD](https://pmd.github.io/)
 - [SpotBugs](https://spotbugs.github.io)
 - [Error Prone](https://errorprone.info)
