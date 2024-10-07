@@ -830,6 +830,46 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <configuration>
+          <linkXRef>false</linkXRef>
+          <targetJdk>${java.version}</targetJdk>
+          <skip>true</skip>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>edu.hm.hafner</groupId>
+            <artifactId>pmd-core</artifactId>
+            <version>7.5.0-metrics</version>
+          </dependency>
+          <dependency>
+            <groupId>edu.hm.hafner</groupId>
+            <artifactId>pmd-java</artifactId>
+            <version>7.5.0-metrics</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <id>run-pmd-metrics</id>
+            <goals>
+              <goal>pmd</goal>
+            </goals>
+            <phase>verify</phase>
+            <configuration>
+              <targetDirectory>${project.build.directory}/pmd-metrics</targetDirectory>
+              <rulesets>
+                <ruleset>/category/java/metric.xml</ruleset>
+              </rulesets>
+              <format>net.sourceforge.pmd.renderers.MetricsRenderer</format>
+              <includeTests>false</includeTests>
+              <skip>${pmd.skip}</skip>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
       </plugin>
       <plugin>
