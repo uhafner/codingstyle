@@ -214,7 +214,7 @@ public final class ArchitectureRules {
                 return;
             }
             events.add(SimpleConditionEvent.violated(method,
-                    String.format("%s is not protected but the class might be extended in %s",
+                    "%s is not protected but the class might be extended in %s".formatted(
                             method.getDescription(), method.getSourceCodeLocation())));
         }
     }

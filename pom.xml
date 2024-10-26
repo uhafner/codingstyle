@@ -4,7 +4,7 @@
 
   <groupId>edu.hm.hafner</groupId>
   <artifactId>codingstyle</artifactId>
-  <version>4.15.0-SNAPSHOT</version>
+  <version>5.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>Java coding style</name>
@@ -57,7 +57,7 @@
   <properties>
     <source.encoding>UTF-8</source.encoding>
     <project.build.sourceEncoding>${source.encoding}</project.build.sourceEncoding>
-    <java.version>11</java.version>
+    <java.version>17</java.version>
 
     <module.name>${project.groupId}.codingstyle</module.name>
 
@@ -91,7 +91,7 @@
     <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
     <maven-pmd-plugin.version>3.25.0</maven-pmd-plugin.version>
     <pmd.version>7.6.0</pmd.version>
-    <maven-checkstyle-plugin.version>3.5.0</maven-checkstyle-plugin.version>
+    <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
     <checkstyle.version>10.18.2</checkstyle.version>
     <spotbugs-maven-plugin.version>4.8.6.4</spotbugs-maven-plugin.version>
     <findsecbugs-plugin.version>1.13.0</findsecbugs-plugin.version>
@@ -377,18 +377,24 @@
             <exclusions>
               <exclusion>**/docker/**</exclusion>
               <exclusion>**/AbstractComparableTest.java</exclusion>
+              <exclusion>**/AbstractEqualsTest.java</exclusion>
+              <exclusion>**/EnsureTest.java</exclusion>
               <exclusion>**/ResourceExtractorTest.java</exclusion>
             </exclusions>
             <activeRecipes>
               <recipe>org.openrewrite.maven.BestPractices</recipe>
               <recipe>org.openrewrite.maven.RemoveRedundantDependencyVersions</recipe>
+              <recipe>org.openrewrite.staticanalysis.AddSerialAnnotationToSerialVersionUID</recipe>
               <recipe>org.openrewrite.staticanalysis.MissingOverrideAnnotation</recipe>
+              <recipe>org.openrewrite.staticanalysis.CodeCleanup</recipe>
               <recipe>org.openrewrite.staticanalysis.CommonStaticAnalysis</recipe>
               <recipe>org.openrewrite.staticanalysis.RemoveExtraSemicolons</recipe>
-              <recipe>org.openrewrite.java.migrate.Java8toJava11</recipe>
-              <recipe>org.openrewrite.java.RemoveUnusedImports</recipe>
+              <recipe>org.openrewrite.java.migrate.UpgradeToJava17</recipe>
               <recipe>org.openrewrite.java.migrate.util.SequencedCollection</recipe>
               <recipe>org.openrewrite.java.migrate.lang.var.UseVarForObject</recipe>
+              <recipe>org.openrewrite.java.migrate.net.JavaNetAPIs</recipe>
+              <recipe>org.openrewrite.java.migrate.util.JavaUtilAPIs</recipe>
+              <recipe>org.openrewrite.java.migrate.lang.StringRulesRecipes</recipe>
               <recipe>org.openrewrite.java.format.RemoveTrailingWhitespace</recipe>
               <recipe>org.openrewrite.java.format.BlankLines</recipe>
               <recipe>org.openrewrite.java.format.EmptyNewlineAtEndOfFile</recipe>
@@ -678,7 +684,7 @@
             <configuration>
               <rules>
                 <requireJavaVersion>
-                  <version>11</version>
+                  <version>${java.version}</version>
                 </requireJavaVersion>
               </rules>
             </configuration>
@@ -890,6 +896,17 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>properties</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <trimStackTrace>false</trimStackTrace>
@@ -898,6 +915,7 @@
             <exclude>**/*ITest.*</exclude>
             <exclude>**/*ArchitectureRulesTest$*</exclude>
           </excludes>
+          <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar}</argLine>
         </configuration>
         <dependencies>
           <dependency>

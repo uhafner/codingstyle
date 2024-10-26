@@ -1,5 +1,6 @@
 package edu.hm.hafner.util;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Locale;
 import java.util.NavigableSet;
@@ -12,6 +13,7 @@ import java.util.TreeSet;
  * @author Ullrich Hafner
  */
 public final class LineRange implements Serializable {
+    @Serial
     private static final long serialVersionUID = -4124143085672930110L;
 
     private final int start;
