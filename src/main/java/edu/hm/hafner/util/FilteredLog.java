@@ -1,5 +1,6 @@
 package edu.hm.hafner.util;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,6 +22,7 @@ import com.google.errorprone.annotations.FormatMethod;
  * @author Ullrich Hafner
  */
 public class FilteredLog implements Serializable {
+    @Serial
     private static final long serialVersionUID = -8552323621953159904L;
 
     private static final int DEFAULT_MAX_LINES = 20;

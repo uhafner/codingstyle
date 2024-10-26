@@ -91,7 +91,7 @@
     <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
     <maven-pmd-plugin.version>3.25.0</maven-pmd-plugin.version>
     <pmd.version>7.6.0</pmd.version>
-    <maven-checkstyle-plugin.version>3.5.0</maven-checkstyle-plugin.version>
+    <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
     <checkstyle.version>10.18.2</checkstyle.version>
     <spotbugs-maven-plugin.version>4.8.6.4</spotbugs-maven-plugin.version>
     <findsecbugs-plugin.version>1.13.0</findsecbugs-plugin.version>
@@ -384,7 +384,9 @@
             <activeRecipes>
               <recipe>org.openrewrite.maven.BestPractices</recipe>
               <recipe>org.openrewrite.maven.RemoveRedundantDependencyVersions</recipe>
+              <recipe>org.openrewrite.staticanalysis.AddSerialAnnotationToSerialVersionUID</recipe>
               <recipe>org.openrewrite.staticanalysis.MissingOverrideAnnotation</recipe>
+              <recipe>org.openrewrite.staticanalysis.CodeCleanup</recipe>
               <recipe>org.openrewrite.staticanalysis.CommonStaticAnalysis</recipe>
               <recipe>org.openrewrite.staticanalysis.RemoveExtraSemicolons</recipe>
               <recipe>org.openrewrite.java.migrate.UpgradeToJava17</recipe>
@@ -503,6 +505,8 @@
             <goals>
               <goal>check</goal>
             </goals>
+            <phase>verify</phase>
+          </execution>
         </executions>
       </plugin>
       <plugin>
@@ -680,7 +684,7 @@
             <configuration>
               <rules>
                 <requireJavaVersion>
-                  <version>17</version>
+                  <version>${java.version}</version>
                 </requireJavaVersion>
               </rules>
             </configuration>
@@ -892,6 +896,17 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>properties</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <trimStackTrace>false</trimStackTrace>
@@ -900,6 +915,7 @@
             <exclude>**/*ITest.*</exclude>
             <exclude>**/*ArchitectureRulesTest$*</exclude>
           </excludes>
+          <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar}</argLine>
         </configuration>
         <dependencies>
           <dependency>

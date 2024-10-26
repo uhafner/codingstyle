@@ -1,5 +1,6 @@
 package edu.hm.hafner.util;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.AbstractList;
 import java.util.Arrays;
@@ -35,6 +36,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * @author Kohsuke Kawaguchi
  */
 public class LineRangeList extends AbstractList<LineRange> implements Serializable {
+    @Serial
     private static final long serialVersionUID = -1123973098942984623L;
     private static final int DEFAULT_CAPACITY = 16;
     private static final boolean SEQUENTIAL = false;
