@@ -29,6 +29,23 @@ class SecureXmlParserFactoryTest {
     private static final String EXPECTED_EXCEPTION = "EXPECTED EXCEPTION";
 
     @Test
+    void shouldFormatMessage() {
+        var cause = new IllegalArgumentException("IAE");
+
+        assertThat(new ParsingException(cause))
+                .hasMessageContaining("Exception occurred during parsing")
+                .hasMessageContaining("IllegalArgumentException: IAE")
+                .hasCause(cause);
+        assertThat(new ParsingException(cause, "Message %s, Value: %d", "Hello World", 42))
+                .hasMessageContaining("Message Hello World, Value: 42")
+                .hasMessageContaining("IllegalArgumentException: IAE")
+                .hasCause(cause);
+        assertThat(new ParsingException("Message %s, Value: %d", "Hello World", 42))
+                .hasMessageContaining("Message Hello World, Value: 42")
+                .hasNoCause();
+    }
+
+    @Test
     void shouldCreateDocumentBuilder() throws ParserConfigurationException {
         var factory = spy(new SecureXmlParserFactory());
 

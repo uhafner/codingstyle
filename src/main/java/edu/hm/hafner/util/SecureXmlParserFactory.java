@@ -2,6 +2,7 @@ package edu.hm.hafner.util;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.io.Serial;
 import java.nio.charset.Charset;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -341,6 +342,7 @@ public class SecureXmlParserFactory {
      * Indicates that during parsing a non-recoverable error has been occurred.
      */
     public static class ParsingException extends RuntimeException {
+        @Serial
         private static final long serialVersionUID = -9016364685084958944L;
 
         /**
