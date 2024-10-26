@@ -856,7 +856,7 @@
             </goals>
             <phase>verify</phase>
             <configuration>
-              <targetDirectory>${project.build.directory}/pmd-metrics</targetDirectory>
+              <targetDirectory>${project.build.directory}/metrics</targetDirectory>
               <rulesets>
                 <ruleset>/category/java/metric.xml</ruleset>
               </rulesets>

@@ -65,7 +65,7 @@ jobs:
                     },
                     {
                       "id": "pmd",
-                      "pattern": "**/target/**pmd.xml"
+                      "pattern": "**/target/pmd-*/pmd.xml"
                     }
                   ]
                 },
@@ -137,25 +137,25 @@ jobs:
                     {
                       "name": "Cyclomatic Complexity",
                       "id": "metrics",
-                      "pattern": "**/metrics.xml",
+                      "pattern": "**/metrics/pmd.xml",
                       "metric": "CyclomaticComplexity"
                     },
                     {
                       "name": "Cognitive Complexity",
                       "id": "metrics",
-                      "pattern": "**/metrics.xml",
+                      "pattern": "**/metrics/pmd.xml",
                       "metric": "CognitiveComplexity"
                     },
                     {
                       "name": "Non Commenting Source Statements",
                       "id": "metrics",
-                      "pattern": "**/metrics.xml",
+                      "pattern": "**/metrics/pmd.xml",
                       "metric": "NCSS"
                     },
                     {
                       "name": "N-Path Complexity",
                       "id": "metrics",
-                      "pattern": "**/metrics.xml",
+                      "pattern": "**/metrics/pmd.xml",
                       "metric": "NPathComplexity"
                     }
                   ]
