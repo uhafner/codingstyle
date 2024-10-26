@@ -38,7 +38,7 @@ jobs:
         uses: jwalton/gh-find-current-pr@v1
         id: pr
       - name: Run Quality Monitor
-        uses: uhafner/quality-monitor@v1
+        uses: uhafner/quality-monitor@v1.12.0-beta-1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           pr-number: ${{ steps.pr.outputs.number }}
@@ -65,7 +65,7 @@ jobs:
                     },
                     {
                       "id": "pmd",
-                      "pattern": "**/target/**pmd.xml"
+                      "pattern": "**/target/pmd-*/pmd.xml"
                     }
                   ]
                 },
@@ -126,6 +126,37 @@ jobs:
                       "metric": "mutation",
                       "sourcePath": "src/main/java",
                       "pattern": "**/target/pit-reports/mutations.xml"
+                    }
+                  ]
+                }
+              ],
+              "metrics": [
+                {
+                  "name": "Toplevel Metrics",
+                  "tools": [
+                    {
+                      "name": "Cyclomatic Complexity",
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "CyclomaticComplexity"
+                    },
+                    {
+                      "name": "Cognitive Complexity",
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "CognitiveComplexity"
+                    },
+                    {
+                      "name": "Non Commenting Source Statements",
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "NCSS"
+                    },
+                    {
+                      "name": "N-Path Complexity",
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "NPathComplexity"
                     }
                   ]
                 }
