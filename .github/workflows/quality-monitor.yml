@@ -126,6 +126,13 @@ jobs:
                       "metric": "mutation",
                       "sourcePath": "src/main/java",
                       "pattern": "**/target/pit-reports/mutations.xml"
+                    },
+                    {
+                      "id": "pit",
+                      "name": "Test Strength",
+                      "metric": "test-strength",
+                      "sourcePath": "src/main/java",
+                      "pattern": "**/target/pit-reports/mutations.xml"
                     }
                   ]
                 }
