@@ -39,7 +39,7 @@ jobs:
                   "tools": [
                     {
                       "id": "checkstyle",
-                      "pattern": "**/target/**checkstyle-result.xml"
+                      "pattern": "**/target/checkstyle-*/checkstyle-result.xml"
                     },
                     {
                       "id": "pmd",
