@@ -59,7 +59,8 @@ public class ResourceTest {
      * Reads all the bytes from a file. The method ensures that the file is closed when all bytes have been read or an
      * I/O error, or other runtime exception, is thrown.
      *
-     * <p> Note that this method is intended for simple cases where it is
+     * <p>
+     * Note that this method is intended for simple cases where it is
      * convenient to read all bytes into a byte array. It is not intended for reading in large files.
      * </p>
      *
@@ -85,7 +86,8 @@ public class ResourceTest {
      * Reads all the bytes from a file. The method ensures that the file is closed when all bytes have been read or an
      * I/O error, or other runtime exception, is thrown.
      *
-     * <p> Note that this method is intended for simple cases where it is
+     * <p>
+     * Note that this method is intended for simple cases where it is
      * convenient to read all bytes into a byte array. It is not intended for reading in large files.
      * </p>
      *
@@ -113,6 +115,7 @@ public class ResourceTest {
     /**
      * Read all lines from the desired resource as a {@code Stream}, i.e. this method populates lazily as the stream is
      * consumed.
+     *
      * <p>
      * Bytes from the resource are decoded into characters using UTF-8 and the same line terminators as specified by
      * {@link Files#readAllLines(Path, Charset)} are supported.
@@ -131,6 +134,7 @@ public class ResourceTest {
     /**
      * Read all lines from the desired resource as a {@code Stream}, i.e. this method populates lazily as the stream is
      * consumed.
+     *
      * <p>
      * Bytes from the resource are decoded into characters using the specified charset and the same line terminators as
      * specified by {@link Files#readAllLines(Path, Charset)} are supported.

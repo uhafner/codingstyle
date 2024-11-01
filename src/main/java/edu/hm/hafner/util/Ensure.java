@@ -20,6 +20,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Note: the static methods provided by this class use a fluent interface, i.e., in order to verify an assertion a
  * method sequence needs to be called.
  * </p>
+ *
  * <p>
  *  Available checks:
  * </p>
