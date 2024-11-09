@@ -126,7 +126,7 @@ public final class ArchitectureRules {
                     .andShould(beProtected()).allowEmptyShould(true);
 
     private static ExceptionHasNoContext exceptionHasNoContextAsParameter() {
-        return new ExceptionHasNoContext();
+        return new ExceptionHasNoContext(IncompatibleClassChangeError.class);
     }
 
     private static DescribedPredicate<? super JavaCall<?>> accessIsRestrictedForTests() {
