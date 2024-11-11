@@ -777,12 +777,12 @@
           <dependency>
             <groupId>edu.hm.hafner</groupId>
             <artifactId>pmd-core</artifactId>
-            <version>${pmd.version}-metrics</version>
+            <version>${pmd.version}-metrics-2</version>
           </dependency>
           <dependency>
             <groupId>edu.hm.hafner</groupId>
             <artifactId>pmd-java</artifactId>
-            <version>${pmd.version}-metrics</version>
+            <version>${pmd.version}-metrics-2</version>
           </dependency>
           <dependency>
             <groupId>net.sourceforge.pmd</groupId>
