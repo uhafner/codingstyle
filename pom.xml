@@ -376,7 +376,9 @@
           <configuration>
             <exclusions>
               <exclusion>**/docker/**</exclusion>
-              <exclusion>**/AbstractComparableTest.java</exclusion>
+              <exclusion>**/AbstractEqualsTest.java</exclusion>
+              <exclusion>**/EnsureTest.java</exclusion>
+              <exclusion>**/ResourceExtractorTest.java</exclusion>
             </exclusions>
             <activeRecipes>
               <recipe>org.openrewrite.maven.BestPractices</recipe>
