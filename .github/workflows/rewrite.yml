@@ -26,4 +26,4 @@ jobs:
         with:
           maven-version: 3.9.9
       - name: Run open-rewrite
-        run: mvn -V --color always -ntp clean verify rewrite:run
+        run: mvn -V --color always -ntp clean rewrite:run
