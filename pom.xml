@@ -113,13 +113,8 @@
     <sortpom-maven-plugin.version>4.0.0</sortpom-maven-plugin.version>
     <git-commit-id-maven-plugin.version>9.0.1</git-commit-id-maven-plugin.version>
     <dependency-check-maven.version>11.1.0</dependency-check-maven.version>
-
-    <!-- OpenRewrite versions   -->
     <rewrite-maven-plugin.version>5.45.0</rewrite-maven-plugin.version>
-    <rewrite-testing-frameworks.version>2.22.0</rewrite-testing-frameworks.version>
-    <rewrite-static-analysis.version>1.20.0</rewrite-static-analysis.version>
-    <rewrite-migrate-java.version>2.29.0</rewrite-migrate-java.version>
-    <rewrite-recommendations.version>1.13.0</rewrite-recommendations.version>
+    <rewrite-recipe-bom.version>2.16.0</rewrite-recipe-bom.version>
 
     <!-- Maven Surefire ArgLine -->
     <argLine>-Djava.util.logging.config.file=logging.properties</argLine>
@@ -145,6 +140,14 @@
         <groupId>org.mockito</groupId>
         <artifactId>mockito-bom</artifactId>
         <version>${mockito.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <!-- Tool Dependencies -->
+      <dependency>
+        <groupId>org.openrewrite.recipe</groupId>
+        <artifactId>rewrite-recipe-bom</artifactId>
+        <version>${rewrite-recipe-bom.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -401,22 +404,18 @@
             <dependency>
               <groupId>org.openrewrite.recipe</groupId>
               <artifactId>rewrite-testing-frameworks</artifactId>
-              <version>${rewrite-testing-frameworks.version}</version>
             </dependency>
             <dependency>
               <groupId>org.openrewrite.recipe</groupId>
               <artifactId>rewrite-static-analysis</artifactId>
-              <version>${rewrite-static-analysis.version}</version>
             </dependency>
             <dependency>
               <groupId>org.openrewrite.recipe</groupId>
               <artifactId>rewrite-migrate-java</artifactId>
-              <version>${rewrite-migrate-java.version}</version>
             </dependency>
             <dependency>
               <groupId>org.openrewrite.recipe</groupId>
               <artifactId>rewrite-recommendations</artifactId>
-              <version>${rewrite-recommendations.version}</version>
             </dependency>
           </dependencies>
         </plugin>
