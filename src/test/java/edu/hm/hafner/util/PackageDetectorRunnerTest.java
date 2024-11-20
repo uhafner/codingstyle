@@ -25,8 +25,7 @@ class PackageDetectorRunnerTest extends ResourceTest {
     @CsvSource({
             "MavenJavaTest.txt.java, hudson.plugins.tasks.util",
             "ActionBinding.cs, Avaloq.SmartClient.Utilities",
-            "KotlinTest.txt.kt, edu.hm.kersting",
-    })
+            "KotlinTest.txt.kt, edu.hm.kersting"})
     void shouldExtractPackageNames(final String fileName, final String expectedPackage) throws IOException {
         assertThat(detect(fileName)).contains(expectedPackage);
     }
