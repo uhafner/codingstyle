@@ -32,7 +32,7 @@ class PackageDetectorRunnerTest extends ResourceTest {
     }
 
     @ParameterizedTest(name = "{index} => file={0}, no package found")
-    @ValueSource(strings = {"MavenJavaTest.txt", "empty.txt", "KotlinTest.txt"})
+    @ValueSource(strings = {"MavenJavaTest.txt", "relative.txt", "KotlinTest.txt"})
     void shouldNotAcceptFile(final String fileName) throws IOException {
         assertThat(detect(fileName)).isEmpty();
     }
