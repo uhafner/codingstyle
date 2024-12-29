@@ -68,7 +68,7 @@ public abstract class SerializableTest<T extends Serializable> extends ResourceT
      * @param original
      *         the instance before the serialization
      * @param restored
-     *         the instance restored by the de-serialization
+     *         the instance restored by the deserialization
      */
     protected void assertThatRestoredInstanceEqualsOriginalInstance(final T original, final T restored) {
         assertThat(restored).usingRecursiveComparison().isEqualTo(original);

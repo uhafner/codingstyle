@@ -128,7 +128,7 @@ class ArchitectureRulesTest {
         }
 
         /**
-         * Called after de-serialization to retain backward compatibility.
+         * Called after deserialization to retain backward compatibility.
          *
          * @return this
          */
@@ -142,7 +142,7 @@ class ArchitectureRulesTest {
     public static class ArchitectureRulesAlsoViolatedTest implements Serializable {
 
         /**
-         * Called after de-serialization to retain backward compatibility.
+         * Called after deserialization to retain backward compatibility.
          *
          * @return this
          */
@@ -160,7 +160,7 @@ class ArchitectureRulesTest {
         }
 
         /**
-         * Called after de-serialization to retain backward compatibility.
+         * Called after deserialization to retain backward compatibility.
          *
          * @return this
          */
@@ -173,7 +173,7 @@ class ArchitectureRulesTest {
     @SuppressFBWarnings("SE")
     static class ArchitectureRulesAlsoPassedTest implements Serializable {
         /**
-         * Called after de-serialization to retain backward compatibility.
+         * Called after deserialization to retain backward compatibility.
          *
          * @return this
          */

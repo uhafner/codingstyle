@@ -69,7 +69,7 @@ public class FilteredLog implements Serializable {
     }
 
     /**
-     * Called after de-serialization to improve the memory usage.
+     * Called after deserialization to improve the memory usage.
      *
      * @return this
      */
