@@ -73,6 +73,7 @@ public class FilteredLog implements Serializable {
      *
      * @return this
      */
+    @Serial
     protected Object readResolve() {
         lock = new ReentrantLock();
 
@@ -181,17 +182,6 @@ public class FilteredLog implements Serializable {
      */
     public int size() {
         return lines;
-    }
-
-    /**
-     * Writes a summary message to the reports' error log that denotes the total number of errors that have been
-     * reported.
-     *
-     * @deprecated not useful anymore
-     */
-    @Deprecated
-    public void logSummary() {
-        // do nothing
     }
 
     /**
