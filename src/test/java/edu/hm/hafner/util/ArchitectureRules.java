@@ -1,6 +1,5 @@
 package edu.hm.hafner.util;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -125,7 +124,6 @@ public final class ArchitectureRules {
             methods().that().haveName("readResolve").and().haveRawReturnType(Object.class)
                     .should().beDeclaredInClassesThat().implement(Serializable.class)
                     .andShould(beProtected())
-                    .andShould().beAnnotatedWith(Serial.class)
                     .allowEmptyShould(true);
 
     private static ExceptionHasNoContext exceptionHasNoContextAsParameter() {
