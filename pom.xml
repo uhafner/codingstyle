@@ -964,7 +964,6 @@
         <groupId>org.revapi</groupId>
         <artifactId>revapi-maven-plugin</artifactId>
         <configuration>
-          <skip>true</skip>
           <versionFormat>[-0-9.]*</versionFormat>
           <failBuildOnProblemsFound>true</failBuildOnProblemsFound>
           <checkDependencies>true</checkDependencies>
@@ -995,7 +994,7 @@
               <minSeverity>NON_BREAKING</minSeverity>
               <minCriticality>documented</minCriticality>
               <output>${project.build.directory}/revapi-result.json</output>
-              <indent>false</indent>
+              <indent>true</indent>
               <append>false</append>
               <keepEmptyFile>true</keepEmptyFile>
             </revapi.reporter.json>
