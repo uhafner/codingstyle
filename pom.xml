@@ -982,37 +982,14 @@
               <attachments>
                 <vetted>ok</vetted>
               </attachments>
-              <differences>
-                <item>
-                  <ignore>true</ignore>
-                  <regex>true</regex>
-                  <code>java.annotation.*</code>
-                  <annotationType>edu.umd.cs.findbugs.annotations.*</annotationType>
-                  <justification>Annotation should be safe to change</justification>
-                </item>
-              </differences>
             </revapi.differences>
             <revapi.versions>
-              <versionIncreaseAllows>
-                <major>
-                  <severity>BREAKING</severity>
-                  <attachments>
-                    <vetted>ok</vetted>
-                  </attachments>
-                </major>
-                <minor>
-                  <severity>NON_BREAKING</severity>
-                  <attachments>
-                    <vetted>ok</vetted>
-                  </attachments>
-                </minor>
-                <patch>
-                  <severity>EQUIVALENT</severity>
-                  <attachments>
-                    <vetted>ok</vetted>
-                  </attachments>
-                </patch>
-              </versionIncreaseAllows>
+              <enabled>true</enabled>
+              <strictSemver>false</strictSemver>
+              <onAllowed>
+                <criticality>documented</criticality>
+                <justification>Allowed by the rules of semantic versioning.</justification>
+              </onAllowed>
             </revapi.versions>
             <revapi.reporter.json>
               <minSeverity>NON_BREAKING</minSeverity>
