@@ -10,7 +10,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import edu.hm.hafner.util.PackageDetector.FileSystemFacade;
+import edu.hm.hafner.util.PackageDetectorFactory.FileSystemFacade;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;

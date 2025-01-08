@@ -2,6 +2,8 @@ package edu.hm.hafner.util;
 
 import java.util.regex.Pattern;
 
+import edu.hm.hafner.util.PackageDetectorFactory.FileSystemFacade;
+
 /**
  * Detects the namespace of a C# workspace file.
  *
