@@ -17,8 +17,16 @@ public final class PackageDetectorFactory {
         return createPackageDetectors(new FileSystemFacade());
     }
 
+    /**
+     * Creates a new package detector runner that uses the detectors for Java, Kotlin, and C#.
+     *
+     * @param facade
+     *         the file system facade to use
+     *
+     * @return the package detector runner
+     */
     @VisibleForTesting
-    static PackageDetectorRunner createPackageDetectors(final FileSystemFacade facade) {
+    public static PackageDetectorRunner createPackageDetectors(final FileSystemFacade facade) {
         return new PackageDetectorRunner(
                 new JavaPackageDetector(facade),
                 new KotlinPackageDetector(facade),

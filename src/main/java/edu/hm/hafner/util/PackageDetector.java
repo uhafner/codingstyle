@@ -101,9 +101,21 @@ abstract class PackageDetector {
      * Facade for file system operations. May be replaced by stubs in test cases.
      */
     @VisibleForTesting
-    static class FileSystemFacade {
+    public static class FileSystemFacade {
+        /**
+         * Opens the specified file.
+         *
+         * @param fileName
+         *         the name of the file to open
+         *
+         * @return the input stream to read the file
+         * @throws IOException
+         *         if the file could not be opened
+         * @throws InvalidPathException
+         *         the file name is invalid
+         */
         @MustBeClosed
-        InputStream openFile(final String fileName) throws IOException, InvalidPathException {
+        public InputStream openFile(final String fileName) throws IOException, InvalidPathException {
             return Files.newInputStream(Paths.get(fileName));
         }
     }
