@@ -2,6 +2,8 @@ package edu.hm.hafner.util;
 
 import java.util.regex.Pattern;
 
+import edu.hm.hafner.util.PackageDetectorFactory.FileSystemFacade;
+
 /**
  * Detects the package name of a Kotlin file.
  *

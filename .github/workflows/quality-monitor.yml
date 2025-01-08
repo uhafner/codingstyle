@@ -95,7 +95,8 @@ jobs:
                   "tools": [
                     {
                       "id": "revapi",
-                      "sourcePath": "src/main/java"
+                      "sourcePath": "src/main/java",
+                      "pattern": "**/target/revapi-result.json"
                     }
                   ]
                 },

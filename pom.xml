@@ -981,6 +981,16 @@
               <attachments>
                 <vetted>ok</vetted>
               </attachments>
+              <differences>
+                <item>
+                  <ignore>true</ignore>
+                  <regex>true</regex>
+                  <code>java.method.visibilityIncreased</code>
+                  <classSimpleName>PackageDetectorFactory</classSimpleName>
+                  <methodName>createPackageDetectors</methodName>
+                  <justification>Not used yet</justification>
+                </item>
+              </differences>
             </revapi.differences>
             <revapi.versions>
               <enabled>true</enabled>
