@@ -5,9 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
-import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,7 +13,7 @@ import java.util.stream.Stream;
 
 import org.apache.commons.io.input.BOMInputStream;
 
-import com.google.errorprone.annotations.MustBeClosed;
+import edu.hm.hafner.util.PackageDetectorFactory.FileSystemFacade;
 
 /**
  * Base class for package detectors.
@@ -96,27 +94,4 @@ abstract class PackageDetector {
      * @return {@code true} if the classifier accepts the specified file for processing.
      */
     abstract boolean accepts(String fileName);
-
-    /**
-     * Facade for file system operations. May be replaced by stubs in test cases.
-     */
-    @VisibleForTesting
-    public static class FileSystemFacade {
-        /**
-         * Opens the specified file.
-         *
-         * @param fileName
-         *         the name of the file to open
-         *
-         * @return the input stream to read the file
-         * @throws IOException
-         *         if the file could not be opened
-         * @throws InvalidPathException
-         *         the file name is invalid
-         */
-        @MustBeClosed
-        public InputStream openFile(final String fileName) throws IOException, InvalidPathException {
-            return Files.newInputStream(Paths.get(fileName));
-        }
-    }
 }

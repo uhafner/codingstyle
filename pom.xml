@@ -99,7 +99,7 @@
     <maven-pitest-plugin.version>1.17.3</maven-pitest-plugin.version>
     <pitest-junit5-plugin.version>1.2.1</pitest-junit5-plugin.version>
     <error-prone.version>2.36.0</error-prone.version>
-    <nullaway.version>0.12.2</nullaway.version>
+    <nullaway.version>0.12.3</nullaway.version>
     <revapi-maven-plugin.version>0.15.0</revapi-maven-plugin.version>
     <revapi-java.version>0.28.1</revapi-java.version>
     <revapi-reporter-json-version>0.5.0</revapi-reporter-json-version>
@@ -964,7 +964,6 @@
         <groupId>org.revapi</groupId>
         <artifactId>revapi-maven-plugin</artifactId>
         <configuration>
-          <skip>true</skip>
           <versionFormat>[-0-9.]*</versionFormat>
           <failBuildOnProblemsFound>true</failBuildOnProblemsFound>
           <checkDependencies>true</checkDependencies>
@@ -986,39 +985,26 @@
                 <item>
                   <ignore>true</ignore>
                   <regex>true</regex>
-                  <code>java.annotation.*</code>
-                  <annotationType>edu.umd.cs.findbugs.annotations.*</annotationType>
-                  <justification>Annotation should be safe to change</justification>
+                  <code>java.method.visibilityIncreased</code>
+                  <classSimpleName>PackageDetectorFactory</classSimpleName>
+                  <methodName>createPackageDetectors</methodName>
+                  <justification>Not used yet</justification>
                 </item>
               </differences>
             </revapi.differences>
             <revapi.versions>
-              <versionIncreaseAllows>
-                <major>
-                  <severity>BREAKING</severity>
-                  <attachments>
-                    <vetted>ok</vetted>
-                  </attachments>
-                </major>
-                <minor>
-                  <severity>NON_BREAKING</severity>
-                  <attachments>
-                    <vetted>ok</vetted>
-                  </attachments>
-                </minor>
-                <patch>
-                  <severity>EQUIVALENT</severity>
-                  <attachments>
-                    <vetted>ok</vetted>
-                  </attachments>
-                </patch>
-              </versionIncreaseAllows>
+              <enabled>true</enabled>
+              <strictSemver>false</strictSemver>
+              <onAllowed>
+                <criticality>documented</criticality>
+                <justification>Allowed by the rules of semantic versioning.</justification>
+              </onAllowed>
             </revapi.versions>
             <revapi.reporter.json>
               <minSeverity>NON_BREAKING</minSeverity>
               <minCriticality>documented</minCriticality>
               <output>${project.build.directory}/revapi-result.json</output>
-              <indent>false</indent>
+              <indent>true</indent>
               <append>false</append>
               <keepEmptyFile>true</keepEmptyFile>
             </revapi.reporter.json>
