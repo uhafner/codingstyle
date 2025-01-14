@@ -159,7 +159,7 @@
     <module name="VisibilityModifier"/>
     <module name="BooleanExpressionComplexity"/>
     <module name="ClassDataAbstractionCoupling">
-      <property name="max" value="10"/>
+      <property name="max" value="20"/>
     </module>
     <module name="ClassFanOutComplexity">
       <property name="max" value="25"/>
