@@ -119,7 +119,7 @@
     <rewrite-testing-frameworks.version>2.24.0</rewrite-testing-frameworks.version>
     <rewrite-static-analysis.version>2.0.1</rewrite-static-analysis.version>
     <rewrite-migrate-java.version>2.31.0</rewrite-migrate-java.version>
-    <rewrite-recommendations.version>1.14.2</rewrite-recommendations.version>
+    <rewrite-recommendations.version>1.15.0</rewrite-recommendations.version>
 
     <!-- Maven Surefire ArgLine -->
     <argLine>-Djava.util.logging.config.file=logging.properties</argLine>
