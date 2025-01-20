@@ -62,7 +62,7 @@ class ResourceExtractorTest {
     void shouldThrowExceptionIfTargetIsFileInFolder() throws IOException {
         var proxy = new ResourceExtractor(ResourceExtractor.class);
 
-        Path tempFile = Files.createTempFile("tmp", "tmp");
+        var tempFile = Files.createTempFile("tmp", "tmp");
         assertThatIllegalArgumentException().isThrownBy(() -> proxy.extract(tempFile, MANIFEST_MF));
     }
 
@@ -89,7 +89,7 @@ class ResourceExtractorTest {
     void shouldThrowExceptionIfTargetIsFileInJar() throws IOException {
         var proxy = new ResourceExtractor(StringUtils.class);
 
-        Path tempFile = Files.createTempFile("tmp", "tmp");
+        var tempFile = Files.createTempFile("tmp", "tmp");
         assertThatIllegalArgumentException().isThrownBy(() -> proxy.extract(tempFile, MANIFEST_MF));
     }
 
@@ -103,20 +103,20 @@ class ResourceExtractorTest {
 
     @Test
     void shouldHandleClassloaderProblems() {
-        ProtectionDomain protectionDomain = mock(ProtectionDomain.class);
+        var protectionDomain = mock(ProtectionDomain.class);
 
         assertThatIllegalArgumentException()
                 .isThrownBy(() -> new ResourceExtractor(ResourceExtractor.class, protectionDomain))
                 .withMessageContainingAll("CodeSource for", "ResourceExtractor");
 
-        CodeSource codeSource = mock(CodeSource.class);
+        var codeSource = mock(CodeSource.class);
         when(protectionDomain.getCodeSource()).thenReturn(codeSource);
 
         assertThatIllegalArgumentException()
                 .isThrownBy(() -> new ResourceExtractor(ResourceExtractor.class, protectionDomain))
                 .withMessageContaining("CodeSource location for", "ResourceExtractor");
 
-        URL url = mock(URL.class);
+        var url = mock(URL.class);
         when(codeSource.getLocation()).thenReturn(url);
         assertThatIllegalArgumentException()
                 .isThrownBy(() -> new ResourceExtractor(ResourceExtractor.class, protectionDomain))

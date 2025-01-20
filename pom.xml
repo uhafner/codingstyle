@@ -4,7 +4,7 @@
 
   <groupId>edu.hm.hafner</groupId>
   <artifactId>codingstyle</artifactId>
-  <version>4.15.0-SNAPSHOT</version>
+  <version>5.6.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>Java coding style</name>
@@ -57,24 +57,24 @@
   <properties>
     <source.encoding>UTF-8</source.encoding>
     <project.build.sourceEncoding>${source.encoding}</project.build.sourceEncoding>
-    <java.version>11</java.version>
+    <java.version>17</java.version>
 
     <module.name>${project.groupId}.codingstyle</module.name>
 
     <pmd.skip>false</pmd.skip>
 
     <!-- Project Dependencies Configuration -->
-    <spotbugs.version>4.8.6</spotbugs.version>
+    <spotbugs.version>4.9.0</spotbugs.version>
     <commons.lang.version>3.17.0</commons.lang.version>
-    <commons.io.version>2.17.0</commons.io.version>
-    <byte-buddy.version>1.15.2</byte-buddy.version>
+    <commons.io.version>2.18.0</commons.io.version>
+    <byte-buddy.version>1.15.11</byte-buddy.version>
     <slf4j.version>2.0.16</slf4j.version>
 
     <!-- Project Test Dependencies Configuration -->
-    <equalsverifier.version>3.17</equalsverifier.version>
-    <junit.version>5.11.1</junit.version>
-    <mockito.version>5.13.0</mockito.version>
-    <assertj.version>3.26.3</assertj.version>
+    <equalsverifier.version>3.18.1</equalsverifier.version>
+    <junit.version>5.11.4</junit.version>
+    <mockito.version>5.15.2</mockito.version>
+    <assertj.version>3.27.2</assertj.version>
     <archunit.version>1.3.0</archunit.version>
 
     <!-- Maven Plug-ins Configuration -->
@@ -83,43 +83,43 @@
     <maven-install-plugin.version>3.1.3</maven-install-plugin.version>
     <maven-clean-plugin.version>3.4.0</maven-clean-plugin.version>
     <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
-    <maven-javadoc-plugin.version>3.10.0</maven-javadoc-plugin.version>
+    <maven-javadoc-plugin.version>3.11.2</maven-javadoc-plugin.version>
     <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
     <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
-    <maven-surefire-plugin.version>3.5.0</maven-surefire-plugin.version>
-    <maven-failsafe-plugin.version>3.5.0</maven-failsafe-plugin.version>
+    <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
+    <maven-failsafe-plugin.version>3.5.2</maven-failsafe-plugin.version>
     <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
-    <maven-pmd-plugin.version>3.25.0</maven-pmd-plugin.version>
-    <pmd.version>7.5.0</pmd.version>
-    <maven-checkstyle-plugin.version>3.5.0</maven-checkstyle-plugin.version>
-    <checkstyle.version>10.18.1</checkstyle.version>
-    <spotbugs-maven-plugin.version>4.8.6.4</spotbugs-maven-plugin.version>
+    <maven-pmd-plugin.version>3.26.0</maven-pmd-plugin.version>
+    <pmd.version>7.7.0</pmd.version>
+    <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
+    <checkstyle.version>10.21.1</checkstyle.version>
+    <spotbugs-maven-plugin.version>4.8.6.6</spotbugs-maven-plugin.version>
     <findsecbugs-plugin.version>1.13.0</findsecbugs-plugin.version>
     <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
-    <maven-pitest-plugin.version>1.17.0</maven-pitest-plugin.version>
+    <maven-pitest-plugin.version>1.17.4</maven-pitest-plugin.version>
     <pitest-junit5-plugin.version>1.2.1</pitest-junit5-plugin.version>
-    <error-prone.version>2.32.0</error-prone.version>
-    <nullaway.version>0.11.3</nullaway.version>
+    <error-prone.version>2.36.0</error-prone.version>
+    <nullaway.version>0.12.3</nullaway.version>
     <revapi-maven-plugin.version>0.15.0</revapi-maven-plugin.version>
     <revapi-java.version>0.28.1</revapi-java.version>
     <revapi-reporter-json-version>0.5.0</revapi-reporter-json-version>
     <nexus-staging-maven-plugin.version>1.7.0</nexus-staging-maven-plugin.version>
-    <maven-gpg-plugin.version>3.2.6</maven-gpg-plugin.version>
+    <maven-gpg-plugin.version>3.2.7</maven-gpg-plugin.version>
     <maven-release-plugin.version>3.1.1</maven-release-plugin.version>
     <assertj-assertions-generator-maven-plugin.version>2.2.0</assertj-assertions-generator-maven-plugin.version>
     <maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
-    <maven-dependency-plugin.version>3.8.0</maven-dependency-plugin.version>
+    <maven-dependency-plugin.version>3.8.1</maven-dependency-plugin.version>
     <depgraph-maven-plugin.version>4.0.3</depgraph-maven-plugin.version>
     <sortpom-maven-plugin.version>4.0.0</sortpom-maven-plugin.version>
     <git-commit-id-maven-plugin.version>9.0.1</git-commit-id-maven-plugin.version>
-    <dependency-check-maven.version>10.0.4</dependency-check-maven.version>
+    <dependency-check-maven.version>12.0.0</dependency-check-maven.version>
 
     <!-- OpenRewrite versions   -->
-    <rewrite-maven-plugin.version>5.41.0</rewrite-maven-plugin.version>
-    <rewrite-testing-frameworks.version>2.18.0</rewrite-testing-frameworks.version>
-    <rewrite-static-analysis.version>1.17.0</rewrite-static-analysis.version>
-    <rewrite-migrate-java.version>2.26.1</rewrite-migrate-java.version>
-    <rewrite-recommendations.version>1.10.0</rewrite-recommendations.version>
+    <rewrite-maven-plugin.version>6.0.3</rewrite-maven-plugin.version>
+    <rewrite-testing-frameworks.version>3.0.0</rewrite-testing-frameworks.version>
+    <rewrite-static-analysis.version>2.0.1</rewrite-static-analysis.version>
+    <rewrite-migrate-java.version>3.0.0</rewrite-migrate-java.version>
+    <rewrite-recommendations.version>1.15.0</rewrite-recommendations.version>
 
     <!-- Maven Surefire ArgLine -->
     <argLine>-Djava.util.logging.config.file=logging.properties</argLine>
@@ -376,19 +376,21 @@
           <configuration>
             <exclusions>
               <exclusion>**/docker/**</exclusion>
-              <exclusion>**/AbstractComparableTest.java</exclusion>
-              <exclusion>**/ResourceExtractorTest.java</exclusion>
             </exclusions>
             <activeRecipes>
               <recipe>org.openrewrite.maven.BestPractices</recipe>
               <recipe>org.openrewrite.maven.RemoveRedundantDependencyVersions</recipe>
+              <recipe>org.openrewrite.staticanalysis.AddSerialAnnotationToSerialVersionUID</recipe>
               <recipe>org.openrewrite.staticanalysis.MissingOverrideAnnotation</recipe>
+              <recipe>org.openrewrite.staticanalysis.CodeCleanup</recipe>
               <recipe>org.openrewrite.staticanalysis.CommonStaticAnalysis</recipe>
               <recipe>org.openrewrite.staticanalysis.RemoveExtraSemicolons</recipe>
-              <recipe>org.openrewrite.java.migrate.Java8toJava11</recipe>
-              <recipe>org.openrewrite.java.RemoveUnusedImports</recipe>
+              <recipe>org.openrewrite.java.migrate.UpgradeToJava17</recipe>
               <recipe>org.openrewrite.java.migrate.util.SequencedCollection</recipe>
               <recipe>org.openrewrite.java.migrate.lang.var.UseVarForObject</recipe>
+              <recipe>org.openrewrite.java.migrate.net.JavaNetAPIs</recipe>
+              <recipe>org.openrewrite.java.migrate.util.JavaUtilAPIs</recipe>
+              <recipe>org.openrewrite.java.migrate.lang.StringRulesRecipes</recipe>
               <recipe>org.openrewrite.java.format.RemoveTrailingWhitespace</recipe>
               <recipe>org.openrewrite.java.format.BlankLines</recipe>
               <recipe>org.openrewrite.java.format.EmptyNewlineAtEndOfFile</recipe>
@@ -586,6 +588,7 @@
           <?SORTPOM IGNORE?>
           <compilerArgs>
             <arg>-Xlint:-varargs</arg>
+            <arg>--should-stop=ifError=FLOW</arg>
             <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</arg>
             <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED</arg>
             <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED</arg>
@@ -678,7 +681,7 @@
             <configuration>
               <rules>
                 <requireJavaVersion>
-                  <version>11</version>
+                  <version>${java.version}</version>
                 </requireJavaVersion>
               </rules>
             </configuration>
@@ -769,14 +772,14 @@
         </configuration>
         <dependencies>
           <dependency>
-            <groupId>net.sourceforge.pmd</groupId>
+            <groupId>edu.hm.hafner</groupId>
             <artifactId>pmd-core</artifactId>
-            <version>${pmd.version}</version>
+            <version>${pmd.version}-metrics-2</version>
           </dependency>
           <dependency>
-            <groupId>net.sourceforge.pmd</groupId>
+            <groupId>edu.hm.hafner</groupId>
             <artifactId>pmd-java</artifactId>
-            <version>${pmd.version}</version>
+            <version>${pmd.version}-metrics-2</version>
           </dependency>
           <dependency>
             <groupId>net.sourceforge.pmd</groupId>
@@ -826,6 +829,22 @@
               <skip>${pmd.skip}</skip>
             </configuration>
           </execution>
+          <execution>
+            <id>run-pmd-metrics</id>
+            <goals>
+              <goal>pmd</goal>
+            </goals>
+            <phase>verify</phase>
+            <configuration>
+              <targetDirectory>${project.build.directory}/metrics</targetDirectory>
+              <rulesets>
+                <ruleset>/category/java/metric.xml</ruleset>
+              </rulesets>
+              <format>net.sourceforge.pmd.renderers.MetricsRenderer</format>
+              <includeTests>false</includeTests>
+              <skip>${pmd.skip}</skip>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
       <plugin>
@@ -850,6 +869,17 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>properties</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <trimStackTrace>false</trimStackTrace>
@@ -858,6 +888,7 @@
             <exclude>**/*ITest.*</exclude>
             <exclude>**/*ArchitectureRulesTest$*</exclude>
           </excludes>
+          <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar}</argLine>
         </configuration>
         <dependencies>
           <dependency>
@@ -933,7 +964,6 @@
         <groupId>org.revapi</groupId>
         <artifactId>revapi-maven-plugin</artifactId>
         <configuration>
-          <skip>true</skip>
           <versionFormat>[-0-9.]*</versionFormat>
           <failBuildOnProblemsFound>true</failBuildOnProblemsFound>
           <checkDependencies>true</checkDependencies>
@@ -955,39 +985,26 @@
                 <item>
                   <ignore>true</ignore>
                   <regex>true</regex>
-                  <code>java.annotation.*</code>
-                  <annotationType>edu.umd.cs.findbugs.annotations.*</annotationType>
-                  <justification>Annotation should be safe to change</justification>
+                  <code>java.method.visibilityIncreased</code>
+                  <classSimpleName>PackageDetectorFactory</classSimpleName>
+                  <methodName>createPackageDetectors</methodName>
+                  <justification>Not used yet</justification>
                 </item>
               </differences>
             </revapi.differences>
             <revapi.versions>
-              <versionIncreaseAllows>
-                <major>
-                  <severity>BREAKING</severity>
-                  <attachments>
-                    <vetted>ok</vetted>
-                  </attachments>
-                </major>
-                <minor>
-                  <severity>NON_BREAKING</severity>
-                  <attachments>
-                    <vetted>ok</vetted>
-                  </attachments>
-                </minor>
-                <patch>
-                  <severity>EQUIVALENT</severity>
-                  <attachments>
-                    <vetted>ok</vetted>
-                  </attachments>
-                </patch>
-              </versionIncreaseAllows>
+              <enabled>true</enabled>
+              <strictSemver>false</strictSemver>
+              <onAllowed>
+                <criticality>documented</criticality>
+                <justification>Allowed by the rules of semantic versioning.</justification>
+              </onAllowed>
             </revapi.versions>
             <revapi.reporter.json>
               <minSeverity>NON_BREAKING</minSeverity>
               <minCriticality>documented</minCriticality>
               <output>${project.build.directory}/revapi-result.json</output>
-              <indent>false</indent>
+              <indent>true</indent>
               <append>false</append>
               <keepEmptyFile>true</keepEmptyFile>
             </revapi.reporter.json>

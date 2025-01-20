@@ -123,10 +123,11 @@ public final class ArchitectureRules {
     public static final ArchRule READ_RESOLVE_SHOULD_BE_PROTECTED =
             methods().that().haveName("readResolve").and().haveRawReturnType(Object.class)
                     .should().beDeclaredInClassesThat().implement(Serializable.class)
-                    .andShould(beProtected()).allowEmptyShould(true);
+                    .andShould(beProtected())
+                    .allowEmptyShould(true);
 
     private static ExceptionHasNoContext exceptionHasNoContextAsParameter() {
-        return new ExceptionHasNoContext();
+        return new ExceptionHasNoContext(IncompatibleClassChangeError.class);
     }
 
     private static DescribedPredicate<? super JavaCall<?>> accessIsRestrictedForTests() {
@@ -214,7 +215,7 @@ public final class ArchitectureRules {
                 return;
             }
             events.add(SimpleConditionEvent.violated(method,
-                    String.format("%s is not protected but the class might be extended in %s",
+                    "%s is not protected but the class might be extended in %s".formatted(
                             method.getDescription(), method.getSourceCodeLocation())));
         }
     }

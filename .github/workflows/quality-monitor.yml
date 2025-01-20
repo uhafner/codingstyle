@@ -11,8 +11,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        if: github.event_name == 'push'
+      - uses: actions/checkout@v4
         with:
-          ref: "refs/pull/${{ github.event.number }}/merge"
+          ref: "${{ github.event.pull_request.merge_commit_sha }}"
+        if: github.event_name == 'pull_request_target'
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
@@ -65,7 +68,7 @@ jobs:
                     },
                     {
                       "id": "pmd",
-                      "pattern": "**/target/**pmd.xml"
+                      "pattern": "**/target/pmd-*/pmd.xml"
                     }
                   ]
                 },
@@ -82,6 +85,18 @@ jobs:
                     {
                       "id": "error-prone",
                       "pattern": "**/maven.log"
+                    }
+                  ]
+                },
+                {
+                  "name": "API Problems",
+                  "id": "api",
+                  "icon": "no_entry_sign",
+                  "tools": [
+                    {
+                      "id": "revapi",
+                      "sourcePath": "src/main/java",
+                      "pattern": "**/target/revapi-result.json"
                     }
                   ]
                 },
@@ -126,8 +141,87 @@ jobs:
                       "metric": "mutation",
                       "sourcePath": "src/main/java",
                       "pattern": "**/target/pit-reports/mutations.xml"
+                    },
+                    {
+                      "id": "pit",
+                      "name": "Test Strength",
+                      "metric": "test-strength",
+                      "sourcePath": "src/main/java",
+                      "pattern": "**/target/pit-reports/mutations.xml"
                     }
                   ]
                 }
-              ]
+              ],
+              "metrics": 
+                {
+                  "name": "Toplevel Metrics",
+                  "tools": [
+                    {
+                      "name": "Cyclomatic Complexity",
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "CYCLOMATIC_COMPLEXITY"
+                    },
+                    {
+                      "name": "Cognitive Complexity",
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "COGNITIVE_COMPLEXITY"
+                    },
+                    {
+                      "name": "Lines of Code",
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "LOC"
+                    },
+                    {
+                      "name": "Non Commenting Source Statements",
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "NCSS"
+                    },
+                    {
+                      "name": "Access to foreign data",
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "ACCESS_TO_FOREIGN_DATA"
+                    },
+                    {
+                      "name": "Class cohesion",
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "COHESION"
+                    },
+                    {
+                      "name": "Fan out",
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "FAN_OUT"
+                    },
+                    {
+                      "name": "Number of accessors",
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "NUMBER_OF_ACCESSORS"
+                    },
+                    {
+                      "name": "Weight of a class",
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "WEIGHT_OF_CLASS"
+                    },
+                    {
+                      "name": "Weighted method count",
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "WEIGHED_METHOD_COUNT"
+                    },
+                    {
+                      "name": "N-Path Complexity",
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "NPATH_COMPLEXITY"
+                    }
+                  ]
+                }
             }

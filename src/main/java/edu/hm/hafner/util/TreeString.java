@@ -1,5 +1,6 @@
 package edu.hm.hafner.util;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ import edu.umd.cs.findbugs.annotations.CheckForNull;
  * @author Kohsuke Kawaguchi
  */
 public final class TreeString implements Serializable {
+    @Serial
     private static final long serialVersionUID = 3621959682117480904L;
 
     /** Parent node that represents the prefix. */

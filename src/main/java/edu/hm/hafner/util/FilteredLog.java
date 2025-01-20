@@ -1,5 +1,6 @@
 package edu.hm.hafner.util;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,6 +22,7 @@ import com.google.errorprone.annotations.FormatMethod;
  * @author Ullrich Hafner
  */
 public class FilteredLog implements Serializable {
+    @Serial
     private static final long serialVersionUID = -8552323621953159904L;
 
     private static final int DEFAULT_MAX_LINES = 20;
@@ -67,10 +69,11 @@ public class FilteredLog implements Serializable {
     }
 
     /**
-     * Called after de-serialization to improve the memory usage.
+     * Called after deserialization to improve the memory usage.
      *
      * @return this
      */
+    @Serial
     protected Object readResolve() {
         lock = new ReentrantLock();
 
@@ -105,7 +108,7 @@ public class FilteredLog implements Serializable {
      */
     @FormatMethod
     public void logInfo(final String format, final Object... args) {
-        logInfo(String.format(format, args));
+        logInfo(format.formatted(args));
     }
 
     /**
@@ -142,7 +145,7 @@ public class FilteredLog implements Serializable {
      */
     @FormatMethod
     public void logError(final String format, final Object... args) {
-        logError(String.format(format, args));
+        logError(format.formatted(args));
     }
 
     /**
@@ -179,17 +182,6 @@ public class FilteredLog implements Serializable {
      */
     public int size() {
         return lines;
-    }
-
-    /**
-     * Writes a summary message to the reports' error log that denotes the total number of errors that have been
-     * reported.
-     *
-     * @deprecated not useful anymore
-     */
-    @Deprecated
-    public void logSummary() {
-        // do nothing
     }
 
     /**

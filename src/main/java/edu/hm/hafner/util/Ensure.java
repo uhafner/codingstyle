@@ -20,6 +20,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Note: the static methods provided by this class use a fluent interface, i.e., in order to verify an assertion a
  * method sequence needs to be called.
  * </p>
+ *
  * <p>
  *  Available checks:
  * </p>
@@ -168,7 +169,7 @@ public final class Ensure {
      */
     @FormatMethod
     private static void throwException(final String message, @CheckForNull final Object... args) {
-        throw new AssertionError(String.format(message, args));
+        throw new AssertionError(message.formatted(args));
     }
 
     /**
@@ -185,7 +186,7 @@ public final class Ensure {
      */
     @FormatMethod
     private static void throwNullPointerException(final String message, final Object... args) {
-        throw new NullPointerException(String.format(message, args)); // NOPMD
+        throw new NullPointerException(message.formatted(args)); // NOPMD
     }
 
     private Ensure() {
@@ -764,7 +765,7 @@ public final class Ensure {
          */
         @FormatMethod
         public void isNeverThrown(final String explanation, final Object... args) {
-            throw new AssertionError(String.format(explanation, args), value);
+            throw new AssertionError(explanation.formatted(args), value);
         }
     }
 }

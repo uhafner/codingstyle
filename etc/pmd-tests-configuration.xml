@@ -9,11 +9,11 @@
   <rule ref="category/java/bestpractices.xml">
     <exclude name="AccessorMethodGeneration"/>
     <exclude name="GuardLogStatement"/>
-    <exclude name="JUnit4TestShouldUseTestAnnotation"/>
+    <exclude name="UnitTestShouldUseTestAnnotation"/>
     <exclude name="JUnit5TestShouldBePackagePrivate"/>
-    <exclude name="JUnitAssertionsShouldIncludeMessage"/>
-    <exclude name="JUnitTestContainsTooManyAsserts"/>
-    <exclude name="JUnitTestsShouldIncludeAssert"/>
+    <exclude name="UnitTestAssertionsShouldIncludeMessage"/>
+    <exclude name="UnitTestContainsTooManyAsserts"/>
+    <exclude name="UnitTestShouldIncludeAssert"/>
     <exclude name="LiteralsFirstInComparisons"/>
     <exclude name="LooseCoupling"/>
     <exclude name="UnusedPrivateMethod"/>

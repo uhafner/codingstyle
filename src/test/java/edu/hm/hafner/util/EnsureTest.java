@@ -26,7 +26,7 @@ class EnsureTest {
             Ensure.that(true).isTrue();
             Ensure.that("").isNotNull();
             Ensure.that("", "").isNotNull();
-            Ensure.that(null, (Object)null).isNull();
+            Ensure.that(null, (Object) null).isNull();
             Ensure.that(new String[]{""}).isNotEmpty();
             Ensure.that(SOME_STRING).isNotEmpty();
             Ensure.that(SOME_STRING).isNotBlank();
@@ -87,44 +87,32 @@ class EnsureTest {
     /**
      * Checks whether we throw an exception if a contract is violated.
      */
-    @Test
+    @Test @SuppressWarnings("NullAway")
     void shouldThrowNpeIfContractIsViolated() {
-        assertThatThrownBy(() -> {
-            Ensure.that((Object)null).isNotNull(ERROR_MESSAGE);
-        }).isInstanceOf(NullPointerException.class).hasMessage(ERROR_MESSAGE);
-        assertThatThrownBy(() -> {
-            Ensure.that(SOME_STRING, (Object)null).isNotNull(ERROR_MESSAGE);
-        }).isInstanceOf(NullPointerException.class).hasMessage(ERROR_MESSAGE);
-        assertThatThrownBy(() -> {
-            Ensure.that(null, SOME_STRING).isNotNull(ERROR_MESSAGE);
-        }).isInstanceOf(NullPointerException.class).hasMessage(ERROR_MESSAGE);
-        assertThatThrownBy(() -> {
-            Ensure.that(null, (Object[]) null).isNotNull(ERROR_MESSAGE);
-        }).isInstanceOf(NullPointerException.class).hasMessage(ERROR_MESSAGE);
-        assertThatThrownBy(() -> {
-            Ensure.that((Object)null).isNotNull();
-        }).isInstanceOf(NullPointerException.class);
-        assertThatThrownBy(() -> {
-            Ensure.that(SOME_STRING, (Object)null).isNotNull();
-        }).isInstanceOf(NullPointerException.class);
-        assertThatThrownBy(() -> {
-            Ensure.that(null, SOME_STRING).isNotNull();
-        }).isInstanceOf(NullPointerException.class);
-        assertThatThrownBy(() -> {
-            Ensure.that(null, (Object[]) null).isNotNull();
-        }).isInstanceOf(NullPointerException.class);
-        assertThatThrownBy(() -> {
-            Ensure.that((Object[])null).isNotEmpty(ERROR_MESSAGE);
-        }).isInstanceOf(NullPointerException.class).hasMessage(ERROR_MESSAGE);
-        assertThatThrownBy(() -> {
-            Ensure.that((String)null).isNotEmpty(ERROR_MESSAGE);
-        }).isInstanceOf(NullPointerException.class).hasMessage(ERROR_MESSAGE);
-        assertThatThrownBy(() -> {
-            Ensure.that((Object[])null).isNotEmpty();
-        }).isInstanceOf(NullPointerException.class);
-        assertThatThrownBy(() -> {
-            Ensure.that((String)null).isNotEmpty();
-        }).isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> Ensure.that((Object) null).isNotNull(ERROR_MESSAGE))
+                .isInstanceOf(NullPointerException.class).hasMessage(ERROR_MESSAGE);
+        assertThatThrownBy(() -> Ensure.that(SOME_STRING, (Object) null).isNotNull(ERROR_MESSAGE))
+                .isInstanceOf(NullPointerException.class).hasMessage(ERROR_MESSAGE);
+        assertThatThrownBy(() -> Ensure.that(null, SOME_STRING).isNotNull(ERROR_MESSAGE))
+                .isInstanceOf(NullPointerException.class).hasMessage(ERROR_MESSAGE);
+        assertThatThrownBy(() -> Ensure.that(null, (Object[]) null).isNotNull(ERROR_MESSAGE))
+                .isInstanceOf(NullPointerException.class).hasMessage(ERROR_MESSAGE);
+        assertThatThrownBy(() -> Ensure.that((Object) null).isNotNull())
+                .isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> Ensure.that(SOME_STRING, (Object) null).isNotNull())
+                .isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> Ensure.that(null, SOME_STRING).isNotNull())
+                .isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> Ensure.that(null, (Object[]) null).isNotNull())
+                .isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> Ensure.that((Object[]) null).isNotEmpty(ERROR_MESSAGE))
+                .isInstanceOf(NullPointerException.class).hasMessage(ERROR_MESSAGE);
+        assertThatThrownBy(() -> Ensure.that((String) null).isNotEmpty(ERROR_MESSAGE))
+                .isInstanceOf(NullPointerException.class).hasMessage(ERROR_MESSAGE);
+        assertThatThrownBy(() -> Ensure.that((Object[]) null).isNotEmpty())
+                .isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> Ensure.that((String) null).isNotEmpty())
+                .isInstanceOf(NullPointerException.class);
     }
 
     /**

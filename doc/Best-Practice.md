@@ -138,7 +138,7 @@ Folgende Richtlinien haben sich in Java als sinnvoll herausgestellt:
  sofort klar, welchen Wert die Variablen z.B. am Ende einer Methode haben.
 - Lokale Variable **werden nie** mit `final` ausgezeichnet. Andernfalls geht der Blick auf das Wesentliche verloren. Im 
  Englischen spricht man hier häufig von *clutter* oder *noise*, die die Verwendung von `final` an jeder möglichen Stelle
- erzeugt. Die [Scala](http://www.scala-lang.org/) Erfinder haben dies besser gemacht: 
+ erzeugt. Die [Scala](https://www.scala-lang.org/) Erfinder haben dies besser gemacht: 
  hier gibt die Sprache gleich zwei verschiedene Schlüsselwörter
  für die zwei Varianten vor (`var` und `val`). 
  
