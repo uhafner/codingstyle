@@ -6,7 +6,7 @@ skinparam rectangle {
   BackgroundColor<<runtime>> lightBlue
   BackgroundColor<<provided>> lightGray
 }
-rectangle "codingstyle\n\n5.6.0-SNAPSHOT" as edu_hm_hafner_codingstyle_jar
+rectangle "codingstyle\n\n5.7.0-SNAPSHOT" as edu_hm_hafner_codingstyle_jar
 rectangle "spotbugs-annotations\n\n4.9.0" as com_github_spotbugs_spotbugs_annotations_jar
 rectangle "error_prone_annotations\n\n2.36.0" as com_google_errorprone_error_prone_annotations_jar
 rectangle "commons-lang3\n\n3.17.0" as org_apache_commons_commons_lang3_jar
