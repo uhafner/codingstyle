@@ -133,8 +133,8 @@ public static boolean containsAnyIgnoreCase(@Nullable final CharSequence input,
 ## Kommentare Formatieren
 
 Für Kommentare gibt es auch einige Richtlinien, die im Abschnitt [Kommentare](Kommentare.md) aufgeführt sind.
-Bei der Formatierung ist zusätzlich auf die folgende Punkte zu achten:
-- Zu lange Zeilen werden wie normaler Code nach 120 Zeichen umgebrochen (siehe [oben](#Zeilenumbruch))
+Bei der Formatierung ist zusätzlich auf die folgenden Punkte zu achten:
+- Zu lange Zeilen werden wie normaler Code nach 120 Zeichen umgebrochen (siehe [oben](#zeilenumbruch))
 - Abschnitte nutzen korrekte Kennzeichnung mittels der XHTML Tags \<p\>Text\</p\> 
 - Parameter werden auf einer neuen Zeile beschrieben (mit korrektem Einrücken)
 
