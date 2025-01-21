@@ -12,7 +12,7 @@ This coding style provides the set of rules that I am using in my lectures about
 
 This project describes the coding style in detail (currently only available in German) and serves as a template project. 
 It provides all necessary resources for a Java project to enforce this coding style using the following static analysis tools via Maven (and partly in IntelliJ):
-- [Checkstyle](https://checks-broken-tyle.org)
+- [Checkstyle](https://checkstyle.org)
 - [PMD](https://pmd.github.io/)
 - [SpotBugs](https://spotbugs.github.io)
 - [Error Prone](https://errorprone.info)
