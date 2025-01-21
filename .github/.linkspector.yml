@@ -1,8 +1,8 @@
 files:
   - README.md
-folders:
-  - .
+dirs:
+  - ./
   - doc
 useGitIgnore: true
 ignorePatterns:
-  - pattern: '^http://localhost:.*'
+  - pattern: '^http://localhost:.*$'
