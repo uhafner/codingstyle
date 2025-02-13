@@ -4,7 +4,7 @@
 
   <groupId>edu.hm.hafner</groupId>
   <artifactId>codingstyle</artifactId>
-  <version>5.7.0-SNAPSHOT</version>
+  <version>5.7.0</version>
   <packaging>jar</packaging>
 
   <name>Java coding style</name>
@@ -40,7 +40,7 @@
   <scm>
     <connection>scm:git:https://github.com/uhafner/codingstyle.git</connection>
     <developerConnection>scm:git:git@github.com:uhafner/codingstyle.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>v5.7.0</tag>
     <url>https://github.com/uhafner/codingstyle</url>
   </scm>
   <distributionManagement>
