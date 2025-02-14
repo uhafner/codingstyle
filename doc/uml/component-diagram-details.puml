@@ -5,19 +5,19 @@ skinparam component {
   BorderColor #a0a0a0
   BackgroundColor<<Main>> #FFFF00
   BorderColor black
-  FontName  Arial Unicode MS
+  FontName Arial Unicode MS
   FontSize 20
-  ArrowFontName  Arial Unicode MS
+  ArrowFontName Arial Unicode MS
   ArrowFontSize 18
 }
 
 skinparam package {
-  BackgroundColor #e4e4e4
+  BackgroundColor #eaeaea
   BorderColor #a0a0a0
   BackgroundColor<<Main>> gold
   BorderColor black
   ArrowColor black
-  FontName  Arial Unicode MS
+  FontName Arial Unicode MS
   FontSize 20
 }
 
@@ -27,7 +27,7 @@ skinparam class {
   BackgroundColor<<Main>> gold
   BorderColor black
   ArrowColor black
-  FontName  Arial Unicode MS
+  FontName Arial Unicode MS
   FontSize 20
 }
 skinparam classFontSize 24

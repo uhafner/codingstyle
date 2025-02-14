@@ -8,7 +8,7 @@ skinparam sequence {
   BackgroundColor<<Main>> gold
   BorderColor black
   ArrowColor black
-  FontName  Arial Unicode MS
+  FontName Arial Unicode MS
   FontSize 20
 
   LifeLineBorderColor black
