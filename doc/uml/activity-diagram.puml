@@ -1,13 +1,12 @@
 @startuml
 
 skinparam activity {
-  BackgroundColor #4AD386
+  BackgroundColor #eaeaea
   BorderColor #a0a0a0
-  BackgroundColor<<Main>> gold
   BorderColor black
   ArrowColor black
   ArrowThickness 2
-  FontName  Arial Unicode MS
+  FontName Arial Unicode MS
   FontSize 20
 }
 
@@ -25,8 +24,8 @@ sprite $rake [16x19/8] {
 skinparam ArrowColor black
 skinparam ArrowThickness 2
 
-skinparam activityDiamondBackgroundColor #3E46D9
-skinparam activityDiamondFontColor #white
+skinparam activityDiamondBackgroundColor #f5f5f5
+skinparam activityDiamondFontColor #black
 skinparam activityDiamondBorderColor black
 skinparam activityDiamondFont Arial Unicode MS
 skinparam activityArrowFontSize 20
@@ -42,12 +41,12 @@ repeat
         :Alternative Rechts;
     endif
 |Partition 2|
-    #yellow :Zweite Aktion;
+    :Zweite Aktion;
     repeat while () is (\t     [Bedingung 1])
     -> [Bedingung 2];
-    #yellow :Weitere Aktion;
-    #yellow :Weitere Aktivität <$rake>;
-        #yellow :Objekt]
+    :Weitere Aktion;
+    :Weitere Aktivität <$rake>;
+        :Objekt]
 |Partition 1|
 fork
 :Parallele Aktion 1;

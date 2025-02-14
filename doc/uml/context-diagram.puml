@@ -4,12 +4,12 @@ skinparam componentStyle uml2
 hide stereotype
 
 skinparam actor {
-  BackgroundColor #4AD386
+  BackgroundColor #eaeaea
   BorderColor #a0a0a0
   BackgroundColor<<Main>> #FFFF00
   BorderColor black
   ArrowColor black
-  FontName  Arial Unicode MS
+  FontName Arial Unicode MS
   FontSize 20
 }
 
@@ -19,7 +19,7 @@ skinparam class {
   BackgroundColor<<Main>> gold
   BorderColor black
   ArrowColor black
-  FontName  Arial Unicode MS
+  FontName Arial Unicode MS
   FontSize 20
 }
 
@@ -28,9 +28,9 @@ skinparam component {
   BorderColor #a0a0a0
   BackgroundColor<<Main>> #FFFF00
   BorderColor black
-  FontName  Arial Unicode MS
+  FontName Arial Unicode MS
   FontSize 20
-  ArrowFontName  Arial Unicode MS
+  ArrowFontName Arial Unicode MS
   ArrowFontSize 18
 }
 

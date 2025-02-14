@@ -1,19 +1,19 @@
 @startuml
 skinparam state {
-  BackgroundColor #4AD386
+  BackgroundColor #eaeaea
   BorderColor #a0a0a0
   BackgroundColor<<Main>> gold
   BorderColor black
   ArrowColor black
   ArrowThickness 2
-  FontName  Arial Unicode MS
+  FontName Arial Unicode MS
   FontSize 20
 }
 
 skinparam ArrowColor black
 skinparam ArrowThickness 2
 
-skinparam activityDiamondBackgroundColor #4AD386
+skinparam activityDiamondBackgroundColor #f4f4f4
 skinparam activityDiamondBorderColor black
 skinparam activityDiamondFont Arial Unicode MS
 skinparam activityArrowFontSize 20

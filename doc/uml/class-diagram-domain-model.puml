@@ -1,22 +1,22 @@
 @startuml
 
 skinparam package {
-  BackgroundColor #dddddd
+  BackgroundColor #eaeaea
   BorderColor #a0a0a0
   BackgroundColor<<Main>> gold
   BorderColor black
   ArrowColor black
-  FontName  Arial Unicode MS
+  FontName Arial Unicode MS
   FontSize 20
 }
 
 skinparam class {
-  BackgroundColor #4AD386
+  BackgroundColor #eaeaea
   BorderColor #a0a0a0
   BackgroundColor<<Main>> gold
   BorderColor black
   ArrowColor black
-  FontName  Arial Unicode MS
+  FontName Arial Unicode MS
   FontSize 20
 }
 skinparam classFontSize 24

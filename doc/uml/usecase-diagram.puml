@@ -1,21 +1,20 @@
 @startuml
 
 skinparam actor {
-  BackgroundColor #4AD386
+  BackgroundColor #f4f4f4
   BorderColor #a0a0a0
-  BackgroundColor<<Main>> gold
   BorderColor black
   ArrowColor black
-  FontName  Arial Unicode MS
+  FontName Arial Unicode MS
   FontSize 20
 }
+
 skinparam usecase {
-  BackgroundColor #4AD386
+  BackgroundColor #f4f4f4
   BorderColor #a0a0a0
-  BackgroundColor<<Main>> gold
   BorderColor black
   ArrowColor black
-  FontName  Arial Unicode MS
+  FontName Arial Unicode MS
   FontSize 20
 }
 
@@ -29,7 +28,7 @@ left to right direction
 
 :Akteur: <|- :Abgeleiteter Akteur: :\t\t\t
 
-rectangle Gruppierung #FFFF00 {
+rectangle Gruppierung #e4e4e4 {
     (Anwendungsfall) -up- Akteur
     (Eingebundener\nAnwendungsfall) <. (Anwendungsfall) : \t\t         <<Include>>
     :Abgeleiteter Akteur: -- (Beschränkter\nAnwendungsfall)
