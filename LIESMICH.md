@@ -12,7 +12,9 @@ München zusammengefasst.
 
 Dieses Projekt enthält neben der Dokumentation der wichtigsten Kodierungsrichtlinien auch gleichzeitig eine sinnvolle 
 Konfiguration aller für Java kostenlos verfügbaren statischen Codeanalyse Tools mittels Maven. Diese dort enthaltenen und automatisch 
-prüfbaren Richtlinien werden - soweit wie möglich - nicht mehr extra im Text erwähnt. Damit kann diese Projekt gleichzeitig als
+prüfbaren Richtlinien werden - soweit wie möglich - nicht mehr extra im Text erwähnt. Damit kann diese Projekt gleichzeitig als   
+
+
 Vorlage für neue Projekte genutzt werden. Unterstützt werden aktuell folgende Tools:
 - [Checkstyle](https://checkstyle.org)
 - [PMD](https://pmd.github.io/)
