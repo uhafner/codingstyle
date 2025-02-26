@@ -40,7 +40,7 @@ jobs:
       - name: Extract pull request number
         uses: jwalton/gh-find-current-pr@v1
         id: pr
-      - name: Run Quality Monitor
+      - name: Run Quality Monitor V2
         uses: uhafner/quality-monitor@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
