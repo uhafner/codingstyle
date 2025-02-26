@@ -49,7 +49,7 @@ jobs:
           config: >
             {
               "tests": {
-                "name": "Tests",
+                "name": "Unit Tests",
                 "tools": [
                   {
                     "id": "junit",
