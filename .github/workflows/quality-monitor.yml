@@ -154,7 +154,7 @@ jobs:
               ],
               "metrics": 
                 {
-                  "name": "Toplevel Metrics",
+                  "name": "Software Metrics",
                   "tools": [
                     {
                       "id": "metrics",
