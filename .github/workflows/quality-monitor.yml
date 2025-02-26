@@ -45,6 +45,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           pr-number: ${{ steps.pr.outputs.number }}
+          show-headers: true
           config: >
             {
               "tests": {
@@ -154,7 +155,7 @@ jobs:
               ],
               "metrics": 
                 {
-                  "name": "Toplevel Metrics",
+                  "name": "Software Metrics",
                   "tools": [
                     {
                       "name": "Cyclomatic Complexity",
