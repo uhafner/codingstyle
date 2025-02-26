@@ -157,43 +157,36 @@ jobs:
                   "name": "Toplevel Metrics",
                   "tools": [
                     {
-                      "name": "Cyclomatic Complexity",
                       "id": "metrics",
                       "pattern": "**/metrics/pmd.xml",
                       "metric": "CYCLOMATIC_COMPLEXITY"
                     },
                     {
-                      "name": "Cognitive Complexity",
                       "id": "metrics",
                       "pattern": "**/metrics/pmd.xml",
                       "metric": "COGNITIVE_COMPLEXITY"
                     },
                     {
-                      "name": "N-Path Complexity",
                       "id": "metrics",
                       "pattern": "**/metrics/pmd.xml",
                       "metric": "NPATH_COMPLEXITY"
                     },
                     {
-                      "name": "Lines of Code",
                       "id": "metrics",
                       "pattern": "**/metrics/pmd.xml",
                       "metric": "LOC"
                     },
                     {
-                      "name": "Non Commenting Source Statements",
                       "id": "metrics",
                       "pattern": "**/metrics/pmd.xml",
                       "metric": "NCSS"
                     },
                     {
-                      "name": "Class cohesion",
                       "id": "metrics",
                       "pattern": "**/metrics/pmd.xml",
                       "metric": "COHESION"
                     },
                     {
-                      "name": "Weight of a class",
                       "id": "metrics",
                       "pattern": "**/metrics/pmd.xml",
                       "metric": "WEIGHT_OF_CLASS"
