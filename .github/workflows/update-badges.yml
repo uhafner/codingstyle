@@ -70,14 +70,12 @@ jobs:
                   "tools": [
                     {
                       "id": "jacoco",
-                      "name": "Line Coverage",
                       "metric": "line",
                       "sourcePath": "src/main/java",
                       "pattern": "**/target/site/jacoco/jacoco.xml"
                     },
                     {
                       "id": "jacoco",
-                      "name": "Branch Coverage",
                       "metric": "branch",
                       "sourcePath": "src/main/java",
                       "pattern": "**/target/site/jacoco/jacoco.xml"
@@ -89,8 +87,13 @@ jobs:
                   "tools": [
                     {
                       "id": "pit",
-                      "name": "Mutation Coverage",
                       "metric": "mutation",
+                      "sourcePath": "src/main/java",
+                      "pattern": "**/target/pit-reports/mutations.xml"
+                    },
+                    {
+                      "id": "pit",
+                      "metric": "test-strength",
                       "sourcePath": "src/main/java",
                       "pattern": "**/target/pit-reports/mutations.xml"
                     }
