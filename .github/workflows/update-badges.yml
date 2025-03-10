@@ -32,55 +32,55 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           config: >
             {
-              "analysis": [
-                {
-                  "name": "Style",
-                  "id": "style",
-                  "tools": [
-                    {
-                      "id": "checkstyle",
-                      "pattern": "**/target/checkstyle-*/checkstyle-result.xml"
-                    },
-                    {
-                      "id": "pmd",
-                      "pattern": "**/target/pmd-*/pmd.xml"
-                    }
-                  ]
-                },
-                {
-                  "name": "Bugs",
-                  "id": "bugs",
-                  "icon": "bug",
-                  "tools": [
-                    {
-                      "id": "spotbugs",
-                      "sourcePath": "src/main/java",
-                      "pattern": "**/target/spotbugsXml.xml"
+            "analysis": [
+              {
+                "name": "Style",
+                "id": "style",
+                "tools": [
+                  {
+                    "id": "checkstyle",
+                    "pattern": "**/target/checkstyle-*/checkstyle-result.xml"
+                  },
+                  {
+                    "id": "pmd",
+                    "pattern": "**/target/pmd-*/pmd.xml"
+                  }
+                ]
+              },
+              {
+                "name": "Bugs",
+                "id": "bugs",
+                "icon": "bug",
+                "tools": [
+                  {
+                    "id": "spotbugs",
+                    "sourcePath": "src/main/java",
+                    "pattern": "**/target/spotbugsXml.xml"
                     },
                     {
                       "id": "error-prone",
                       "pattern": "**/maven.log"
-                    }
-                  ]
-                }
-              ],
-              "coverage": [
-                {
-                  "name": "Code Coverage",
-                  "tools": [
-                    {
-                      "id": "jacoco",
-                      "metric": "line",
-                      "sourcePath": "src/main/java",
-                      "pattern": "**/target/site/jacoco/jacoco.xml"
-                    },
-                    {
-                      "id": "jacoco",
-                      "metric": "branch",
-                      "sourcePath": "src/main/java",
-                      "pattern": "**/target/site/jacoco/jacoco.xml"
-                    }
-                  ]
+                  }
+                ]
+              }
+            ],
+            "coverage": [
+              {
+                "name": "Code Coverage",
+                "tools": [
+                  {
+                    "id": "jacoco",
+                    "metric": "line",
+                    "sourcePath": "src/main/java",
+                    "pattern": "**/target/site/jacoco/jacoco.xml"
+                  },
+                  {
+                    "id": "jacoco",
+                    "metric": "branch",
+                    "sourcePath": "src/main/java",
+                    "pattern": "**/target/site/jacoco/jacoco.xml"
+                  }
+                ]
                 },
                 {
                   "name": "Mutation Coverage",
@@ -98,8 +98,8 @@ jobs:
                       "pattern": "**/target/pit-reports/mutations.xml"
                     }
                   ]
-                }
-              ]
+              }
+            ]
             }
       - name: Write metrics to GitHub output
         id: metrics
