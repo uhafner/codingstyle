@@ -3,8 +3,6 @@ package edu.hm.hafner.util;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import edu.umd.cs.findbugs.annotations.SuppressMatchType;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -243,7 +241,6 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
          * @return the current element
          */
         @Override
-        @SuppressFBWarnings(value = ".*", justification = "thrown in read()", matchType = SuppressMatchType.REGEX)
         public LineRange next() {
             int s = read();
             int d = read();
