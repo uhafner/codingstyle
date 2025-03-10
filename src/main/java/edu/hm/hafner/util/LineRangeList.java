@@ -1,5 +1,9 @@
 package edu.hm.hafner.util;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.AbstractList;
@@ -11,11 +15,6 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 import java.util.stream.StreamSupport;
-
-import com.google.errorprone.annotations.CanIgnoreReturnValue;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * {@link List} of {@link LineRange} that stores values more efficiently at runtime.
@@ -241,7 +240,7 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
          *
          * @return the current element
          */
-        @Override @SuppressFBWarnings(value = "IT_NO_SUCH_ELEMENT", justification = "thrown in read()")
+        @Override
         public LineRange next() {
             int s = read();
             int d = read();
