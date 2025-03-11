@@ -26,7 +26,7 @@ U.a. sind die folgenden Plugins vorkonfiguriert:
 
 Die Konfiguration der Continuous Integration in GitHub Actions is sehr [einfach](../.github/workflows/ci.yml) über eine Pipeline möglich. Da der gesamte Build über Maven automatisiert ist, besteht die Pipeline eigentlich nur aus einem Maven Aufruf, der das Projekt baut, alle Tests (Unit und Integrationstests) ausgeführt, die statische Code Analyse durchführt und schließlich die Coverage misst. GitHub Actions bietet auch die Möglichkeit, Matrix Builds durchzuführen: d.h., der Build wird z.B. auf den Plattformen Linux, Windows und macOS oder mit den Java Versionen 17 und 21 parallel durchgeführt. Ein Beispiel für die Konfiguration eines Matrix Builds ist in der Datei [ci.yml](../.github/workflows/ci.yml) zu finden.
 
-Wenn gewünscht, können die Ergebnisse der statischen Code Analyse und der Code Coverage Tools auch direkt im Commit oder Pull-Request angezeigt werden. Dazu muss in der Pipeline meine [Quality Monitor Action](https://github.com/uhafner/quality-monitor) aktiviert werden. Eine Beispielkonfiguration ist in der Datei [quality-monitor.yml](../.github/workflows/quality-monitor.yml) zu finden, das Ergebnis in der nachfolgenden Abbildung:
+Wenn gewünscht, können die Ergebnisse der statischen Code Analyse und der Code Coverage Tools auch direkt im Commit oder Pull-Request angezeigt werden. Dazu muss in der Pipeline meine [Quality Monitor Action](https://github.com/uhafner/quality-monitor) aktiviert werden. Eine Beispielkonfiguration ist in der Datei [quality-monitor-pit.yml](../.github/workflows/quality-monitor-pit.yml) zu finden, das Ergebnis in der nachfolgenden Abbildung:
 
 ![Quality Monitor](images/quality-monitor.png)
 
