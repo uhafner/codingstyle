@@ -46,7 +46,7 @@ So bekommen Sie ein schnelles Feedback zu Ihrer Lösung:
 - Haben Sie Ihren Code ausreichend getestet?
 
 Diese Überprüfung - im Folgenden *Autograding* genannt - erfolgt auf dem Kubernetes-Cluster der Fakultät. 
-Dort werden alle meine Projekte in GitLab berwacht: sobald ein neuer Commit entdeckt wird (d.h. Sie haben eine Änderung an einer Ihrer Dateien hochgeladen), werden diese Änderungen abgeholt und Ihr Projekt wird analysiert.
+Dort werden alle meine Projekte in GitLab überwacht: sobald ein neuer Commit entdeckt wird (d.h. Sie haben eine Änderung an einer Ihrer Dateien hochgeladen), werden diese Änderungen abgeholt und Ihr Projekt wird analysiert.
 Nach der Analyse werden die Ergebnisse in Ihrem Projekt veröffentlicht (und je nach Veranstaltung) auch in Punkte umgerechnet, die in die Bewertung Ihrer Abgaben eingehen. 
 In meiner Lehrveranstaltung Softwareengineering lernen Sie, dass diese Vorgehensweise inzwischen State-of-the-Art in Industrieprojekten ist: dort wird diese Technik *Continuous Integration* und *Continuous Deployment* genannt.
 
