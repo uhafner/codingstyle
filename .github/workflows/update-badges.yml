@@ -25,62 +25,95 @@ jobs:
         with:
           maven-version: 3.9.9
       - name: Build and test with Maven
-        run: mvn -V --color always -ntp clean verify -Pci -Ppit -Pdepgraph | tee maven.log
+        run: mvn -V --color always -ntp clean verify -Pci -Ppit -Pdepgraph -Powasp | tee maven.log
       - name: Run Quality Monitor
         uses: uhafner/quality-monitor@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           config: >
             {
-            "analysis": [
-              {
-                "name": "Style",
-                "id": "style",
+              "tests": {
+                "name": "Tests",
                 "tools": [
                   {
-                    "id": "checkstyle",
-                    "pattern": "**/target/checkstyle-*/checkstyle-result.xml"
-                  },
-                  {
-                    "id": "pmd",
-                    "pattern": "**/target/pmd-*/pmd.xml"
+                    "id": "junit",
+                    "name": "JUnit Tests",
+                    "pattern": "**/target/*-reports/TEST*.xml"
                   }
                 ]
               },
-              {
-                "name": "Bugs",
-                "id": "bugs",
-                "icon": "bug",
-                "tools": [
-                  {
-                    "id": "spotbugs",
-                    "sourcePath": "src/main/java",
-                    "pattern": "**/target/spotbugsXml.xml"
+              "analysis": [
+                {
+                  "name": "Style",
+                  "id": "style",
+                  "tools": [
+                    {
+                      "id": "checkstyle",
+                      "pattern": "**/target/**checkstyle-result.xml"
+                    },
+                    {
+                      "id": "pmd",
+                      "pattern": "**/target/pmd-*/pmd.xml"
+                    }
+                  ]
+                },
+                {
+                  "name": "Bugs",
+                  "id": "bugs",
+                  "icon": "bug",
+                  "tools": [
+                    {
+                      "id": "spotbugs",
+                      "sourcePath": "src/main/java",
+                      "pattern": "**/target/spotbugsXml.xml"
                     },
                     {
                       "id": "error-prone",
                       "pattern": "**/maven.log"
-                  }
-                ]
-              }
-            ],
-            "coverage": [
-              {
-                "name": "Code Coverage",
-                "tools": [
-                  {
-                    "id": "jacoco",
-                    "metric": "line",
-                    "sourcePath": "src/main/java",
-                    "pattern": "**/target/site/jacoco/jacoco.xml"
-                  },
-                  {
-                    "id": "jacoco",
-                    "metric": "branch",
-                    "sourcePath": "src/main/java",
-                    "pattern": "**/target/site/jacoco/jacoco.xml"
-                  }
-                ]
+                    }
+                  ]
+                },
+                {
+                  "name": "API Problems",
+                  "id": "api",
+                  "icon": "no_entry_sign",
+                  "tools": [
+                    {
+                      "id": "revapi",
+                      "sourcePath": "src/main/java",
+                      "pattern": "**/target/revapi-result.json"
+                    }
+                  ]
+                },
+                {
+                  "name": "Vulnerabilities",
+                  "id": "vulnerabilities",
+                  "icon": "shield",
+                  "tools": [
+                    {
+                      "id": "owasp-dependency-check",
+                      "pattern": "**/target/dependency-check-report.json"                    
+                    }
+                  ]
+                }
+              ],
+              "coverage": [
+                {
+                  "name": "Code Coverage",
+                  "tools": [
+                    {
+                      "id": "jacoco",
+                      "metric": "line",
+                      "sourcePath": "src/main/java",
+                      "pattern": "**/target/site/jacoco/jacoco.xml"
+                    },
+                    {
+                      "id": "jacoco",
+                      "metric": "branch",
+                      "sourcePath": "src/main/java",
+                      "pattern": "**/target/site/jacoco/jacoco.xml"
+                    }
+                  ]
                 },
                 {
                   "name": "Mutation Coverage",
@@ -98,8 +131,49 @@ jobs:
                       "pattern": "**/target/pit-reports/mutations.xml"
                     }
                   ]
-              }
-            ]
+                }
+              ],
+              "metrics": 
+                {
+                  "name": "Software Metrics",
+                  "tools": [
+                    {
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "CYCLOMATIC_COMPLEXITY"
+                    },
+                    {
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "COGNITIVE_COMPLEXITY"
+                    },
+                    {
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "NPATH_COMPLEXITY"
+                    },
+                    {
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "LOC"
+                    },
+                    {
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "NCSS"
+                    },
+                    {
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "COHESION"
+                    },
+                    {
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "WEIGHT_OF_CLASS"
+                    }
+                  ]
+                }
             }
       - name: Write metrics to GitHub output
         id: metrics
