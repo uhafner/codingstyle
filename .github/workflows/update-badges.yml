@@ -25,6 +25,8 @@ jobs:
         with:
           maven-version: 3.9.9
       - name: Build and test with Maven
+        env:
+          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
         run: mvn -V --color always -ntp clean verify -Pci -Ppit -Pdepgraph -Powasp | tee maven.log
       - name: Run Quality Monitor
         uses: uhafner/quality-monitor@v2
