@@ -69,7 +69,7 @@ Zum lokalen Starten dieser Analyse müssen Sie das Kommando `mvn clean verify` a
 4. Falls Sie eigenen Tests geschrieben haben: Wie gut ist die Qualität dieser Tests? 
 Haben Sie alle Zeilen oder Zweige Ihres Codes benutzt (technisch: *Line und Branch Code Coverage*)? 
 Finden Ihre Tests Fehler, wenn Ihr Programm von mir mutwillig sabotiert wird (technisch: *Mutation Coverage*)? 
-Zum lokalen Starten dieser beiden Analysen müssen Sie das Kommando `mvn verify` (für die Code Coverage) bzw.  `mvn versify -Ppit` (für die Mutation Coverage) ausführen.
+Zum lokalen Starten dieser beiden Analysen müssen Sie das Kommando `mvn verify` (für die Code Coverage) bzw.  `mvn verify -Ppit` (für die Mutation Coverage) ausführen.
 
 Für technisch Interessierte: Damit das ganze funktioniert, benötigt es eine [GitLab Autograding Pipeline](https://github.com/uhafner/autograding-gitlab-action/blob/main/.gitlab-ci.yml), die das Projekt kompiliert und dann mit meiner [Autograding GitLab Action](https://github.com/uhafner/autograding-gitlab-action) anreichert. 
 Diese Action ist Open Source und kann gerne auch in anderen Projekte verwendet werden.
@@ -84,16 +84,26 @@ Dann finden Sie dort jeweils einen GitLab Kommentar mit den Ergebnissen.
  
 ![Autograding Kommentar](images/gitlab-autograding.png)
 
-Wenn neben dem Commit ein grüner Haken (✅) angezeigt wird, haben Sie Schritt 1 schon mal erfolgreich absolviert: Ihr Programm kompiliert fehlerfrei. Bei einem roten Kreuz (❌) müssen Sie den Fehler beheben und nochmal neu hochladen. Eine Abgabe, die nicht übersetzbar ist, wird automatisch mit 0 Punkten bewertet. Die Fehlermeldungen des Java Compiler sind manchmal für Neulinge etwas kryptisch, meist steht aber Zeilennummer und Ursache dabei, sodass das Problem hoffentlich schnell zu finden ist. Wenn nicht, wenn Sie sich an uns im Chat oder Praktikum, dann bekommen Sie auch dort Hilfe.
+Wenn neben dem Commit ein grüner Haken (✅) angezeigt wird, haben Sie Schritt 1 schon mal erfolgreich absolviert: Ihr Programm kompiliert fehlerfrei. 
+Bei einem roten Kreuz (❌) müssen Sie den Fehler beheben und nochmal neu hochladen.
+Die Ausgabe des Compilers finden Sie in der Konsole des jeweiligen GitLab Steps:
 
-Die Ergebnisse der Schritte 2 bis 4 (und damit die eigentlichen Punkte Ihrer Abgabe) können Sie durch die Detailansicht des jeweiligen Commits einsehen. Dazu müssen Sie erst in die Detailsicht navigieren. Von dort haben Sie Zugriff auf das Ergebnis des Java Compilers. Dort müssen Sie nur hineinschauen, falls Sie hier ein rotes Kreuz sehen. Diese Ausgabe können Sie auch lokal über Maven erhalten (siehe oben):
+![Compiler Build Log](images/gitlab-console.png)
 
-![Compiler Build Log](images/actions-buildlog.png)
+Eine Abgabe, die nicht übersetzbar ist, wird automatisch mit 0 Punkten bewertet. 
+Die Fehlermeldungen des Java Compiler sind manchmal für Neulinge etwas kryptisch, meist steht aber Zeilennummer und Ursache dabei, sodass das Problem hoffentlich schnell zu finden ist. 
+Wenn nicht, wenn Sie sich an uns im Chat oder Praktikum, dann bekommen Sie auch dort Hilfe.
 
-Das wichtigste Ergebnis für die Abgabe ist dann die Zusammenfassung aus dem Autograding. Dort sehen Sie eine Punktezahl für die jeweilige Abgabe. Die Punkte berechnen sich aus den jeweils konfigurierten Bestandteilen: aus den Testergebnissen (Anzahl der Testfehler), aus den Warnungen der statischen Analyse und (falls konfiguriert) aus der Coverage Ihrer Testfälle. In den ersten Abgaben starten wir mit einer festen Punktezahl, von der jeweils Punkte bei Testfehlern oder bei Warnungen abgezogen werden. Im späteren Verlauf kann das auch umgekehrt funktionieren: also Start bei 0 und jeder erfüllte Test bekommt Pluspunkte.
+Die Ergebnisse der Schritte 2 bis 4 (und damit die eigentlichen Punkte Ihrer Abgabe) können Sie durch die Detailansicht einsehen.
+Das wichtigste Ergebnis für die Abgabe ist dann die Zusammenfassung aus dem Autograding. 
+Dort sehen Sie eine Punktezahl für die jeweilige Abgabe. 
+Die Punkte berechnen sich aus den jeweils konfigurierten Bestandteilen: aus den Testergebnissen (Anzahl der Testfehler), aus den Warnungen der statischen Analyse und (falls konfiguriert) aus der Coverage Ihrer Testfälle. 
+In den ersten Abgaben starten wir mit einer festen Punktezahl, von der jeweils Punkte bei Testfehlern oder bei Warnungen abgezogen werden. 
+Im späteren Verlauf kann das auch umgekehrt funktionieren: also Start bei 0 und jeder erfüllte Test bekommt Pluspunkte.
 
 ![Test and Analysis Results](images/actions-autograding.png)
 
-Bei Testfehlern wird die Ausgabe der Tests direkt unter den Testpunkten als ausklappbarer Text angezeigt. Bei den Warnungen erhalten Sie gezieltes Feedback direkt als Markierung innerhalb des Quelltextes. 
+Bei Testfehlern wird die Ausgabe der Tests direkt unter den Testpunkten als ausklappbarer Text angezeigt. 
+Bei den Warnungen erhalten Sie gezieltes Feedback direkt als Markierung innerhalb des Quelltextes. 
  
 ![Annotation](images/actions-annotation.png)
