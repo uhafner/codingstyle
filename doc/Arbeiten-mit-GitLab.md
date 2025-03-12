@@ -4,16 +4,20 @@ Disclaimer: Die folgende Anleitung ist unter großer Hilfe der folgenden beiden 
 
 # Arbeiten mit GitLab
 
-Für Abgaben zu allen meinen Veranstaltungen benutze ich das vom LRZ betriebene [GitLab](https://gitlab.lrz.de/): GitLab bietet Studierenden **und** Lehrenden eine einfache Möglichkeit, Aufgaben für Praktika in einem Git Projekt zu verwalten. 
+Für Abgaben zu allen meinen Veranstaltungen benutze ich das vom LRZ betriebene [GitLab](https://gitlab.lrz.de/): 
+GitLab bietet Studierenden **und** Lehrenden eine einfache Möglichkeit, Aufgaben für Praktika in einem Git Projekt zu verwalten. 
 Die Nutzung bietet folgende Vorteile:
-- Sie lernen die gleiche Arbeitsweise kennen, die auch in der Industrie und vielen Open-Source-Projekten verwendet wird. So sind Sie ideal auf die Praxis vorbereitet. 
+- Sie lernen die gleiche Arbeitsweise kennen, die auch in der Industrie und vielen Open-Source-Projekten verwendet wird. 
+So sind Sie ideal auf die Praxis vorbereitet. 
 - Sie haben eine ausgereifte Oberfläche, mit der Sie Ihre Abgaben verwalten können:
   - Darstellung von Commits
   - Reviews von Merge Requests
   - Nachverfolgung von offenen Punkten und Fehlern
   - Automatische Builds
   - Automatische Sicherung durch Backups
-- Ich habe eine einfache Möglichkeit, private Repositories auf Basis eines Templates für Abgaben zu erstellen. Die Aufgaben können sowohl als Einzel- oder Teamaufgabe konzipiert sein. Die Steuerung der Berechtigungen erfolgt automatisch.
+- Ich habe eine einfache Möglichkeit, private Repositories auf Basis eines Templates für Abgaben zu erstellen. 
+Die Aufgaben können sowohl als Einzel- oder Teamaufgabe konzipiert sein. 
+Die Steuerung der Berechtigungen erfolgt automatisch.
 
 Die Voraussetzung zur Nutzung von GitLab in unserer Veranstaltung ist der normale Account unserer Hochschule. 
 Dieser Account wird automatisch für Sie eingerichtet, wenn Sie sich an der Hochschule einschreiben. 
@@ -25,7 +29,8 @@ Die Repositories sind immer als privat markiert, d.h nur Sie (und ggf. Ihre Team
 Im ersten Semester können Sie zum Hochladen die GitLab Oberfläche nutzen. 
 Je erfahrener Sie werden, umso schneller können Sie den direkten Zugang über die Versionsverwaltung Git nutzen, das macht dann vieles einfacher und komfortabler. 
 
-Wenn Sie weitere Fragen zu GitLab haben, nutzen Sie bitte auch die [Online Hilfe](https://docs.gitlab.com). Fragen können Sie auch direkt im Praktikum (oder im jeweiligen Matrix Kanal der Veranstaltung) stellen. 
+Wenn Sie weitere Fragen zu GitLab haben, nutzen Sie bitte auch die [Online Hilfe](https://docs.gitlab.com). 
+Fragen können Sie auch direkt im Praktikum (oder im jeweiligen Matrix Kanal der Veranstaltung) stellen. 
 In den nachfolgenden Abschnitten sind die wichtigsten Punkte kurz zusammengefasst.
 
 ## Mit dem Repository arbeiten
@@ -40,8 +45,10 @@ Am einfachsten nutzen Sie nur die Entwicklungsumgebung IntelliJ, um Ihr Projekt 
 #### Import mit der Entwicklungsumgebung
 
 Nach dem Start der Entwicklungsumgebung haben Sie die Möglichkeit, Ihr Projekt direkt zu importieren: Mit der Aktion **Get from VCS** (im Startup Wizard) oder dem Menüpunkt **File->New->Project from Version Control...** lässt sich das GitLab Projekt automatisch nach IntelliJ importieren. 
-IntelliJ kümmert sich ab dann automatisch über die Verbindung zu GitLab. Kopieren Sie dazu Ihr Repository Link aus dem Classroom im Dialog in das Feld **Repository URL->URL** und bestätigen Sie den Import mit **Clone**. 
-Beachten Sie, dass Sie sich beim Import über HTTPS authentifizieren müssen. Dazu müssen Sie ein Personal Access Token in GitLab erzeugen, die Authentifizierung via Browser funktioniert aktuell nicht. 
+IntelliJ kümmert sich ab dann automatisch über die Verbindung zu GitLab. 
+Kopieren Sie dazu Ihr Repository Link aus dem Classroom im Dialog in das Feld **Repository URL->URL** und bestätigen Sie den Import mit **Clone**. 
+Beachten Sie, dass Sie sich beim Import über HTTPS authentifizieren müssen. 
+Dazu müssen Sie ein Personal Access Token in GitLab erzeugen, die Authentifizierung via Browser funktioniert aktuell nicht. 
 
 Nachdem das Projekt auf Ihren Rechner übertragen wurde, wird es in IntelliJ importiert und gebaut. 
 Je nach bestehender Konfiguration müssen Sie dazu noch im Konfigurationsdialog **File->Project Structure->SDKs** ein JDK 21 unter dem Namen "21" anlegen und referenzieren. 
