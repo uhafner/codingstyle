@@ -74,7 +74,13 @@ Zum lokalen Starten dieser beiden Analysen müssen Sie das Kommando `mvn verify`
 Für technisch Interessierte: Damit das ganze funktioniert, benötigt es eine [GitLab Autograding Pipeline](https://github.com/uhafner/autograding-gitlab-action/blob/main/.gitlab-ci.yml), die das Projekt kompiliert und dann mit meiner [Autograding GitLab Action](https://github.com/uhafner/autograding-gitlab-action) anreichert. 
 Diese Action ist Open Source und kann gerne auch in anderen Projekte verwendet werden.
 
-Die Ergebnisse dieser Schritte können Sie für Ihre Abgaben sehr einfach nachvollziehen, indem Sie den bewerteten Commit oder Merge Request öffnen. Dort finden Sie jeweils einen GitLab Kommentar mit den Ergebnissen.
+Die Ergebnisse dieser Schritte können Sie für Ihre Abgaben sehr einfach nachvollziehen, indem Sie den bewerteten Commit oder Merge Request öffnen. 
+
+Um den Commit zu öffnen, muss man den Commit-Hash auswählen, z.B. in der Detailansicht eines Pipeline-Ergebnisses:
+
+![Autograding Kommentar](images/gitlab-commit.png)
+
+Dann finden Sie dort jeweils einen GitLab Kommentar mit den Ergebnissen.
  
 ![Autograding Kommentar](images/gitlab-autograding.png)
 
