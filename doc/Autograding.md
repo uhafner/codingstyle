@@ -71,7 +71,7 @@ Haben Sie alle Zeilen oder Zweige Ihres Codes benutzt (technisch: *Line und Bran
 Finden Ihre Tests Fehler, wenn Ihr Programm von mir mutwillig sabotiert wird (technisch: *Mutation Coverage*)? 
 Zum lokalen Starten dieser beiden Analysen müssen Sie das Kommando `mvn verify` (für die Code Coverage) bzw.  `mvn versify -Ppit` (für die Mutation Coverage) ausführen.
 
-Für technisch Interessierte: Damit das ganze funktioniert, benötigt es eine [GitLab Autograding Pipeline](https://github.com/uhafner/autograding-gitlab-action/.gitlab-ci.yml), die das Projekt kompiliert und dann mit meiner [Autograding GitLab Action](https://github.com/uhafner/autograding-gitlab-action) anreichert. 
+Für technisch Interessierte: Damit das ganze funktioniert, benötigt es eine [GitLab Autograding Pipeline](https://github.com/uhafner/autograding-gitlab-action/blob/main/.gitlab-ci.yml), die das Projekt kompiliert und dann mit meiner [Autograding GitLab Action](https://github.com/uhafner/autograding-gitlab-action) anreichert. 
 Diese Action ist Open Source und kann gerne auch in anderen Projekte verwendet werden.
 
 Die Ergebnisse dieser Schritte können Sie für Ihre Abgaben sehr einfach nachvollziehen, indem Sie den bewerteten Commit oder Merge Request öffnen. Dort finden Sie jeweils einen GitLab Kommentar mit den Ergebnissen.
