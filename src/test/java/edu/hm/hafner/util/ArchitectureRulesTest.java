@@ -1,13 +1,14 @@
 package edu.hm.hafner.util;
 
-import java.io.Serializable;
-
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
+import java.io.Serializable;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -115,7 +116,7 @@ class ArchitectureRulesTest {
         @edu.umd.cs.findbugs.annotations.Nullable
         private final String noNullable = null;
 
-        @Test
+        @Test @Disabled("This test is just there to be used in architecture tests")
         public void shouldFail() {
             org.junit.jupiter.api.Assertions.assertEquals(1, 1);
 
@@ -154,7 +155,7 @@ class ArchitectureRulesTest {
     @SuppressWarnings("all") @Generated // This class is just there to be used in architecture tests
     @SuppressFBWarnings("SE")
     static final class ArchitectureRulesPassedTest implements Serializable {
-        @Test
+        @Test @Disabled("This test is just there to be used in architecture tests")
         void shouldPass() {
             throw new IllegalArgumentException("context");
         }
