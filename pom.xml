@@ -985,9 +985,8 @@
                 <item>
                   <ignore>true</ignore>
                   <regex>true</regex>
-                  <code>java.method.visibilityIncreased</code>
-                  <classSimpleName>PackageDetectorFactory</classSimpleName>
-                  <methodName>createPackageDetectors</methodName>
+                  <code>java.annotation.removed</code>
+                  <annotation>@edu.umd.cs.findbugs.annotations.SuppressFBWarnings.*</annotation>
                   <justification>Not used yet</justification>
                 </item>
               </differences>
