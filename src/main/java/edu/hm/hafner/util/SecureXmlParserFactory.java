@@ -1,9 +1,5 @@
 package edu.hm.hafner.util;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Serial;
-import java.nio.charset.Charset;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -29,6 +25,11 @@ import org.xml.sax.helpers.DefaultHandler;
 import com.google.errorprone.annotations.FormatMethod;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Serial;
+import java.nio.charset.Charset;
 
 import static javax.xml.XMLConstants.*;
 
@@ -318,7 +319,6 @@ public class SecureXmlParserFactory {
      *
      * @return the created {@link Transformer}
      */
-    @SuppressFBWarnings(value = {"XXE_DTD_TRANSFORM_FACTORY", "XXE_XSLT_TRANSFORM_FACTORY"}, justification = "The transformer is secured in the called method")
     public Transformer createTransformer() {
         try {
             var transformerFactory = createTransformerFactory();

@@ -1,5 +1,11 @@
 package edu.hm.hafner.util;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.input.BOMInputStream;
+import org.opentest4j.TestAbortedException;
+
+import com.google.errorprone.annotations.MustBeClosed;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -11,14 +17,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Stream;
-
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.io.input.BOMInputStream;
-import org.opentest4j.TestAbortedException;
-
-import com.google.errorprone.annotations.MustBeClosed;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import static org.assertj.core.api.Assumptions.*;
 
@@ -105,7 +103,6 @@ public class ResourceTest {
         }
     }
 
-    @SuppressFBWarnings("UI_INHERITANCE_UNSAFE_GETRESOURCE")
     private Path getPath(final String name) throws URISyntaxException {
         var resource = getTestResourceClass().getResource(name);
         ensureThatResourceExists(resource, name);

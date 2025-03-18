@@ -1,5 +1,10 @@
 package edu.hm.hafner.util;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.AbstractList;
@@ -11,11 +16,6 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 import java.util.stream.StreamSupport;
-
-import com.google.errorprone.annotations.CanIgnoreReturnValue;
-
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * {@link List} of {@link LineRange} that stores values more efficiently at runtime.

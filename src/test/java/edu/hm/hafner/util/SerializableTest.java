@@ -1,5 +1,9 @@
 package edu.hm.hafner.util;
 
+import org.assertj.core.api.ObjectAssert;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -9,12 +13,6 @@ import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-
-import org.assertj.core.api.ObjectAssert;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -121,7 +119,6 @@ public abstract class SerializableTest<T extends Serializable> extends ResourceT
      * @throws IOException
      *         if the file could not be created
      */
-    @SuppressFBWarnings("DMI")
     protected void createSerializationFile() throws IOException {
         Files.write(Path.of("/tmp/serializable.ser"), toByteArray(createSerializable()),
                 StandardOpenOption.CREATE_NEW);

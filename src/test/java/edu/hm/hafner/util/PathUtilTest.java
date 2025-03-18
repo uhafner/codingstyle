@@ -1,15 +1,13 @@
 package edu.hm.hafner.util;
 
-import java.io.IOException;
-import java.nio.file.LinkOption;
-import java.nio.file.Path;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.io.IOException;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assumptions.*;
@@ -19,7 +17,6 @@ import static org.assertj.core.api.Assumptions.*;
  *
  * @author Ullrich Hafner
  */
-@SuppressFBWarnings("DMI")
 @SuppressWarnings("NullAway") // in tests, we do not care about null values when the path does not exist
 class PathUtilTest extends ResourceTest {
     private static final String NOT_EXISTING = "/should/not/exist";
