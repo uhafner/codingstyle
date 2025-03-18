@@ -25,13 +25,25 @@ jobs:
         with:
           maven-version: 3.9.9
       - name: Build and test with Maven
-        run: mvn -V --color always -ntp clean verify -Pci -Ppit -Pdepgraph | tee maven.log
+        env:
+          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
+        run: mvn -V --color always -ntp clean verify -Pci -Ppit -Pdepgraph -Powasp | tee maven.log
       - name: Run Quality Monitor
         uses: uhafner/quality-monitor@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           config: >
             {
+              "tests": {
+                "name": "Tests",
+                "tools": [
+                  {
+                    "id": "junit",
+                    "name": "JUnit Tests",
+                    "pattern": "**/target/*-reports/TEST*.xml"
+                  }
+                ]
+              },
               "analysis": [
                 {
                   "name": "Style",
@@ -39,7 +51,7 @@ jobs:
                   "tools": [
                     {
                       "id": "checkstyle",
-                      "pattern": "**/target/checkstyle-*/checkstyle-result.xml"
+                      "pattern": "**/target/**checkstyle-result.xml"
                     },
                     {
                       "id": "pmd",
@@ -60,6 +72,29 @@ jobs:
                     {
                       "id": "error-prone",
                       "pattern": "**/maven.log"
+                    }
+                  ]
+                },
+                {
+                  "name": "API Problems",
+                  "id": "api",
+                  "icon": "no_entry_sign",
+                  "tools": [
+                    {
+                      "id": "revapi",
+                      "sourcePath": "src/main/java",
+                      "pattern": "**/target/revapi-result.json"
+                    }
+                  ]
+                },
+                {
+                  "name": "Vulnerabilities",
+                  "id": "vulnerabilities",
+                  "icon": "shield",
+                  "tools": [
+                    {
+                      "id": "owasp-dependency-check",
+                      "pattern": "**/target/dependency-check-report.json"                    
                     }
                   ]
                 }
@@ -99,7 +134,48 @@ jobs:
                     }
                   ]
                 }
-              ]
+              ],
+              "metrics": 
+                {
+                  "name": "Software Metrics",
+                  "tools": [
+                    {
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "CYCLOMATIC_COMPLEXITY"
+                    },
+                    {
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "COGNITIVE_COMPLEXITY"
+                    },
+                    {
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "NPATH_COMPLEXITY"
+                    },
+                    {
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "LOC"
+                    },
+                    {
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "NCSS"
+                    },
+                    {
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "COHESION"
+                    },
+                    {
+                      "id": "metrics",
+                      "pattern": "**/metrics/pmd.xml",
+                      "metric": "WEIGHT_OF_CLASS"
+                    }
+                  ]
+                }
             }
       - name: Write metrics to GitHub output
         id: metrics

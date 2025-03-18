@@ -4,7 +4,7 @@
 
   <groupId>edu.hm.hafner</groupId>
   <artifactId>codingstyle</artifactId>
-  <version>5.8.0-SNAPSHOT</version>
+  <version>5.9.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>Java coding style</name>
@@ -64,7 +64,7 @@
     <pmd.skip>false</pmd.skip>
 
     <!-- Project Dependencies Configuration -->
-    <spotbugs.version>4.9.2</spotbugs.version>
+    <spotbugs.version>4.9.1</spotbugs.version>
     <commons.lang.version>3.17.0</commons.lang.version>
     <commons.io.version>2.18.0</commons.io.version>
     <byte-buddy.version>1.17.2</byte-buddy.version>
@@ -90,10 +90,10 @@
     <maven-failsafe-plugin.version>3.5.2</maven-failsafe-plugin.version>
     <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
     <maven-pmd-plugin.version>3.26.0</maven-pmd-plugin.version>
-    <pmd.version>7.7.0</pmd.version>
+    <pmd.version>7.11.0</pmd.version>
     <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
     <checkstyle.version>10.21.4</checkstyle.version>
-    <spotbugs-maven-plugin.version>4.9.2.0</spotbugs-maven-plugin.version>
+    <spotbugs-maven-plugin.version>4.9.3.0</spotbugs-maven-plugin.version>
     <findsecbugs-plugin.version>1.13.0</findsecbugs-plugin.version>
     <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
     <maven-pitest-plugin.version>1.18.2</maven-pitest-plugin.version>
@@ -115,10 +115,10 @@
     <dependency-check-maven.version>12.1.0</dependency-check-maven.version>
 
     <!-- OpenRewrite versions   -->
-    <rewrite-maven-plugin.version>6.2.3</rewrite-maven-plugin.version>
-    <rewrite-testing-frameworks.version>3.3.0</rewrite-testing-frameworks.version>
-    <rewrite-static-analysis.version>2.3.0</rewrite-static-analysis.version>
-    <rewrite-migrate-java.version>3.3.0</rewrite-migrate-java.version>
+    <rewrite-maven-plugin.version>6.3.1</rewrite-maven-plugin.version>
+    <rewrite-testing-frameworks.version>3.4.0</rewrite-testing-frameworks.version>
+    <rewrite-static-analysis.version>2.4.0</rewrite-static-analysis.version>
+    <rewrite-migrate-java.version>3.4.0</rewrite-migrate-java.version>
     <rewrite-recommendations.version>1.15.0</rewrite-recommendations.version>
 
     <!-- Maven Surefire ArgLine -->
@@ -774,12 +774,12 @@
           <dependency>
             <groupId>edu.hm.hafner</groupId>
             <artifactId>pmd-core</artifactId>
-            <version>${pmd.version}-metrics-2</version>
+            <version>${pmd.version}-metrics</version>
           </dependency>
           <dependency>
             <groupId>edu.hm.hafner</groupId>
             <artifactId>pmd-java</artifactId>
-            <version>${pmd.version}-metrics-2</version>
+            <version>${pmd.version}-metrics</version>
           </dependency>
           <dependency>
             <groupId>net.sourceforge.pmd</groupId>
