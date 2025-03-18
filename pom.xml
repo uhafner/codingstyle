@@ -212,6 +212,10 @@
           <groupId>org.slf4j</groupId>
           <artifactId>slf4j-api</artifactId>
         </exclusion>
+        <exclusion>
+          <artifactId>junit-platform-engine</artifactId>
+          <groupId>org.junit.platform</groupId>
+        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
@@ -895,6 +899,12 @@
             <groupId>com.tngtech.archunit</groupId>
             <artifactId>archunit-junit5-engine</artifactId>
             <version>${archunit.version}</version>
+            <exclusions>
+              <exclusion>
+                <groupId>org.junit.platform</groupId>
+                <artifactId>junit-platform-engine</artifactId>
+              </exclusion>
+            </exclusions>
           </dependency>
         </dependencies>
       </plugin>
@@ -925,14 +935,6 @@
             <exclude>.*LineRangeList</exclude>
           </excludes>
         </configuration>
-        <dependencies>
-          <!-- Without this dependency mvn test will fail due to a class not found exception -->
-          <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.2</version>
-          </dependency>
-        </dependencies>
         <executions>
           <execution>
             <goals>
