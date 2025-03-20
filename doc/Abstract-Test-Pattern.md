@@ -203,4 +203,4 @@ als Datei abgelegt werden.
 Neben solchen API Tests wird das Pattern hauptsächlich genutzt, um für den Code von abstrakten Klassen auch Testfälle 
 zur Verfügung zu stellen. Diese Testfälle können dann von Subklassen einfach mitbenutzt werden. So kann sicher
 gestellt werden, dass Subklassen den Vertrag einer Vererbungshierarchie nicht brechen und damit nicht unbewusst das 
-[Liskov Substitution Principle](http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod) verletzen.
+[Liskov Substitution Principle](https://en.wikipedia.org/wiki/Liskov_substitution_principle) verletzen.
