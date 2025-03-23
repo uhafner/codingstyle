@@ -976,7 +976,7 @@
                   <regex>true</regex>
                   <code>java.annotation.removed</code>
                   <annotation>@edu.umd.cs.findbugs.annotations.SuppressFBWarnings.*</annotation>
-                  <justification>Not used yet</justification>
+                  <justification>SpotBugs Annotations are not relevant in API</justification>
                 </item>
               </differences>
             </revapi.differences>
