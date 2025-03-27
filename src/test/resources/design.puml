@@ -7,5 +7,7 @@ skinparam component {
 }
 
 [Utilities] <<..util>>
+[Internal] <<..util.internal>>
+[Internal] -> [Utilities]
 
 @enduml

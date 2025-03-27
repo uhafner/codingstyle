@@ -6,4 +6,5 @@ module edu.hm.hafner.codingstyle {
     requires com.google.errorprone.annotations;
 
     exports edu.hm.hafner.util;
+    exports edu.hm.hafner.util.internal;
 }
