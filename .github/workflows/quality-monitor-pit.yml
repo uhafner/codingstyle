@@ -47,7 +47,6 @@ jobs:
       - name: Run Quality Monitor
         uses: uhafner/quality-monitor@v2
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           pr-number: ${{ steps.pr.outputs.number }}
           show-headers: true
           config: >
