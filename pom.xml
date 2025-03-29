@@ -91,6 +91,7 @@
     <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
     <maven-pmd-plugin.version>3.26.0</maven-pmd-plugin.version>
     <pmd.version>7.12.0</pmd.version>
+    <pmd.metrics.version>7.12.0-metrics</pmd.metrics.version>
     <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
     <checkstyle.version>10.21.4</checkstyle.version>
     <spotbugs-maven-plugin.version>4.9.3.0</spotbugs-maven-plugin.version>
@@ -778,12 +779,12 @@
           <dependency>
             <groupId>edu.hm.hafner</groupId>
             <artifactId>pmd-core</artifactId>
-            <version>${pmd.version}</version>
+            <version>${pmd.metrics.version}</version>
           </dependency>
           <dependency>
             <groupId>edu.hm.hafner</groupId>
             <artifactId>pmd-java</artifactId>
-            <version>${pmd.version}</version>
+            <version>${pmd.metrics.version}</version>
           </dependency>
           <dependency>
             <groupId>net.sourceforge.pmd</groupId>
