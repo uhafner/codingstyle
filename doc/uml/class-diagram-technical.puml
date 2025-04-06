@@ -19,6 +19,17 @@ skinparam class {
   FontName Arial Unicode MS
   FontSize 20
 }
+
+skinparam note {
+  BackgroundColor LightBlue
+  BorderColor #a0a0a0
+  FontName Arial
+  FontSize 14
+  FontColor black
+  RoundCorner 15
+  LineType solid
+}
+
 skinparam classFontSize 24
 skinparam classAttributeIconSize 0
 skinparam defaultFontSize 20
@@ -31,7 +42,6 @@ hide circle
 package java.util {
     class Observable {
         - changed: boolean
-        - observers: Vector<Observer>
         +registerObserver(o: Observer)
         +unregisterObserver(o: Observer)
         #notifyObservers()
@@ -41,16 +51,6 @@ package java.util {
         +update() {abstract}
     }
 }
-
-note "Package" as Package
-note "Subpackage" as Subpackage
-note "Klasse" as Class
-note "Interface" as Interface
-note "Vererbung" as Vererbung
-note "Implementierung" as Implementierung
-note "gerichtete Assoziation" as Assoziation
-note "generischen Typ binden" as Generics
-note "gerichtete Abhängigkeit:\n<<use>> benutzt\n<<create>> erzeugt\n<<call>> Aufruf" as Dependency
 
 class ConcreteObservable {
     -concreteState: State
@@ -75,6 +75,48 @@ class StringUtils {
     +isEmpty(value: String) {static}
 }
 
+Observable o- Observer : \t\t
+
+Observer <|.. AbstractObserver
+AbstractObserver <|-- ConcreteObserver : <<bind>> \n<T -> ConcreteObserver>
+ConcreteObservable <-left- ConcreteObserver : \t\t
+ConcreteObservable .down.> StringUtils : <<use>>
+
+' Notes
+
+note "Package" as Package
+note "Subpackage" as Subpackage
+note "Klasse" as Class
+note "Interface" as Interface
+note "Vererbung" as Vererbung
+note "Implementierung" as Implementierung
+note "gerichtete Assoziation" as Assoziation
+note "generischen Typ binden" as Generics
+note "gerichtete Abhängigkeit:\n<<use>> benutzt\n<<create>> erzeugt\n<<call>> Aufruf" as Dependency
+note "Aggregation" as Aggregation
+
+java .right[#lightblue,dotted]. Package
+util .down[#lightblue,dotted]. Subpackage
+Observable .up. Class
+Observable .[#lightblue,dotted]. Vererbung
+ConcreteObservable .up[#lightblue,dotted]. Vererbung
+Observer .up. Interface
+
+Observer .up[#lightblue,dotted]. Aggregation
+Aggregation .up[#lightblue,dotted]. Observable
+
+Observer .down[#lightblue,dotted]. Implementierung
+AbstractObserver .up[#lightblue,dotted]. Implementierung
+
+ConcreteObserver .down[#lightblue,dotted]. Assoziation
+ConcreteObservable .down[#lightblue,dotted]. Assoziation
+
+ConcreteObserver .up[#lightblue,dotted]. Generics
+AbstractObserver .down[#lightblue,dotted]. Generics
+
+ConcreteObservable .[#lightblue,dotted]. Dependency
+StringUtils .up[#lightblue,dotted]. Dependency
+
 note right of ConcreteObservable::concreteState
   Objektvariable
   vom Typ <i>State</i>
@@ -90,33 +132,6 @@ note right of ConcreteObservable::setState
   Parametertyp <i>State</i>
 end note
 
-
-Observable o- Observer : \t\t
-
-Observer <|.. AbstractObserver
-AbstractObserver <|-- ConcreteObserver : <<bind>> \n<T -> ConcreteObserver>
-ConcreteObservable <-left- ConcreteObserver : \t\t
-
-java .right. Package
-util .down. Subpackage
-Observable .up. Class
-Observable .. Vererbung
-ConcreteObservable .up. Vererbung
-Observer .up. Interface
-
-Observer .down. Implementierung
-AbstractObserver .up. Implementierung
-
-ConcreteObserver .down. Assoziation
-ConcreteObservable .down. Assoziation
-ConcreteObservable .down.> StringUtils : <<use>>
-
-ConcreteObserver .up. Generics
-AbstractObserver .down. Generics
-
-ConcreteObservable .down. Dependency
-StringUtils .up. Dependency
-
 note right of StringUtils::isEmpty
   statische Methode
 end note
@@ -128,6 +143,15 @@ note as floating
     # protected
     ~ package private
     - private
+end note
+
+note as notes
+  <u><b>Anmerkungen</b></u>
+
+    Die blauen Boxen und Linien
+    sind nur Anmerkungen. In
+    eigenen Diagrammen werden
+    sie nicht verwendet.
 end note
 
 @enduml
