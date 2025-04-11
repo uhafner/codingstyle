@@ -1,12 +1,12 @@
-package edu.hm.hafner.util;
-
-import java.net.URL;
-import java.util.Objects;
+package edu.hm.hafner.archunit;
 
 import com.tngtech.archunit.core.importer.ImportOption.DoNotIncludeTests;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
+
+import java.net.URL;
+import java.util.Objects;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
 import static com.tngtech.archunit.library.plantuml.rules.PlantUmlArchCondition.Configuration.*;

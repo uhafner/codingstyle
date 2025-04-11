@@ -1,4 +1,4 @@
-package edu.hm.hafner.util;
+package edu.hm.hafner.archunit;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
 
+import edu.hm.hafner.util.Generated;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.io.Serializable;
@@ -25,9 +26,9 @@ class ArchitectureRulesTest {
         assertThatExceptionOfType(AssertionError.class).isThrownBy(
                         () -> ArchitectureRules.READ_RESOLVE_SHOULD_BE_PROTECTED.check(importBrokenClass()))
                 .withMessageContainingAll(BROKEN_CLASS_NAME, "was violated (3 times)",
-                        "Method <edu.hm.hafner.util.ArchitectureRulesTest$ArchitectureRulesAlsoViolatedTest.readResolve()> is not protected but the class might be extended in (ArchitectureRulesTest.java:",
-                        "Method <edu.hm.hafner.util.ArchitectureRulesTest$ArchitectureRulesViolatedTest.readResolve()> is not declared in classes that implement java.io.Serializable in (ArchitectureRulesTest.java:",
-                        "Method <edu.hm.hafner.util.ArchitectureRulesTest$ArchitectureRulesViolatedTest.readResolve()> is not protected but the class might be extended in (ArchitectureRulesTest.java:");
+                        "Method <edu.hm.hafner.archunit.ArchitectureRulesTest$ArchitectureRulesAlsoViolatedTest.readResolve()> is not protected but the class might be extended in (ArchitectureRulesTest.java:",
+                        "Method <edu.hm.hafner.archunit.ArchitectureRulesTest$ArchitectureRulesViolatedTest.readResolve()> is not declared in classes that implement java.io.Serializable in (ArchitectureRulesTest.java:",
+                        "Method <edu.hm.hafner.archunit.ArchitectureRulesTest$ArchitectureRulesViolatedTest.readResolve()> is not protected but the class might be extended in (ArchitectureRulesTest.java:");
 
         assertThatNoException().isThrownBy(
                 () -> ArchitectureRules.READ_RESOLVE_SHOULD_BE_PROTECTED.check(importPassingClass()));
@@ -39,9 +40,9 @@ class ArchitectureRulesTest {
                         () -> ArchitectureRules.NO_FORBIDDEN_ANNOTATION_USED.check(
                                 importClasses(ArchitectureRulesViolatedTest.class)))
                 .withMessageContainingAll("was violated (3 times)", "edu.umd.cs.findbugs.annotations",
-                        "Field <edu.hm.hafner.util.ArchitectureRulesTest$ArchitectureRulesViolatedTest.noNullable> is annotated with <edu.umd.cs.findbugs.annotations.Nullable>",
-                        "Method <edu.hm.hafner.util.ArchitectureRulesTest$ArchitectureRulesViolatedTest.method(java.lang.String)> is annotated with <edu.umd.cs.findbugs.annotations.Nullable>",
-                        "Parameter <java.lang.String> of method <edu.hm.hafner.util.ArchitectureRulesTest$ArchitectureRulesViolatedTest.method(java.lang.String)> is annotated with <edu.umd.cs.findbugs.annotations.Nullable>");
+                        "Field <edu.hm.hafner.archunit.ArchitectureRulesTest$ArchitectureRulesViolatedTest.noNullable> is annotated with <edu.umd.cs.findbugs.annotations.Nullable>",
+                        "Method <edu.hm.hafner.archunit.ArchitectureRulesTest$ArchitectureRulesViolatedTest.method(java.lang.String)> is annotated with <edu.umd.cs.findbugs.annotations.Nullable>",
+                        "Parameter <java.lang.String> of method <edu.hm.hafner.archunit.ArchitectureRulesTest$ArchitectureRulesViolatedTest.method(java.lang.String)> is annotated with <edu.umd.cs.findbugs.annotations.Nullable>");
 
         assertThatNoException().isThrownBy(
                 () -> ArchitectureRules.NO_FORBIDDEN_ANNOTATION_USED.check(importPassingClass()));

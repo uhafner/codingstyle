@@ -1,7 +1,4 @@
-package edu.hm.hafner.util;
-
-import java.io.Serializable;
-import java.util.List;
+package edu.hm.hafner.archunit;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -18,6 +15,11 @@ import com.tngtech.archunit.lang.ArchCondition;
 import com.tngtech.archunit.lang.ArchRule;
 import com.tngtech.archunit.lang.ConditionEvents;
 import com.tngtech.archunit.lang.SimpleConditionEvent;
+
+import edu.hm.hafner.util.VisibleForTesting;
+
+import java.io.Serializable;
+import java.util.List;
 
 import static com.tngtech.archunit.core.domain.JavaAccess.Predicates.*;
 import static com.tngtech.archunit.lang.conditions.ArchConditions.*;

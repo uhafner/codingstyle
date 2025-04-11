@@ -1,4 +1,4 @@
-package edu.hm.hafner.util;
+package edu.hm.hafner.archunit;
 
 import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.core.importer.Location;
@@ -6,7 +6,7 @@ import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
-import edu.hm.hafner.util.ArchitectureTest.DoNotIncludeRulesUnderTest;
+import edu.hm.hafner.archunit.ArchitectureTest.DoNotIncludeRulesUnderTest;
 
 /**
  * Checks the architecture of this module.
