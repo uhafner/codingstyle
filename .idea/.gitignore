@@ -1,5 +1,6 @@
 *.xml
 !checkstyle-idea.xml
+!PMDPlugin.xml
 !codeStyles/codeStyleConfig.xml
 !codeStyles/Project.xml
 !inspectionProfiles/Project_Default.xml
