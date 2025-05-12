@@ -72,8 +72,14 @@
     <exclude name="LawOfDemeter"/>
     <exclude name="LoosePackageCoupling"/>
     <exclude name="SimplifyBooleanReturns"/>
+    <exclude name="SignatureDeclareThrowsException"/>
     <exclude name="TooManyMethods"/>
     <exclude name="UseObjectForClearerAPI"/>
+  </rule>
+  <rule ref="category/java/design.xml/SignatureDeclareThrowsException">
+    <properties>
+      <property name="IgnoreJUnitCompletely" value="true"/>
+    </properties>
   </rule>
   <rule ref="category/java/design.xml/SimplifyBooleanReturns">
     <properties>
