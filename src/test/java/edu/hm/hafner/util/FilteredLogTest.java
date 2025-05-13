@@ -1,7 +1,5 @@
 package edu.hm.hafner.util;
 
-import java.util.concurrent.locks.ReentrantLock;
-
 import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.recursive.comparison.RecursiveComparisonConfiguration;
 import org.junit.jupiter.api.Test;
@@ -17,6 +15,11 @@ import static edu.hm.hafner.util.assertions.Assertions.*;
  * @author Ullrich Hafner
  */
 class FilteredLogTest extends SerializableTest<FilteredLog> {
+    @Override
+    protected FilteredLog createSerializable() {
+        return createLogWith20Elements();
+    }
+
     private static final String TITLE = "Title: ";
 
     @Test
@@ -156,16 +159,6 @@ class FilteredLogTest extends SerializableTest<FilteredLog> {
                 .contains("info24");
     }
 
-    @Test
-    void shouldAdhereToEquals() {
-        EqualsVerifier.forClass(FilteredLog.class)
-                .withIgnoredFields("lock")
-                .withPrefabValues(ReentrantLock.class, new ReentrantLock(), new ReentrantLock())
-                .suppress(Warning.NONFINAL_FIELDS)
-                .suppress(Warning.STRICT_INHERITANCE)
-                .verify();
-    }
-
     @Override
     protected void assertThatRestoredInstanceEqualsOriginalInstance(final FilteredLog original,
             final FilteredLog restored) {
@@ -182,11 +175,6 @@ class FilteredLogTest extends SerializableTest<FilteredLog> {
         return filteredLog;
     }
 
-    @Override
-    protected FilteredLog createSerializable() {
-        return createLogWith20Elements();
-    }
-
     /** Actually tests {@link edu.hm.hafner.util.SerializableTest}. */
     @Test
     void shouldManuallyUseSerializationHelpers() {
@@ -196,5 +184,13 @@ class FilteredLogTest extends SerializableTest<FilteredLog> {
         var restored = restore(bytes);
 
         assertThatRestoredInstanceEqualsOriginalInstance(serializable, restored);
+    }
+
+    @Test
+    void shouldAdhereToEquals() {
+        EqualsVerifier.forClass(FilteredLog.class)
+                .suppress(Warning.NONFINAL_FIELDS)
+                .suppress(Warning.STRICT_INHERITANCE)
+                .verify();
     }
 }

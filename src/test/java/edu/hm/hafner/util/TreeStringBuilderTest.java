@@ -1,13 +1,13 @@
 package edu.hm.hafner.util;
 
+import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
-
-import org.junit.jupiter.api.Test;
-
 import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -120,9 +120,9 @@ class TreeStringBuilderTest {
 
     @Test
     void shouldObeyEqualsContract() {
-        EqualsVerifier.simple()
-                .withPrefabValues(TreeString.class, TreeString.valueOf("One"), TreeString.valueOf("Teo"))
-                .forClass(TreeString.class)
+        EqualsVerifier.forClass(TreeString.class)
+                .suppress(Warning.NONFINAL_FIELDS)
+                .withPrefabValues(TreeString.class, TreeString.valueOf("Red"), TreeString.valueOf("Blue"))
                 .verify();
     }
 }

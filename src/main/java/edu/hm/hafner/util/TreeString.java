@@ -1,12 +1,12 @@
 package edu.hm.hafner.util;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.Map;
-
 import org.apache.commons.lang3.StringUtils;
 
 import edu.umd.cs.findbugs.annotations.CheckForNull;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Map;
 
 /**
  * {@link TreeString} is an alternative string representation that saves the memory when you have a large number of
@@ -50,7 +50,7 @@ public final class TreeString implements Serializable {
                 .isTrue("if there's a parent '%s', label '%s' can't be empty", parent, label);
 
         this.parent = parent;
-        this.label = label.toCharArray(); // string created as a substring of another string can have a lot of garbage attached to it.
+        this.label = label.toCharArray(); // String created as a substring of another string can have a lot of garbage attached to it.
     }
 
     String getLabel() {
