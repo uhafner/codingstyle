@@ -112,7 +112,7 @@
     <maven-dependency-plugin.version>3.8.1</maven-dependency-plugin.version>
     <depgraph-maven-plugin.version>4.0.3</depgraph-maven-plugin.version>
     <sortpom-maven-plugin.version>4.0.0</sortpom-maven-plugin.version>
-    <git-commit-id-maven-plugin.version>9.0.1</git-commit-id-maven-plugin.version>
+    <git-commit-id-maven-plugin.version>9.0.2</git-commit-id-maven-plugin.version>
     <dependency-check-maven.version>12.1.1</dependency-check-maven.version>
 
     <!-- OpenRewrite versions   -->
