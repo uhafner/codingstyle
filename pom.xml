@@ -810,6 +810,7 @@
               </rulesets>
               <includeTests>false</includeTests>
               <minimumTokens>50</minimumTokens>
+              <printFailingErrors>true</printFailingErrors>
               <skip>${pmd.skip}</skip>
             </configuration>
           </execution>
@@ -828,6 +829,7 @@
               </rulesets>
               <includeTests>true</includeTests>
               <minimumTokens>100</minimumTokens>
+              <printFailingErrors>true</printFailingErrors>
               <excludeRoots>
                 <excludeRoot>src/main/java</excludeRoot>
                 <excludeRoot>${project.build.directory}/generated-test-sources/test-annotations</excludeRoot>
