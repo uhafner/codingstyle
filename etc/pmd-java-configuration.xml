@@ -31,6 +31,7 @@
     <exclude name="EmptyControlStatement"/>
     <exclude name="EmptyMethodInAbstractClassShouldBeAbstract"/>
     <exclude name="FieldDeclarationsShouldBeAtStartOfClass"/>
+    <exclude name="LambdaCanBeMethodReference"/>
     <exclude name="LocalVariableCouldBeFinal"/>
     <exclude name="LocalVariableNamingConventions"/>
     <exclude name="LongVariable"/>
