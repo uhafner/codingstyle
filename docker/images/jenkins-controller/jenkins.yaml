@@ -13,7 +13,6 @@ jenkins:
     rawHtml:
       disableSyntaxHighlighting: false
   mode: NORMAL
-  myViewsTabBar: "standard"
   nodes:
     - permanent:
         labelString: "docker linux agent java jdk21 java21"
