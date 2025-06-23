@@ -116,6 +116,7 @@ jobs:
                   "icon": "shield",
                   "tools": [
                     {
+                      "icon": "shield",
                       "id": "owasp-dependency-check",
                       "pattern": "**/target/dependency-check-report.json"                    
                     }
