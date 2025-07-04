@@ -214,8 +214,8 @@
           <artifactId>slf4j-api</artifactId>
         </exclusion>
         <exclusion>
-          <artifactId>junit-platform-engine</artifactId>
           <groupId>org.junit.platform</groupId>
+          <artifactId>junit-platform-engine</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -677,6 +677,17 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>properties</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
         <executions>
           <execution>
@@ -814,6 +825,22 @@
             </configuration>
           </execution>
           <execution>
+            <id>run-pmd-metrics</id>
+            <goals>
+              <goal>pmd</goal>
+            </goals>
+            <phase>verify</phase>
+            <configuration>
+              <targetDirectory>${project.build.directory}/metrics</targetDirectory>
+              <rulesets>
+                <ruleset>/category/java/metric.xml</ruleset>
+              </rulesets>
+              <format>net.sourceforge.pmd.renderers.MetricsRenderer</format>
+              <includeTests>false</includeTests>
+              <skip>${pmd.skip}</skip>
+            </configuration>
+          </execution>
+          <execution>
             <id>run-pmd-tests</id>
             <goals>
               <goal>pmd</goal>
@@ -837,22 +864,6 @@
               <skip>${pmd.skip}</skip>
             </configuration>
           </execution>
-          <execution>
-            <id>run-pmd-metrics</id>
-            <goals>
-              <goal>pmd</goal>
-            </goals>
-            <phase>verify</phase>
-            <configuration>
-              <targetDirectory>${project.build.directory}/metrics</targetDirectory>
-              <rulesets>
-                <ruleset>/category/java/metric.xml</ruleset>
-              </rulesets>
-              <format>net.sourceforge.pmd.renderers.MetricsRenderer</format>
-              <includeTests>false</includeTests>
-              <skip>${pmd.skip}</skip>
-            </configuration>
-          </execution>
         </executions>
       </plugin>
       <plugin>
@@ -871,17 +882,6 @@
             <id>attach-sources</id>
             <goals>
               <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>properties</goal>
             </goals>
           </execution>
         </executions>
