@@ -18,6 +18,16 @@ skinparam defaultFontSize 20
 skinparam ArrowColor black
 skinparam ArrowThickness 2
 
+skinparam note {
+  BackgroundColor LightBlue
+  BorderColor #a0a0a0
+  FontName Arial
+  FontSize 14
+  FontColor black
+  RoundCorner 15
+  LineType solid
+}
+
 hide circle
 
 skinparam componentStyle uml2
@@ -38,6 +48,8 @@ component " org.apache.commons:commons-lang3      " <<component>> as library {
 }
 
 anwendung .up.> library : " <<use>>"
+circle "\t         Fassade " as fassade
+anwendung ..> fassade : " <<call>>"
 
 note "Artefakt" as artefact
 note "Komponente" as component
@@ -46,22 +58,31 @@ note "Implementierung\neiner Schnittstelle" as Implementierung
 note "Aufruf einer\nSchnittstelle" as Use
 note "gerichtete Abhängigkeit\nohne Angabe Interface" as Dependency
 
-circle "\t         Fassade " as fassade
 
-anwendung ..> fassade : " <<use>>"
 fassade -up- fachkomponente
 
-anwendung .down. Use
-fassade .up. Use
+anwendung .[#blue,dotted]down. Use
+fassade .[#blue,dotted]up. Use
 
-fassade .left. schnittstelle
-library .up. component
-lang .down. artefact
+fassade .[#blue,dotted]left. schnittstelle
+library .[#blue,dotted]up. component
+lang .[#blue,dotted]down. artefact
 
-fassade .down. Implementierung
-fachkomponente .right. Implementierung
+fassade .[#blue,dotted]down. Implementierung
+fachkomponente .[#blue,dotted]right. Implementierung
 
-anwendung .up. Dependency
-library .down. Dependency
+anwendung .up[#blue,dotted]. Dependency
+library .down[#blue,dotted]. Dependency
+
+note as notes
+  <u><b>Anmerkungen</b></u>
+
+    Die blauen Boxen und gepunkteten
+    Linien sind nur Anmerkungen. In
+    eigenen Diagrammen werden sie
+    nicht verwendet.
+end note
+
+notes .[hidden]up. anwendung
 
 @enduml

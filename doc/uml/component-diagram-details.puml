@@ -1,5 +1,15 @@
 @startuml
 
+skinparam note {
+  BackgroundColor LightBlue
+  BorderColor #a0a0a0
+  FontName Arial
+  FontSize 14
+  FontColor black
+  RoundCorner 15
+  LineType solid
+}
+
 skinparam component {
   BackgroundColor #f8f8f8
   BorderColor #a0a0a0
@@ -82,20 +92,47 @@ component "JDK" <<component>> as Bibliothek {
     }
 }
 
-anwendung ...> library : <<use>>
+anwendung ..right.> library : <<use>>
 Subject <|-- ConcreteSubject
 Subject o- Observer : \t\t
 
 Observer <|.. ConcreteObserver
 ConcreteSubject <- ConcreteObserver : \t\t\t
 
-circle "   \t\t\tFassade "
+circle "   \t\t\tFassade " as fassade
 
-anwendung ..> "   \t\t\tFassade " : "\t\t\t\t"
-"   \t\t\tFassade " -- fachkomponente
+anwendung ..> fassade : "<<call>>"
+fassade -- fachkomponente
 
+note as notes
+  <u><b>Anmerkungen</b></u>
 
+    Die blauen Boxen und gepunkteten
+    Linien sind nur Anmerkungen. In
+    eigenen Diagrammen werden sie
+    nicht verwendet.
+end note
 
+note "siehe Klassendiagramm" as klassendiagramm
+note "Artefakt" as artefact
+note "Komponente" as component
+note "Implementierung\neiner Schnittstelle" as Implementierung
+note "Aufruf einer\nSchnittstelle" as Use
+note "gerichtete Abhängigkeit\nohne Angabe Interface" as Dependency
+note "Schnittstelle" as schnittstelle
 
+fassade .[#blue,dotted]down. Implementierung
+fachkomponente .[#blue,dotted]right. Implementierung
+fassade .[#blue,dotted]left. schnittstelle
+
+anwendung .down[#blue,dotted]. Dependency
+library .up[#blue,dotted]. Dependency
+
+anwendung .[#blue,dotted]down. Use
+fassade .[#blue,dotted]up. Use
+
+lang .[#blue,dotted]down. artefact
+library .[#blue,dotted]up. component
+klassendiagramm .[#blue,dotted]up. Bibliothek
 
 @enduml

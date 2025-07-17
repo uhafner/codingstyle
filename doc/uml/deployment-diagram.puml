@@ -25,43 +25,56 @@ skinparam artifact {
   StereotypeFontSize 14
 }
 
-node ":MacBook" <<device>> {
+skinparam note {
+  BackgroundColor LightBlue
+  BorderColor #a0a0a0
+  FontName Arial
+  FontSize 14
+  FontColor black
+  RoundCorner 15
+  LineType solid
+}
+
+node ":MacBook" <<device>> as macbook {
     node ":macOS Monterey" <<execution environment>>  {
-        node ":Safari 15.4" <<execution environment>>  {
+        node ":Safari 15.4" <<execution environment>> as browser {
             artifact ECharts.JS <<artifact>> as EI
             artifact DataTables.JS <<artifact>> as DI
-            artifact ClientModel.JS <<artifact>> as P
         }
     }
 }
 
-
-P ..> EI
-P ..> DI
-
-node ":Server" <<device>> {
-    node ":Jetty 9.4.45" <<execution environment>>  {
+node ":Server" <<device>> as server {
+    node ":Jetty 9.4.45" <<execution environment>> as jetty  {
         artifact Warnings <<artifact>> as W
         artifact Jenkins.Core <<artifact>> as C
     }
 }
 
-C <. W
-
-":Server" -down- ":MacBook" : "  <<Socket>>"
+jetty -down- browser : "  <<Socket>>"
 
 note "Artefakt" as artifact
-note "Kommunikationspfad\nmit Protokoll" as channel
-note "Device" as device
-note "Execution Environment" as env
+note "Kommunikationspfad zwischen \n2 Execution Environments\nmit genutztem Protokoll" as channel
+note "Device repräsentiert die\nphysische Hardware" as device
+note "Execution Environment als\nvirtuelle Ausführungsumgebung\nauf einem Device" as env
 
-":Server" .up. device
-":Safari 15.4" .down. env
+macbook .up[#blue,dotted]. device
+jetty .right[#blue,dotted]. env
 
-":Server" .. channel
-":MacBook" .. channel
+jetty .[#blue,dotted]. channel
+browser .[#blue,dotted]. channel
 
-C .left. artifact
+EI .down. artifact
 
+note as notes
+  <u><b>Anmerkungen</b></u>
+
+    Die blauen Boxen und gepunkteten
+    Linien sind nur Anmerkungen. In
+    eigenen Diagrammen werden sie
+    nicht verwendet.
+end note
+
+notes .[hidden]left. macbook
 
 @enduml

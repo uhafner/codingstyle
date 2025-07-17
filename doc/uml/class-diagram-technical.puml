@@ -91,31 +91,31 @@ note "Interface" as Interface
 note "Vererbung" as Vererbung
 note "Implementierung" as Implementierung
 note "gerichtete Assoziation" as Assoziation
-note "generischen Typ binden" as Generics
+note "Vererbung und dabei\ngenerischen Typ binden" as Generics
 note "gerichtete Abhängigkeit:\n<<use>> benutzt\n<<create>> erzeugt\n<<call>> Aufruf" as Dependency
 note "Aggregation" as Aggregation
 
-java .right[#lightblue,dotted]. Package
-util .down[#lightblue,dotted]. Subpackage
+java .right[#blue,dotted]. Package
+util .down[#blue,dotted]. Subpackage
 Observable .up. Class
-Observable .[#lightblue,dotted]. Vererbung
-ConcreteObservable .up[#lightblue,dotted]. Vererbung
+Observable .[#blue,dotted]. Vererbung
+ConcreteObservable .up[#blue,dotted]. Vererbung
 Observer .up. Interface
 
-Observer .up[#lightblue,dotted]. Aggregation
-Aggregation .up[#lightblue,dotted]. Observable
+Observer .up[#blue,dotted]. Aggregation
+Aggregation .up[#blue,dotted]. Observable
 
-Observer .down[#lightblue,dotted]. Implementierung
-AbstractObserver .up[#lightblue,dotted]. Implementierung
+Observer .down[#blue,dotted]. Implementierung
+AbstractObserver .up[#blue,dotted]. Implementierung
 
-ConcreteObserver .down[#lightblue,dotted]. Assoziation
-ConcreteObservable .down[#lightblue,dotted]. Assoziation
+ConcreteObserver .down[#blue,dotted]. Assoziation
+ConcreteObservable .down[#blue,dotted]. Assoziation
 
-ConcreteObserver .up[#lightblue,dotted]. Generics
-AbstractObserver .down[#lightblue,dotted]. Generics
+ConcreteObserver .up[#blue,dotted]. Generics
+AbstractObserver .down[#blue,dotted]. Generics
 
-ConcreteObservable .[#lightblue,dotted]. Dependency
-StringUtils .up[#lightblue,dotted]. Dependency
+ConcreteObservable .[#blue,dotted]. Dependency
+StringUtils .up[#blue,dotted]. Dependency
 
 note right of ConcreteObservable::concreteState
   Objektvariable
@@ -148,10 +148,10 @@ end note
 note as notes
   <u><b>Anmerkungen</b></u>
 
-    Die blauen Boxen und Linien
-    sind nur Anmerkungen. In
-    eigenen Diagrammen werden
-    sie nicht verwendet.
+    Die blauen Boxen und gepunkteten
+    Linien sind nur Anmerkungen. In
+    eigenen Diagrammen werden sie
+    nicht verwendet.
 end note
 
 @enduml
