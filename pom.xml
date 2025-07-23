@@ -56,7 +56,7 @@
     <!-- Project Dependencies Configuration -->
     <spotbugs.version>4.9.3</spotbugs.version>
     <commons.lang.version>3.18.0</commons.lang.version>
-    <commons.io.version>2.19.0</commons.io.version>
+    <commons.io.version>2.20.0</commons.io.version>
     <byte-buddy.version>1.17.6</byte-buddy.version>
     <slf4j.version>2.0.17</slf4j.version>
 
