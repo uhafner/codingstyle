@@ -6,7 +6,7 @@
 [![Warnings](https://raw.githubusercontent.com/uhafner/codingstyle/main/badges/style.svg)](https://github.com/uhafner/codingstyle/actions/workflows/quality-monitor-pit.yml)
 [![Bugs](https://raw.githubusercontent.com/uhafner/codingstyle/main/badges/bugs.svg)](https://github.com/uhafner/codingstyle/actions/workflows/quality-monitor-pit.yml)
 
-Each Java project should follow a given coding style. 
+Each Java project should follow a consistent coding style.
 I.e., all contributions to the source code should use the same formatting rules, design principles, code patterns, idioms, etc. 
 This coding style provides the set of rules that I am using in my lectures about software development at Munich University of Applied Sciences.  
 
