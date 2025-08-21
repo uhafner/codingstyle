@@ -10,7 +10,7 @@ jobs:
     name: Monitor project quality
 
     steps:
-      - name: 'Checkout merge commit'
+      - name: 'Checkout merge request'
         uses: actions/checkout@v5
         with:
           ref: "${{ github.event.pull_request.merge_commit_sha || github.event.pull_request.head.sha }}"
