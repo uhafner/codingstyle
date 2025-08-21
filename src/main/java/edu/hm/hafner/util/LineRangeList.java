@@ -317,7 +317,7 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
          *
          * @return {@code true} if the read value is equal to the specified range
          */
-        public boolean compare(final LineRange other) {
+        private boolean compare(final LineRange other) {
             int s = read();
             int d = read();
             return other.getStart() == s && other.getEnd() == s + d;
@@ -366,7 +366,7 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
             throw new UnsupportedOperationException("previousIndex is not supported");
         }
 
-        public Cursor copy() {
+        private Cursor copy() {
             return new Cursor(position);
         }
 
@@ -389,7 +389,7 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
          *
          * @return the changed line range
          */
-        public LineRange rewrite(final LineRange other) {
+        private LineRange rewrite(final LineRange other) {
             var c = copy();
             var old = c.next();
             int oldSize = c.position - position;
@@ -419,7 +419,7 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
          *
          * @return the deleted element
          */
-        public LineRange delete() {
+        private LineRange delete() {
             var c = copy();
             var old = c.next();
             adjust(position - c.position);
