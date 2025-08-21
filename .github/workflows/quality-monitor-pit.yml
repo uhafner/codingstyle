@@ -7,7 +7,7 @@ jobs:
   build:
 
     runs-on: [ubuntu-latest]
-    name: Build, test and monitor quality on Ubuntu
+    name: Monitor project quality
 
     steps:
       - name: 'Checkout merge commit'
@@ -44,6 +44,7 @@ jobs:
           pr-number: ${{ steps.pr.outputs.number }}
           show-headers: true
           comments-strategy: 'REMOVE'
+          title-metric: 'test-success-rate'
           quality-gates: >
             {
             "qualityGates": [
