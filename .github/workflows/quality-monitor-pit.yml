@@ -13,13 +13,7 @@ jobs:
       - name: 'Checkout merge commit'
         uses: actions/checkout@v5
         with:
-          ref: "${{ github.event.pull_request.merge_commit_sha }}"
-        if: github.event.pull_request.merge_commit_sha != ''
-      - name: 'Checkout PR head commit'
-        uses: actions/checkout@v5
-        with:
-          ref: "${{ github.event.pull_request.head.sha }}"
-        if: github.event.pull_request.merge_commit_sha == ''
+          ref: "${{ github.event.pull_request.merge_commit_sha || github.event.pull_request.head.sha }}"
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
@@ -30,7 +24,7 @@ jobs:
       - name: Set up Maven
         uses: stCarolas/setup-maven@v5
         with:
-          maven-version: 3.9.9
+          maven-version: 3.9.11
       - name: Cache the NVD database
         uses: actions/cache@v4
         with:
@@ -45,10 +39,46 @@ jobs:
         uses: jwalton/gh-find-current-pr@v1
         id: pr
       - name: Run Quality Monitor
-        uses: uhafner/quality-monitor@v3
+        uses: uhafner/quality-monitor@delete-comments
         with:
           pr-number: ${{ steps.pr.outputs.number }}
           show-headers: true
+          comments-strategy: 'REMOVE'
+          quality-gates: >
+            {
+            "qualityGates": [
+              {
+                "metric": "test-success-rate",
+                "threshold": 100.0,
+                "criticality": "FAILURE"
+              },
+              {
+                "metric": "line",
+                "threshold": 80.0,
+                "criticality": "UNSTABLE"
+              },
+              {
+                "metric": "branch",
+                "threshold": 80.0,
+                "criticality": "UNSTABLE"
+              },
+              {
+                "metric": "test-strength",
+                "threshold": 90.0,
+                "criticality": "UNSTABLE"
+              },
+              {
+                "metric": "bugs",
+                "threshold": 0.0,
+                "criticality": "FAILURE"
+              },
+              {
+                "metric": "style",
+                "threshold": 0.0,
+                "criticality": "UNSTABLE"
+              }
+            ]
+          }
           config: >
             {
               "tests": {
