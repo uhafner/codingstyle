@@ -71,11 +71,13 @@ jobs:
                 },
                 {
                   "metric": "bugs",
+                  "name": "Potential Bugs",
                   "threshold": 0.0,
                   "criticality": "FAILURE"
                 },
                 {
                   "metric": "style",
+                  "name": "Style Violations",
                   "threshold": 0.0,
                   "criticality": "UNSTABLE"
                 }
