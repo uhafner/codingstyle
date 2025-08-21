@@ -44,42 +44,42 @@ jobs:
           pr-number: ${{ steps.pr.outputs.number }}
           show-headers: true
           comments-strategy: 'REMOVE'
-          title-metric: 'test-success-rate'
+          title-metric: 'tests-success-rate'
           quality-gates: >
             {
-            "qualityGates": [
-              {
-                "metric": "test-success-rate",
-                "threshold": 100.0,
-                "criticality": "FAILURE"
-              },
-              {
-                "metric": "line",
-                "threshold": 80.0,
-                "criticality": "UNSTABLE"
-              },
-              {
-                "metric": "branch",
-                "threshold": 80.0,
-                "criticality": "UNSTABLE"
-              },
-              {
-                "metric": "test-strength",
-                "threshold": 90.0,
-                "criticality": "UNSTABLE"
-              },
-              {
-                "metric": "bugs",
-                "threshold": 0.0,
-                "criticality": "FAILURE"
-              },
-              {
-                "metric": "style",
-                "threshold": 0.0,
-                "criticality": "UNSTABLE"
-              }
-            ]
-          }
+              "qualityGates": [
+                {
+                  "metric": "test-success-rate",
+                  "threshold": 100.0,
+                  "criticality": "FAILURE"
+                },
+                {
+                  "metric": "line",
+                  "threshold": 80.0,
+                  "criticality": "UNSTABLE"
+                },
+                {
+                  "metric": "branch",
+                  "threshold": 80.0,
+                  "criticality": "UNSTABLE"
+                },
+                {
+                  "metric": "test-strength",
+                  "threshold": 90.0,
+                  "criticality": "UNSTABLE"
+                },
+                {
+                  "metric": "bugs",
+                  "threshold": 0.0,
+                  "criticality": "FAILURE"
+                },
+                {
+                  "metric": "style",
+                  "threshold": 0.0,
+                  "criticality": "UNSTABLE"
+                }
+              ]
+            }
           config: >
             {
               "tests": {
