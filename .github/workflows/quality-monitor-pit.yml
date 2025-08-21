@@ -49,7 +49,7 @@ jobs:
             {
               "qualityGates": [
                 {
-                  "metric": "test-success-rate",
+                  "metric": "tests-success-rate",
                   "threshold": 100.0,
                   "criticality": "FAILURE"
                 },
