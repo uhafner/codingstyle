@@ -21,4 +21,5 @@ jobs:
       - name: Artefakt laden
         uses: actions/download-artifact@v4
         with:
+          run-id: ${{ github.event.workflow_run.id }}
           name: file
