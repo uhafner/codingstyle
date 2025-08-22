@@ -1,6 +1,9 @@
 name: 'Quality Monitor Comment'
 
-needs: [ "Quality Monitor Build" ]
+on:
+  workflow_run:
+    workflows: [ "Quality Monitor Build" ]
+    types: [ completed ]
 
 permissions:
   actions: read
