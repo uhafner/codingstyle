@@ -23,7 +23,7 @@ jobs:
           sha='${{ github.event.workflow_run.head_sha }}'
             echo "sha=$sha" >> "$GITHUB_OUTPUT"
       - name: Repository auschecken (für Config-Dateien)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ steps.pr.outputs.sha }}
       - name: Artefakt laden
