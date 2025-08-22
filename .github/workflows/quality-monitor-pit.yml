@@ -2,8 +2,9 @@ name: 'Quality Monitor Comment'
 
 on:
   workflow_run:
-    workflows: ["Quality Monitor Build"]
-    types: [completed]
+    workflows: [ "Quality Monitor Build" ]
+    types: [ completed ]
+
 permissions:
   actions: read
   contents: read
@@ -11,29 +12,38 @@ permissions:
 
 jobs:
   comment:
-
     if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'pull_request' }}
-    runs-on: [ubuntu-latest]
-
+    runs-on: ubuntu-latest
     steps:
+      - name: PR Metadaten extrahieren
+        id: pr
+        run: |
+          pr_number='${{ github.event.workflow_run.pull_requests[0].number }}'
+            echo "number=$pr_number" >> "$GITHUB_OUTPUT"
+          sha='${{ github.event.workflow_run.head_sha }}'
+            echo "sha=$sha" >> "$GITHUB_OUTPUT"
+      - name: Repository auschecken (für Config-Dateien)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.pr.outputs.sha }}
       - name: Artefakt laden
         uses: actions/download-artifact@v4
         with:
           run-id: ${{ github.event.workflow_run.id }}
-          name: quality-reports
-      - name: Load Quality Gates JSON
+          name: quality-reports         # muss exakt dem Upload-Namen entsprechen
+      - name: Quality Gates laden
         id: quality-gates
         run: echo "json=$(jq -c . .github/quality-gates.json)" >> "$GITHUB_OUTPUT"
-      - name: Load Quality Monitor Config
+      - name: Quality Monitor Config laden
         id: quality-monitor
         run: echo "json=$(jq -c . .github/quality-monitor.json)" >> "$GITHUB_OUTPUT"
-      - name: Run Quality Monitor
+      - name: Quality Monitor ausführen
         uses: uhafner/quality-monitor@delete-comments
         with:
-          sha: ${{ github.event.pull_request.head.sha }}
+          sha: ${{ steps.pr.outputs.sha }}
           config: ${{ steps.quality-monitor.outputs.json }}
           quality-gates: ${{ steps.quality-gates.outputs.json }}
           pr-number: ${{ steps.pr.outputs.number }}
-          comments-strategy: 'UPDATE'
+          comments-strategy: UPDATE
           show-headers: true
-          title-metric: 'tests-success-rate'
+          title-metric: tests-success-rate
