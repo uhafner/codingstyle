@@ -19,8 +19,7 @@ jobs:
 
     steps:
       - name: Artefakt laden
-        uses: actions/download-artifact@v4
+        uses: dawidd6/action-download-artifact@v11
         with:
-          run-id: ${{ github.event.workflow_run.id }}
+          run_id: ${{ github.event.workflow_run.id }}
           name: file
-          if-no-files-found: error
