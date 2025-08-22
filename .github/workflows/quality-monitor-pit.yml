@@ -5,6 +5,7 @@ on:
     workflows: ["Quality Monitor Build"]
     types: [completed]
 permissions:
+  actions: read
   contents: read
   pull-requests: write
 
