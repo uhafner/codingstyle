@@ -34,7 +34,7 @@ jobs:
           NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
         run: mvn -V --color always -ntp clean verify -Ppit -Pci -Powasp | tee target/maven.log
       - name: Upload Quality Reports
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v4
         with:
           name: quality-reports
           path: |
