@@ -1,7 +1,7 @@
 name: 'Quality Monitor PR'
 
 on:
-  pull_request_target:
+  pull_request:
 
 jobs:
   build:
@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: 'Checkout merge request'
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
         with:
           ref: "${{ github.event.pull_request.merge_commit_sha || github.event.pull_request.head.sha }}"
       - name: Set up JDK 21
@@ -44,10 +44,10 @@ jobs:
       - name: Load Quality Monitor Config
         id: quality-monitor
         run: echo "json=$(jq -c . .github/quality-monitor.json)" >> "$GITHUB_OUTPUT"
-
       - name: Run Quality Monitor
         uses: uhafner/quality-monitor@delete-comments
         with:
+          sha: ${{ github.event.pull_request.head.sha }}
           config: ${{ steps.quality-monitor.outputs.json }}
           quality-gates: ${{ steps.quality-gates.outputs.json }}
           pr-number: ${{ steps.pr.outputs.number }}
