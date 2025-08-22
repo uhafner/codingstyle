@@ -9,11 +9,13 @@ permissions:
   actions: read
   contents: read
   pull-requests: write
+  checks: write
 
 jobs:
   comment:
     if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'pull_request' }}
     runs-on: ubuntu-latest
+    name: Comment on PR
 
     steps:
       - name: Extract PR information
