@@ -43,14 +43,13 @@ jobs:
         with:
           pr-number: ${{ steps.pr.outputs.number }}
           show-headers: true
-          comments-strategy: 'REMOVE'
+          comments-strategy: 'UPDATE'
           title-metric: 'tests-success-rate'
           quality-gates: >
             {
               "qualityGates": [
                 {
                   "metric": "tests-success-rate",
-                  "name": "Tests Success Rate",
                   "threshold": 100.0,
                   "criticality": "FAILURE"
                 },
@@ -71,13 +70,11 @@ jobs:
                 },
                 {
                   "metric": "bugs",
-                  "name": "Potential Bugs",
                   "threshold": 0.0,
                   "criticality": "FAILURE"
                 },
                 {
                   "metric": "style",
-                  "name": "Style Violations",
                   "threshold": 0.0,
                   "criticality": "UNSTABLE"
                 }
