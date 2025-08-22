@@ -40,10 +40,10 @@ jobs:
         id: pr
       - name: Load Quality Gates JSON
         id: quality-gates
-        run: echo "json=$(jq -c . ../quality-gates.json)" >> "$GITHUB_OUTPUT"
+        run: echo "json=$(jq -c . .github/quality-gates.json)" >> "$GITHUB_OUTPUT"
       - name: Load Quality Monitor Config
         id: quality-monitor
-        run: echo "json=$(jq -c . ../quality-monitor.json)" >> "$GITHUB_OUTPUT"
+        run: echo "json=$(jq -c . .github/quality-monitor.json)" >> "$GITHUB_OUTPUT"
 
       - name: Run Quality Monitor
         uses: uhafner/quality-monitor@delete-comments
