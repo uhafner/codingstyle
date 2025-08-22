@@ -50,6 +50,7 @@ jobs:
               "qualityGates": [
                 {
                   "metric": "tests-success-rate",
+                  "name": "Tests Success Rate",
                   "threshold": 100.0,
                   "criticality": "FAILURE"
                 },
@@ -66,15 +67,17 @@ jobs:
                 {
                   "metric": "test-strength",
                   "threshold": 90.0,
-                  "criticality": "UNSTABLE"
+                  "criticality": "FAILURE"
                 },
                 {
                   "metric": "bugs",
+                  "name": "Potential Bugs",
                   "threshold": 0.0,
                   "criticality": "FAILURE"
                 },
                 {
                   "metric": "style",
+                  "name": "Style Violations",
                   "threshold": 0.0,
                   "criticality": "UNSTABLE"
                 }
