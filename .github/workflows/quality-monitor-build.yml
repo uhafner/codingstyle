@@ -27,13 +27,13 @@ jobs:
         with:
           path: ~/.m2/repository/org/owasp/dependency-check-data
           key: dependency-check
-      - name: Check if quality montitor reports mutation coverage
+      - name: Check if quality monitor reports mutation coverage
         run: |
           FILE='.github/quality-monitor.json'
           PATTERN='target/pit-reports/mutations.xml'
           if [ -f "$FILE" ]; then
             if grep -q "$PATTERN" "$FILE"; then
-              echo "PIT=-PPIT" >> "$GITHUB_ENV"
+              echo "PIT=-Ppit" >> "$GITHUB_ENV"
             fi
           fi
       - name: Build with Maven

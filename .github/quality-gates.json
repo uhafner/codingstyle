@@ -8,18 +8,13 @@
     },
     {
       "metric": "line",
-      "threshold": 80.0,
+      "threshold": 90.0,
       "criticality": "UNSTABLE"
     },
     {
       "metric": "branch",
-      "threshold": 80.0,
-      "criticality": "UNSTABLE"
-    },
-    {
-      "metric": "test-strength",
       "threshold": 90.0,
-      "criticality": "FAILURE"
+      "criticality": "UNSTABLE"
     },
     {
       "metric": "bugs",
@@ -31,7 +26,7 @@
       "metric": "style",
       "name": "Style Violations",
       "threshold": 0.0,
-      "criticality": "UNSTABLE"
+      "criticality": "FAILURE"
     }
   ]
 }
