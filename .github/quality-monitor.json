@@ -5,13 +5,13 @@
       {
         "id": "junit",
         "name": "Unit Tests",
-        "pattern": "**/target/*-reports/TEST*util*.xml"
+        "pattern": "**/target/surefire-reports/TEST*.xml"
       },
       {
         "id": "junit",
         "icon": "no_entry",
         "name": "Architecture Tests",
-        "pattern": "**/target/surefire-reports/TEST*archunit*.xml"
+        "pattern": "**/target/archunit-reports/TEST*.xml"
       }
     ]
   },
