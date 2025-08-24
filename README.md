@@ -2,9 +2,9 @@
 [![CodeQL](https://github.com/uhafner/codingstyle/workflows/CodeQL/badge.svg)](https://github.com/uhafner/codingstyle/actions/workflows/codeql.yml)
 [![Line Coverage](https://raw.githubusercontent.com/uhafner/codingstyle/main/badges/line-coverage.svg)](https://app.codecov.io/gh/uhafner/codingstyle)
 [![Branch Coverage](https://raw.githubusercontent.com/uhafner/codingstyle/main/badges/branch-coverage.svg)](https://app.codecov.io/gh/uhafner/codingstyle)
-[![Mutation Coverage](https://raw.githubusercontent.com/uhafner/codingstyle/main/badges/mutation-coverage.svg)](https://github.com/uhafner/codingstyle/actions/workflows/quality-monitor-pit.yml)
-[![Warnings](https://raw.githubusercontent.com/uhafner/codingstyle/main/badges/style.svg)](https://github.com/uhafner/codingstyle/actions/workflows/quality-monitor-pit.yml)
-[![Bugs](https://raw.githubusercontent.com/uhafner/codingstyle/main/badges/bugs.svg)](https://github.com/uhafner/codingstyle/actions/workflows/quality-monitor-pit.yml)
+[![Mutation Coverage](https://raw.githubusercontent.com/uhafner/codingstyle/main/badges/mutation-coverage.svg)](https://github.com/uhafner/codingstyle/actions/workflows/quality-monitor-comment.yml)
+[![Warnings](https://raw.githubusercontent.com/uhafner/codingstyle/main/badges/style.svg)](https://github.com/uhafner/codingstyle/actions/workflows/quality-monitor-comment.yml)
+[![Bugs](https://raw.githubusercontent.com/uhafner/codingstyle/main/badges/bugs.svg)](https://github.com/uhafner/codingstyle/actions/workflows/quality-monitor-comment.yml)
 
 Each Java project should follow a consistent coding style.
 All contributions should follow the same formatting rules, design principles, code patterns, and idioms.

@@ -32,7 +32,7 @@ Ein Beispiel für die Konfiguration eines Matrix Builds ist in der Datei [ci.yml
 
 Wenn gewünscht, können die Ergebnisse der statischen Codeanalyse und der Code Coverage Tools auch direkt im Commit oder Pull-Request angezeigt werden. 
 Dazu muss in der Pipeline meine [Quality Monitor Action](https://github.com/uhafner/quality-monitor) aktiviert werden. 
-Eine Beispielkonfiguration ist in den Dateien [quality-monitor-pit.yml](../.github/workflows/quality-monitor-build.yml) und [quality-monitor-comment.yml](../.github/workflows/quality-monitor-pit.yml) zu finden, das Ergebnis in der nachfolgenden Abbildung:
+Eine Beispielkonfiguration ist in den Dateien [/quality-monitor-build.yml](../.github/workflows/quality-monitor-build.yml) und [quality-monitor-comment.yml](../.github/workflows/quality-monitor-comment.yml) zu finden, das Ergebnis in der nachfolgenden Abbildung:
 
 ![Quality Monitor](images/quality-monitor.png)
 
