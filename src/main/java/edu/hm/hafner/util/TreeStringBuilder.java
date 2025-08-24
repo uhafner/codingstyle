@@ -79,7 +79,7 @@ public class TreeStringBuilder {
          *
          * @return the node
          */
-        public Child intern(final String string) {
+        private Child intern(final String string) {
             if (string.isEmpty()) {
                 return this;
             }
