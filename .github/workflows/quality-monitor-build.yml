@@ -38,7 +38,6 @@ jobs:
           fi
       - name: Build with Maven
         env:
-          BROWSER: chrome-container
           NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
           PIT: ${{ env.PIT }}
         run: |
