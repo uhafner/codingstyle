@@ -27,12 +27,22 @@ jobs:
         with:
           path: ~/.m2/repository/org/owasp/dependency-check-data
           key: dependency-check
+      - name: Check if quality montitor reports mutation coverage
+        run: |
+          FILE='.github/quality-monitor.json'
+          PATTERN='target/pit-reports/mutations.xml'
+          if [ -f "$FILE" ]; then
+            if grep -q "$PATTERN" "$FILE"; then
+              echo "PIT=-PPIT" >> "$GITHUB_ENV"
+            fi
+          fi
       - name: Build with Maven
         env:
           BROWSER: chrome-container
           NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
+          PIT: ${{ env.PIT }}
         run: |
-          mvn -V --color always -ntp clean verify -Ppit -Pci -Powasp | tee maven.log
+          mvn -V --color always -ntp clean verify $PIT -Pci -Powasp | tee maven.log
           mv -fv maven.log target/maven.log
       - name: Upload Quality Reports
         uses: actions/upload-artifact@v4
