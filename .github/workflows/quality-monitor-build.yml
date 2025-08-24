@@ -33,7 +33,7 @@ jobs:
           PATTERN='target/pit-reports/mutations.xml'
           if [ -f "$FILE" ]; then
             if grep -q "$PATTERN" "$FILE"; then
-              echo "PIT=-PPIT" >> "$GITHUB_ENV"
+              echo "PIT=-Ppit" >> "$GITHUB_ENV"
             fi
           fi
       - name: Build with Maven
