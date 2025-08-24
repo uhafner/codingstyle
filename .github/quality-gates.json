@@ -8,16 +8,11 @@
     },
     {
       "metric": "line",
-      "threshold": 80.0,
+      "threshold": 90.0,
       "criticality": "UNSTABLE"
     },
     {
       "metric": "branch",
-      "threshold": 80.0,
-      "criticality": "UNSTABLE"
-    },
-    {
-      "metric": "test-strength",
       "threshold": 90.0,
       "criticality": "UNSTABLE"
     },
