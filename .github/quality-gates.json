@@ -19,7 +19,7 @@
     {
       "metric": "test-strength",
       "threshold": 90.0,
-      "criticality": "FAILURE"
+      "criticality": "UNSTABLE"
     },
     {
       "metric": "bugs",
@@ -31,7 +31,7 @@
       "metric": "style",
       "name": "Style Violations",
       "threshold": 0.0,
-      "criticality": "UNSTABLE"
+      "criticality": "FAILURE"
     }
   ]
 }

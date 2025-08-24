@@ -18,7 +18,7 @@ jobs:
     name: Comment on PR
 
     steps:
-      - name: Extract PR information
+      - name: Extract PR number and SHA
         id: pr
         run: |
           pr_number='${{ github.event.workflow_run.pull_requests[0].number }}'
@@ -29,7 +29,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ steps.pr.outputs.sha }}
-      - name: Download PR Quality Reports
+      - name: Download PR Quality Reports from Quality Monitor Build workflow
         uses: dawidd6/action-download-artifact@v11
         with:
           run_id: ${{ github.event.workflow_run.id }}
@@ -47,6 +47,6 @@ jobs:
           config: ${{ steps.quality-monitor.outputs.json }}
           quality-gates: ${{ steps.quality-gates.outputs.json }}
           pr-number: ${{ steps.pr.outputs.number }}
-          comments-strategy: UPDATE
+          comments-strategy: REMOVE
           show-headers: true
           title-metric: tests-success-rate
