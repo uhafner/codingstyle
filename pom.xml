@@ -353,6 +353,33 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>${maven-surefire-plugin.version}</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>test</goal>
+              </goals>
+              <id>default-test</id>
+              <phase>test</phase>
+              <configuration>
+                <excludes>
+                  <exclude>**/archunit/**</exclude>
+                </excludes>
+              </configuration>
+            </execution>
+            <execution>
+              <goals>
+                <goal>test</goal>
+              </goals>
+              <id>architecture-tests</id>
+              <phase>test</phase>
+              <configuration>
+                <includes>
+                  <include>**/archunit/**</include>
+                </includes>
+                <reportsDirectory>${project.build.directory}/archunit-reports</reportsDirectory>
+              </configuration>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <groupId>org.assertj</groupId>
