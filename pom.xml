@@ -347,46 +347,6 @@
           <version>${maven-source-plugin.version}</version>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>${maven-surefire-plugin.version}</version>
-          <configuration>
-            <trimStackTrace>false</trimStackTrace> <!-- SUREFIRE-1798 -->
-            <excludes>
-              <exclude>**/*ITest.*</exclude>
-              <exclude>**/*ArchitectureRulesTest$*</exclude>
-            </excludes>
-            <argLine>@{argLine} -Djava.util.logging.config.file=logging.properties -javaagent:${org.mockito:mockito-core:jar}</argLine>
-          </configuration>
-          <executions>
-            <execution>
-              <goals>
-                <goal>test</goal>
-              </goals>
-              <id>default-test</id>
-              <phase>test</phase>
-              <configuration>
-                <excludes>
-                  <exclude>**/archunit/**</exclude>
-                </excludes>
-              </configuration>
-            </execution>
-            <execution>
-              <goals>
-                <goal>test</goal>
-              </goals>
-              <id>architecture-test</id>
-              <phase>test</phase>
-              <configuration>
-                <includes>
-                  <include>**/archunit/**</include>
-                </includes>
-                <reportsDirectory>${project.build.directory}/archunit-reports</reportsDirectory>
-              </configuration>
-            </execution>
-          </executions>
-        </plugin>
-        <plugin>
           <groupId>org.assertj</groupId>
           <artifactId>assertj-assertions-generator-maven-plugin</artifactId>
           <version>${assertj-assertions-generator-maven-plugin.version}</version>
@@ -494,6 +454,46 @@
       </plugins>
     </pluginManagement>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin.version}</version>
+        <configuration>
+          <trimStackTrace>false</trimStackTrace>
+          <!-- SUREFIRE-1798 -->
+          <excludes>
+            <exclude>**/*ITest.*</exclude>
+          </excludes>
+          <argLine>@{argLine} -Djava.util.logging.config.file=logging.properties -javaagent:${org.mockito:mockito-core:jar}</argLine>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>test</goal>
+            </goals>
+            <id>default-test</id>
+            <phase>test</phase>
+            <configuration>
+              <excludes combine.children="append">
+                <exclude>**/archunit/**</exclude>
+              </excludes>
+            </configuration>
+          </execution>
+          <execution>
+            <goals>
+              <goal>test</goal>
+            </goals>
+            <id>architecture-test</id>
+            <phase>test</phase>
+            <configuration>
+              <includes>
+                <include>**/archunit/**</include>
+              </includes>
+              <reportsDirectory>${project.build.directory}/archunit-reports</reportsDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
