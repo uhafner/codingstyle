@@ -24,160 +24,35 @@ jobs:
         uses: stCarolas/setup-maven@v5
         with:
           maven-version: 3.9.11
+      - name: Check if quality monitor reports mutation coverage
+        run: |
+          FILE='.github/quality-monitor.json'
+          PATTERN='target/pit-reports/mutations.xml'
+          if [ -f "$FILE" ]; then
+            if grep -q "$PATTERN" "$FILE"; then
+              echo "PIT=-Ppit" >> "$GITHUB_ENV"
+            fi
+          fi
+      - name: Cache the NVD database
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository/org/owasp/dependency-check-data
+          key: dependency-check
       - name: Build and test with Maven
         env:
-          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
-        run: mvn -V --color always -ntp clean verify -Pci -Ppit -Pdepgraph -Powasp | tee maven.log
+          PIT: ${{ env.PIT }}
+        run: |
+          mvn -V --color always -ntp clean verify -Pci $PIT -Powasp -Pdepgraph | tee maven.log
+          touch target/dependency-check-report.json
+      - name: Read Quality Monitor Configuration
+        id: quality-monitor
+        run: echo "json=$(jq -c . .github/quality-monitor.json)" >> "$GITHUB_OUTPUT"
       - name: Run Quality Monitor
         uses: uhafner/quality-monitor@v3
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          config: >
-            {
-              "tests": {
-                "name": "Tests",
-                "tools": [
-                  {
-                    "id": "junit",
-                    "name": "JUnit Tests",
-                    "pattern": "**/target/*-reports/TEST*.xml"
-                  }
-                ]
-              },
-              "analysis": [
-                {
-                  "name": "Style",
-                  "id": "style",
-                  "tools": [
-                    {
-                      "id": "checkstyle",
-                      "pattern": "**/target/**checkstyle-result.xml"
-                    },
-                    {
-                      "id": "pmd",
-                      "pattern": "**/target/pmd-*/pmd.xml"
-                    }
-                  ]
-                },
-                {
-                  "name": "Bugs",
-                  "id": "bugs",
-                  "icon": "bug",
-                  "tools": [
-                    {
-                      "id": "spotbugs",
-                      "sourcePath": "src/main/java",
-                      "pattern": "**/target/spotbugsXml.xml"
-                    },
-                    {
-                      "id": "error-prone",
-                      "pattern": "**/maven.log"
-                    }
-                  ]
-                },
-                {
-                  "name": "API Problems",
-                  "id": "api",
-                  "icon": "no_entry_sign",
-                  "tools": [
-                    {
-                      "id": "revapi",
-                      "sourcePath": "src/main/java",
-                      "pattern": "**/target/revapi-result.json"
-                    }
-                  ]
-                },
-                {
-                  "name": "Vulnerabilities",
-                  "id": "vulnerabilities",
-                  "icon": "shield",
-                  "tools": [
-                    {
-                      "id": "owasp-dependency-check",
-                      "icon": "shield",
-                      "pattern": "**/target/dependency-check-report.json"                    
-                    }
-                  ]
-                }
-              ],
-              "coverage": [
-                {
-                  "name": "Code Coverage",
-                  "tools": [
-                    {
-                      "id": "jacoco",
-                      "metric": "line",
-                      "sourcePath": "src/main/java",
-                      "pattern": "**/target/site/jacoco/jacoco.xml"
-                    },
-                    {
-                      "id": "jacoco",
-                      "metric": "branch",
-                      "sourcePath": "src/main/java",
-                      "pattern": "**/target/site/jacoco/jacoco.xml"
-                    }
-                  ]
-                },
-                {
-                  "name": "Mutation Coverage",
-                  "tools": [
-                    {
-                      "id": "pit",
-                      "metric": "mutation",
-                      "sourcePath": "src/main/java",
-                      "pattern": "**/target/pit-reports/mutations.xml"
-                    },
-                    {
-                      "id": "pit",
-                      "metric": "test-strength",
-                      "sourcePath": "src/main/java",
-                      "pattern": "**/target/pit-reports/mutations.xml"
-                    }
-                  ]
-                }
-              ],
-              "metrics": 
-                {
-                  "name": "Software Metrics",
-                  "tools": [
-                    {
-                      "id": "metrics",
-                      "pattern": "**/metrics/pmd.xml",
-                      "metric": "CYCLOMATIC_COMPLEXITY"
-                    },
-                    {
-                      "id": "metrics",
-                      "pattern": "**/metrics/pmd.xml",
-                      "metric": "COGNITIVE_COMPLEXITY"
-                    },
-                    {
-                      "id": "metrics",
-                      "pattern": "**/metrics/pmd.xml",
-                      "metric": "NPATH_COMPLEXITY"
-                    },
-                    {
-                      "id": "metrics",
-                      "pattern": "**/metrics/pmd.xml",
-                      "metric": "LOC"
-                    },
-                    {
-                      "id": "metrics",
-                      "pattern": "**/metrics/pmd.xml",
-                      "metric": "NCSS"
-                    },
-                    {
-                      "id": "metrics",
-                      "pattern": "**/metrics/pmd.xml",
-                      "metric": "COHESION"
-                    },
-                    {
-                      "id": "metrics",
-                      "pattern": "**/metrics/pmd.xml",
-                      "metric": "WEIGHT_OF_CLASS"
-                    }
-                  ]
-                }
-            }
+          config: ${{ steps.quality-monitor.outputs.json }}
+          comments-strategy: ADD
+          title-metric: none
       - name: Write metrics to GitHub output
         id: metrics
         run: |
