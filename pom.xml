@@ -84,7 +84,7 @@
     <pmd.metrics.version>7.16.0-metrics</pmd.metrics.version>
     <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
     <checkstyle.version>11.0.0</checkstyle.version>
-    <spotbugs-maven-plugin.version>4.9.4.0</spotbugs-maven-plugin.version>
+    <spotbugs-maven-plugin.version>4.9.4.1</spotbugs-maven-plugin.version>
     <findsecbugs-plugin.version>1.14.0</findsecbugs-plugin.version>
     <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
     <pitest-maven-plugin.version>1.20.2</pitest-maven-plugin.version>
