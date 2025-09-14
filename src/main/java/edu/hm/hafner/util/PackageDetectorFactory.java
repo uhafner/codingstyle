@@ -1,12 +1,12 @@
 package edu.hm.hafner.util;
 
+import com.google.errorprone.annotations.MustBeClosed;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
-import java.nio.file.Paths;
-
-import com.google.errorprone.annotations.MustBeClosed;
+import java.nio.file.Path;
 
 /**
  * Factory to create package detectors.
@@ -62,7 +62,7 @@ public final class PackageDetectorFactory {
          */
         @MustBeClosed
         public InputStream openFile(final String fileName) throws IOException, InvalidPathException {
-            return Files.newInputStream(Paths.get(fileName));
+            return Files.newInputStream(Path.of(fileName));
         }
     }
 }

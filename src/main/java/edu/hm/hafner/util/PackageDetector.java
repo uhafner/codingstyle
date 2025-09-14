@@ -1,5 +1,9 @@
 package edu.hm.hafner.util;
 
+import org.apache.commons.io.input.BOMInputStream;
+
+import edu.hm.hafner.util.PackageDetectorFactory.FileSystemFacade;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,10 +14,6 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
-
-import org.apache.commons.io.input.BOMInputStream;
-
-import edu.hm.hafner.util.PackageDetectorFactory.FileSystemFacade;
 
 /**
  * Base class for package detectors.
@@ -70,7 +70,7 @@ abstract class PackageDetector {
      * @return the detected package or namespace name
      */
     private Optional<String> detectPackageName(final Stream<String> lines) {
-        Pattern pattern = getPattern();
+        var pattern = getPattern();
         return lines.map(pattern::matcher)
                 .filter(Matcher::matches)
                 .findFirst()

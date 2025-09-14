@@ -13,8 +13,10 @@ import edu.hm.hafner.archunit.ArchitectureTest.DoNotIncludeRulesUnderTest;
  *
  * @author Ullrich Hafner
  */
-@AnalyzeClasses(packages = "edu.hm.hafner", importOptions = DoNotIncludeRulesUnderTest.class)
-class ArchitectureTest {
+@AnalyzeClasses(packages = "edu.hm.hafner", importOptions = DoNotIncludeRulesUnderTest.class) final class ArchitectureTest {
+    private ArchitectureTest() {
+    }
+
     @ArchTest
     static final ArchRule NO_PUBLIC_TEST_CLASSES = ArchitectureRules.NO_PUBLIC_TEST_CLASSES;
 
