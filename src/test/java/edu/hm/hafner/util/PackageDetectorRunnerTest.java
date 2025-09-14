@@ -1,16 +1,15 @@
 package edu.hm.hafner.util;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import edu.hm.hafner.util.PackageDetectorFactory.FileSystemFacade;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -37,7 +36,7 @@ class PackageDetectorRunnerTest extends ResourceTest {
     }
 
     private Optional<String> detect(final String fileName) throws IOException {
-        try (InputStream stream = asInputStream(fileName)) {
+        try (var stream = asInputStream(fileName)) {
             var fileSystem = mock(FileSystemFacade.class);
             when(fileSystem.openFile(fileName)).thenReturn(stream);
 

@@ -1,8 +1,8 @@
 package edu.hm.hafner.util;
 
-import java.util.regex.Pattern;
-
 import edu.hm.hafner.util.PackageDetectorFactory.FileSystemFacade;
+
+import java.util.regex.Pattern;
 
 /**
  * Detects the namespace of a C# workspace file.
@@ -26,4 +26,3 @@ class CSharpNamespaceDetector extends PackageDetector {
         return NAMESPACE_PATTERN;
     }
 }
-

@@ -18,8 +18,8 @@ public abstract class AbstractComparableTest<T extends Comparable<T>> {
     @Test
     @SuppressWarnings({"SelfComparison", "EqualsWithItself"})
     void shouldBeNegativeIfThisIsSmaller() {
-        T smaller = createSmallerSut();
-        T greater = createGreaterSut();
+        var smaller = createSmallerSut();
+        var greater = createGreaterSut();
 
         assertThat(smaller.compareTo(greater)).isNegative();
         assertThat(greater.compareTo(smaller)).isPositive();
@@ -33,8 +33,8 @@ public abstract class AbstractComparableTest<T extends Comparable<T>> {
      */
     @Test
     void shouldBeSymmetric() {
-        T left = createSmallerSut();
-        T right = createGreaterSut();
+        var left = createSmallerSut();
+        var right = createGreaterSut();
 
         int leftCompareToResult = left.compareTo(right);
         int rightCompareToResult = right.compareTo(left);
