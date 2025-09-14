@@ -614,6 +614,7 @@
           <?SORTPOM IGNORE?>
           <compilerArgs>
             <arg>-Xlint:-varargs</arg>
+            <arg>-Xlint:deprecation</arg>
             <arg>--should-stop=ifError=FLOW</arg>
             <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</arg>
             <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED</arg>
@@ -921,7 +922,9 @@
           <templates>
             <templatesDirectory>${project.basedir}/etc/assertj-templates/</templatesDirectory>
             <assertionsEntryPointClass>assertions_entry_point_class_template.txt</assertionsEntryPointClass>
+            <assertionEntryPointMethod>assertions_entry_point_method_template.txt</assertionEntryPointMethod>
             <softEntryPointAssertionClass>soft_assertions_entry_point_class_template.txt</softEntryPointAssertionClass>
+            <softEntryPointAssertionMethod>soft_assertions_entry_point_method_template.txt</softEntryPointAssertionMethod>
             <objectAssertion>has_assertion_template.txt</objectAssertion>
             <assertionClass>assertion_class_template.txt</assertionClass>
           </templates>
