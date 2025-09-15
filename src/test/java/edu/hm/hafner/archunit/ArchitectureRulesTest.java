@@ -7,8 +7,8 @@ import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
 
 import edu.hm.hafner.util.Generated;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import static org.assertj.core.api.Assertions.*;
@@ -140,8 +140,9 @@ class ArchitectureRulesTest {
     }
 
     @SuppressWarnings("all") @Generated // This class is just there to be used in architecture tests
-    @SuppressFBWarnings("SE")
     public static class ArchitectureRulesAlsoViolatedTest implements Serializable {
+        @Serial
+        private static final long serialVersionUID = 1L;
 
         /**
          * Called after deserialization to retain backward compatibility.
@@ -154,8 +155,10 @@ class ArchitectureRulesTest {
     }
 
     @SuppressWarnings("all") @Generated // This class is just there to be used in architecture tests
-    @SuppressFBWarnings("SE")
     static final class ArchitectureRulesPassedTest implements Serializable {
+        @Serial
+        private static final long serialVersionUID = 1L;
+
         @Test @Disabled("This test is just there to be used in architecture tests")
         void shouldPass() {
             throw new IllegalArgumentException("context");
@@ -172,8 +175,10 @@ class ArchitectureRulesTest {
     }
 
     @SuppressWarnings("all") // This class is just there to be used in architecture tests
-    @SuppressFBWarnings("SE")
     static class ArchitectureRulesAlsoPassedTest implements Serializable {
+        @Serial
+        private static final long serialVersionUID = 1L;
+
         /**
          * Called after deserialization to retain backward compatibility.
          *

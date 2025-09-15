@@ -613,8 +613,13 @@
           </annotationProcessorPaths>
           <?SORTPOM IGNORE?>
           <compilerArgs>
-            <arg>-Xlint:-varargs</arg>
-            <arg>-Xlint:deprecation</arg>
+            <arg>-J-Duser.country=US</arg>
+            <arg>-J-Duser.language=en</arg>
+            <arg>-Xlint:all</arg>
+            <arg>-Xlint:-exports</arg>
+            <arg>-Xlint:-missing-explicit-ctor</arg>
+            <arg>-Xlint:-requires-transitive-automatic</arg>
+            <arg>-Xlint:-requires-automatic</arg>
             <arg>--should-stop=ifError=FLOW</arg>
             <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</arg>
             <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED</arg>

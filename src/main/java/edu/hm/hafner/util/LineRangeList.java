@@ -8,7 +8,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.AbstractList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -75,7 +74,7 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
     public LineRangeList(final Collection<LineRange> copy) {
         this(copy.size() * 4); // guess
 
-        addAll(copy);
+        copy.forEach(this::add);
     }
 
     /**
@@ -84,15 +83,13 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
      * @param initialElements
      *         the initial elements
      */
+    @SuppressWarnings("PMD.UseArraysAsList")
     public LineRangeList(final LineRange... initialElements) {
         this(initialElements.length * 4); // guess
 
-        addAll(Arrays.asList(initialElements));
-    }
-
-    @Override
-    public final boolean addAll(final Collection<? extends LineRange> c) {
-        return super.addAll(c);
+        for (LineRange lr : initialElements) {
+            add(lr);
+        }
     }
 
     /**
