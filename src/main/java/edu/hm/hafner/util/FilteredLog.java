@@ -1,5 +1,10 @@
 package edu.hm.hafner.util;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
+import com.google.errorprone.annotations.FormatMethod;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,11 +13,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.locks.ReentrantLock;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.exception.ExceptionUtils;
-
-import com.google.errorprone.annotations.FormatMethod;
 
 /**
  * Provides a log of info messages and a limited number of error messages. If the number of errors exceeds this limit,
@@ -120,13 +120,7 @@ public class FilteredLog implements Serializable {
     public void logError(final String message) {
         lock.lock();
         try {
-            if (lines < maxLines) {
-                if (StringUtils.isNotBlank(title) && errorMessages.isEmpty()) {
-                    errorMessages.add(title);
-                }
-                errorMessages.add(message);
-            }
-            lines++;
+            logErrorWithGuard(message);
         }
         finally {
             lock.unlock();
@@ -162,10 +156,9 @@ public class FilteredLog implements Serializable {
      */
     @FormatMethod
     public void logException(final Exception exception, final String format, final Object... args) {
-        logError(format, args);
-
         lock.lock();
         try {
+            logErrorWithGuard(format.formatted(args));
             if (lines <= maxLines) {
                 errorMessages.addAll(Arrays.asList(ExceptionUtils.getRootCauseStackTrace(exception)));
             }
@@ -175,13 +168,29 @@ public class FilteredLog implements Serializable {
         }
     }
 
+    private void logErrorWithGuard(final String message) {
+        if (lines < maxLines) {
+            if (StringUtils.isNotBlank(title) && errorMessages.isEmpty()) {
+                errorMessages.add(title);
+            }
+            errorMessages.add(message);
+        }
+        lines++;
+    }
+
     /**
      * Returns the total number of errors that have been reported.
      *
      * @return the total number of errors
      */
     public int size() {
-        return lines;
+        lock.lock();
+        try {
+            return lines;
+        }
+        finally {
+            lock.unlock();
+        }
     }
 
     /**
