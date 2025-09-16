@@ -54,7 +54,7 @@
     <pmd.skip>false</pmd.skip>
 
     <!-- Project Dependencies Configuration -->
-    <spotbugs.version>4.9.3</spotbugs.version>
+    <spotbugs.version>4.9.5</spotbugs.version>
     <commons.lang.version>3.18.0</commons.lang.version>
     <commons.io.version>2.20.0</commons.io.version>
     <byte-buddy.version>1.17.7</byte-buddy.version>

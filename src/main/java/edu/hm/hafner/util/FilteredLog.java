@@ -122,13 +122,7 @@ public class FilteredLog implements Serializable {
     public void logError(final String message) {
         lock.lock();
         try {
-            if (lines < maxLines) {
-                if (StringUtils.isNotBlank(title) && errorMessages.isEmpty()) {
-                    errorMessages.add(title);
-                }
-                errorMessages.add(message);
-            }
-            lines++;
+            logErrorWithGuard(message);
         }
         finally {
             lock.unlock();
@@ -164,10 +158,9 @@ public class FilteredLog implements Serializable {
      */
     @FormatMethod
     public void logException(final Exception exception, final String format, final Object... args) {
-        logError(format, args);
-
         lock.lock();
         try {
+            logErrorWithGuard(format.formatted(args));
             if (lines <= maxLines) {
                 errorMessages.addAll(Arrays.asList(ExceptionUtils.getRootCauseStackTrace(exception)));
             }
@@ -177,13 +170,29 @@ public class FilteredLog implements Serializable {
         }
     }
 
+    private void logErrorWithGuard(final String message) {
+        if (lines < maxLines) {
+            if (StringUtils.isNotBlank(title) && errorMessages.isEmpty()) {
+                errorMessages.add(title);
+            }
+            errorMessages.add(message);
+        }
+        lines++;
+    }
+
     /**
      * Returns the total number of errors that have been reported.
      *
      * @return the total number of errors
      */
     public int size() {
-        return lines;
+        lock.lock();
+        try {
+            return lines;
+        }
+        finally {
+            lock.unlock();
+        }
     }
 
     /**
