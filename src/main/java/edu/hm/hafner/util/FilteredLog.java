@@ -1,5 +1,10 @@
 package edu.hm.hafner.util;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
+import com.google.errorprone.annotations.FormatMethod;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,11 +13,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.locks.ReentrantLock;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.exception.ExceptionUtils;
-
-import com.google.errorprone.annotations.FormatMethod;
 
 /**
  * Provides a log of info messages and a limited number of error messages. If the number of errors exceeds this limit,
@@ -31,7 +31,9 @@ public class FilteredLog implements Serializable {
     private final int maxLines;
     private int lines;
 
+    @SuppressWarnings("serial")
     private final List<String> infoMessages = new ArrayList<>();
+    @SuppressWarnings("serial")
     private final List<String> errorMessages = new ArrayList<>();
 
     private transient ReentrantLock lock = new ReentrantLock();

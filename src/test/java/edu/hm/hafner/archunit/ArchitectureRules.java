@@ -182,6 +182,7 @@ public final class ArchitectureRules {
          *         exceptions that are allowed to be instantiated without arguments
          */
         @SafeVarargs
+        @SuppressWarnings("varargs")
         ExceptionHasNoContext(final Class<? extends Throwable>... allowedExceptions) {
             super("exception context is missing");
 
