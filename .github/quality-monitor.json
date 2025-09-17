@@ -30,6 +30,7 @@
         },
         {
           "id": "java",
+          "icon": "coffee",
           "pattern": "**/maven.log"
         }
       ]
