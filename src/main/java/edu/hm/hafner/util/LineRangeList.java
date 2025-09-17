@@ -210,6 +210,7 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
     /**
      * Navigates through the ranges and performs the conversion to and from {@link LineRange}.
      */
+    @SuppressWarnings("PMD.AssignmentInOperand")
     private class Cursor implements ListIterator<LineRange> {
         private int position;
 
