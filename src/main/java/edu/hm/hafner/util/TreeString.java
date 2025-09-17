@@ -122,6 +122,7 @@ public final class TreeString implements Serializable {
      * Returns the full string representation.
      */
     @Override
+    @SuppressWarnings("PMD.AssignmentInOperand")
     public String toString() {
         var tokens = new char[depth()][];
         int i = tokens.length;
