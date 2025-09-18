@@ -932,6 +932,7 @@
             <softEntryPointAssertionMethod>soft_assertions_entry_point_method_template.txt</softEntryPointAssertionMethod>
             <objectAssertion>has_assertion_template.txt</objectAssertion>
             <assertionClass>assertion_class_template.txt</assertionClass>
+            <realNumberWrapperAssertion>has_assertion_template_for_real_number_wrapper.txt</realNumberWrapperAssertion>
           </templates>
           <packages>
             <package>edu.hm.hafner.util</package>
