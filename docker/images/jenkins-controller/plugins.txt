@@ -12,6 +12,7 @@ command-launcher
 configuration-as-code
 credentials
 credentials-binding
+dark-theme
 dashboard-view
 display-url-api
 docker-commons
@@ -28,6 +29,7 @@ github
 github-api
 github-checks
 github-branch-source
+gravatar
 jackson2-api
 javadoc
 jdk-tool
@@ -44,6 +46,7 @@ mock-security-realm
 pam-auth
 pipeline-build-step
 pipeline-graph-analysis
+pipeline-graph-view
 pipeline-input-step
 pipeline-maven
 pipeline-milestone-step
@@ -61,6 +64,7 @@ ssh-credentials
 ssh-slaves
 structs
 timestamper
+theme-manager
 token-macro
 trilead-api
 warnings-ng
