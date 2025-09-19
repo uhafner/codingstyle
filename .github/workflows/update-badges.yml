@@ -96,6 +96,7 @@ jobs:
       - name: Commit updated badges
         continue-on-error: true
         run: |
+          git pull
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add badges/*.svg
