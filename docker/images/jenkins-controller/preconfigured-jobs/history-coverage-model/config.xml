@@ -1,10 +1,10 @@
 <?xml version='1.1' encoding='UTF-8'?>
-<flow-definition plugin="workflow-job@1426.v2ecb_a_a_42fd46">
+<flow-definition plugin="workflow-job@1505.vea_4b_20a_4a_495">
   <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties/>
-  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@3903.v48a_8836749e9">
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@4018.vf02e01888da_f">
     <script>node (&apos;jdk21&apos;) {
     def url = &quot;https://github.com/jenkinsci/coverage-model.git&quot;
     def tags = &quot;git ls-remote -t --sort v:refname --refs $url | cut -f1 | tail -n +28&quot;
@@ -35,6 +35,8 @@
 
             junit(allowEmptyResults: true, testResults: &apos;**/target/*-reports/TEST-*.xml&apos;)
 
+            recordCoverage(tools: [[parser: &apos;METRICS&apos;, pattern: &apos;target/metrics/pmd.xml&apos;]],
+                sourceCodeRetention: &apos;NEVER&apos;, id: &apos;metrics&apos;, name: &apos;Software Metrics&apos;)
             recordCoverage(tools: [
                         [parser: &apos;JACOCO&apos;, pattern: &apos;target/site/jacoco/jacoco.xml&apos;],
                         [parser: &apos;JUNIT&apos;, pattern: &apos;**/target/*-reports/TEST-*.xml&apos;]],
@@ -46,7 +48,7 @@
                     [threshold: 50.0, metric: &apos;BRANCH&apos;, baseline: &apos;PROJECT&apos;, criticality: &apos;ERROR&apos;]])
             recordIssues tools: [checkStyle(pattern: &apos;target/**/checkstyle-result.xml&apos;),
                 spotBugs(pattern: &apos;target/spotbugsXml.xml&apos;),
-                pmdParser(pattern: &apos;target/**/pmd.xml&apos;),
+                pmdParser(pattern: &apos;target/pmd-*/pmd.xml&apos;),
                 cpd(pattern: &apos;target/cpd.xml&apos;),
                 revApi(pattern: &apos;target/revapi-result.json&apos;),
                 taskScanner(highTags:&apos;FIXME&apos;, normalTags:&apos;TODO&apos;, includePattern: &apos;**/*.java&apos;, excludePattern: &apos;target/**/*&apos;)],
@@ -58,7 +60,7 @@
 
         stage (&apos;Mutation Coverage&apos;) {
             withMaven(mavenOpts: &apos;-Xmx1024m -Xms512m&apos;) {
-                sh &quot;mvn org.pitest:pitest-maven:mutationCoverage&quot;
+                sh &quot;mvn dependency:properties org.pitest:pitest-maven:mutationCoverage&quot;
             }
             recordCoverage tools: [[parser: &apos;PIT&apos;, pattern: &apos;**/pit-reports/mutations.xml&apos;],
                     [parser: &apos;JUNIT&apos;, pattern: &apos;**/target/*-reports/TEST-*.xml&apos;]], id: &apos;pit&apos;,

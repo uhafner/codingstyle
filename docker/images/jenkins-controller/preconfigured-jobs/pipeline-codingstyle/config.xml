@@ -21,7 +21,7 @@
 
     stage (&apos;Build, Test and Static Analysis&apos;) {
         withMaven(maven: &apos;mvn-default&apos;, mavenOpts: &apos;-Xmx1024m -Xms512m&apos;) {
-            sh &apos;mvn -ntp -V -e clean verify -Pci -Ppit&apos;
+            sh &apos;mvn -ntp -V -e clean verify -Pci -Ppit -Powasp&apos;
         }
 
         recordIssues tools: [java(), javaDoc()], aggregatingResults: &apos;true&apos;, id: &apos;java&apos;, name: &apos;Java&apos;
@@ -35,6 +35,7 @@
             spotBugs(pattern: &apos;target/spotbugsXml.xml&apos;),
             pmdParser(pattern: &apos;target/**/pmd.xml&apos;),
             cpd(pattern: &apos;target/**/cpd.xml&apos;),
+            owaspDependencyCheck(pattern: &apos;**/target/dependency-check-report.json&apos;),
             taskScanner(highTags:&apos;FIXME&apos;, normalTags:&apos;TODO&apos;, includePattern: &apos;**/*.java&apos;, excludePattern: &apos;target/**/*&apos;)],
             qualityGates: [[threshold: 1, type: &apos;TOTAL&apos;, unstable: true]]
     }
