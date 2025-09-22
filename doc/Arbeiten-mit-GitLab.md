@@ -23,20 +23,21 @@ Die Voraussetzung zur Nutzung von GitLab in unserer Veranstaltung ist der normal
 Dieser Account wird automatisch für Sie eingerichtet, wenn Sie sich an der Hochschule einschreiben. 
 Ich verwende die E-Mail-Adresse, die Sie von der Hochschule erhalten, um Sie in das jeweilige GitLab Projekt einzuladen.
 
-Je nach Aufgabenstellung und Kurs, erhalten Sie pro Abgabe eigene Projekte oder ein Projekt, das über mehrere Abgaben geht. 
-In jedem Fall erhalten Sie (oder Ihr Team) dann ein eigenes Git Repository, indem Sie alle Dateien (Dokumente, Programmtexte, etc.) Ihrer Abgaben hinzufügen. 
-Die Repositories sind immer als privat markiert, d.h nur Sie (und ggf. Ihre Teammitglieder) können den Inhalt sehen und verändern. 
+Je nach Aufgabenstellung und Kurs erhalten Sie pro Abgabe eigene Projekte oder ein Projekt, das über mehrere Abgaben geht. 
+In jedem Fall erhalten Sie (oder Ihr Team) dann ein eigenes Git Repository, indem Sie alle Dateien (Dokumente, Programmtexte etc.) Ihrer Abgaben hinzufügen. 
+Die Repositories sind immer als "privat" markiert, d. h. nur Sie (und ggf. Ihre Teammitglieder) können den Inhalt sehen und verändern. 
 Im ersten Semester können Sie zum Hochladen die GitLab Oberfläche nutzen. 
-Je erfahrener Sie werden, umso schneller können Sie den direkten Zugang über die Versionsverwaltung Git nutzen, das macht dann vieles einfacher und komfortabler. 
+Je erfahrener Sie werden, umso schneller können Sie den direkten Zugang über die Versionsverwaltung Git nutzen, das macht dann vieles einfacher und komfortabler.
+Ab dem dritten Semester ist die Nutzung von Merge Requests Pflicht für alle Abgaben.
 
 Wenn Sie weitere Fragen zu GitLab haben, nutzen Sie bitte auch die [Online Hilfe](https://docs.gitlab.com). 
-Fragen können Sie auch direkt im Praktikum (oder im jeweiligen Matrix Kanal der Veranstaltung) stellen. 
+Fragen können Sie auch direkt im Praktikum (oder im jeweiligen Moodle Forum der Veranstaltung) stellen. 
 In den nachfolgenden Abschnitten sind die wichtigsten Punkte kurz zusammengefasst.
 
 ## Mit dem Repository arbeiten
 
-Damit die Aufgaben bewertet werden können, müssen Sie Ihren Quelltext in das GitLab Repository hochladen. 
-Git ist ein [verteiltes Versionsmanagement System](https://git-scm.com/book/de/v2/Verteiltes-Git-Verteilter-Arbeitsablauf), d.h. Sie finden eine Kopie dieses Repositories (neben dem Original auf GitLab) auf Ihrem Rechner und auf den Rechnern Ihrer Teammitglieder.
+Damit die Aufgaben bewertet werden können, müssen Sie Ihren Quelltext bzw. Ihre Dokumente in das jeweilige GitLab Repository hochladen. 
+Git ist ein [verteiltes Versionsmanagement System](https://git-scm.com/book/de/v2/Verteiltes-Git-Verteilter-Arbeitsablauf), d. h. Sie finden eine Kopie dieses Repositories (neben dem Original auf GitLab) auf Ihrem Rechner und auf den Rechnern Ihrer Teammitglieder.
 
 ### Über die Entwicklungsumgebung das Projekt verwalten
 
@@ -44,25 +45,31 @@ Am einfachsten nutzen Sie nur die Entwicklungsumgebung IntelliJ, um Ihr Projekt 
 
 #### Import mit der Entwicklungsumgebung
 
-Nach dem Start der Entwicklungsumgebung haben Sie die Möglichkeit, Ihr Projekt direkt zu importieren: Mit der Aktion **Get from VCS** (im Startup Wizard) oder dem Menüpunkt **File->New->Project from Version Control...** lässt sich das GitLab Projekt automatisch nach IntelliJ importieren. 
+Nach dem Start der Entwicklungsumgebung haben Sie die Möglichkeit, Ihr Projekt direkt zu importieren: Mit der Aktion **Get from VCS** (im Startup-Wizard) oder dem Menüpunkt **File->New->Project from Version Control...** lässt sich das GitLab Projekt automatisch nach IntelliJ importieren. 
 IntelliJ kümmert sich ab dann automatisch über die Verbindung zu GitLab. 
-Kopieren Sie dazu Ihr Repository Link aus dem Classroom im Dialog in das Feld **Repository URL->URL** und bestätigen Sie den Import mit **Clone**. 
+Kopieren Sie dazu Ihren Repository Link in das Feld **Repository URL->URL** und bestätigen Sie den Import mit **Clone**. 
 Beachten Sie, dass Sie sich beim Import über HTTPS authentifizieren müssen. 
-Dazu müssen Sie ein Personal Access Token in GitLab erzeugen, die Authentifizierung via Browser funktioniert aktuell nicht. 
+Dazu müssen Sie ein Personal-Access-Token in GitLab erzeugen, die Authentifizierung via Browser funktioniert **nicht**. 
+Das Access-Token können Sie einfach über den IntelliJ Dialog erzeugen, der dann die passende Einstellungsseite auf GitLab aufruft.
 
 Nachdem das Projekt auf Ihren Rechner übertragen wurde, wird es in IntelliJ importiert und gebaut. 
-Je nach bestehender Konfiguration müssen Sie dazu noch im Konfigurationsdialog **File->Project Structure->SDKs** ein JDK 21 unter dem Namen "21" anlegen und referenzieren. 
+Je nach bestehender Konfiguration müssen Sie dazu noch im Konfigurationsdialog **File->Project Structure->SDKs** ein JDK 21 unter dem Namen "21" anlegen und referenzieren.
+Achtung: das aktuelle JDK 25 nutze ich noch nicht, da viele Bibliotheken und Werkzeuge noch nicht darauf angepasst sind.
 Ist das erledigt, können Sie die Tests in Ihrem Projekt starten. 
 Dazu können Sie auf das Projekt mit rechts klicken und **Run All Tests** auswählen. 
-In den meisten Projekten habe ich noch eine spezielle **All Tests** Run-Konfiguration angelegt, die Sie auch direkt nutzen können.
+In den meisten Projekten habe ich schon eine spezielle **All Tests** Run-Konfiguration angelegt, die Sie auch direkt nutzen können.
+Im Spezifikationsprojekt sind noch keine Tests enthalten, dort finden sich nur die Spezifikationsdateien als AsciiDoc Dateien.
 
 #### Hochladen von Änderungen
 
 Nach Veränderung Ihrer Dateien werden diese farblich in IntelliJ markiert. 
 Mit dem Kommando **Git->Commit** spielen Sie Ihre Änderungen zurück nach GitLab. 
-Geben Sie im dann im neuen Dialog eine Commitbeschreibung ein (was haben Sie geändert) und bestätigen Sie den Dialog mit **Commit and Push**. 
+Geben Sie dann im neuen Dialog eine Commitbeschreibung ein (was haben Sie geändert?) und bestätigen Sie den Dialog mit **Commit and Push**. 
 IntelliJ führt dann einen lokalen **Commit** aus und speichert Ihre Änderung im Git Repository **lokal**. 
 Damit die Änderungen auch in GitLab sichtbar werden, wird anschließend Ihr komplettes Repository nach GitLab übertragen. 
+Achtung: Ab dem dritten Semester ist die Nutzung von Merge Requests Pflicht für alle Abgaben.
+Das heißt, Sie müssen Ihre Änderungen in einem neuen Branch speichern und dann einen Merge Request in GitLab anlegen.
+Ein Commit direkt in den `main` Branch ist dann nicht mehr erlaubt.
 
 ### Mit der Kommandozeile arbeiten
 
@@ -72,27 +79,28 @@ Dazu sind die in den nachfolgenden Abschnitten beschriebenen Schritte erforderli
 #### Das Repository auf den eigenen Rechner holen
 
 Zunächst müssen Sie das Repository auf den eigenen Rechner holen. 
-Git ist ein [verteiltes Versionsmanagement System](https://git-scm.com/book/de/v2/Verteiltes-Git-Verteilter-Arbeitsablauf), d.h. Sie finden eine Kopie dieses Repositories (neben dem Original auf GitLab) auf Ihrem Rechner und auf den Rechnern Ihrer Teampartner. 
+Git ist ein [verteiltes Versionsmanagement System](https://git-scm.com/book/de/v2/Verteiltes-Git-Verteilter-Arbeitsablauf), d. h. Sie finden eine Kopie dieses Repositories (neben dem Original auf GitLab) auf Ihrem Rechner und auf den Rechnern Ihrer Teampartner. 
 Diese Kopie kann mit folgendem Kommando auf den eigenen Rechner geholt werden: 
 
 ```shell
 # Clone your repository to your local machine using SSH
-git clone git clone git@gitlab.lrz.de:dev/courses/summer-2024/arc/assignment1/assignment1-gruppe1.git 
+git clone git clone git@gitlab.lrz.de:dev/courses/summer-2025/arc/assignment1/assignment1-gruppe1.git 
 ```
 
 Falls noch kein [SSH Schlüssel auf GitLab](https://docs.gitlab.com/ee/user/ssh.html) hinterlegt ist, lässt sich das alternativ auch mit HTTPS erledigen:
 
 ```shell
 # Clone your repository to your local machine using HTTPS
-git clone https://gitlab.lrz.de/dev/courses/summer-2024/arc/assignment1/assignment1-gruppe1.git 
+git clone https://gitlab.lrz.de/dev/courses/summer-2025/arc/assignment1/assignment1-gruppe1.git 
 ```
 
-Für die einfache passwort-freie Nutzung von GitLab empfehle ich die [Einrichtung von SSH](https://docs.gitlab.com/ee/user/ssh.html) möglichst schnell nachzuholen.
+Für die einfache passwort-freie Nutzung von GitLab empfehle ich die [Einrichtung von SSH](https://docs.gitlab.com/ee/user/ssh.html) nachzuholen.
 
 ### Eigene Änderungen entwickeln
 
-Für jede Abgabe (und für jede noch so kleine Änderung am Projekt), **muss** ein neuer Branch angelegt werden.
-Die direkte Arbeit auf dem `main` Branch ist nicht sinnvoll und daher verboten. Dieses Vorgehen nennt sich "Feature-Branch-Workflow" und ist in der [Atlassian Bitbucket Hilfe](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow) umfassend beschrieben.
+Für jede Abgabe (und für jede noch so kleine Änderung am Projekt) **muss** ein neuer Branch angelegt werden.
+Die direkte Arbeit auf dem `main` Branch ist nicht sinnvoll und daher verboten. 
+Dieses Vorgehen nennt sich "Feature-Branch-Workflow" und ist in der [Atlassian Bitbucket Hilfe](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow) umfassend beschrieben.
 
 Um einen Branch anzulegen, sind folgende Schritte nötig:
 
@@ -108,13 +116,13 @@ git checkout newfeature
 ```
 
 Nun geht es ans Editieren bzw. Programmieren und alle Änderungen werden Schritt für Schritt erstellt. 
-Hier hat sich das Test Driven Development bewährt, doch das soll nicht Teil dieser Anleitung sein (siehe [Kapitel Testen](Testen.md) in meinen Kodierungsrichtlinien).
+Hier hat sich das Test-Driven-Development (TDD) bewährt, doch das soll nicht Teil dieser Anleitung sein (siehe [Kapitel Testen](Testen.md) in meinen Kodierungsrichtlinien).
 
 Eine weitere sinnvolle Vorgehensweise ist das schrittweise Entwickeln: Die Entwicklung wird nicht in einem Rutsch durchgeführt und dann mit einem Commit abgeschlossen, sondern in mehreren Iterationen. 
-Jeder Schritt, der fehlerfrei übersetzt werden kann und bei dem danach alle Tests durchlaufen, sollte einzeln mit einem Commit abgeschlossen werden. 
+Jeder Schritt, der fehlerfrei übersetzt werden kann und bei dem alle Tests durchlaufen, sollte einzeln mit einem Commit abgeschlossen werden. 
 Dann lassen sich die Änderungen hinterher besser nachvollziehen. 
 
-Beim Commit ist noch wichtig, eine gute Commit-Message zu vergeben, Chris Beam hat hierzu den hilfreichen Artikel [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/) geschrieben, der dies gut erklärt. 
+Beim Commit ist es noch wichtig, eine gute Commit-Message zu vergeben, Chris Beam hat hierzu den hilfreichen Artikel [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/) geschrieben, der dies gut erklärt. 
 Das muss nicht so formal sein, wie dort beschrieben, hier sehen Sie einige Beispiele in meinem Projekt [codingstyle](https://github.com/uhafner/codingstyle/commits/main).
 
 Je nach Aufgabenstellung gibt es im Projekt eine [GitLab Pipeline](https://docs.gitlab.com/ee/ci/pipelines/), die das Projekt nach jedem Commit neu baut und überprüft. 
@@ -134,18 +142,18 @@ Nun sind diese Änderungen auch Online im eigenen GitLab Projekt sichtbar.
 GitLab erkennt dort automatisch, dass ein neuer Branch angelegt wurde und bietet eine entsprechende Schaltfläche in der Oberfläche an. 
 Alternativ kann auch über den [Merge Request Dialog](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html) ein neuer Merge Request angelegt werden.      
 
-Beim Anlegen des Merge Request muss nun ein Titel und eine Beschreibung eingegeben werden. 
-Der Titel sollte den Namen der Aufgabe enthalten, die Beschreibung ggf. weitere Details dazu. Verwenden von Anrede, Grußformel oder Schlussformel sind nicht sinnvoll. 
+Beim Anlegen des Merge Request müssen nun ein Titel und eine Beschreibung eingegeben werden. 
+Der Titel sollte den Namen der Aufgabe enthalten, die Beschreibung ggf. weitere Details dazu. Verwenden von Anrede, Grußformel oder Schlussformel ist nicht sinnvoll. 
 
-Noch ein Hinweis in eigener Sache: Bitte weisen Sie den Merge Request **niemals** mir zu. 
-Ebenso bitte **keine Review Wünsche** an mich eintragen, bei mehr als 50 Personen pro Veranstaltung und vielen Abgaben pro Semester wird es sonst schnell unübersichtlich. 
+Noch ein Hinweis in eigener Sache: Bitte weisen Sie den Merge Request **nie** mir zu. 
+Ebenso bitte **keine Review Wünsche** an mich eintragen, bei mehr als 50 Personen pro Veranstaltung und vielen Abgaben pro Semester wird es sonst in meinem Postfach schnell unübersichtlich. 
 Ich bewerte Ihre Abgaben automatisch nach Ablauf der Abgabefrist. 
 Das kann je nach Personenzahl auch einmal dauern.  
  
-**Vor** dem finalen Anlegen des Merge Request muss geprüft werden, ob der Merge Request die gewünschten Änderungen enthält - und auch nur diese! 
+**Vor** dem finalen Anlegen des Merge Request muss geprüft werden, ob der Merge Request die gewünschten Änderungen enthält – und auch nur diese! 
 Dazu den Abschnitt Files im Dialog öffnen und die einzelnen Änderungen durchgehen. 
 Tauchen dort Änderungen auf, die nichts mit der Abgabe zu tun haben, so sind diese zu entfernen. 
-Typischerweise sind dies Umformatierungen oder Leerzeilenänderungen an nicht beteiligten Abschnitten oder gar komplett andere Dateien (z.B. aus der Entwicklungsumgebung). 
+Typischerweise sind dies Umformatierungen oder Leerzeilenänderungen an nicht beteiligten Abschnitten oder gar komplett andere Dateien (z. B. aus der Entwicklungsumgebung). 
 
 Um solche Änderungen zu entfernen und damit den Merge Request zu säubern, müssen diese mit dem bereits beschriebenen Workflow umgesetzt werden: im Editor die Änderungen an den entsprechenden Dateien vornehmen, Commit lokal ausführen und dann wieder mit Push auf das GitLab Projekt bringen. 
 
@@ -164,5 +172,5 @@ Welche Tools zum Tragen kommen, hängt individuell vom Projekt ab. Typischerweis
 
 Jeder dieser Schritte wird in GitLab mit einem *Ok* oder *Failed* Status markiert. 
 Ist einer der Schritte mit *Failed* markiert, muss der Merge Request überarbeitet werden.
-Dazu muss der Fehler analysiert werden und dann der Quelltext an den passenden Stellen aktualisiert werden, sei es bei Compile- oder Testfehlern, bei Unterschreitung der geforderten Testabdeckung oder bei Verstößen gegen die Kodierungsrichtlinien.
+Dazu muss der Fehler analysiert und dann der Quelltext an den passenden Stellen aktualisiert werden, sei es bei Compile- oder Testfehlern, bei Unterschreitung der geforderten Testabdeckung oder bei Verstößen gegen die Kodierungsrichtlinien.
 Details dazu finden sich im Abschnitt [Autograding](Autograding.md).
