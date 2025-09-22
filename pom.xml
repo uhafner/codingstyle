@@ -61,7 +61,7 @@
     <slf4j.version>2.0.17</slf4j.version>
 
     <!-- Project Test Dependencies Configuration -->
-    <equalsverifier.version>4.1</equalsverifier.version>
+    <equalsverifier.version>4.1.1</equalsverifier.version>
     <junit.version>5.13.4</junit.version>
     <mockito.version>5.19.0</mockito.version>
     <assertj.version>3.27.5</assertj.version>
