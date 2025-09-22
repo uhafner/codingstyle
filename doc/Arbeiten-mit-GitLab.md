@@ -30,7 +30,7 @@ Im ersten Semester können Sie zum Hochladen die GitLab Oberfläche nutzen.
 Je erfahrener Sie werden, umso schneller können Sie den direkten Zugang über die Versionsverwaltung Git nutzen, das macht dann vieles einfacher und komfortabler.
 Ab dem dritten Semester ist die Nutzung von Merge Requests Pflicht für alle Abgaben.
 
-Wenn Sie weitere Fragen zu GitLab haben, nutzen Sie bitte auch die [Online Hilfe](https://docs.gitlab.com). 
+Wenn Sie weitere Fragen zu GitLab haben, nutzen Sie bitte auch die [Onlinehilfe](https://docs.gitlab.com). 
 Fragen können Sie auch direkt im Praktikum (oder im jeweiligen Moodle Forum der Veranstaltung) stellen. 
 In den nachfolgenden Abschnitten sind die wichtigsten Punkte kurz zusammengefasst.
 
