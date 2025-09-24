@@ -42,11 +42,11 @@ repeat
     endif
 |Partition 2|
     :Zweite Aktion;
-    repeat while () is (\t     [Bedingung 1])
+    repeat while () is ( [Bedingung 1])
     -> [Bedingung 2];
     :Weitere Aktion;
     :Weitere Aktivität <$rake>;
-        :Objekt]
+        :Objekt; <<task>>
 |Partition 1|
 fork
 :Parallele Aktion 1;
