@@ -1095,8 +1095,8 @@
             <groupId>org.owasp</groupId>
             <artifactId>dependency-check-maven</artifactId>
             <configuration>
-              <nvdApiKeyEnvironmentVariable>NVD_API_KEY</nvdApiKeyEnvironmentVariable>
               <format>JSON</format>
+              <nvdApiKeyEnvironmentVariable>NVD_API_KEY</nvdApiKeyEnvironmentVariable>
               <ossIndexUsername>ullrich.hafner@gmail.com</ossIndexUsername>
               <!--suppress UnresolvedMavenProperty: credentials are provided during CI -->
               <ossIndexPassword>${env.OSS_INDEX_TOKEN}</ossIndexPassword>
