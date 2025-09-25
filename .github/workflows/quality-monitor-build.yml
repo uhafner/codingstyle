@@ -39,6 +39,7 @@ jobs:
       - name: Build with Maven
         env:
           NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
+          OSS_INDEX_TOKEN: ${{ secrets.OSS_INDEX_TOKEN }}
           PIT: ${{ env.PIT }}
         run: |
           mvn -V --color always -ntp clean verify $PIT -Pci -Powasp | tee maven.log
