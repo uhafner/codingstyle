@@ -239,6 +239,7 @@
             <createBackupFile>false</createBackupFile>
             <sortPlugins>groupId,artifactId</sortPlugins>
             <sortExecutions>true</sortExecutions>
+            <sortDependencyExclusions>groupId,artifactId</sortDependencyExclusions>
           </configuration>
         </plugin>
         <plugin>
