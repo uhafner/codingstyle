@@ -48,6 +48,7 @@
     <source.encoding>UTF-8</source.encoding>
     <project.build.sourceEncoding>${source.encoding}</project.build.sourceEncoding>
     <java.version>17</java.version>
+    <java.jdk.version>21</java.jdk.version>
 
     <module.name>${project.groupId}.codingstyle</module.name>
 
@@ -721,7 +722,7 @@
             <configuration>
               <rules>
                 <requireJavaVersion>
-                  <version>${java.version}</version>
+                  <version>${java.jdk.version}</version>
                 </requireJavaVersion>
               </rules>
             </configuration>
