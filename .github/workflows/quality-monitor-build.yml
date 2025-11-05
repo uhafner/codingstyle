@@ -41,6 +41,7 @@ jobs:
           NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
           OSS_INDEX_TOKEN: ${{ secrets.OSS_INDEX_TOKEN }}
           PIT: ${{ env.PIT }}
+          BROWSER: chrome-container
         run: |
           mvn -V --color always -ntp clean verify $PIT -Pci -Powasp | tee maven.log
           if [ "${PIPESTATUS[0]}" != "0" ]; then
