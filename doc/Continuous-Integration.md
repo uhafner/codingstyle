@@ -27,7 +27,7 @@ U. a. sind die folgenden Plugins vorkonfiguriert:
 
 Die Konfiguration der Continuous Integration in GitHub Actions ist sehr [einfach](../.github/workflows/ci.yml) über eine Pipeline möglich. 
 Da der gesamte Build über Maven automatisiert ist, besteht die Pipeline eigentlich nur aus einem Maven Aufruf, der das Projekt baut, alle Tests (Unit und Integrationstests) ausgeführt, die statische Code Analyse durchführt und schließlich die Coverage misst. 
-GitHub Actions bietet auch die Möglichkeit, Matrix Builds durchzuführen: D. h., der Build wird z. B. auf den Plattformen Linux, Windows und macOS oder mit den Java-Versionen 17 und 21 parallel durchgeführt. 
+GitHub Actions bietet auch die Möglichkeit, Matrix Builds durchzuführen: D. h., der Build wird z. B. auf den Plattformen Linux, Windows und macOS oder mit den Java-Versionen 21 und 25 parallel durchgeführt. 
 Ein Beispiel für die Konfiguration eines Matrix Builds ist in der Datei [ci.yml](../.github/workflows/ci.yml) zu finden.
 
 Wenn gewünscht, können die Ergebnisse der statischen Codeanalyse und der Code Coverage Tools auch direkt im Commit oder Pull-Request angezeigt werden. 
