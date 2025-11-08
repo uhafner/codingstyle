@@ -638,6 +638,8 @@
                 NullAway configuration:
                 --> -XepOpt:NullAway:AnnotatedPackages=edu.hm.hafner <!--
                 Disabled ErrorProne rule:
+                --> -Xep:SuppressWarningsWithoutExplanation:OFF <!--
+                Disabled ErrorProne rule:
                 --> -Xep:AddNullMarkedToPackageInfo:OFF <!--
                 Disabled ErrorProne rule:
                 --> -Xep:PreferredInterfaceType:OFF <!--
