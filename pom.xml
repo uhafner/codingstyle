@@ -207,14 +207,6 @@
       <version>${slf4j.version}</version>
       <scope>test</scope>
     </dependency>
-
-    <!-- Test Dependencies for architecture test of JSR 305 annotations usage -->
-    <dependency>
-      <groupId>com.google.code.findbugs</groupId>
-      <artifactId>jsr305</artifactId>
-      <version>3.0.2</version>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
 
   <build>
@@ -645,6 +637,8 @@
                 --> -Xep:NullAway:WARN <!--
                 NullAway configuration:
                 --> -XepOpt:NullAway:AnnotatedPackages=edu.hm.hafner <!--
+                Disabled ErrorProne rule:
+                --> -Xep:SuppressWarningsWithoutExplanation:OFF <!--
                 Disabled ErrorProne rule:
                 --> -Xep:AddNullMarkedToPackageInfo:OFF <!--
                 Disabled ErrorProne rule:
