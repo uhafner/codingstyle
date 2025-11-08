@@ -90,7 +90,7 @@
     <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
     <pitest-maven-plugin.version>1.21.1</pitest-maven-plugin.version>
     <pitest-junit5-plugin.version>1.2.3</pitest-junit5-plugin.version>
-    <error-prone.version>2.43.0</error-prone.version>
+    <error-prone.version>2.44.0</error-prone.version>
     <nullaway.version>0.12.12</nullaway.version>
     <revapi-maven-plugin.version>0.15.1</revapi-maven-plugin.version>
     <revapi-java.version>0.28.4</revapi-java.version>
@@ -647,6 +647,8 @@
                 --> -XepOpt:NullAway:AnnotatedPackages=edu.hm.hafner <!--
                 Disabled ErrorProne rule:
                 --> -Xep:AddNullMarkedToPackageInfo:OFF <!--
+                Disabled ErrorProne rule:
+                --> -Xep:SuppressWarningsWithoutExplanation:OFF <!--
                 Disabled ErrorProne rule:
                 --> -Xep:PreferredInterfaceType:OFF <!--
                 Disabled ErrorProne rule:
