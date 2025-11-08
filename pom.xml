@@ -626,65 +626,34 @@
             <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</arg>
             <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED</arg>
             <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED</arg>
-            <!-- XXX: The awkward comment formatting used here ensures that the plugin arguments are
-            separated only by spaces. Once we drop support for JDK 8 we can clean this up; later versions
-            do properly handle newline separators. See https://github.com/google/error-prone/pull/1115.
-            -->
-            <arg>-Xplugin:ErrorProne <!--
-                ErrorProne configuration:
-                --> -XepExcludedPaths:.*/generated-test-sources/.* <!--
-                ErrorProne configuration:
-                --> -XepAllDisabledChecksAsWarnings <!--
-                ErrorProne configuration:
-                --> -XepIgnoreUnknownCheckNames <!--
-                ErrorProne configuration:
-                --> -XepDisableWarningsInGeneratedCode <!--
-                ErrorProne configuration:
-                --> -XepAllErrorsAsWarnings <!--
-                NullAway configuration:
-                --> -Xep:NullAway:WARN <!--
-                NullAway configuration:
-                --> -XepOpt:NullAway:AnnotatedPackages=edu.hm.hafner <!--
-                Disabled ErrorProne rule:
-                --> -Xep:AddNullMarkedToPackageInfo:OFF <!--
-                Disabled ErrorProne rule:
-                --> -Xep:PreferredInterfaceType:OFF <!--
-                Disabled ErrorProne rule:
-                --> -Xep:YodaCondition:OFF <!--
-                Disabled ErrorProne rule:
-                --> -Xep:ReturnMissingNullable:OFF <!--
-                Disabled ErrorProne rule:
-                --> -Xep:CannotMockFinalMethod:OFF <!--
-                Disabled ErrorProne rule:
-                --> -Xep:Java8ApiChecker:OFF <!--
-                Disabled ErrorProne rule:
-                --> -Xep:ImmutableMemberCollection:OFF <!--
-                Disabled ErrorProne rule:
-                --> -Xep:PreferJavaTimeOverload:OFF <!--
-                Disabled ErrorProne rule:
-                --> -Xep:EqualsGetClass:OFF <!--
-                Disabled ErrorProne rule:
-                --> -Xep:AndroidJdkLibsChecker:OFF <!--
-                Disabled ErrorProne rule:
-                --> -Xep:Java7ApiChecker:OFF <!--
-                Disabled ErrorProne rule:
-                --> -Xep:Var:OFF <!--
-                Disabled ErrorProne rule:
-                --> -Xep:PrivateConstructorForUtilityClass:OFF <!--
-                Disabled ErrorProne rule:
-                --> -Xep:MethodCanBeStatic:OFF <!--
-                Disabled ErrorProne rule:
-                --> -Xep:WildcardImport:OFF <!--
-                Disabled ErrorProne rule:
-                --> -Xep:ThrowsUncheckedException:OFF <!--
-                Disabled ErrorProne rule:
-                --> -Xep:UnusedMethod:OFF <!--
-                Disabled ErrorProne rule:
-                --> -Xep:BooleanParameter:OFF <!--
-                Disabled ErrorProne rule:
-                --> -Xep:UnnecessaryFinal:OFF <!--
-                Disabled ErrorProne rule:
-                --> -Xep:NullableDereference:OFF
+            <arg>
+              -Xplugin:ErrorProne -XepExcludedPaths:.*/generated-test-sources/.* \
+              -XepAllDisabledChecksAsWarnings \
+              -XepIgnoreUnknownCheckNames \
+              -XepDisableWarningsInGeneratedCode \
+              -XepAllErrorsAsWarnings \
+              -Xep:NullAway:WARN \
+              -XepOpt:NullAway:AnnotatedPackages=edu.hm.hafner \
+              -Xep:AddNullMarkedToPackageInfo:OFF \
+              -Xep:PreferredInterfaceType:OFF \
+              -Xep:YodaCondition:OFF \
+              -Xep:ReturnMissingNullable:OFF \
+              -Xep:CannotMockFinalMethod:OFF \
+              -Xep:Java8ApiChecker:OFF \
+              -Xep:ImmutableMemberCollection:OFF \
+              -Xep:PreferJavaTimeOverload:OFF \
+              -Xep:EqualsGetClass:OFF \
+              -Xep:AndroidJdkLibsChecker:OFF \
+              -Xep:Java7ApiChecker:OFF \
+              -Xep:Var:OFF \
+              -Xep:PrivateConstructorForUtilityClass:OFF \
+              -Xep:MethodCanBeStatic:OFF \
+              -Xep:WildcardImport:OFF \
+              -Xep:ThrowsUncheckedException:OFF \
+              -Xep:UnusedMethod:OFF \
+              -Xep:BooleanParameter:OFF \
+              -Xep:UnnecessaryFinal:OFF \
+              -Xep:NullableDereference:OFF
             </arg>
             <!-- The Error Prone plugin makes certain
                 assumptions about the state of the AST at the
