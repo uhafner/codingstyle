@@ -1,16 +1,16 @@
 package edu.hm.hafner.util;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Formatter;
-import java.util.List;
-
 import com.google.errorprone.annotations.FormatMethod;
 
 import edu.umd.cs.findbugs.annotations.CheckForNull;
 import edu.umd.cs.findbugs.annotations.CheckReturnValue;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Formatter;
+import java.util.List;
 
 /**
  * Provides several helper methods to validate method arguments and class invariants, thus supporting the design by
@@ -510,6 +510,7 @@ public final class Ensure {
          * @param value
          *         value of the condition
          */
+        @SuppressWarnings("ExplicitArrayForVarargs")
         public ObjectCondition(@CheckForNull final T value) {
             this(value, new Object[0]);
         }
