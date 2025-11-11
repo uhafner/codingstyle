@@ -617,10 +617,8 @@
             <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</arg>
             <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED</arg>
             <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED</arg>
-            <!-- XXX: The awkward comment formatting used here ensures that the plugin arguments are
-            separated only by spaces. Once we drop support for JDK 8 we can clean this up; later versions
-            do properly handle newline separators. See https://github.com/google/error-prone/pull/1115.
-            -->
+            <!-- The awkward comment formatting used here ensures that the plugin arguments are separated only by spaces.
+            See https://github.com/google/error-prone/pull/1115 and https://github.com/google/error-prone/issues/4256. -->
             <arg>-Xplugin:ErrorProne <!--
                 ErrorProne configuration:
                 --> -XepExcludedPaths:.*/generated-test-sources/.* <!--
