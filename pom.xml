@@ -47,7 +47,7 @@
   <properties>
     <source.encoding>UTF-8</source.encoding>
     <project.build.sourceEncoding>${source.encoding}</project.build.sourceEncoding>
-    <java.version>17</java.version>
+    <java.version>21</java.version>
     <java.jdk.version>21</java.jdk.version>
 
     <module.name>${project.groupId}.codingstyle</module.name>
@@ -361,7 +361,7 @@
               <recipe>org.openrewrite.staticanalysis.CodeCleanup</recipe>
               <recipe>org.openrewrite.staticanalysis.CommonStaticAnalysis</recipe>
               <recipe>org.openrewrite.staticanalysis.RemoveExtraSemicolons</recipe>
-              <recipe>org.openrewrite.java.migrate.UpgradeToJava17</recipe>
+              <recipe>org.openrewrite.java.migrate.UpgradeToJava21</recipe>
               <recipe>org.openrewrite.java.migrate.util.SequencedCollection</recipe>
               <recipe>org.openrewrite.java.migrate.lang.var.UseVarForObject</recipe>
               <recipe>org.openrewrite.java.migrate.net.JavaNetAPIs</recipe>

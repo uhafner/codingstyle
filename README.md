@@ -17,7 +17,7 @@ It provides all necessary resources for a Java project to enforce this coding st
 - [SpotBugs](https://spotbugs.github.io)
 - [Error Prone](https://errorprone.info)
 
-❗This project requires a JDK version of 17 or higher.❗  
+❗This project requires a JDK version of 21 or higher.❗  
 
 Moreover, this project provides some sample classes that already use this style guide. 
 These classes can be used as such but are not required in this project. 
@@ -54,4 +54,4 @@ Source code (snippets, examples, and classes) are using the [MIT license](https:
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](https://en.wikipedia.org/wiki/MIT_License)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
-![JDK17](https://img.shields.io/badge/jdk-17-blue.svg)
+![JDK21](https://img.shields.io/badge/jdk-21-blue.svg)
