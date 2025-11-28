@@ -730,6 +730,7 @@
             <include>**/*ITest.*</include>
           </includes>
           <reuseForks>false</reuseForks>
+          <argLine>@{argLine} -Djava.util.logging.config.file=logging.properties -javaagent:${org.mockito:mockito-core:jar}</argLine>
         </configuration>
         <executions>
           <execution>
