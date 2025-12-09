@@ -31,10 +31,10 @@ public class FilteredLog implements Serializable {
     private final int maxLines;
     private int lines;
 
-    @SuppressWarnings("serial")
-    private final List<String> infoMessages = new ArrayList<>();
-    @SuppressWarnings("serial")
-    private final List<String> errorMessages = new ArrayList<>();
+    @SuppressWarnings("PMD.LooseCoupling")
+    private final ArrayList<String> infoMessages = new ArrayList<>();
+    @SuppressWarnings("PMD.LooseCoupling")
+    private final ArrayList<String> errorMessages = new ArrayList<>();
 
     private transient ReentrantLock lock = new ReentrantLock();
 
