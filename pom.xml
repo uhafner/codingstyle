@@ -90,6 +90,7 @@
     <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
     <pitest-maven-plugin.version>1.22.0</pitest-maven-plugin.version>
     <pitest-junit5-plugin.version>1.2.3</pitest-junit5-plugin.version>
+    <pitmute.version>0.1.0</pitmute.version>
     <error-prone.version>2.45.0</error-prone.version>
     <nullaway.version>0.12.14</nullaway.version>
     <revapi-maven-plugin.version>0.15.1</revapi-maven-plugin.version>
@@ -414,12 +415,20 @@
               <param>*hashCode</param>
               <param>*toString</param>
             </excludedMethods>
+            <features>
+              <feature>+FCSV(csvFile[etc/pitmute.csv])</feature>
+            </features>
           </configuration>
           <dependencies>
             <dependency>
               <groupId>org.pitest</groupId>
               <artifactId>pitest-junit5-plugin</artifactId>
               <version>${pitest-junit5-plugin.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>edu.hm.hafner</groupId>
+              <artifactId>pitmute</artifactId>
+              <version>${pitmute.version}</version>
             </dependency>
           </dependencies>
         </plugin>
