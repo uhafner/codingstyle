@@ -23,7 +23,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class FilteredLog implements Serializable {
     @Serial
-    private static final long serialVersionUID = -8552323621953159904L;
+    private static final long serialVersionUID = 6956036398485594488L;
 
     private static final int DEFAULT_MAX_LINES = 20;
 
