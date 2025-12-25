@@ -58,7 +58,7 @@
     <spotbugs.version>4.9.8</spotbugs.version>
     <commons.lang.version>3.20.0</commons.lang.version>
     <commons.io.version>2.21.0</commons.io.version>
-    <byte-buddy.version>1.18.2</byte-buddy.version>
+    <byte-buddy.version>1.18.3</byte-buddy.version>
     <slf4j.version>2.0.17</slf4j.version>
 
     <!-- Project Test Dependencies Configuration -->
