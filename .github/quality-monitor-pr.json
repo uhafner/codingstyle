@@ -22,17 +22,14 @@
       "tools": [
         {
           "id": "checkstyle",
-          "scope": "new",
           "pattern": "**/target/**checkstyle-result.xml"
         },
         {
           "id": "pmd",
-          "scope": "new",
           "pattern": "**/target/pmd-*/pmd.xml"
         },
         {
           "id": "java",
-          "scope": "new",
           "icon": "coffee",
           "pattern": "**/maven.log"
         }
@@ -45,13 +42,11 @@
       "tools": [
         {
           "id": "spotbugs",
-          "scope": "new",
           "sourcePath": "src/main/java",
           "pattern": "**/target/spotbugsXml.xml"
         },
         {
           "id": "error-prone",
-          "scope": "new",
           "pattern": "**/maven.log"
         }
       ]
@@ -74,7 +69,6 @@
       "icon": "shield",
       "tools": [
         {
-          "icon": "shield",
           "id": "owasp-dependency-check",
           "icon": "shield",
           "pattern": "**/target/dependency-check-report.json"
@@ -84,7 +78,7 @@
   ],
   "coverage": [
     {
-      "name": "Code Coverage",
+      "name": "Coverage for New Code",
       "tools": [
         {
           "id": "jacoco",
@@ -99,12 +93,7 @@
           "scope": "new",
           "sourcePath": "src/main/java",
           "pattern": "**/target/site/jacoco/jacoco.xml"
-        }
-      ]
-    },
-    {
-      "name": "Mutation Coverage",
-      "tools": [
+        },
         {
           "id": "pit",
           "scope": "new",
@@ -116,6 +105,35 @@
           "id": "pit",
           "metric": "test-strength",
           "scope": "new",
+          "sourcePath": "src/main/java",
+          "pattern": "**/target/pit-reports/mutations.xml"
+        }
+      ]
+    },
+    {
+      "name": "Coverage for Whole Project",
+      "tools": [
+        {
+          "id": "jacoco",
+          "metric": "line",
+          "sourcePath": "src/main/java",
+          "pattern": "**/target/site/jacoco/jacoco.xml"
+        },
+        {
+          "id": "jacoco",
+          "metric": "branch",
+          "sourcePath": "src/main/java",
+          "pattern": "**/target/site/jacoco/jacoco.xml"
+        },
+        {
+          "id": "pit",
+          "metric": "mutation",
+          "sourcePath": "src/main/java",
+          "pattern": "**/target/pit-reports/mutations.xml"
+        },
+        {
+          "id": "pit",
+          "metric": "test-strength",
           "sourcePath": "src/main/java",
           "pattern": "**/target/pit-reports/mutations.xml"
         }
