@@ -1,8 +1,5 @@
 jenkins:
   authorizationStrategy: "loggedInUsersCanDoAnything"
-  crumbIssuer:
-    standard:
-      excludeClientIPFromCrumb: false
   disableRememberMe: false
   disabledAdministrativeMonitors:
     - "hudson.diagnosis.ReverseProxySetupMonitor"
