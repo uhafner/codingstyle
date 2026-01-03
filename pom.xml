@@ -724,7 +724,8 @@
             <configuration>
               <rules>
                 <requireJavaVersion>
-                  <version>${java.jdk.version}</version>
+                  <version>[21,22),[25,26)</version>
+                  <message>Java LTS 21 or 25 is required to build this project.</message>
                 </requireJavaVersion>
               </rules>
             </configuration>
