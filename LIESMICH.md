@@ -25,7 +25,7 @@ entsprechenden IntelliJ Plugins). Zusätzlich sind die
 [IntelliJ Code Inspections](https://www.jetbrains.com/help/idea/code-inspection.html) gemäß meiner Richtlinien konfiguriert. 
 Aktuell können diese allerdings noch nicht automatisch im Build überprüft werden 
 (siehe [#7](https://github.com/uhafner/codingstyle/issues/7)). Insgesamt ist damit sichergestellt,
-dass immer die gleichen Warnungen angezeigt werden - egal wie und wo die Java Dateien weiterverarbeitet werden. 
+dass immer die gleichen Warnungen angezeigt werden - egal wie und wo die Java-Dateien weiterverarbeitet werden. 
 Für SpotBugs und PMD ist der Umweg über das Build Management Tool [Maven](http://maven.apache.org/) erforderlich 
 (die entsprechenden IntelliJ Plugins sind leider aus meiner Sicht noch nicht ausgereift genug bzw. verwenden eine separate Konfiguration). 
 Die Verwendung von Maven hat zudem den Vorteil, dass die Ergebnisse hinterher leicht in den Continuous Integration Server 
