@@ -29,7 +29,7 @@ class EnsureTest {
             Ensure.that("").isNotNull();
             Ensure.that("", "").isNotNull();
             Ensure.that(null, (Object) null).isNull();
-            Ensure.that(new String[] {""}).isNotEmpty();
+            Ensure.that(new String[]{""}).isNotEmpty();
             Ensure.that(SOME_STRING).isNotEmpty();
             Ensure.that(SOME_STRING).isNotBlank();
             Ensure.that("").isInstanceOf(String.class);
@@ -116,7 +116,7 @@ class EnsureTest {
                 Ensure.that(Lists.newArrayList("", null, "")).isNotEmpty(ERROR_MESSAGE)).isInstanceOf(
                 AssertionError.class);
         assertThatThrownBy(() ->
-                Ensure.that(new String[] {"", null, ""}).isNotEmpty(ERROR_MESSAGE)).isInstanceOf(AssertionError.class);
+                Ensure.that(new String[]{"", null, ""}).isNotEmpty(ERROR_MESSAGE)).isInstanceOf(AssertionError.class);
         assertThatThrownBy(() ->
                 Ensure.that("").isNotEmpty(ERROR_MESSAGE)).isInstanceOf(AssertionError.class);
         assertThatThrownBy(() ->
@@ -128,7 +128,7 @@ class EnsureTest {
         assertThatThrownBy(() ->
                 Ensure.that(Lists.newArrayList("", null, "")).isNotEmpty()).isInstanceOf(AssertionError.class);
         assertThatThrownBy(() ->
-                Ensure.that(new String[] {"", null, ""}).isNotEmpty()).isInstanceOf(AssertionError.class);
+                Ensure.that(new String[]{"", null, ""}).isNotEmpty()).isInstanceOf(AssertionError.class);
         assertThatThrownBy(() ->
                 Ensure.that("").isNotEmpty()).isInstanceOf(AssertionError.class);
         assertThatThrownBy(() ->

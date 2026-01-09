@@ -4,7 +4,7 @@
 
   <groupId>edu.hm.hafner</groupId>
   <artifactId>codingstyle</artifactId>
-  <version>5.28.0-SNAPSHOT</version>
+  <version>6.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>Java coding style</name>
@@ -47,7 +47,7 @@
   <properties>
     <source.encoding>UTF-8</source.encoding>
     <project.build.sourceEncoding>${source.encoding}</project.build.sourceEncoding>
-    <java.version>17</java.version>
+    <java.version>21</java.version>
     <java.jdk.version>21</java.jdk.version>
 
     <module.name>${project.groupId}.codingstyle</module.name>
@@ -357,19 +357,19 @@
               <recipe>org.openrewrite.maven.BestPractices</recipe>
               <recipe>org.openrewrite.maven.RemoveRedundantDependencyVersions</recipe>
               <recipe>org.openrewrite.staticanalysis.AddSerialAnnotationToSerialVersionUID</recipe>
-              <recipe>org.openrewrite.staticanalysis.MissingOverrideAnnotation</recipe>
               <recipe>org.openrewrite.staticanalysis.CodeCleanup</recipe>
               <recipe>org.openrewrite.staticanalysis.CommonStaticAnalysis</recipe>
+              <recipe>org.openrewrite.staticanalysis.MissingOverrideAnnotation</recipe>
               <recipe>org.openrewrite.staticanalysis.RemoveExtraSemicolons</recipe>
-              <recipe>org.openrewrite.java.migrate.UpgradeToJava17</recipe>
+              <recipe>org.openrewrite.java.migrate.UpgradeToJava21</recipe>
+              <recipe>org.openrewrite.java.migrate.util.JavaUtilAPIs</recipe>
               <recipe>org.openrewrite.java.migrate.util.SequencedCollection</recipe>
+              <recipe>org.openrewrite.java.migrate.lang.StringRulesRecipes</recipe>
               <recipe>org.openrewrite.java.migrate.lang.var.UseVarForObject</recipe>
               <recipe>org.openrewrite.java.migrate.net.JavaNetAPIs</recipe>
-              <recipe>org.openrewrite.java.migrate.util.JavaUtilAPIs</recipe>
-              <recipe>org.openrewrite.java.migrate.lang.StringRulesRecipes</recipe>
-              <recipe>org.openrewrite.java.format.RemoveTrailingWhitespace</recipe>
               <recipe>org.openrewrite.java.format.BlankLines</recipe>
               <recipe>org.openrewrite.java.format.EmptyNewlineAtEndOfFile</recipe>
+              <recipe>org.openrewrite.java.format.RemoveTrailingWhitespace</recipe>
               <recipe>org.openrewrite.java.testing.assertj.SimplifyChainedAssertJAssertions</recipe>
             </activeRecipes>
           </configuration>
@@ -719,7 +719,8 @@
             <configuration>
               <rules>
                 <requireJavaVersion>
-                  <version>${java.jdk.version}</version>
+                  <version>[21,22),[25,26)</version>
+                  <message>Java LTS 21 or 25 is required to build this project.</message>
                 </requireJavaVersion>
               </rules>
             </configuration>

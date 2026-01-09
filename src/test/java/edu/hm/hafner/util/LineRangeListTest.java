@@ -1,8 +1,8 @@
 package edu.hm.hafner.util;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -43,17 +43,17 @@ class LineRangeListTest {
         var range = new LineRange(1, 2);
         list.add(range);
 
-        assertThat(list.get(0)).isEqualTo(range);
-        assertThat(list.get(0)).isNotSameAs(range);
+        assertThat(list.getFirst()).isEqualTo(range);
+        assertThat(list.getFirst()).isNotSameAs(range);
         assertThat(list).hasSize(1);
 
         var other = new LineRange(3, 4);
         assertThat(list.set(0, other)).isEqualTo(range);
-        assertThat(list.get(0)).isEqualTo(other);
-        assertThat(list.get(0)).isNotSameAs(other);
+        assertThat(list.getFirst()).isEqualTo(other);
+        assertThat(list.getFirst()).isNotSameAs(other);
         assertThat(list).hasSize(1);
 
-        assertThat(list.remove(0)).isEqualTo(other);
+        assertThat(list.removeFirst()).isEqualTo(other);
         assertThat(list).hasSize(0);
     }
 
