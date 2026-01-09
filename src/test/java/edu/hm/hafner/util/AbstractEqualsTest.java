@@ -21,7 +21,7 @@ public abstract class AbstractEqualsTest {
      * Verifies that for any non-null reference value {@code x}, {@code x.equals(null)} should return {@code false}.
      */
     @Test
-    @SuppressWarnings({"PMD.EqualsNull", "PMD.EnumComparison", "checkstyle:equalsavoidnull", "ConstantConditions"})
+    @SuppressWarnings({"PMD.EqualsNull", "checkstyle:equalsavoidnull", "ConstantConditions"})
     void shouldReturnFalseOnEqualsNull() {
         assertThat(createSut().equals(null)).isFalse();
     }

@@ -58,12 +58,12 @@
     <spotbugs.version>4.9.8</spotbugs.version>
     <commons.lang.version>3.20.0</commons.lang.version>
     <commons.io.version>2.21.0</commons.io.version>
-    <byte-buddy.version>1.18.2</byte-buddy.version>
+    <byte-buddy.version>1.18.3</byte-buddy.version>
     <slf4j.version>2.0.17</slf4j.version>
 
     <!-- Project Test Dependencies Configuration -->
-    <equalsverifier.version>4.2.5</equalsverifier.version>
-    <junit.version>6.0.1</junit.version>
+    <equalsverifier.version>4.3</equalsverifier.version>
+    <junit.version>6.0.2</junit.version>
     <mockito.version>5.21.0</mockito.version>
     <assertj.version>3.27.6</assertj.version>
     <archunit.version>1.4.1</archunit.version>
@@ -81,22 +81,22 @@
     <maven-failsafe-plugin.version>3.5.4</maven-failsafe-plugin.version>
     <maven-jar-plugin.version>3.5.0</maven-jar-plugin.version>
     <maven-pmd-plugin.version>3.28.0</maven-pmd-plugin.version>
-    <pmd.version>7.19.0</pmd.version>
-    <pmd.metrics.version>7.19.0-metrics</pmd.metrics.version>
+    <pmd.version>7.20.0</pmd.version>
+    <pmd.metrics.version>7.20.0-metrics</pmd.metrics.version>
     <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
-    <checkstyle.version>12.3.0</checkstyle.version>
+    <checkstyle.version>13.0.0</checkstyle.version>
     <spotbugs-maven-plugin.version>4.9.8.2</spotbugs-maven-plugin.version>
     <findsecbugs-plugin.version>1.14.0</findsecbugs-plugin.version>
     <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
     <pitest-maven-plugin.version>1.22.0</pitest-maven-plugin.version>
     <pitest-junit5-plugin.version>1.2.3</pitest-junit5-plugin.version>
-    <pitmute.version>0.1.0</pitmute.version>
-    <error-prone.version>2.45.0</error-prone.version>
+    <pitmute.version>0.2.0</pitmute.version>
+    <error-prone.version>2.46.0</error-prone.version>
     <nullaway.version>0.12.15</nullaway.version>
     <revapi-maven-plugin.version>0.15.1</revapi-maven-plugin.version>
     <revapi-java.version>0.28.4</revapi-java.version>
     <revapi-reporter-json-version>0.5.1</revapi-reporter-json-version>
-    <central-publishing-maven-plugin.version>0.9.0</central-publishing-maven-plugin.version>
+    <central-publishing-maven-plugin.version>0.10.0</central-publishing-maven-plugin.version>
     <maven-gpg-plugin.version>3.2.8</maven-gpg-plugin.version>
     <maven-release-plugin.version>3.3.1</maven-release-plugin.version>
     <assertj-assertions-generator-maven-plugin.version>2.2.0</assertj-assertions-generator-maven-plugin.version>
@@ -108,10 +108,10 @@
     <dependency-check-maven.version>12.1.9</dependency-check-maven.version>
 
     <!-- OpenRewrite versions   -->
-    <rewrite-maven-plugin.version>6.26.0</rewrite-maven-plugin.version>
-    <rewrite-testing-frameworks.version>3.24.0</rewrite-testing-frameworks.version>
-    <rewrite-static-analysis.version>2.24.0</rewrite-static-analysis.version>
-    <rewrite-migrate-java.version>3.24.0</rewrite-migrate-java.version>
+    <rewrite-maven-plugin.version>6.27.0</rewrite-maven-plugin.version>
+    <rewrite-testing-frameworks.version>3.25.0</rewrite-testing-frameworks.version>
+    <rewrite-static-analysis.version>2.25.0</rewrite-static-analysis.version>
+    <rewrite-migrate-java.version>3.25.0</rewrite-migrate-java.version>
     <rewrite-recommendations.version>1.15.0</rewrite-recommendations.version>
   </properties>
 
@@ -632,8 +632,6 @@
                 ErrorProne configuration:
                 --> -XepExcludedPaths:.*/generated-test-sources/.* <!--
                 ErrorProne configuration:
-                --> -XepAllDisabledChecksAsWarnings <!--
-                ErrorProne configuration:
                 --> -XepIgnoreUnknownCheckNames <!--
                 ErrorProne configuration:
                 --> -XepDisableWarningsInGeneratedCode <!--
@@ -643,10 +641,6 @@
                 --> -Xep:NullAway:WARN <!--
                 NullAway configuration:
                 --> -XepOpt:NullAway:AnnotatedPackages=edu.hm.hafner <!--
-                Disabled ErrorProne rule:
-                --> -Xep:SuppressWarningsWithoutExplanation:OFF <!--
-                Disabled ErrorProne rule:
-                --> -Xep:AddNullMarkedToPackageInfo:OFF <!--
                 Disabled ErrorProne rule:
                 --> -Xep:SuppressWarningsWithoutExplanation:OFF <!--
                 Disabled ErrorProne rule:
@@ -695,6 +689,7 @@
                 flag may be dropped after resolution of
                 https://bugs.openjdk.java.net/browse/JDK-8155674. -->
             <arg>-XDcompilePolicy=simple</arg>
+            <arg>-XDaddTypeAnnotationsToSymbol=true</arg>
           </compilerArgs>
           <?SORTPOM RESUME?>
           <fork>true</fork>
