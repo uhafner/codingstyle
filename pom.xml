@@ -91,7 +91,7 @@
     <pitest-maven-plugin.version>1.22.0</pitest-maven-plugin.version>
     <pitest-junit5-plugin.version>1.2.3</pitest-junit5-plugin.version>
     <pitmute.version>0.2.0</pitmute.version>
-    <error-prone.version>2.45.0</error-prone.version>
+    <error-prone.version>2.46.0</error-prone.version>
     <nullaway.version>0.12.15</nullaway.version>
     <revapi-maven-plugin.version>0.15.1</revapi-maven-plugin.version>
     <revapi-java.version>0.28.4</revapi-java.version>
@@ -632,8 +632,6 @@
                 ErrorProne configuration:
                 --> -XepExcludedPaths:.*/generated-test-sources/.* <!--
                 ErrorProne configuration:
-                --> -XepAllDisabledChecksAsWarnings <!--
-                ErrorProne configuration:
                 --> -XepIgnoreUnknownCheckNames <!--
                 ErrorProne configuration:
                 --> -XepDisableWarningsInGeneratedCode <!--
@@ -643,10 +641,6 @@
                 --> -Xep:NullAway:WARN <!--
                 NullAway configuration:
                 --> -XepOpt:NullAway:AnnotatedPackages=edu.hm.hafner <!--
-                Disabled ErrorProne rule:
-                --> -Xep:SuppressWarningsWithoutExplanation:OFF <!--
-                Disabled ErrorProne rule:
-                --> -Xep:AddNullMarkedToPackageInfo:OFF <!--
                 Disabled ErrorProne rule:
                 --> -Xep:SuppressWarningsWithoutExplanation:OFF <!--
                 Disabled ErrorProne rule:
@@ -695,6 +689,7 @@
                 flag may be dropped after resolution of
                 https://bugs.openjdk.java.net/browse/JDK-8155674. -->
             <arg>-XDcompilePolicy=simple</arg>
+            <arg>-XDaddTypeAnnotationsToSymbol=true</arg>
           </compilerArgs>
           <?SORTPOM RESUME?>
           <fork>true</fork>
