@@ -646,6 +646,8 @@
                 Disabled ErrorProne rule:
                 --> -Xep:SuppressWarningsWithoutExplanation:OFF <!--
                 Disabled ErrorProne rule:
+                --> -Xep:AddNullMarkedToClass:OFF <!--
+                Disabled ErrorProne rule:
                 --> -Xep:AddNullMarkedToPackageInfo:OFF <!--
                 Disabled ErrorProne rule:
                 --> -Xep:SuppressWarningsWithoutExplanation:OFF <!--
