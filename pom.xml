@@ -632,8 +632,6 @@
                 ErrorProne configuration:
                 --> -XepExcludedPaths:.*/generated-test-sources/.* <!--
                 ErrorProne configuration:
-                --> -XepAllDisabledChecksAsWarnings <!--
-                ErrorProne configuration:
                 --> -XepIgnoreUnknownCheckNames <!--
                 ErrorProne configuration:
                 --> -XepDisableWarningsInGeneratedCode <!--
@@ -643,12 +641,6 @@
                 --> -Xep:NullAway:WARN <!--
                 NullAway configuration:
                 --> -XepOpt:NullAway:AnnotatedPackages=edu.hm.hafner <!--
-                Disabled ErrorProne rule:
-                --> -Xep:SuppressWarningsWithoutExplanation:OFF <!--
-                Disabled ErrorProne rule:
-                --> -Xep:AddNullMarkedToClass:OFF <!--
-                Disabled ErrorProne rule:
-                --> -Xep:AddNullMarkedToPackageInfo:OFF <!--
                 Disabled ErrorProne rule:
                 --> -Xep:SuppressWarningsWithoutExplanation:OFF <!--
                 Disabled ErrorProne rule:
