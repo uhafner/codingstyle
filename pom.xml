@@ -695,6 +695,7 @@
                 flag may be dropped after resolution of
                 https://bugs.openjdk.java.net/browse/JDK-8155674. -->
             <arg>-XDcompilePolicy=simple</arg>
+            <arg>-XDaddTypeAnnotationsToSymbol=true</arg>
           </compilerArgs>
           <?SORTPOM RESUME?>
           <fork>true</fork>
