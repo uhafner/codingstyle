@@ -398,6 +398,8 @@ public final class Ensure {
                 }
             }
         }
+
+        // FIXME: add isEmpty() methods
     }
 
     /**
