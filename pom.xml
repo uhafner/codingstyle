@@ -91,7 +91,7 @@
     <pitest-maven-plugin.version>1.22.1</pitest-maven-plugin.version>
     <pitest-junit5-plugin.version>1.2.3</pitest-junit5-plugin.version>
     <pitmute.version>0.2.0</pitmute.version>
-    <error-prone.version>2.46.0</error-prone.version>
+    <error-prone.version>2.47.0</error-prone.version>
     <nullaway.version>0.13.1</nullaway.version>
     <revapi-maven-plugin.version>0.15.1</revapi-maven-plugin.version>
     <revapi-java.version>0.28.4</revapi-java.version>
@@ -620,11 +620,12 @@
             <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</arg>
             <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED</arg>
             <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED</arg>
-            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED</arg>
-            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
-            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED</arg>
-            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</arg>
+            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED</arg>
             <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED</arg>
+            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED</arg>
+            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED</arg>
+            <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</arg>
+            <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
             <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED</arg>
             <!-- The awkward comment formatting used here ensures that the plugin arguments are separated only by spaces.
             See https://github.com/google/error-prone/pull/1115 and https://github.com/google/error-prone/issues/4256. -->
