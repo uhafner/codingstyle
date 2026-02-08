@@ -1,4 +1,4 @@
-[![GitHub Actions](https://github.com/uhafner/codingstyle/workflows/GitHub%20CI/badge.svg)](https://github.com/uhafner/codingstyle/actions)
+[![GitHub Actions](https://github.com/uhafner/codingstyle/workflows/GitHub%20CI/badge.svg)](https://github.com/uhafner/codingstyle/actions/workflows/ci.yml)
 [![CodeQL](https://github.com/uhafner/codingstyle/workflows/CodeQL/badge.svg)](https://github.com/uhafner/codingstyle/actions/workflows/codeql.yml)
 [![Line Coverage](https://raw.githubusercontent.com/uhafner/codingstyle/main/badges/line-coverage.svg)](https://github.com/uhafner/codingstyle/actions/workflows/quality-monitor-comment.yml)
 [![Branch Coverage](https://raw.githubusercontent.com/uhafner/codingstyle/main/badges/branch-coverage.svg)](https://github.com/uhafner/codingstyle/actions/workflows/quality-monitor-comment.yml)
