@@ -43,7 +43,7 @@ abstract class PackageDetector {
      *
      * @return the detected package or namespace name
      */
-    public Optional<String> detectPackageName(final String fileName, final Charset charset) {
+    Optional<String> detectPackageName(final String fileName, final Charset charset) {
         try (var stream = fileSystem.openFile(fileName)) {
             return detectPackageName(stream, charset);
         }
