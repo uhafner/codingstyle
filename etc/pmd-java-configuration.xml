@@ -71,7 +71,6 @@
     <exclude name="FinalFieldCouldBeStatic"/>
     <exclude name="LawOfDemeter"/>
     <exclude name="LoosePackageCoupling"/>
-    <exclude name="PublicMemberInNonPublicType"/>
     <exclude name="SimplifyBooleanReturns"/>
     <exclude name="SignatureDeclareThrowsException"/>
     <exclude name="TooManyMethods"/>
