@@ -37,6 +37,7 @@ public final class LineRange implements Serializable {
      * @param end
      *            end of the range
      */
+    @SuppressMutation(mutator = PitMutator.CONDITIONALS_BOUNDARY, justification = "False positive")
     public LineRange(final int start, final int end) {
         if (start <= 0) {
             this.start = 0;

@@ -9,7 +9,7 @@ import java.util.Random;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 
-import static org.assertj.core.api.Assertions.*;
+import static edu.hm.hafner.util.assertions.Assertions.*;
 
 /**
  * Tests the class {@link TreeStringBuilder}.
@@ -24,7 +24,7 @@ class TreeStringBuilderTest {
     void shouldCreateSimpleTreeStringsWithBuilder() {
         var builder = new TreeStringBuilder();
         var foo = builder.intern("foo");
-        assertThat(foo).hasToString("foo");
+        assertThat(foo).hasToString("foo").isNotBlank();
         assertThat(foo.getLabel()).isEqualTo("foo");
 
         var treeString = builder.intern("foo/bar/zot");
@@ -48,11 +48,11 @@ class TreeStringBuilderTest {
         assertThat(parent).isSameAs(treeString.getParent());
         assertThat(Objects.requireNonNull(parent.getParent())).isSameAs(foo);
 
-        // middle node changed label but not toString
+        // the middle node changed label but not toString
         assertThat(treeString.getLabel()).isEqualTo("zot");
         assertThat(treeString).hasToString("foo/bar/zot");
 
-        assertThat(builder.intern("").isBlank()).isTrue();
+        assertThat(builder.intern("")).isBlank();
         assertThat(TreeString.valueOf("foo/bar/zot")).hasToString("foo/bar/zot");
     }
 

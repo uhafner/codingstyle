@@ -19,6 +19,7 @@ public final class PackageDetectorFactory {
      *
      * @return the package detector runner
      */
+    @SuppressMutation(justification = "This method is not tested directly because it accesses the file system.")
     public static PackageDetectorRunner createPackageDetectors() {
         return createPackageDetectors(new FileSystemFacade());
     }
@@ -47,6 +48,7 @@ public final class PackageDetectorFactory {
      * Facade for file system operations. May be replaced by stubs in test cases.
      */
     @VisibleForTesting
+    @SuppressMutation(justification = "This method is not tested directly because it accesses the file system.")
     public static class FileSystemFacade {
         /**
          * Opens the specified file.

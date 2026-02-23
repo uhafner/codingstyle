@@ -1,10 +1,10 @@
 package edu.hm.hafner.util;
 
-import java.util.NoSuchElementException;
-import java.util.stream.Stream;
-
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
+
+import java.util.NoSuchElementException;
+import java.util.stream.Stream;
 
 import static edu.hm.hafner.util.assertions.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -80,11 +80,13 @@ class LookaheadStreamTest extends ResourceTest {
     @SuppressWarnings("unchecked")
     void shouldCloseStream() {
         try (Stream<String> lines = mock(Stream.class)) {
-            try (var stream = new LookaheadStream(lines)) {
+            var fileName = "<closed>";
+            try (var stream = new LookaheadStream(lines, fileName)) {
                 assertThat(stream.getLine()).isZero();
+                assertThat(stream).hasFileName(fileName);
             }
 
-            verify(lines).close(); // lines will be closed by stream
+            verify(lines).close(); // stream will close lines
         }
     }
 }

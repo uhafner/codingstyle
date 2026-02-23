@@ -417,6 +417,7 @@
             </excludedMethods>
             <features>
               <feature>+FCSV(csvFile[etc/pitmute.csv])</feature>
+              <feature>+FANNOT</feature>
             </features>
           </configuration>
           <dependencies>
@@ -995,6 +996,20 @@
                   <code>java.annotation.removed</code>
                   <annotation>@edu.umd.cs.findbugs.annotations.SuppressFBWarnings.*</annotation>
                   <justification>SpotBugs Annotations are not relevant in API</justification>
+                </item>
+                <item>
+                  <ignore>true</ignore>
+                  <regex>true</regex>
+                  <code>java.annotation.*</code>
+                  <annotation>@edu.hm.hafner.util.SuppressMutation.*</annotation>
+                  <justification>PitMute Annotations are not relevant in API</justification>
+                </item>
+                <item>
+                  <ignore>true</ignore>
+                  <regex>true</regex>
+                  <code>java.annotation.*</code>
+                  <classQualifiedName>edu.hm.hafner.util.SuppressMutation</classQualifiedName>
+                  <justification>PitMute Annotations are not relevant in API</justification>
                 </item>
               </differences>
             </revapi.differences>

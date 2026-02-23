@@ -48,6 +48,7 @@ public class TreeStringBuilder {
     /**
      * Further reduces the memory footprint by finding the same labels across multiple {@link TreeString}s.
      */
+    @SuppressMutation(mutator = PitMutator.VOID_METHOD_CALLS, justification = "Memory optimization without visible side effect")
     public void dedup() {
         getRoot().dedup(new HashMap<>());
     }
@@ -170,6 +171,7 @@ public class TreeStringBuilder {
          * @param table
          *         the table containing the existing strings
          */
+        @SuppressMutation(mutator = PitMutator.VOID_METHOD_CALLS, justification = "Memory optimization without visible side effect")
         private void dedup(final Map<String, char[]> table) {
             getNode().dedup(table);
             for (Child child : children.values()) {

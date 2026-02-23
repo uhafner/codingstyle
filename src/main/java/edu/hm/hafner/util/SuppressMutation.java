@@ -18,7 +18,7 @@ import static edu.hm.hafner.util.PitMutator.*;
  *
  * @see <a href="https://github.com/uhafner/pitmute">PitMute</a>
  */
-@Target({ElementType.METHOD, ElementType.TYPE})
+@Target({ElementType.METHOD, ElementType.TYPE, ElementType.CONSTRUCTOR})
 @Retention(RetentionPolicy.RUNTIME)
 @Repeatable(SuppressMutations.class)
 public @interface SuppressMutation {
@@ -29,6 +29,14 @@ public @interface SuppressMutation {
      * @return the name of the mutator to suppress
      */
     String mutatorName() default "";
+
+    /**
+     * Provides a justification for why the mutation is being suppressed. This is useful for documentation purposes and
+     * to help other developers understand the reasoning behind the suppression.
+     *
+     * @return the justification for the suppression
+     */
+    String justification() default "No justification provided";
 
     /**
      * Limits the suppression to a specific line number.
