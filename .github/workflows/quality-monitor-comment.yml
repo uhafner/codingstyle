@@ -37,7 +37,7 @@ jobs:
           HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OTHER_WORKFLOWS: "quality-monitor-build.yml,quality-monitor-dependency-check.yml"
-          ARTIFACT_NAMES: "dependency-report,quality-reports"
+          ARTIFACT_NAMES: "quality-reports"
           RETRIES: 30
           SLEEP_SEC: 10
         run: |

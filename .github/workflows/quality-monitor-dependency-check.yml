@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     runs-on: [ubuntu-latest]
-    name: Create dependency check report
+    name: Create report
 
     steps:
       - name: Checkout project
@@ -42,7 +42,7 @@ jobs:
       - name: Upload Dependency Report
         uses: actions/upload-artifact@v6
         with:
-          name: dependency-report
+          name: quality-reports
           path: |
             **/target/**/*.json
 
