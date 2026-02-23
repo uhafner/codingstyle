@@ -1,4 +1,4 @@
-name: 'Quality Reports'
+name: 'Quality Monitor'
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     runs-on: [ubuntu-latest]
-    name: Create quality reports
+    name: Create reports
 
     steps:
       - name: Checkout project

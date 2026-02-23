@@ -2,9 +2,7 @@ name: 'Quality Monitor Comment PR'
 
 on:
   workflow_run:
-    workflows:
-      - 'quality-monitor-build.yml'
-      - 'quality-monitor-dependency-check.yml'
+    workflows: ['Quality Monitor', 'Dependency Check']
     types: [completed]
 
 permissions:
@@ -54,15 +52,12 @@ jobs:
         run: |
           chmod +x ./.github/scripts/fetch-artifacts.sh
           ./.github/scripts/fetch-artifacts.sh
-
       - name: List downloaded artifacts
         run: |
           ls -la artifacts || true
-
       - name: Continue with consumer steps
         run: |
           echo "Now you can consume files in ./artifacts/"
-
       - name: Read Quality Monitor Configuration
         id: quality-monitor
         run: echo "json=$(jq -c . .github/quality-monitor-pr.json)" >> "$GITHUB_OUTPUT"
