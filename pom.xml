@@ -62,7 +62,7 @@
     <slf4j.version>2.0.17</slf4j.version>
 
     <!-- Project Test Dependencies Configuration -->
-    <equalsverifier.version>4.3.1</equalsverifier.version>
+    <equalsverifier.version>4.4</equalsverifier.version>
     <junit.version>6.0.3</junit.version>
     <mockito.version>5.21.0</mockito.version>
     <assertj.version>3.27.7</assertj.version>
@@ -77,8 +77,8 @@
     <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
     <maven-source-plugin.version>3.4.0</maven-source-plugin.version>
     <maven-resources-plugin.version>3.4.0</maven-resources-plugin.version>
-    <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
-    <maven-failsafe-plugin.version>3.5.4</maven-failsafe-plugin.version>
+    <maven-surefire-plugin.version>3.5.5</maven-surefire-plugin.version>
+    <maven-failsafe-plugin.version>3.5.5</maven-failsafe-plugin.version>
     <maven-jar-plugin.version>3.5.0</maven-jar-plugin.version>
     <maven-pmd-plugin.version>3.28.0</maven-pmd-plugin.version>
     <pmd.version>7.21.0</pmd.version>
