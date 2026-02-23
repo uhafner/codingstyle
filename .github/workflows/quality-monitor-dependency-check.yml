@@ -39,7 +39,6 @@ jobs:
           if [ "${PIPESTATUS[0]}" != "0" ]; then
              exit 1;
           fi
-          mv -fv maven.log target/maven.log
       - name: Upload Quality Reports
         uses: actions/upload-artifact@v6
         with:
