@@ -39,7 +39,7 @@ jobs:
           if [ "${PIPESTATUS[0]}" != "0" ]; then
              exit 1;
           fi
-      - name: Upload Quality Reports
+      - name: Upload Dependency Report
         uses: actions/upload-artifact@v6
         with:
           name: quality-reports
