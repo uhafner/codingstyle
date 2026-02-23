@@ -35,7 +35,7 @@ jobs:
           NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
           OSS_INDEX_TOKEN: ${{ secrets.OSS_INDEX_TOKEN }}
         run: |
-          mvn -V --color always -ntp validate -Pci -Powasp
+          mvn -V --color always -ntp verify -Pci -Powasp
           if [ "${PIPESTATUS[0]}" != "0" ]; then
              exit 1;
           fi
