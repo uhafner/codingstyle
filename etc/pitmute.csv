@@ -1,3 +1,5 @@
 # See https://github.com/uhafner/pitmute/blob/main/README.md
 
-SecureXmlParserFactory,VoidMethodCallMutator,,
+PitMutator
+FilteredLog
+LineRangeList

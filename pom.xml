@@ -90,7 +90,7 @@
     <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
     <pitest-maven-plugin.version>1.22.1</pitest-maven-plugin.version>
     <pitest-junit5-plugin.version>1.2.3</pitest-junit5-plugin.version>
-    <pitmute.version>0.2.0</pitmute.version>
+    <pitmute.version>1.0.0</pitmute.version>
     <error-prone.version>2.47.0</error-prone.version>
     <nullaway.version>0.13.1</nullaway.version>
     <revapi-maven-plugin.version>0.15.1</revapi-maven-plugin.version>
@@ -417,6 +417,7 @@
             </excludedMethods>
             <features>
               <feature>+FCSV(csvFile[etc/pitmute.csv])</feature>
+              <feature>+FANNOT</feature>
             </features>
           </configuration>
           <dependencies>
@@ -995,6 +996,20 @@
                   <code>java.annotation.removed</code>
                   <annotation>@edu.umd.cs.findbugs.annotations.SuppressFBWarnings.*</annotation>
                   <justification>SpotBugs Annotations are not relevant in API</justification>
+                </item>
+                <item>
+                  <ignore>true</ignore>
+                  <regex>true</regex>
+                  <code>java.annotation.*</code>
+                  <annotation>@edu.hm.hafner.util.SuppressMutation.*</annotation>
+                  <justification>PitMute Annotations are not relevant in API</justification>
+                </item>
+                <item>
+                  <ignore>true</ignore>
+                  <regex>true</regex>
+                  <code>java.annotation.*</code>
+                  <classQualifiedName>edu.hm.hafner.util.SuppressMutation</classQualifiedName>
+                  <justification>PitMute Annotations are not relevant in API</justification>
                 </item>
               </differences>
             </revapi.differences>

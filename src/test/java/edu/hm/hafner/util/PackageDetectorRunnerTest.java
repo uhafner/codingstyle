@@ -29,6 +29,11 @@ class PackageDetectorRunnerTest extends ResourceTest {
         assertThat(detect(fileName)).contains(expectedPackage);
     }
 
+    @Test
+    void shouldNotExtractPackageNamesWhenSuffixDoesNotMatch() throws IOException {
+        assertThat(detect("Package.txt")).isEmpty();
+    }
+
     @ParameterizedTest(name = "{index} => file={0}, no package found")
     @ValueSource(strings = {"MavenJavaTest.txt", "relative.txt", "KotlinTest.txt"})
     void shouldNotAcceptFile(final String fileName) throws IOException {

@@ -43,6 +43,7 @@ import static javax.xml.XMLConstants.*;
  * @see <a href="https://rules.sonarsource.com/java/RSPEC-2755">XML parsers should not be vulnerable to XXE
  *         attacks</a>
  */
+@SuppressMutation(mutator = PitMutator.VOID_METHOD_CALLS, justification = "Setters are used to configure the parsers and factories")
 public class SecureXmlParserFactory {
     /**
      * The following constants are copied from the Xerces distribution 2.12.2. This avoids adding a dependency to

@@ -69,6 +69,7 @@ public final class TreeString implements Serializable {
      *
      * @return the new node in the middle
      */
+    @SuppressMutation(mutator = PitMutator.VOID_METHOD_CALLS, justification = "No need to check assertions")
     TreeString split(final String prefix) {
         Ensure.that(getLabel().startsWith(prefix)).isTrue();
 
@@ -89,8 +90,8 @@ public final class TreeString implements Serializable {
     }
 
     /**
-     * How many nodes do we have from the root to this node (including 'this' itself?). Thus depth of the root node is
-     * 1.
+     * How many nodes do we have from the root to this node (including 'this' itself?). Thus, the depth of
+     * the root node is 1.
      *
      * @return the depth
      */
