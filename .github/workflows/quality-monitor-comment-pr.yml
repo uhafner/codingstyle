@@ -29,7 +29,7 @@ jobs:
         uses: actions/checkout@v6
         with:
           ref: ${{ steps.pr.outputs.sha }}
-      - name: Ensure jq and unzip installed
+      - name: Install jq and unzip
         run: |
           sudo apt-get update && sudo apt-get install -y jq unzip
       - name: Prepare environment
@@ -40,13 +40,13 @@ jobs:
         run: |
           echo "HEAD_SHA=$HEAD_SHA"
           echo "REPO=$REPO"
-      - name: Fetch artifacts from other workflows
+      - name: Fetch artifacts from dependency check and quality monitor workflows
         env:
           REPO: ${{ github.repository }}
           HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OTHER_WORKFLOWS: "quality-monitor-build.yml,quality-monitor-dependency-check.yml"
-          ARTIFACT_NAMES: "quality-reports,quality-reports"
+          OTHER_WORKFLOWS: "quality-monitor-build.yml,dependency-check.yml"
+          ARTIFACT_NAMES: "quality-reports,dependency-report"
           RETRIES: 30
           SLEEP_SEC: 10
         run: |
@@ -54,10 +54,7 @@ jobs:
           ./.github/scripts/fetch-artifacts.sh
       - name: List downloaded artifacts
         run: |
-          ls -la artifacts || true
-      - name: Continue with consumer steps
-        run: |
-          echo "Now you can consume files in ./artifacts/"
+          ls -la artifacts/* || true
       - name: Read Quality Monitor Configuration
         id: quality-monitor
         run: echo "json=$(jq -c . .github/quality-monitor-pr.json)" >> "$GITHUB_OUTPUT"

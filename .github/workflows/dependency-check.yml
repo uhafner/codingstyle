@@ -42,7 +42,7 @@ jobs:
       - name: Upload Dependency Report
         uses: actions/upload-artifact@v6
         with:
-          name: quality-reports
+          name: dependency-report
           path: |
             **/target/**/*.json
 
