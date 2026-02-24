@@ -54,7 +54,9 @@ jobs:
           ./.github/scripts/fetch-artifacts.sh
       - name: List downloaded reports
         run: |
-          ls -la reports/*/target/* || true
+          mkdir -p reports
+          mv artifacts/*/target/* reports
+          ls -la reports/* || true
       - name: Read Quality Monitor Configuration
         id: quality-monitor
         run: echo "json=$(jq -c . .github/quality-monitor-pr.json)" >> "$GITHUB_OUTPUT"

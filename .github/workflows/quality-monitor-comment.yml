@@ -46,7 +46,7 @@ jobs:
       - name: List downloaded reports
         run: |
           mkdir -p reports
-          mv -f artifacts/*/target/* reports
+          mv artifacts/*/target/* reports
           ls -la reports/* || true
       - name: Read Quality Monitor Configuration
         id: quality-monitor
