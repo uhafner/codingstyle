@@ -30,8 +30,7 @@ jobs:
         with:
           ref: ${{ steps.pr.outputs.sha }}
       - name: Install jq and unzip
-        run: |
-          sudo apt-get update && sudo apt-get install -y jq unzip
+        run: sudo apt-get update && sudo apt-get install -y jq unzip
       - name: Prepare environment
         env:
           HEAD_SHA: ${{ github.event.workflow_run.head_sha }}

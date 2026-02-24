@@ -21,8 +21,7 @@ jobs:
       - name: Checkout main branch
         uses: actions/checkout@v6
       - name: Install jq and unzip
-        run: |
-          sudo apt-get update && sudo apt-get install -y jq unzip
+        run: sudo apt-get update && sudo apt-get install -y jq unzip
       - name: Prepare environment
         env:
           HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
