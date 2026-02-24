@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Dieses Skript erwartet die folgenden Umgebungsvariablen:
+# This script expects the following environment variables:
 # REPO: owner/repo
-# HEAD_SHA: der Commit-SHA, für den die Produzenten-Workflows gelaufen sind
-# TOKEN: ein Token mit Lese-Rechten auf Actions (GITHUB_TOKEN oder PAT)
-# OTHER_WORKFLOWS: kommagetrennte Liste von Workflow-Dateinamen oder Workflow-IDs
-# ARTIFACT_NAMES: kommagetrennte Liste von Artefaktnamen (in gleicher Reihenfolge wie WORKFLOWS)
+# HEAD_SHA: the commit SHA for which the producer workflows ran
+# TOKEN: a token with read access to Actions (GITHUB_TOKEN or a PAT)
+# OTHER_WORKFLOWS: comma-separated list of workflow filenames or workflow IDs
+# ARTIFACT_NAMES: comma-separated list of artifact names (in the same order as WORKFLOWS)
 # Optional:
-# RETRIES: Anzahl Poll-Versuche pro Workflow (default 30)
-# SLEEP_SEC: Sekunden zwischen Versuchen (default 10)
+# RETRIES: number of polling attempts per workflow (default: 30)
+# SLEEP_SEC: seconds to wait between attempts (default: 10)
 
 IFS=',' read -r -a WORKFLOWS_ARR <<< "${OTHER_WORKFLOWS}"
 IFS=',' read -r -a ARTIFACTS_ARR <<< "${ARTIFACT_NAMES}"
@@ -94,4 +94,3 @@ done
 
 echo "All requested artifacts downloaded into ./artifacts/"
 exit 0
-

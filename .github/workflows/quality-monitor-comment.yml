@@ -31,7 +31,7 @@ jobs:
         run: |
           echo "HEAD_SHA=$HEAD_SHA"
           echo "REPO=$REPO"
-      - name: Fetch artifacts from dependency check and quality monitor workflows
+      - name: Fetch reports from dependency check and quality monitor workflows
         env:
           REPO: ${{ github.repository }}
           HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
@@ -43,9 +43,11 @@ jobs:
         run: |
           chmod +x ./.github/scripts/fetch-artifacts.sh
           ./.github/scripts/fetch-artifacts.sh
-      - name: List downloaded artifacts
+      - name: List downloaded reports
         run: |
-          ls -la artifacts/* || true
+          mkdir -p reports
+          mv -f artifacts/*/target/* reports
+          ls -la reports/* || true
       - name: Read Quality Monitor Configuration
         id: quality-monitor
         run: echo "json=$(jq -c . .github/quality-monitor.json)" >> "$GITHUB_OUTPUT"
