@@ -49,6 +49,7 @@ jobs:
         with:
           name: quality-reports
           path: |
+            **/target/**/*.json
             **/target/**/*.xml
             **/target/**/*.log
 

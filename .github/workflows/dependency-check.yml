@@ -44,5 +44,5 @@ jobs:
         with:
           name: dependency-report
           path: |
-            **/target/**/*.json
+            **/target/dependency-check-report.json
 
