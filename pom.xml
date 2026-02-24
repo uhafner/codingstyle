@@ -1008,7 +1008,7 @@
                   <ignore>true</ignore>
                   <regex>true</regex>
                   <code>java.annotation.*</code>
-                  <classQualifiedName>edu.hm.hafner.util.SuppressMutation</classQualifiedName>
+                  <classQualifiedName>edu.hm.hafner.util.SuppressMutation.*</classQualifiedName>
                   <justification>PitMute Annotations are not relevant in API</justification>
                 </item>
               </differences>
