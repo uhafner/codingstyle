@@ -91,7 +91,7 @@
     <pitest-maven-plugin.version>1.22.1</pitest-maven-plugin.version>
     <pitest-junit5-plugin.version>1.2.3</pitest-junit5-plugin.version>
     <pitmute.version>1.0.0</pitmute.version>
-    <error-prone.version>2.47.0</error-prone.version>
+    <error-prone.version>2.48.0</error-prone.version>
     <nullaway.version>0.13.1</nullaway.version>
     <revapi-maven-plugin.version>0.15.1</revapi-maven-plugin.version>
     <revapi-java.version>0.28.4</revapi-java.version>
