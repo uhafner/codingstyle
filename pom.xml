@@ -81,7 +81,7 @@
     <maven-failsafe-plugin.version>3.5.5</maven-failsafe-plugin.version>
     <maven-jar-plugin.version>3.5.0</maven-jar-plugin.version>
     <maven-pmd-plugin.version>3.28.0</maven-pmd-plugin.version>
-    <pmd.version>7.21.0</pmd.version>
+    <pmd.version>7.22.0</pmd.version>
     <pmd.metrics.version>7.21.0-metrics</pmd.metrics.version>
     <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
     <checkstyle.version>13.2.0</checkstyle.version>
