@@ -12,8 +12,8 @@ import static edu.hm.hafner.util.PitMutator.*;
  * Suppresses specific mutations when the feature {@code FANNOT} is enabled in PitMute.
  *
  * <p>
- * This annotation can be applied to classes or methods. When used without parameters, all mutations in that scope
- * are suppressed. For more information, please see the README in PitMute.
+ * This annotation can be applied to classes, methods, or constructors. When used without parameters, all mutations in
+ * that scope are suppressed. For more information, please see the README in PitMute.
  * </p>
  *
  * @see <a href="https://github.com/uhafner/pitmute">PitMute</a>
@@ -23,8 +23,7 @@ import static edu.hm.hafner.util.PitMutator.*;
 @Repeatable(SuppressMutations.class)
 public @interface SuppressMutation {
     /**
-     * Specifies the name of a mutator to be ignored.
-     * If {@link #mutator()} is also provided, this value is ignored.
+     * Specifies the name of a mutator to be ignored. If {@link #mutator()} is also provided, this value is ignored.
      *
      * @return the name of the mutator to suppress
      */
@@ -46,8 +45,8 @@ public @interface SuppressMutation {
     int line() default -1;
 
     /**
-     * Specifies a mutator to be ignored.
-     * If both {@code mutator} and {@code mutatorName} are provided, {@code mutatorName} is ignored.
+     * Specifies a mutator to be ignored. If both {@code mutator} and {@code mutatorName} are provided,
+     * {@code mutatorName} is ignored.
      *
      * @return the mutator to suppress
      */
