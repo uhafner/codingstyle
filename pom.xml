@@ -367,6 +367,7 @@
               <recipe>org.openrewrite.java.migrate.lang.StringRulesRecipes</recipe>
               <recipe>org.openrewrite.java.migrate.lang.var.UseVarForObject</recipe>
               <recipe>org.openrewrite.java.migrate.net.JavaNetAPIs</recipe>
+              <recipe>org.openrewrite.java.migrate.util.JavaUtilAPIs</recipe>
               <recipe>org.openrewrite.java.format.BlankLines</recipe>
               <recipe>org.openrewrite.java.format.EmptyNewlineAtEndOfFile</recipe>
               <recipe>org.openrewrite.java.format.RemoveTrailingWhitespace</recipe>
