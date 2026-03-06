@@ -1,12 +1,12 @@
 package edu.hm.hafner.util;
 
+import org.junit.jupiter.api.Test;
+
 import java.io.PrintStream;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
-
 import static java.util.Arrays.*;
-import static java.util.Collections.emptyList;
+import static java.util.Collections.*;
 import static org.mockito.Mockito.*;
 
 /**
@@ -21,7 +21,7 @@ class PrefixLoggerTest {
     private static final String FIRST_MESSAGE = "One";
     private static final String SECOND_MESSAGE = "Two";
 
-    @Test @SuppressWarnings("PMD.CloseResource")
+    @Test
     void shouldLogSingleAndMultipleLines() {
         var printStream = mock(PrintStream.class);
         var logger = new PrefixLogger(printStream, TOOL_NAME);
