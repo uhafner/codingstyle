@@ -62,7 +62,7 @@
     <slf4j.version>2.0.17</slf4j.version>
 
     <!-- Project Test Dependencies Configuration -->
-    <equalsverifier.version>4.4.1</equalsverifier.version>
+    <equalsverifier.version>4.4.2</equalsverifier.version>
     <junit.version>6.0.3</junit.version>
     <mockito.version>5.23.0</mockito.version>
     <assertj.version>3.27.7</assertj.version>
@@ -92,7 +92,7 @@
     <pitest-junit5-plugin.version>1.2.3</pitest-junit5-plugin.version>
     <pitmute.version>1.1.0</pitmute.version>
     <error-prone.version>2.49.0</error-prone.version>
-    <nullaway.version>0.13.1</nullaway.version>
+    <nullaway.version>0.13.2</nullaway.version>
     <revapi-maven-plugin.version>0.15.1</revapi-maven-plugin.version>
     <revapi-java.version>0.28.4</revapi-java.version>
     <revapi-reporter-json-version>0.5.1</revapi-reporter-json-version>
@@ -108,10 +108,10 @@
     <dependency-check-maven.version>12.2.0</dependency-check-maven.version>
 
     <!-- OpenRewrite versions   -->
-    <rewrite-maven-plugin.version>6.35.1</rewrite-maven-plugin.version>
-    <rewrite-testing-frameworks.version>3.32.0</rewrite-testing-frameworks.version>
-    <rewrite-static-analysis.version>2.31.0</rewrite-static-analysis.version>
-    <rewrite-migrate-java.version>3.31.3</rewrite-migrate-java.version>
+    <rewrite-maven-plugin.version>6.36.0</rewrite-maven-plugin.version>
+    <rewrite-testing-frameworks.version>3.34.0</rewrite-testing-frameworks.version>
+    <rewrite-static-analysis.version>2.32.0</rewrite-static-analysis.version>
+    <rewrite-migrate-java.version>3.32.1</rewrite-migrate-java.version>
     <rewrite-recommendations.version>1.15.0</rewrite-recommendations.version>
   </properties>
 
