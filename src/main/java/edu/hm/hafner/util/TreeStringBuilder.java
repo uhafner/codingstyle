@@ -5,15 +5,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Builds {@link TreeString}s that share common prefixes. Call {@link #intern(String)} and you get the {@link
- * TreeString} that represents the same string, but as you intern more strings that share the same prefixes, those
- * {@link TreeString}s that you get back start to share data.
+ * Builds {@link TreeString}s that share common prefixes. Call {@link #intern(String)} and you get the
+ * {@link TreeString} that represents the same string, but as you intern more strings that share the same prefixes,
+ * those {@link TreeString}s that you get back start to share data.
  *
  * <p>
  * Because the internal state of {@link TreeString}s get mutated as new strings are interned (to exploit new-found
- * common prefixes), {@link TreeString}s returned from {@link #intern(String)} aren't thread-safe until {@link
- * TreeStringBuilder} is disposed. That is, you have to make sure other threads don't see those {@link TreeString}s
- * until you are done interning strings.
+ * common prefixes), {@link TreeString}s returned from {@link #intern(String)} aren't thread-safe until
+ * {@link TreeStringBuilder} is disposed. That is, you have to make sure other threads don't see those
+ * {@link TreeString}s until you are done interning strings.
  * </p>
  *
  * @author Kohsuke Kawaguchi
@@ -119,6 +119,7 @@ public class TreeStringBuilder {
         /**
          * Makes sure {@link #children} is writable.
          */
+        @SuppressWarnings("ReferenceEquality")
         private void makeWritable() {
             if (children == NO_CHILDREN) {
                 children = new HashMap<>();
@@ -126,8 +127,8 @@ public class TreeStringBuilder {
         }
 
         /**
-         * Inserts a new node between this node and its parent, and returns that node. Newly inserted 'middle' node will
-         * have this node as its sole child.
+         * Inserts a new node between this node and its parent and returns that node. The newly inserted 'middle' node
+         * will have this node as its sole child.
          *
          * @param prefix
          *         the prefix
