@@ -3,6 +3,8 @@ package edu.hm.hafner.util;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 
+import java.nio.file.Path;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 
@@ -30,10 +32,16 @@ class EnsureTest {
             Ensure.that("", "").isNotNull();
             Ensure.that(null, (Object) null).isNull();
             Ensure.that(new String[]{""}).isNotEmpty();
+            Ensure.that(new String[]{""}).hasSize(1);
+            Ensure.that(new String[0]).isEmpty();
+            Ensure.that(Path.of("")).isNotEmpty();
+            Ensure.that(new String[0]).hasSize(0);
             Ensure.that(SOME_STRING).isNotEmpty();
             Ensure.that(SOME_STRING).isNotBlank();
             Ensure.that("").isInstanceOf(String.class);
+            Ensure.that(Set.of()).isEmpty();
             Ensure.that(Set.of("")).isNotEmpty();
+            Ensure.that(Set.of("")).hasSize(1);
             Ensure.that(Set.of("")).contains("");
             Ensure.that(Set.of("")).doesNotContain(SOME_STRING);
         }).doesNotThrowAnyException();
@@ -71,6 +79,20 @@ class EnsureTest {
                 .isInstanceOf(AssertionError.class);
         assertThatThrownBy(() -> Ensure.that(Set.of("")).doesNotContain(""))
                 .isInstanceOf(AssertionError.class);
+        assertThatThrownBy(() -> Ensure.that(Set.of("")).isEmpty())
+                .isInstanceOf(AssertionError.class);
+        assertThatThrownBy(() -> Ensure.that(Set.of()).isNotEmpty())
+                .isInstanceOf(AssertionError.class);
+        assertThatThrownBy(() -> Ensure.that(Set.of("")).hasSize(0))
+                .isInstanceOf(AssertionError.class);
+        assertThatThrownBy(() -> Ensure.that(Set.of("")).hasSize(2))
+                .isInstanceOf(AssertionError.class);
+        assertThatThrownBy(() -> Ensure.that(new String[]{"not-empty"}).isEmpty())
+                .isInstanceOf(AssertionError.class);
+        assertThatThrownBy(() -> Ensure.that(new String[]{"not-empty"}).hasSize(0))
+                .isInstanceOf(AssertionError.class);
+        assertThatThrownBy(() -> Ensure.that(new String[]{"not-empty"}).hasSize(2))
+                .isInstanceOf(AssertionError.class);
     }
 
     /**
@@ -83,11 +105,17 @@ class EnsureTest {
                 .isInstanceOf(NullPointerException.class).hasMessage(ERROR_MESSAGE);
         assertThatThrownBy(() -> Ensure.that(SOME_STRING, (Object) null).isNotNull(ERROR_MESSAGE))
                 .isInstanceOf(NullPointerException.class).hasMessage(ERROR_MESSAGE);
+        assertThatThrownBy(() -> Ensure.that(SOME_STRING, (Object[]) null).isNotNull(ERROR_MESSAGE))
+                .isInstanceOf(NullPointerException.class).hasMessage(ERROR_MESSAGE);
         assertThatThrownBy(() -> Ensure.that(null, SOME_STRING).isNotNull(ERROR_MESSAGE))
                 .isInstanceOf(NullPointerException.class).hasMessage(ERROR_MESSAGE);
         assertThatThrownBy(() -> Ensure.that(null, (Object[]) null).isNotNull(ERROR_MESSAGE))
                 .isInstanceOf(NullPointerException.class).hasMessage(ERROR_MESSAGE);
         assertThatThrownBy(() -> Ensure.that((Object) null).isNotNull())
+                .isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> Ensure.that((Collection<?>) null).isNotNull())
+                .isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> Ensure.that((Iterable<?>) null).isNotNull())
                 .isInstanceOf(NullPointerException.class);
         assertThatThrownBy(() -> Ensure.that(SOME_STRING, (Object) null).isNotNull())
                 .isInstanceOf(NullPointerException.class);
@@ -100,6 +128,10 @@ class EnsureTest {
         assertThatThrownBy(() -> Ensure.that((String) null).isNotEmpty(ERROR_MESSAGE))
                 .isInstanceOf(NullPointerException.class).hasMessage(ERROR_MESSAGE);
         assertThatThrownBy(() -> Ensure.that((Object[]) null).isNotEmpty())
+                .isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> Ensure.that((Collection<?>) null).isNotEmpty())
+                .isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> Ensure.that((Iterable<?>) null).isNotEmpty())
                 .isInstanceOf(NullPointerException.class);
         assertThatThrownBy(() -> Ensure.that((String) null).isNotEmpty())
                 .isInstanceOf(NullPointerException.class);
@@ -121,6 +153,8 @@ class EnsureTest {
                 Ensure.that("").isNotEmpty(ERROR_MESSAGE)).isInstanceOf(AssertionError.class);
         assertThatThrownBy(() ->
                 Ensure.that(" ").isNotBlank(ERROR_MESSAGE)).isInstanceOf(AssertionError.class);
+        assertThatThrownBy(() ->
+                Ensure.that("").isNotBlank(ERROR_MESSAGE)).isInstanceOf(AssertionError.class);
         assertThatThrownBy(() ->
                 Ensure.that("").isInstanceOf(Integer.class, ERROR_MESSAGE)).isInstanceOf(AssertionError.class);
         assertThatThrownBy(() ->
