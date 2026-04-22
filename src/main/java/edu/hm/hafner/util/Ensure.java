@@ -1,28 +1,30 @@
 package edu.hm.hafner.util;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.google.errorprone.annotations.FormatMethod;
 
 import edu.umd.cs.findbugs.annotations.CheckForNull;
 import edu.umd.cs.findbugs.annotations.CheckReturnValue;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Formatter;
 import java.util.List;
+import java.util.Objects;
 
 /**
- * Provides several helper methods to validate method arguments and class invariants, thus supporting the design by
- * contract concept (DBC).
+ * Provides several helper methods to validate method arguments and class invariants, thus supporting the
+ * design-by-contract concept (DBC).
  *
  * <p>
- * Note: the static methods provided by this class use a fluent interface, i.e., in order to verify an assertion a
- * method sequence needs to be called.
+ * Note: the static methods provided by this class use a fluent interface, i.e., to verify an assertion, a method
+ * sequence needs to be called.
  * </p>
  *
  * <p>
- *  Available checks:
+ * Available checks:
  * </p>
  * <ul>
  *      <li>Boolean assertions, e.g., {@code Ensure.that(condition).isTrue(); } </li>
@@ -33,7 +35,8 @@ import java.util.List;
  * </ul>
  *
  * @author Ullrich Hafner
- * @see <a href="http://se.ethz.ch/~meyer/publications/computer/contract.pdf"> Design by Contract (Meyer, Bertrand)</a>
+ * @see <a href="http://se.ethz.ch/~meyer/publications/computer/contract.pdf"> Design by Contract (Meyer,
+ *         Bertrand)</a>
  */
 public final class Ensure {
     /**
@@ -172,23 +175,6 @@ public final class Ensure {
         throw new AssertionError(message.formatted(args));
     }
 
-    /**
-     * Throws a {@link NullPointerException} with the specified detail message.
-     *
-     * @param message
-     *         a {@link Formatter formatted message} with the description of the error
-     * @param args
-     *         Arguments referenced by the format specifiers in the formatted message. If there are more arguments than
-     *         format specifiers, the extra arguments are ignored. The number of arguments is variable and may be zero.
-     *
-     * @throws AssertionError
-     *         always thrown
-     */
-    @FormatMethod
-    private static void throwNullPointerException(final String message, final Object... args) {
-        throw new NullPointerException(message.formatted(args)); // NOPMD
-    }
-
     private Ensure() {
         // prevents instantiation
     }
@@ -212,10 +198,77 @@ public final class Ensure {
          * that each element of the iterable is not {@code null}.
          *
          * @throws AssertionError
-         *         if the iterable is empty (or {@code null}), or at least one iterable element is {@code null}.
+         *         if the iterable is empty (or {@code null}), or at least one iterable element is {@code null}
          */
         public void isNotEmpty() {
             isNotEmpty("Iterable is empty or NULL");
+        }
+
+        /**
+         * Ensures that the given iterable is not {@code null} but empty.
+         *
+         * @throws AssertionError
+         *         if the iterable is not empty (or {@code null})
+         */
+        public void isEmpty() {
+            isEmpty("Iterable '%s' is not empty or NULL", renderValue());
+        }
+
+        /**
+         * Ensures that the given iterable is not {@code null} and contains the specified number of elements.
+         * Additionally, ensures that each element of the iterable is not {@code null}.
+         *
+         * @param expectedSize
+         *         the expected number of elements in the iterable
+         *
+         * @throws AssertionError
+         *         if the iterable does not contain the expected number of elements (or is {@code null}), or at least
+         *         one iterable element is {@code null}
+         */
+        public void hasSize(final int expectedSize) {
+            hasSize(expectedSize,
+                    "Iterable does not contain the expected number of elements. "
+                            + "Actual value: %s. Expected size: %d",
+                    renderValue(), expectedSize);
+        }
+
+        /**
+         * Ensures that the given iterable is not {@code null} and contains the specified number of elements.
+         * Additionally, ensures that each element of the iterable is not {@code null}.
+         *
+         * @param expectedSize
+         *         the expected number of elements in the iterable
+         * @param explanation
+         *         a {@link Formatter formatted message} explaining the assertion
+         * @param args
+         *         Arguments referenced by the format specifiers in the formatted explanation. If there are more
+         *         arguments than format specifiers, the extra arguments are ignored. The number of arguments is
+         *         variable and may be zero.
+         *
+         * @throws AssertionError
+         *         if the iterable does not contain the expected number of elements (or is {@code null}), or at least
+         *         one iterable element is {@code null}
+         */
+        @FormatMethod
+        public void hasSize(final int expectedSize, final String explanation, final Object... args) {
+            isNotNull(explanation, args);
+
+            var size = computeSize(explanation, args);
+            if (size != expectedSize) {
+                throwException(explanation, args);
+            }
+        }
+
+        @FormatMethod
+        private int computeSize(final String explanation, final Object... args) {
+            int size = 0;
+            for (Object object : getValue()) {
+                if (object == null) {
+                    throwException(explanation, args);
+                }
+                size++;
+            }
+            return size;
         }
 
         /**
@@ -230,20 +283,35 @@ public final class Ensure {
          *         variable and may be zero.
          *
          * @throws AssertionError
-         *         if the iterable is empty (or {@code null}), or at least one iterable element is {@code null}.
+         *         if the iterable is empty (or {@code null}), or at least one iterable element is {@code null}
          */
         @FormatMethod
         public void isNotEmpty(final String explanation, final Object... args) {
             isNotNull(explanation, args);
 
-            if (getValue().iterator().hasNext()) {
-                for (Object object : getValue()) {
-                    if (object == null) {
-                        throwException(explanation, args);
-                    }
-                }
+            if (computeSize(explanation, args) == 0) {
+                throwException(explanation, args);
             }
-            else {
+        }
+
+        /**
+         * Ensures that the given iterable is not {@code null} but has no elements.
+         *
+         * @param explanation
+         *         a {@link Formatter formatted message} explaining the assertion
+         * @param args
+         *         Arguments referenced by the format specifiers in the formatted explanation. If there are more
+         *         arguments than format specifiers, the extra arguments are ignored. The number of arguments is
+         *         variable and may be zero.
+         *
+         * @throws AssertionError
+         *         if the iterable is not empty (or {@code null})
+         */
+        @FormatMethod
+        public void isEmpty(final String explanation, final Object... args) {
+            isNotNull(explanation, args);
+
+            if (computeSize(explanation, args) != 0) {
                 throwException(explanation, args);
             }
         }
@@ -278,7 +346,7 @@ public final class Ensure {
          *         if the collection is {@code null} or if the specified element is not found
          */
         public void contains(final Object element) {
-            contains(element, "Collection %s does not contain element '%s'", getValue(), element);
+            contains(element, "Collection '%s' does not contain element '%s'", renderValue(), element);
         }
 
         /**
@@ -315,7 +383,7 @@ public final class Ensure {
          *         if the collection is {@code null} or if the specified element is part of the collection
          */
         public void doesNotContain(final Object element) {
-            doesNotContain(element, "Collection '%s' contains element '%s'", getValue(), element);
+            doesNotContain(element, "Collection '%s' contains element '%s' but should not", renderValue(), element);
         }
 
         /**
@@ -363,10 +431,60 @@ public final class Ensure {
          * that each element of the array is not {@code null}.
          *
          * @throws AssertionError
-         *         if the array is empty (or {@code null}), or at least one array element is {@code null}.
+         *         if the array is empty (or {@code null}), or at least one array element is {@code null}
          */
         public void isNotEmpty() {
             isNotEmpty("Array is empty or NULL");
+        }
+
+        /**
+         * Ensures that the given array is not {@code null} but empty.
+         *
+         * @throws AssertionError
+         *         if the array is not empty (or {@code null})
+         */
+        public void isEmpty() {
+            isEmpty("Array '%s' is not empty or NULL", renderValue());
+        }
+
+        /**
+         * Ensures that the given array is not {@code null} and has the specified number of elements. Additionally,
+         * ensures that each element of the array is not {@code null}.
+         *
+         * @param expectedSize
+         *         the expected number of elements in the array
+         *
+         * @throws AssertionError
+         *         if the array does not contain the expected number of elements (or is {@code null}), or at least one
+         *         array element is {@code null}
+         */
+        public void hasSize(final int expectedSize) {
+            hasSize(expectedSize,
+                    "Array does not contain the expected number of elements. "
+                            + "Actual value: %s. Expected size: %d",
+                    renderValue(), expectedSize);
+        }
+
+        /**
+         * Ensures that the given array is not {@code null} but empty.
+         *
+         * @param explanation
+         *         a {@link Formatter formatted message} explaining the assertion
+         * @param args
+         *         Arguments referenced by the format specifiers in the formatted explanation. If there are more
+         *         arguments than format specifiers, the extra arguments are ignored. The number of arguments is
+         *         variable and may be zero.
+         *
+         * @throws AssertionError
+         *         if the array is empty (or {@code null}), or at least one array element is {@code null}.
+         */
+        @FormatMethod
+        public void isEmpty(final String explanation, final Object... args) {
+            isNotNull(explanation, args);
+
+            if (getValue().length != 0) {
+                throwException(explanation, args);
+            }
         }
 
         /**
@@ -391,15 +509,46 @@ public final class Ensure {
                 throwException(explanation, args);
             }
             else {
-                for (Object object : getValue()) {
-                    if (object == null) {
-                        throwException(explanation, args);
-                    }
-                }
+                doesNotContainNull(explanation, args);
             }
         }
 
-        // FIXME: add isEmpty() methods
+        /**
+         * Ensures that the given array is not {@code null} and contains the specified number of elements. Additionally,
+         * ensures that each element of the array is not {@code null}.
+         *
+         * @param expectedSize
+         *         the expected number of elements in the array
+         * @param explanation
+         *         a {@link Formatter formatted message} explaining the assertion
+         * @param args
+         *         Arguments referenced by the format specifiers in the formatted explanation. If there are more
+         *         arguments than format specifiers, the extra arguments are ignored. The number of arguments is
+         *         variable and may be zero.
+         *
+         * @throws AssertionError
+         *         if the array is empty (or {@code null}), or at least one array element is {@code null}.
+         */
+        @FormatMethod
+        public void hasSize(final int expectedSize, final String explanation, final Object... args) {
+            isNotNull(explanation, args);
+
+            if (getValue().length == expectedSize) {
+                doesNotContainNull(explanation, args);
+            }
+            else {
+                throwException(explanation, args);
+            }
+        }
+
+        @FormatMethod
+        private void doesNotContainNull(final String explanation, final Object... args) {
+            for (Object object : getValue()) {
+                if (object == null) {
+                    throwException(explanation, args);
+                }
+            }
+        }
     }
 
     /**
@@ -556,25 +705,25 @@ public final class Ensure {
          */
         @FormatMethod
         public void isNotNull(final String explanation, final Object... args) {
+            var nullPointerException = new NullPointerException(explanation.formatted(args));
             if (value == null || additionalValues == null) {
-                throwNullPointerException(explanation, args);
+                throw nullPointerException; // NOPMD
             }
             else {
                 for (Object additionalValue : additionalValues) {
                     if (additionalValue == null) {
-                        throwNullPointerException(explanation, args);
+                        throw nullPointerException; // NOPMD
                     }
                 }
             }
         }
 
-        @SuppressFBWarnings("NP")
-        @SuppressWarnings("PMD.AvoidThrowingNullPointerException")
         T getValue() {
-            if (value == null) {
-                throw new NullPointerException("Value is null");
-            }
-            return value;
+            return Objects.requireNonNull(value, "Value is NULL");
+        }
+
+        String renderValue() {
+            return value + ", " + StringUtils.join(additionalValues, ", ");
         }
 
         /**
