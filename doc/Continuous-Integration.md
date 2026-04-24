@@ -11,7 +11,7 @@ U. a. sind die folgenden Plugins vorkonfiguriert:
 - maven-javadoc-plugin: aktiviert die strikte Prüfung von JavaDoc Kommentaren
 - maven-jar-plugin: legt einen Modulnamen fest. Außerdem wird ein test-jar konfiguriert, sodass alle Tests (und abstrakte Testklassen) auch als Dependencies genutzt werden können.
 - maven-pmd-plugin: prüft das Projekt mit [PMD](https://pmd.github.io/), die Regeln liegen in den Dateien [pmd-java-configuration.xml](../etc/pmd-java-configuration.xml), [pmd-tests-configuration.xml](../etc/pmd-tests-configuration.xml) und [pmd-javascript-configuration.xml](../etc/pmd-javascript-configuration.xml).
-- maven-checkstyle-plugin: prüft das Projekt mit [CheckStyle](https://checkstyle.sourceforge.io/), die Regeln liegen in den Dateien [checkstyle-java-configuration.xml](../etc/checkstyle-java-configuration.xml) und [checkstyle-tests-configuration.xml](../etc/checkstyle-tests-configuration.xml).
+- maven-checkstyle-plugin: prüft das Projekt mit [CheckStyle](https://checkstyle.org/), die Regeln liegen in den Dateien [checkstyle-java-configuration.xml](../etc/checkstyle-java-configuration.xml) und [checkstyle-tests-configuration.xml](../etc/checkstyle-tests-configuration.xml).
 - spotbugs-maven-plugin: prüft das Projekt mit [SpotBugs](https://spotbugs.github.io/), alle Regeln werden verwendet mit den Ausnahmen definiert in der Datei [spotbugs-exclusion-filter.xml](../etc/spotbugs-exclusion-filter.xml).
 - revapi-maven-plugin: prüft, ob die aktuelle Versionsnummer die [semantische Versionierung](https://semver.org) berücksichtigt (source and binary). D.h. es gilt:
     1. Eine neue **Major** Version wurde definiert, wenn das API nicht mehr abwärtskompatibel ist.
