@@ -1123,6 +1123,7 @@
               <format>JSON</format>
               <nvdApiKeyEnvironmentVariable>NVD_API_KEY</nvdApiKeyEnvironmentVariable>
               <ossIndexAnalyzerEnabled>false</ossIndexAnalyzerEnabled>
+              <ossIndexWarnOnlyOnRemoteErrors>true</ossIndexWarnOnlyOnRemoteErrors>
             </configuration>
             <executions>
               <execution>
