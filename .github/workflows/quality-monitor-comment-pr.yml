@@ -21,7 +21,7 @@ jobs:
       - name: Checkout PR
         uses: actions/checkout@v6
       - name: Download reference reports from main branch
-        uses: dawidd6/action-download-artifact@v6
+        uses: dawidd6/action-download-artifact@v21
         with:
           workflow: quality-monitor-build.yml
           branch: main
