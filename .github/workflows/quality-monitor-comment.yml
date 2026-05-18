@@ -31,7 +31,7 @@ jobs:
           echo "HEAD_SHA=$HEAD_SHA"
           echo "REPO=$REPO"
       - name: Download reference reports from main branch
-        uses: dawidd6/action-download-artifact@v6
+        uses: dawidd6/action-download-artifact@v21
         with:
           workflow: quality-monitor-build.yml
           branch: main
