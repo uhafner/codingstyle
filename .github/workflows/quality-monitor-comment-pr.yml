@@ -21,6 +21,7 @@ jobs:
       - name: Checkout PR
         uses: actions/checkout@v6
       - name: Download reference reports from main branch
+        id: download-reference
         uses: dawidd6/action-download-artifact@v21
         with:
           workflow: quality-monitor-build.yml
@@ -29,6 +30,15 @@ jobs:
           path: reference-reports
           check_artifacts: true
           if_no_artifact_found: ignore
+      - name: Display reference artifact info
+        run: |
+          echo "Artifact details: ${{ steps.download-reference.outputs.artifacts }}"
+          run_id=$(echo '${{ steps.download-reference.outputs.artifacts }}' | jq -r '.[0].workflow_run.id // "unknown"')
+          run_number=$(echo '${{ steps.download-reference.outputs.artifacts }}' | jq -r '.[0].workflow_run.run_number // "unknown"')
+          echo "Downloaded artifact from Run ID: $run_id"
+          echo "Downloaded artifact from Run Number: $run_number"
+          echo "run_id=$run_id" >> "$GITHUB_ENV"
+          echo "run_number=$run_number" >> "$GITHUB_ENV"
       - name: Fetch reports from dependency check and quality monitor workflows
         env:
           REPO: ${{ github.repository }}
