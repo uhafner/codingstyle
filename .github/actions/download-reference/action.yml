@@ -53,26 +53,21 @@ runs:
       id: reference-info
       shell: bash
       run: |
-        echo "Artifact details: ${{ steps.download-reference.outputs.artifacts }}"
         run_id=$(echo '${{ steps.download-reference.outputs.artifacts }}' | jq -r '.[0].workflow_run.id // "unknown"')
         run_number=$(echo '${{ steps.download-reference.outputs.artifacts }}' | jq -r '.[0].workflow_run.run_number // "unknown"')
         head_sha=$(echo '${{ steps.download-reference.outputs.artifacts }}' | jq -r '.[0].workflow_run.head_sha // "unknown"')
-        echo "Downloaded artifact from Run ID: $run_id"
-        echo "Downloaded artifact from Run Number: $run_number"
-        echo "Downloaded artifact from Commit SHA: $head_sha"
         echo "run_id=$run_id" >> "$GITHUB_OUTPUT"
         echo "run_number=$run_number" >> "$GITHUB_OUTPUT"
         echo "head_sha=$head_sha" >> "$GITHUB_OUTPUT"
 
         if [ "$run_id" != "unknown" ]; then
           run_url="https://github.com/${{ inputs.repository }}/actions/runs/$run_id"
-          echo "Run URL: $run_url"
           echo "run_url=$run_url" >> "$GITHUB_OUTPUT"
         fi
 
         if [ "$head_sha" != "unknown" ]; then
           commit_url="https://github.com/${{ inputs.repository }}/commit/$head_sha"
-          echo "Commit URL: $commit_url"
           echo "commit_url=$commit_url" >> "$GITHUB_OUTPUT"
         fi
-
+        echo "Downloaded artifact from Run $run_id ($run_url)"
+        echo "Downloaded artifact from Commit SHA $head_sha ($commit_url)"
