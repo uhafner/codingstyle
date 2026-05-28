@@ -20,45 +20,14 @@ jobs:
     steps:
       - name: Checkout PR
         uses: actions/checkout@v6
-      - name: Download reference reports from main branch
-        id: download-reference
-        uses: dawidd6/action-download-artifact@v21
+      - name: Install jq and unzip
+        run: sudo apt-get update && sudo apt-get install -y jq unzip
+      - name: Download reference reports from main branch pipeline run
+        id: reference
+        uses: ./.github/actions/download-reference
         with:
-          workflow: quality-monitor-build.yml
-          branch: main
-          name: quality-reports
-          path: reference-reports
-          check_artifacts: true
-          if_no_artifact_found: ignore
-      - name: Display reference artifact info
-        id: reference-info
-        run: |
-          echo "Artifact details: ${{ steps.download-reference.outputs.artifacts }}"
-          run_id=$(echo '${{ steps.download-reference.outputs.artifacts }}' | jq -r '.[0].workflow_run.id // "unknown"')
-          run_number=$(echo '${{ steps.download-reference.outputs.artifacts }}' | jq -r '.[0].workflow_run.run_number // "unknown"')
-          head_sha=$(echo '${{ steps.download-reference.outputs.artifacts }}' | jq -r '.[0].workflow_run.head_sha // "unknown"')
-          echo "Downloaded artifact from Run ID: $run_id"
-          echo "Downloaded artifact from Run Number: $run_number"
-          echo "Downloaded artifact from Commit SHA: $head_sha"
-          
-          if [ "$run_id" != "unknown" ]; then
-            run_url="https://github.com/${{ github.repository }}/actions/runs/$run_id"
-            echo "Run URL: $run_url"
-            echo "run_url=$run_url" >> "$GITHUB_ENV"
-            echo "run_url=$run_url" >> "$GITHUB_OUTPUT"
-          fi
-          
-          if [ "$head_sha" != "unknown" ]; then
-            commit_url="https://github.com/${{ github.repository }}/commit/$head_sha"
-            echo "Commit URL: $commit_url"
-            echo "commit_url=$commit_url" >> "$GITHUB_ENV"
-            echo "commit_url=$commit_url" >> "$GITHUB_OUTPUT"
-          fi
-          
-          echo "run_id=$run_id" >> "$GITHUB_ENV"
-          echo "run_number=$run_number" >> "$GITHUB_ENV"
-          echo "head_sha=$head_sha" >> "$GITHUB_ENV"
-      - name: Fetch reports from dependency check and quality monitor workflows
+          repository: ${{ github.repository }}
+      - name: Download current reports from dependency check and quality monitor workflows
         env:
           REPO: ${{ github.repository }}
           HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
@@ -84,8 +53,6 @@ jobs:
           fi
           echo "PR number from reports/pr-number.txt: $pr_number"
           echo "number=$pr_number" >> "$GITHUB_OUTPUT"
-      - name: Install jq and unzip
-        run: sudo apt-get update && sudo apt-get install -y jq unzip
       - name: Prepare environment
         env:
           HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
@@ -107,8 +74,8 @@ jobs:
           config: ${{ steps.quality-monitor.outputs.json }}
           quality-gates: ${{ steps.quality-gates.outputs.json }}
           pr-number: ${{ steps.pr.outputs.number }}
-          reference-commit-url: ${{ steps.reference-info.outputs.commit_url }}
-          reference-run-url: ${{ steps.reference-info.outputs.run_url }}
+          reference-commit-url: ${{ steps.reference.outputs.commit_url }}
+          reference-run-url: ${{ steps.reference.outputs.run_url }}
           comments-strategy: REMOVE
           show-headers: true
           title-metric: none
