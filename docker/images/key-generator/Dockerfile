@@ -1,5 +1,5 @@
 # Prepare a Debian-based Docker image with several utilities installed to automatically generate SSH keys
-FROM debian:trixie-20260505
+FROM debian:trixie-20260518
 
 # Copy all shell scripts from the current directory to /usr/local/bin/ in the image.
 COPY *sh /usr/local/bin/
