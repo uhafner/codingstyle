@@ -10,7 +10,7 @@
     <exclude name="AccessorMethodGeneration"/>
     <exclude name="GuardLogStatement"/>
     <exclude name="UnitTestShouldUseTestAnnotation"/>
-    <exclude name="JUnit5TestShouldBePackagePrivate"/>
+    <exclude name="JUnitJupiterTestShouldBePackagePrivate"/>
     <exclude name="UnitTestAssertionsShouldIncludeMessage"/>
     <exclude name="UnitTestContainsTooManyAsserts"/>
     <exclude name="UnitTestShouldIncludeAssert"/>
