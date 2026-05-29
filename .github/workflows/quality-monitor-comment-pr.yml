@@ -22,12 +22,7 @@ jobs:
         uses: actions/checkout@v6
       - name: Install jq and unzip
         run: sudo apt-get update && sudo apt-get install -y jq unzip
-      - name: Download reference reports from main branch pipeline run
-        id: reference
-        uses: ./.github/actions/download-reference
-        with:
-          repository: ${{ github.repository }}
-      - name: Download current reports from dependency check and quality monitor workflows
+      - name: Download PR reports from dependency check and quality monitor workflows
         env:
           REPO: ${{ github.repository }}
           HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
@@ -53,14 +48,6 @@ jobs:
           fi
           echo "PR number from reports/pr-number.txt: $pr_number"
           echo "number=$pr_number" >> "$GITHUB_OUTPUT"
-      - name: Prepare environment
-        env:
-          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
-          REPO: ${{ github.repository }}
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo "HEAD_SHA=$HEAD_SHA"
-          echo "REPO=$REPO"
       - name: Read Quality Monitor Configuration
         id: quality-monitor
         run: echo "json=$(jq -c . .github/quality-monitor-pr.json)" >> "$GITHUB_OUTPUT"
@@ -74,8 +61,7 @@ jobs:
           config: ${{ steps.quality-monitor.outputs.json }}
           quality-gates: ${{ steps.quality-gates.outputs.json }}
           pr-number: ${{ steps.pr.outputs.number }}
-          reference-commit-url: ${{ steps.reference.outputs.commit_url }}
-          reference-run-url: ${{ steps.reference.outputs.run_url }}
+          enable-delta: true
           comments-strategy: REMOVE
           show-headers: true
           title-metric: none
