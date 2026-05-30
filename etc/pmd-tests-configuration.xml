@@ -32,6 +32,7 @@
     <exclude name="OnlyOneReturn"/>
     <exclude name="ShortClassName"/>
     <exclude name="ShortVariable"/>
+    <exclude name="TooManyStaticImports"/>
     <exclude name="UnnecessaryConstructor"/>
     <exclude name="UseExplicitTypes"/>
   </rule>
@@ -71,6 +72,7 @@
     <exclude name="SimplifyBooleanReturns"/>
     <exclude name="TooManyMethods"/>
     <exclude name="UseObjectForClearerAPI"/>
+    <exclude name="UseUtilityClass"/>
   </rule>
   <rule ref="category/java/design.xml/SignatureDeclareThrowsException">
     <properties>
