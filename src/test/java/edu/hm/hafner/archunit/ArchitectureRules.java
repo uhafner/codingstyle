@@ -32,6 +32,11 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
  * @author Ullrich Hafner
  */
 public final class ArchitectureRules {
+    /** No class should have non-private instance fields. */
+    public static final ArchRule ONLY_PRIVATE_FIELDS =
+            fields().that().doNotHaveModifier(JavaModifier.STATIC)
+                    .should().bePrivate().allowEmptyShould(true);
+
     /** Tests should not use fields. Recommendation is to use factory methods for stubs and mocks. */
     public static final ArchRule NO_FIELDS_IN_TESTS =
             fields().that().areDeclaredInClassesThat().haveSimpleNameEndingWith("Test")
