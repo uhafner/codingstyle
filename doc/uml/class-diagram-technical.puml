@@ -90,7 +90,7 @@ note "Klasse" as Class
 note "Interface" as Interface
 note "Vererbung" as Vererbung
 note "Implementierung" as Implementierung
-note "gerichtete Assoziation" as Assoziation
+note "gerichtete Assoziation\n    als Objektvariable" as Assoziation
 note "Vererbung und dabei\ngenerischen Typ binden" as Generics
 note "gerichtete Abhängigkeit:\n<<use>> benutzt\n<<create>> erzeugt\n<<call>> Aufruf" as Dependency
 note "Aggregation" as Aggregation

@@ -22,6 +22,16 @@ class ArchitectureRulesTest {
     private static final String BROKEN_CLASS_NAME = ArchitectureRulesViolatedTest.class.getTypeName();
 
     @Test
+    void shouldVerifyThatFieldsArePrivate() {
+        assertThatExceptionOfType(AssertionError.class).isThrownBy(
+                        () -> ArchitectureRules.ONLY_PRIVATE_FIELDS.check(importBrokenClass()))
+                .withMessageContainingAll(BROKEN_CLASS_NAME, "fields that do not have modifier STATIC should be private' was violated");
+
+        assertThatNoException().isThrownBy(
+                () -> ArchitectureRules.ONLY_PRIVATE_FIELDS.check(importPassingClass()));
+    }
+
+    @Test
     void shouldUseProtectedForReadResolve() {
         assertThatExceptionOfType(AssertionError.class).isThrownBy(
                         () -> ArchitectureRules.READ_RESOLVE_SHOULD_BE_PROTECTED.check(importBrokenClass()))
@@ -100,7 +110,7 @@ class ArchitectureRulesTest {
 
     private JavaClasses importPassingClass() {
         return new ClassFileImporter().importClasses(ArchitectureRulesPassedTest.class,
-                ArchitectureRulesAlsoPassedTest.class);
+                ArchitectureRulesAlsoPassedTest.class, ArchitectureRulesPassed.class);
     }
 
     private JavaClasses importBrokenClass() {
@@ -116,6 +126,8 @@ class ArchitectureRulesTest {
     public static class ArchitectureRulesViolatedTest {
         @edu.umd.cs.findbugs.annotations.Nullable
         private final String noNullable = null;
+
+        int nonPrivate;
 
         @Test @Disabled("This test is just there to be used in architecture tests")
         public void shouldFail() {
@@ -187,5 +199,10 @@ class ArchitectureRulesTest {
         protected Object readResolve() {
             return this;
         }
+    }
+
+    @SuppressWarnings("all") // This class is just there to be used in architecture tests
+    static class ArchitectureRulesPassed {
+        private int privateField;
     }
 }
