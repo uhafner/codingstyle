@@ -17,7 +17,7 @@ class CSharpNamespaceDetector extends PackageDetector {
     }
 
     @Override
-    public boolean accepts(final String fileName) {
+    boolean accepts(final String fileName) {
         return fileName.endsWith(".cs");
     }
 
