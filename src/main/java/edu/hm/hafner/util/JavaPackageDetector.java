@@ -1,8 +1,8 @@
 package edu.hm.hafner.util;
 
-import java.util.regex.Pattern;
-
 import edu.hm.hafner.util.PackageDetectorFactory.FileSystemFacade;
+
+import java.util.regex.Pattern;
 
 /**
  * Detects the package name of a Java file.
@@ -23,7 +23,7 @@ class JavaPackageDetector extends PackageDetector {
     }
 
     @Override
-    public boolean accepts(final String fileName) {
+    boolean accepts(final String fileName) {
         return fileName.endsWith(".java");
     }
 }

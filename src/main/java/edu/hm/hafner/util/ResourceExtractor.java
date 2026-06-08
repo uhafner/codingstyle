@@ -1,5 +1,8 @@
 package edu.hm.hafner.util;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -14,9 +17,6 @@ import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.stream.Collectors;
-
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * A proxy for resources. Extracts a given collection of files from the classpath and copies them to a target path.
@@ -117,7 +117,7 @@ public class ResourceExtractor {
         }
 
         @Override
-        public void extractFiles(final Path targetDirectory, final String... sources) {
+        void extractFiles(final Path targetDirectory, final String... sources) {
             try {
                 for (String source : sources) {
                     var targetFile = targetDirectory.resolve(source);
@@ -149,7 +149,7 @@ public class ResourceExtractor {
         }
 
         @Override
-        public void extractFiles(final Path targetDirectory, final String... sources) {
+        void extractFiles(final Path targetDirectory, final String... sources) {
             Set<String> remaining = Arrays.stream(sources).collect(Collectors.toSet());
             try (var jar = new JarFile(getEntryPoint().toFile())) {
                 Enumeration<JarEntry> entries = jar.entries();
