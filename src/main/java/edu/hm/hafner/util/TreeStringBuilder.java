@@ -19,7 +19,14 @@ import java.util.Map;
  * @author Kohsuke Kawaguchi
  */
 public class TreeStringBuilder {
+    /** Placeholder that represents no child node, until one is added. */
+    private static final Map<String, Child> NO_CHILDREN = Collections.emptyMap();
+
     private final Child root = new Child(new TreeString());
+
+    private Child getRoot() {
+        return root;
+    }
 
     /**
      * Interns a string.
@@ -51,13 +58,6 @@ public class TreeStringBuilder {
     @SuppressMutation(mutator = PitMutator.VOID_METHOD_CALLS, justification = "Memory optimization without visible side effect")
     public void dedup() {
         getRoot().dedup(new HashMap<>());
-    }
-
-    /** Placeholder that represents no child node, until one is added. */
-    private static final Map<String, Child> NO_CHILDREN = Collections.emptyMap();
-
-    Child getRoot() {
-        return root;
     }
 
     /**
