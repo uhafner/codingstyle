@@ -815,14 +815,14 @@
         </configuration>
         <dependencies>
           <dependency>
-            <groupId>edu.hm.hafner</groupId>
+            <groupId>net.sourceforge.pmd</groupId>
             <artifactId>pmd-core</artifactId>
-            <version>${pmd.metrics.version}</version>
+            <version>${pmd.version}</version>
           </dependency>
           <dependency>
-            <groupId>edu.hm.hafner</groupId>
+            <groupId>net.sourceforge.pmd</groupId>
             <artifactId>pmd-java</artifactId>
-            <version>${pmd.metrics.version}</version>
+            <version>${pmd.version}</version>
           </dependency>
           <dependency>
             <groupId>net.sourceforge.pmd</groupId>
@@ -847,22 +847,6 @@
               <includeTests>false</includeTests>
               <minimumTokens>50</minimumTokens>
               <printFailingErrors>true</printFailingErrors>
-              <skip>${pmd.skip}</skip>
-            </configuration>
-          </execution>
-          <execution>
-            <id>run-pmd-metrics</id>
-            <goals>
-              <goal>pmd</goal>
-            </goals>
-            <phase>verify</phase>
-            <configuration>
-              <targetDirectory>${project.build.directory}/metrics</targetDirectory>
-              <rulesets>
-                <ruleset>/category/java/metric.xml</ruleset>
-              </rulesets>
-              <format>net.sourceforge.pmd.renderers.MetricsRenderer</format>
-              <includeTests>false</includeTests>
               <skip>${pmd.skip}</skip>
             </configuration>
           </execution>
