@@ -39,6 +39,8 @@ skinparam ArrowThickness 2
 
 hide circle
 
+skinparam style strictuml
+
 package java.util {
     class Observable {
         - changed: boolean

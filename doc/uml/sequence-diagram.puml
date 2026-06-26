@@ -1,6 +1,6 @@
 @startuml
 
-skin rose
+skinparam style strictuml
 
 skinparam sequence {
   BackgroundColor #4AD386
