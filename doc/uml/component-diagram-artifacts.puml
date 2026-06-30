@@ -33,18 +33,25 @@ hide circle
 skinparam componentStyle uml2
 
 component "Anwendung" <<component>> as anwendung {
+    artifact anwendung-1.0.0.war <<artifact>> as war {
+    }
 }
 
 component "Fachkomponente" <<component>> as fachkomponente {
+    artifact fachlogik-1.0.0.jar <<artifact>> as jar {
+    }
 }
 
 component " org.apache.commons:commons-lang3:3.12 " <<component>> as library {
+    artifact commons-lang3-3.12.jar <<artifact>> as lang {
+    }
 }
 
 anwendung .up.> library : " <<use>>"
 circle "\t         Fassade " as fassade
 anwendung ..> fassade : " <<call>>"
 
+note "Artefakt\nEndung je nach Projekttyp" as artefact
 note "Komponente, identifiziert\nmit 3 Koordinaten" as component
 note "Schnittstelle" as schnittstelle
 note "Implementierung\neiner Schnittstelle" as Implementierung
@@ -59,6 +66,7 @@ fassade .[#blue,dotted]up. Use
 
 fassade .[#blue,dotted]left. schnittstelle
 library .[#blue,dotted]up. component
+lang .[#blue,dotted]down. artefact
 
 fassade .[#blue,dotted]down. Implementierung
 fachkomponente .[#blue,dotted]right. Implementierung
