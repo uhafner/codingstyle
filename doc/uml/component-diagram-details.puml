@@ -67,7 +67,7 @@ component "Anwendung" <<component>> as anwendung {
 component "Fachkomponente" <<component>> as fachkomponente {
 }
 
-component " org.apache.commons:commons-lang3      " <<component>> as library {
+component " org.apache.commons:commons-lang3:3.12 " <<component>> as library {
     artifact commons-lang3-3.12.jar <<artifact>> as lang {
     }
 }
