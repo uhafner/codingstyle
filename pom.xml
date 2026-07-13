@@ -55,7 +55,7 @@
     <pmd.skip>false</pmd.skip>
 
     <!-- Project Dependencies Configuration -->
-    <spotbugs.version>4.10.2</spotbugs.version>
+    <spotbugs.version>4.10.3</spotbugs.version>
     <commons.lang.version>3.20.0</commons.lang.version>
     <commons.io.version>2.22.0</commons.io.version>
     <byte-buddy.version>1.18.10-jdk5</byte-buddy.version>
