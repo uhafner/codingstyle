@@ -41,10 +41,7 @@
     <module name="PackageAnnotation"/>
     <module name="EqualsAvoidNull"/>
     <module name="GenericWhitespace"/>
-    <module name="JavadocStyle">
-      <property name="severity" value="warning"/>
-      <property name="checkEmptyJavadoc" value="true"/>
-    </module>
+    <module name="SummaryJavadoc"/>
     <module name="JavadocType"/>
     <module name="JavadocMethod"/>
     <module name="JavadocParagraph"/>
