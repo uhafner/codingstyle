@@ -501,7 +501,6 @@
           <failThreshold>Low</failThreshold>
           <effort>Max</effort>
           <relaxed>false</relaxed>
-          <fork>true</fork>
           <excludeFilterFile>etc/spotbugs-exclusion-filter.xml</excludeFilterFile>
           <includeTests>true</includeTests>
           <plugins>
