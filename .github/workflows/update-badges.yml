@@ -41,6 +41,8 @@ jobs:
       - name: Build and test with Maven
         env:
           PIT: ${{ env.PIT }}
+          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
+          OSS_INDEX_TOKEN: ${{ secrets.OSS_INDEX_TOKEN }}
         run: |
           mvn -V --color always -ntp clean verify -Pci $PIT -Powasp -Pdepgraph | tee maven.log
           if [ "${PIPESTATUS[0]}" != "0" ]; then
