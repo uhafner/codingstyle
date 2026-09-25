@@ -1,7 +1,6 @@
 package edu.hm.hafner.util;
 
 import edu.hm.hafner.util.PackageDetectorFactory.FileSystemFacade;
-
 import java.util.regex.Pattern;
 
 /**
@@ -10,8 +9,7 @@ import java.util.regex.Pattern;
  * @author Ullrich Hafner
  */
 class JavaPackageDetector extends PackageDetector {
-    private static final Pattern PACKAGE_PATTERN = Pattern.compile(
-            "^\\s*package\\s*([a-z]+[.\\w]*)\\s*;.*");
+    private static final Pattern PACKAGE_PATTERN = Pattern.compile("^\\s*package\\s*([a-z]+[.\\w]*)\\s*;.*");
 
     JavaPackageDetector(final FileSystemFacade fileSystem) {
         super(fileSystem);

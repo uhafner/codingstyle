@@ -1,8 +1,7 @@
 package edu.hm.hafner.util;
 
-import java.util.regex.Pattern;
-
 import edu.hm.hafner.util.PackageDetectorFactory.FileSystemFacade;
+import java.util.regex.Pattern;
 
 /**
  * Detects the package name of a Kotlin file.
@@ -10,8 +9,7 @@ import edu.hm.hafner.util.PackageDetectorFactory.FileSystemFacade;
  * @author Bastian Kersting
  */
 class KotlinPackageDetector extends PackageDetector {
-    private static final Pattern PACKAGE_PATTERN = Pattern.compile(
-            "^\\s*package\\s*([a-z]+[.\\w]*)\\s*.*");
+    private static final Pattern PACKAGE_PATTERN = Pattern.compile("^\\s*package\\s*([a-z]+[.\\w]*)\\s*.*");
 
     @VisibleForTesting
     KotlinPackageDetector(final FileSystemFacade fileSystem) {

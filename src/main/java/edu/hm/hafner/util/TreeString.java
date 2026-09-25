@@ -1,20 +1,16 @@
 package edu.hm.hafner.util;
 
-import org.apache.commons.lang3.StringUtils;
-
 import edu.umd.cs.findbugs.annotations.CheckForNull;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Map;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * {@link TreeString} is an alternative string representation that saves the memory when you have a large number of
  * strings that share common prefixes (such as various file names.)
  *
- * <p>
- * {@link TreeString} can be built with {@link TreeStringBuilder}.
- * </p>
+ * <p>{@link TreeString} can be built with {@link TreeStringBuilder}.
  *
  * @author Kohsuke Kawaguchi
  */
@@ -29,9 +25,7 @@ public final class TreeString implements Serializable {
     /** {@link #parent} + {@code label} is the string value of this node. */
     private char[] label;
 
-    /**
-     * Creates a new root {@link TreeString}.
-     */
+    /** Creates a new root {@link TreeString}. */
     TreeString() {
         this(null, "");
     }
@@ -39,10 +33,8 @@ public final class TreeString implements Serializable {
     /**
      * Creates a new {@link TreeString} with the given parent and suffix.
      *
-     * @param parent
-     *         the parent
-     * @param label
-     *         the suffix
+     * @param parent the parent
+     * @param label the suffix
      */
     @SuppressWarnings("NullAway")
     TreeString(@CheckForNull final TreeString parent, final String label) {
@@ -50,7 +42,8 @@ public final class TreeString implements Serializable {
                 .isTrue("if there's a parent '%s', label '%s' can't be empty", parent, label);
 
         this.parent = parent;
-        this.label = label.toCharArray(); // String created as a substring of another string can have a lot of garbage attached to it.
+        this.label = label.toCharArray(); // String created as a substring of another string can have a lot of garbage
+        // attached to it.
     }
 
     String getLabel() {
@@ -60,13 +53,9 @@ public final class TreeString implements Serializable {
     /**
      * Inserts a new node between this node and its parent, and returns the newly inserted node.
      *
-     * <p>
-     * This operation doesn't change the string representation of this node.
-     * </p>
+     * <p>This operation doesn't change the string representation of this node.
      *
-     * @param prefix
-     *         the prefix to remove
-     *
+     * @param prefix the prefix to remove
      * @return the new node in the middle
      */
     @SuppressMutation(mutator = PitMutator.VOID_METHOD_CALLS, justification = "No need to check assertions")
@@ -90,8 +79,8 @@ public final class TreeString implements Serializable {
     }
 
     /**
-     * How many nodes do we have from the root to this node (including 'this' itself?). Thus, the depth of
-     * the root node is 1.
+     * How many nodes do we have from the root to this node (including 'this' itself?). Thus, the depth of the root node
+     * is 1.
      *
      * @return the depth
      */
@@ -119,9 +108,7 @@ public final class TreeString implements Serializable {
         return toString().hashCode();
     }
 
-    /**
-     * Returns the full string representation.
-     */
+    /** Returns the full string representation. */
     @Override
     @SuppressWarnings("PMD.AssignmentInOperand")
     public String toString() {
@@ -144,16 +131,14 @@ public final class TreeString implements Serializable {
     /**
      * Interns {@link #label}.
      *
-     * @param table
-     *         the table containing the existing strings
+     * @param table the table containing the existing strings
      */
     void dedup(final Map<String, char[]> table) {
         var l = getLabel();
         var v = table.get(l);
         if (v == null) {
             table.put(l, label);
-        }
-        else {
+        } else {
             label = v;
         }
     }
@@ -163,12 +148,10 @@ public final class TreeString implements Serializable {
     }
 
     /**
-     * Creates a {@link TreeString}. Useful if you need to create one-off {@link TreeString} without {@link
-     * TreeStringBuilder}. Memory consumption is still about the same to {@code new String(string)}.
+     * Creates a {@link TreeString}. Useful if you need to create one-off {@link TreeString} without
+     * {@link TreeStringBuilder}. Memory consumption is still about the same to {@code new String(string)}.
      *
-     * @param string
-     *         the tree string
-     *
+     * @param string the tree string
      * @return the new {@link TreeString}
      */
     public static TreeString valueOf(final String string) {

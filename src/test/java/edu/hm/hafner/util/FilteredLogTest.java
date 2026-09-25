@@ -1,13 +1,12 @@
 package edu.hm.hafner.util;
 
-import org.apache.commons.lang3.StringUtils;
-import org.assertj.core.api.recursive.comparison.RecursiveComparisonConfiguration;
-import org.junit.jupiter.api.Test;
+import static edu.hm.hafner.util.assertions.Assertions.assertThat;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
-
-import static edu.hm.hafner.util.assertions.Assertions.*;
+import org.apache.commons.lang3.StringUtils;
+import org.assertj.core.api.recursive.comparison.RecursiveComparisonConfiguration;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests the class {@link FilteredLog}.
@@ -67,20 +66,23 @@ class FilteredLogTest extends SerializableTest<FilteredLog> {
     }
 
     private void verifyFiveErrorMessages(final FilteredLog filteredLog) {
-        assertThat(filteredLog).hasErrorMessages(
-                "1", "2", "3", "4", "5",
-                "java.lang.IllegalStateException: 1",
-                "java.lang.IllegalStateException: 2",
-                "java.lang.IllegalStateException: 3",
-                "java.lang.IllegalStateException: 4",
-                "java.lang.IllegalStateException: 5",
-                "  ... skipped logging of 2 additional errors ...");
+        assertThat(filteredLog)
+                .hasErrorMessages(
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "5",
+                        "java.lang.IllegalStateException: 1",
+                        "java.lang.IllegalStateException: 2",
+                        "java.lang.IllegalStateException: 3",
+                        "java.lang.IllegalStateException: 4",
+                        "java.lang.IllegalStateException: 5",
+                        "  ... skipped logging of 2 additional errors ...");
 
-        assertThat(filteredLog).doesNotHaveErrorMessages(
-                "6",
-                "java.lang.IllegalStateException: 6",
-                "7",
-                "java.lang.IllegalStateException: 7");
+        assertThat(filteredLog)
+                .doesNotHaveErrorMessages(
+                        "6", "java.lang.IllegalStateException: 6", "7", "java.lang.IllegalStateException: 7");
     }
 
     private FilteredLog create5ErrorsLogWithTitle(final String title) {
@@ -112,7 +114,8 @@ class FilteredLogTest extends SerializableTest<FilteredLog> {
 
         parent.merge(child);
 
-        assertThat(parent).hasOnlyInfoMessages("parent Info 1", "child Info 1")
+        assertThat(parent)
+                .hasOnlyInfoMessages("parent Info 1", "child Info 1")
                 .hasOnlyErrorMessages("Parent Errors", "parent Error 1", "Child Errors", "child Error 1");
         assertThat(parent.size()).isEqualTo(1);
     }
@@ -129,7 +132,8 @@ class FilteredLogTest extends SerializableTest<FilteredLog> {
 
         parent.merge(child);
 
-        assertThat(parent).hasOnlyInfoMessages("parent Info 1", "child Info 1")
+        assertThat(parent)
+                .hasOnlyInfoMessages("parent Info 1", "child Info 1")
                 .hasOnlyErrorMessages("Child Errors", "child Error 1");
         assertThat(parent.size()).isZero();
     }
@@ -141,28 +145,30 @@ class FilteredLogTest extends SerializableTest<FilteredLog> {
         filteredLog.logException(new IllegalArgumentException("Cause"), "Message");
         filteredLog.logException(new IllegalArgumentException(""), "Message");
 
-        assertThat(filteredLog).hasErrorMessages(TITLE,
-                "Message", "java.lang.IllegalArgumentException: Cause");
+        assertThat(filteredLog).hasErrorMessages(TITLE, "Message", "java.lang.IllegalArgumentException: Cause");
     }
 
     @Test
     void shouldLog20ErrorsByDefault() {
         var filteredLog = createLogWith20Elements();
 
-        assertThat(filteredLog.getErrorMessages()).hasSize(22)
+        assertThat(filteredLog.getErrorMessages())
+                .hasSize(22)
                 .contains(TITLE)
                 .contains("error19")
                 .doesNotContain("error20")
                 .contains("  ... skipped logging of 5 additional errors ...");
-        assertThat(filteredLog.getInfoMessages()).hasSize(25)
-                .contains("info0")
-                .contains("info24");
+        assertThat(filteredLog.getInfoMessages()).hasSize(25).contains("info0").contains("info24");
     }
 
     @Override
-    protected void assertThatRestoredInstanceEqualsOriginalInstance(final FilteredLog original,
-            final FilteredLog restored) {
-        assertThat(original).usingRecursiveComparison(RecursiveComparisonConfiguration.builder().withIgnoredFields("lock").build()).isEqualTo(restored);
+    protected void assertThatRestoredInstanceEqualsOriginalInstance(
+            final FilteredLog original, final FilteredLog restored) {
+        assertThat(original)
+                .usingRecursiveComparison(RecursiveComparisonConfiguration.builder()
+                        .withIgnoredFields("lock")
+                        .build())
+                .isEqualTo(restored);
     }
 
     private FilteredLog createLogWith20Elements() {

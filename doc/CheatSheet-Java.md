@@ -1,9 +1,9 @@
 String-Formatierung, Konvertierungen
 - Erstellen von Strings mit `String.format(String format, Object... arguments)`
-  - `%n` ist Zeilenumbruch
-  - `%s` Platzhalter für String
-  - `%d` Platzhalter für Ganzzahl, `%03d` mit drei Stellen und führender Null
-  - `%f` Platzhalter für Fließkommazahl, `%.3f` mit 3 Nachkommastellen
+- `%n` ist Zeilenumbruch
+- `%s` Platzhalter für String
+- `%d` Platzhalter für Ganzzahl, `%03d` mit drei Stellen und führender Null
+- `%f` Platzhalter für Fließkommazahl, `%.3f` mit 3 Nachkommastellen
 - String zu Ganzzahl: `int number = Integer.parseInt(String number)` (kann Exception werfen)
 - Ganzzahl zu String: `String text = String.valueOf(int number)`
 - String zu Fließkommazahl: `double number = Double.parseDouble(String number)` (kann Exception werfen)
@@ -18,7 +18,7 @@ Statische Methoden der Klasse Math
 
 Listen vs. Arrays
 
-| Operation  | Array                                 | List (ArrayList oder LinkedList) |
+| Operation  |                 Array                 | List (ArrayList oder LinkedList) |
 |------------|---------------------------------------|----------------------------------|
 | Definition | `Type[] array`                        | `List<Type> list`                |
 | Erstellen  | `array = new Type[length]`            | `list = new ArrayList<Type>()`   |
@@ -39,7 +39,7 @@ Listen vs. Arrays
 
 Listen vs. Sets
 
-| Operation     | Set (HashSet oder TreeSet)  | List (ArrayList oder LinkedList) |
+|   Operation   | Set (HashSet oder TreeSet)  | List (ArrayList oder LinkedList) |
 |---------------|-----------------------------|----------------------------------|
 | Definition    | `Set<Type> set`             | `List<Type> list`                |
 | Erstellen     | `set = new HashSet<Type>()` | `list = new ArrayList<Type>()`   |
@@ -60,7 +60,7 @@ Listen vs. Sets
 
 Statische Methoden der Klasse Collections
 
-- Sortieren: 
+- Sortieren:
   - `Collections.sort(List<Type> list)` (`Type` muss `Comparable` sein)
   - `Collections.sort(List<Type> list, Comparator<Type> c)`
 - Reihenfolge umdrehen: `Collections.reverse(List<Type> list)`
@@ -76,7 +76,7 @@ Methoden rund um Strings
   - `int indexOf(String pattern)`
 - Größe: `length()`, `isEmpty()`, `isBlank()`
 - Ersetzen: `String replace(String pattern, String replacement)`
-- Teilbereich: 
+- Teilbereich:
   - `String substring(int from, int to)` (Index)
   - `String StringUtils.substringBetween(String str, String open, String close)` (Text)
 - Zusammenfügen: `String join(String delimiter, String... texts)`
@@ -87,30 +87,31 @@ Methoden rund um Strings
 - Splitten: `String[] StringUtils.split(String separator)`
 
 Statische Methoden der Klasse Character
-- `boolean Character.isLetter(char c)` 
+- `boolean Character.isLetter(char c)`
 - `boolean Character.isDigit(char c)`
 - `boolean Character.isWhitespace(char c)`
-- `boolean Character.isUpperCase(char c)` 
+- `boolean Character.isUpperCase(char c)`
 - `boolean Character.isLowerCase(char c)`
 - `for (char ch : text.toCharArray()) { ... }`
 
 Testen
 - Markierung einer Testmethode: `@Test`
 - Assertions
-  - `assertThat(Type actual).isSame(Type expected)`
-  - `assertThat(Type actual).isEqualTo(Type expected)` (equals überschrieben)
-  - `assertThat(Type actual).usingRecursiveComparison().isEqualTo(Type expected)` (sonst)
-  - `assertThat(boolean actual).isTrue()` oder `assertThat(boolean expected).isFalse()`
-  - `assertThat(String actual).contains("o").startsWith("Hello").endsWith("World")`
-  - `assertThat(Collection<Type> actual).contains(Type expected1, Type expected2, ...)`
-  - `assertThat(Collection<Type> actual).containsExactly(Type expected1, Type expected2, ...)`
-  - `assertThat(Collection<Type> actual).first().isEqualTo(Type expected)`
-  - `assertThatExceptionOfType(Type.class).isThrownBy(() -> code).withMessageContaining("Error");`
+- `assertThat(Type actual).isSame(Type expected)`
+- `assertThat(Type actual).isEqualTo(Type expected)` (equals überschrieben)
+- `assertThat(Type actual).usingRecursiveComparison().isEqualTo(Type expected)` (sonst)
+- `assertThat(boolean actual).isTrue()` oder `assertThat(boolean expected).isFalse()`
+- `assertThat(String actual).contains("o").startsWith("Hello").endsWith("World")`
+- `assertThat(Collection<Type> actual).contains(Type expected1, Type expected2, ...)`
+- `assertThat(Collection<Type> actual).containsExactly(Type expected1, Type expected2, ...)`
+- `assertThat(Collection<Type> actual).first().isEqualTo(Type expected)`
+- `assertThatExceptionOfType(Type.class).isThrownBy(() -> code).withMessageContaining("Error");`
 
 Exceptions
 - Werfen mit `throw new Type("Meldungstext mit Kontext")`
 - Testen mit: `assertThatExceptionOfType(Type.class).isThrownBy(() -> [CODE]).withMessageContaining("Error");`
 - Fehlerbehandlung mit
+
 ```
 try {
    ... regulärer Code ...

@@ -1,13 +1,14 @@
 package edu.hm.hafner.util;
 
-import org.apache.commons.lang3.StringUtils;
-import org.junit.jupiter.api.Test;
+import static edu.hm.hafner.util.assertions.Assertions.assertThat;
+import static edu.hm.hafner.util.assertions.Assertions.assertThatExceptionOfType;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 import java.util.NoSuchElementException;
 import java.util.stream.Stream;
-
-import static edu.hm.hafner.util.assertions.Assertions.*;
-import static org.mockito.Mockito.*;
+import org.apache.commons.lang3.StringUtils;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests the class {@link LookaheadStream}.

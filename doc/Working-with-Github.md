@@ -4,12 +4,15 @@ Disclaimer: The following guide was created with significant help from the two t
 - [GitHub Standard Fork & Pull Request Workflow](https://gist.github.com/Chaser324/ce0505fbed06b947d962)
 
 # Working with Pull Requests in GitHub
+
 Submissions in GitHub are made through pull requests. The steps described in the following sections are necessary for this process.
 
 ### Creating a Fork
+
 To submit a pull request with your results, you first need to create a [fork](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) of the respective project. This cannot be done through the command line but only in the GitHub interface, as outlined [in the guide](https://help.github.com/en/github/getting-started-with-github/fork-a-repo#fork-an-example-repository). This newly created fork is initially an exact copy of the original project, meaning it contains all commits, branches, and tags.
 
 ### Working with the Fork
+
 Once the fork is created, it becomes visible under your own GitHub user account as a copy. This copy can be retrieved to your local machine using the following command:
 
 ```bash
@@ -27,6 +30,7 @@ git clone https://github.com/USERNAME/FORKED-PROJECT.git
 For easy password-free use of GitHub, I recommend setting up SSH as quickly as possible.
 
 ### Developing Your Own Changes
+
 For each submission (and for every small change to the project), a new branch must be created. Working on the `master` branch is not advisable, as discussed in the "Keeping Fork Updated" chapter.
 
 To create a branch, the following steps are necessary:
@@ -50,6 +54,7 @@ Another useful approach is incremental development: development is not done in o
 When committing, it is important to give a good commit message. Chris Beam has written a helpful article on this, titled ["How to Write a Git Commit Message."](https://chris.beams.io/posts/git-commit/)
 
 # Prepare and Submit a Pull Request
+
 Once all changes have been locally completed with a commit, they can be integrated into the fork on GitHub. Only a push is required for this:
 
 ```bash
@@ -66,6 +71,7 @@ Before finally creating the pull request, it must be checked whether the pull re
 If the pull request looks as desired, it can be created with "Create."
 
 # Update the Pull Request
+
 Once the pull request is created, it is automatically checked with various tools. The tools used depend on the project. Typically, [continuous integration](Continuous-Integration.md) is started, executing a development lifecycle:
 
 1. Compile
@@ -77,6 +83,7 @@ Each of these steps is marked in GitHub with an Ok or Failed status. If any of t
 If all automatic tests are Ok, only the review by the author of the original project is missing. This is also done line by line in the pull request and can be incorporated with the same steps as described above. GitHub usually detects these changes automatically, so they do not need to be explicitly marked as resolved.
 
 # Keeping the Fork Updated
+
 It is important to keep this fork up to date, i.e., always sync the changes from the original project. In most cases, it is sufficient to keep the so-called master branch synchronized. To enable this, the original project must be added as another remote. The name "upstream" has become common for this. This can be implemented with the following command:
 
 ```bash
@@ -85,6 +92,7 @@ git remote add upstream https://github.com/UPSTREAM-USER/ORIGINAL-PROJECT.git
 ```
 
 The following command can be used to check the configuration:
+
 ```bash
 # Verify the new remote named 'upstream'
 git remote -v
@@ -98,6 +106,7 @@ origin  git@github.com:USERNAME/FORKED-PROJECT.git (push)
 upstream  https://github.com/UPSTREAM-USER/ORIGINAL-PROJECT.git (fetch)
 upstream  https://github.com/UPSTREAM-USER/ORIGINAL-PROJECT.git (push)
 ```
+
 Whenever the changes from the master branch of the original project need to be integrated, they can be incorporated with the following command:
 
 ```bash
@@ -111,4 +120,5 @@ git branch -va
 git checkout master
 git merge upstream/master
 ```
+
 Normally, there should be no other commits on the local master branch, so a [fast-forward](https://git-scm.com/book/de/v2/Git-Branching-Einfaches-Branching-und-Merging) will be applied.

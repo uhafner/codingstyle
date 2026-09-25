@@ -1,6 +1,7 @@
 package edu.hm.hafner.util;
 
-import org.junit.jupiter.api.Test;
+import static edu.hm.hafner.util.assertions.Assertions.assertThat;
+import static edu.hm.hafner.util.assertions.Assertions.assertThatThrownBy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +9,7 @@ import java.util.Objects;
 import java.util.Random;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
-
-import static edu.hm.hafner.util.assertions.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests the class {@link TreeStringBuilder}.
@@ -78,9 +78,7 @@ class TreeStringBuilderTest {
         assertThatThrownBy(() -> new TreeString(new TreeString(), "")).isInstanceOf(AssertionError.class);
     }
 
-    /**
-     * Pseudo random (but deterministic) test.
-     */
+    /** Pseudo random (but deterministic) test. */
     @Test
     void shouldCreateRandomTreeStrings() {
         String[] dictionary = {"aa", "b", "aba", "ba"};

@@ -9,12 +9,10 @@ import java.util.Map;
  * {@link TreeString} that represents the same string, but as you intern more strings that share the same prefixes,
  * those {@link TreeString}s that you get back start to share data.
  *
- * <p>
- * Because the internal state of {@link TreeString}s get mutated as new strings are interned (to exploit new-found
+ * <p>Because the internal state of {@link TreeString}s get mutated as new strings are interned (to exploit new-found
  * common prefixes), {@link TreeString}s returned from {@link #intern(String)} aren't thread-safe until
  * {@link TreeStringBuilder} is disposed. That is, you have to make sure other threads don't see those
  * {@link TreeString}s until you are done interning strings.
- * </p>
  *
  * @author Kohsuke Kawaguchi
  */
@@ -31,9 +29,7 @@ public class TreeStringBuilder {
     /**
      * Interns a string.
      *
-     * @param string
-     *         the string to intern
-     *
+     * @param string the string to intern
      * @return the String as {@link TreeString} instance
      */
     public TreeString intern(final String string) {
@@ -43,26 +39,22 @@ public class TreeStringBuilder {
     /**
      * Interns a {@link TreeString} created elsewhere.
      *
-     * @param treeString
-     *         the {@link TreeString} to intern
-     *
+     * @param treeString the {@link TreeString} to intern
      * @return the String as {@link TreeString} instance
      */
     public TreeString intern(final TreeString treeString) {
         return getRoot().intern(treeString.toString()).getNode();
     }
 
-    /**
-     * Further reduces the memory footprint by finding the same labels across multiple {@link TreeString}s.
-     */
-    @SuppressMutation(mutator = PitMutator.VOID_METHOD_CALLS, justification = "Memory optimization without visible side effect")
+    /** Further reduces the memory footprint by finding the same labels across multiple {@link TreeString}s. */
+    @SuppressMutation(
+            mutator = PitMutator.VOID_METHOD_CALLS,
+            justification = "Memory optimization without visible side effect")
     public void dedup() {
         getRoot().dedup(new HashMap<>());
     }
 
-    /**
-     * Child node that may store other elements.
-     */
+    /** Child node that may store other elements. */
     private static final class Child {
         private final TreeString node;
 
@@ -75,9 +67,7 @@ public class TreeStringBuilder {
         /**
          * Adds one edge and leaf to this tree node, or returns an existing node if any.
          *
-         * @param string
-         *         the string to intern
-         *
+         * @param string the string to intern
          * @return the node
          */
         private Child intern(final String string) {
@@ -100,8 +90,7 @@ public class TreeStringBuilder {
                         children.put(prefix, middle);
 
                         return middle.intern(string.substring(plen));
-                    }
-                    else {
+                    } else {
                         return entry.getValue().intern(string.substring(plen)); // entire key is suffix
                     }
                 }
@@ -116,9 +105,7 @@ public class TreeStringBuilder {
             return t;
         }
 
-        /**
-         * Makes sure {@link #children} is writable.
-         */
+        /** Makes sure {@link #children} is writable. */
         @SuppressWarnings("ReferenceEquality")
         private void makeWritable() {
             if (children == NO_CHILDREN) {
@@ -130,9 +117,7 @@ public class TreeStringBuilder {
          * Inserts a new node between this node and its parent and returns that node. The newly inserted 'middle' node
          * will have this node as its sole child.
          *
-         * @param prefix
-         *         the prefix
-         *
+         * @param prefix the prefix
          * @return the node
          */
         private Child split(final String prefix) {
@@ -148,11 +133,8 @@ public class TreeStringBuilder {
         /**
          * Returns the common prefix between two strings.
          *
-         * @param a
-         *         a string
-         * @param b
-         *         another string
-         *
+         * @param a a string
+         * @param b another string
          * @return the prefix in characters
          */
         private int commonPrefix(final String a, final String b) {
@@ -169,10 +151,11 @@ public class TreeStringBuilder {
         /**
          * Calls {@link TreeString#dedup(Map)} recursively.
          *
-         * @param table
-         *         the table containing the existing strings
+         * @param table the table containing the existing strings
          */
-        @SuppressMutation(mutator = PitMutator.VOID_METHOD_CALLS, justification = "Memory optimization without visible side effect")
+        @SuppressMutation(
+                mutator = PitMutator.VOID_METHOD_CALLS,
+                justification = "Memory optimization without visible side effect")
         private void dedup(final Map<String, char[]> table) {
             getNode().dedup(table);
             for (Child child : children.values()) {

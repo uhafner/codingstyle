@@ -4,9 +4,9 @@ Prinzipiell gibt es zwei Varianten des Testings: das **State Based Testing** und
 
 ## State Based Testing
 
-Beim **State Based Testing** wird das Testobjekt nach Aufruf der zu 
-testenden Methoden durch Abfrage seines internen Zustands verifiziert. Analog dazu kann natürlich auch der Zustand 
-der im Test verwendeten Parameter bzw. Rückgabewerte analysiert werden. Die meisten Tests eines Projekts 
+Beim **State Based Testing** wird das Testobjekt nach Aufruf der zu
+testenden Methoden durch Abfrage seines internen Zustands verifiziert. Analog dazu kann natürlich auch der Zustand
+der im Test verwendeten Parameter bzw. Rückgabewerte analysiert werden. Die meisten Tests eines Projekts
 laufen nach diesem Muster ab und können folgendermaßen formuliert werden:
 
 ```java
@@ -25,7 +25,7 @@ void should[restlicher Methodenname der den Test fachlich beschreibt]() {
 
 Die folgenden beiden Tests aus diesem Projekt zeigen die zwei unterschiedlichen Varianten des State Based Testing.
 
-### Verifizieren der Rückgabewerte 
+### Verifizieren der Rückgabewerte
 
 Im folgenden Test wird der Rückgabewert einer Methode überprüft.
 
@@ -42,7 +42,7 @@ void shouldConvertToAbsolute() {
 }
 ```
 
-### Verifizieren der Objektzustands 
+### Verifizieren der Objektzustands
 
 Im folgenden Test wird der Zustand eines Objekts überprüft.
 
@@ -61,7 +61,7 @@ void shouldCreateSimpleTreeStringsWithBuilder() {
 
 ## Interaction Based Testing
 
-Im Gegensatz dazu wird beim **Interaction Based Testing** nicht der Zustand des SUT analysiert. Statt dessen werden die 
+Im Gegensatz dazu wird beim **Interaction Based Testing** nicht der Zustand des SUT analysiert. Statt dessen werden die
 Aufrufe aller am Test beteiligten Objekte mit einem Mocking Framework wie [Mockito](https://site.mockito.org) überprüft.
 D.h. hier steht nicht der Zustand des Testobjekts im Vordergrund, sondern die Interaktion mit beteiligten Objekten. Ein
 typischer Testfall nach dem Interaction Based Testing ist folgendermaßen aufgebaut:
@@ -83,7 +83,7 @@ void should[restlicher Methodenname der den Test fachliche beschreibt]() {
 
 Ein typisches Beispiel für solch einen Test ist in der folgenden Klasse zu finden:
 
- ```java
+```java
 package edu.hm.hafner.util;
 
 import java.io.PrintStream;
@@ -95,21 +95,22 @@ import static java.util.Collections.*;
 import static org.mockito.Mockito.*;
 
 /**
- * Tests the class {@link PrefixLogger}.
- */
+* Tests the class {@link PrefixLogger}.
+*/
 class PrefixLoggerTest {
-    private static final String LOG_MESSAGE = "Hello PrefixLogger!";
-    private static final String PREFIX = "test";
-    private static final String EXPECTED_PREFIX = "[test]";
+   private static final String LOG_MESSAGE = "Hello PrefixLogger!";
+   private static final String PREFIX = "test";
+   private static final String EXPECTED_PREFIX = "[test]";
 
-    @Test
-    void shouldLogSingleAndMultipleLines() {
-        PrintStream printStream = mock(PrintStream.class);
-        PrefixLogger logger = new PrefixLogger(printStream, PREFIX);
+   @Test
+   void shouldLogSingleAndMultipleLines() {
+       PrintStream printStream = mock(PrintStream.class);
+       PrefixLogger logger = new PrefixLogger(printStream, PREFIX);
 
-        logger.log(LOG_MESSAGE);
+       logger.log(LOG_MESSAGE);
 
-        verify(printStream).println(EXPECTED_PREFIX + " " + LOG_MESSAGE);
-    }
+       verify(printStream).println(EXPECTED_PREFIX + " " + LOG_MESSAGE);
+   }
 }
 ```
+

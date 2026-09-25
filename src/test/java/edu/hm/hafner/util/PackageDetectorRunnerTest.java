@@ -1,18 +1,18 @@
 package edu.hm.hafner.util;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import edu.hm.hafner.util.PackageDetectorFactory.FileSystemFacade;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
-
-import edu.hm.hafner.util.PackageDetectorFactory.FileSystemFacade;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 /**
  * Tests the class {@link PackageDetectorRunner}.
@@ -22,9 +22,10 @@ import static org.mockito.Mockito.*;
 class PackageDetectorRunnerTest extends ResourceTest {
     @ParameterizedTest(name = "{index} => file={0}, expected package={1}")
     @CsvSource({
-            "MavenJavaTest.txt.java, hudson.plugins.tasks.util",
-            "ActionBinding.cs, Avaloq.SmartClient.Utilities",
-            "KotlinTest.txt.kt, edu.hm.kersting"})
+        "MavenJavaTest.txt.java, hudson.plugins.tasks.util",
+        "ActionBinding.cs, Avaloq.SmartClient.Utilities",
+        "KotlinTest.txt.kt, edu.hm.kersting"
+    })
     void shouldExtractPackageNames(final String fileName, final String expectedPackage) throws IOException {
         assertThat(detect(fileName)).contains(expectedPackage);
     }
@@ -57,6 +58,7 @@ class PackageDetectorRunnerTest extends ResourceTest {
         when(fileSystem.openFile(anyString())).thenThrow(new IOException("Simulated"));
 
         assertThat(PackageDetectorFactory.createPackageDetectors(fileSystem)
-                .detectPackageName("file.java", StandardCharsets.UTF_8)).isEmpty();
+                        .detectPackageName("file.java", StandardCharsets.UTF_8))
+                .isEmpty();
     }
 }

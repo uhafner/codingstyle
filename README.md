@@ -8,24 +8,25 @@
 
 Each Java project should follow a consistent coding style.
 All contributions should follow the same formatting rules, design principles, code patterns, and idioms.
-This coding style provides the set of rules that I am using in my lectures about software development at Munich University of Applied Sciences.  
+This coding style provides the set of rules that I am using in my lectures about software development at Munich University of Applied Sciences.
 
-This project describes the coding style in detail (currently only available in German) and serves as a template project. 
+This project describes the coding style in detail (currently only available in German) and serves as a template project.
 It provides all necessary resources for a Java project to enforce this coding style using the following static analysis tools via Maven (and partly in IntelliJ):
 - [Checkstyle](https://checkstyle.org)
+- [Error Prone](https://errorprone.info)
 - [PMD](https://pmd.github.io/)
 - [SpotBugs](https://spotbugs.github.io)
-- [Error Prone](https://errorprone.info)
+- [Spotless](https://github.com/diffplug/spotless)
 
-❗This project requires a JDK version of 21 or higher.❗  
+❗This project requires a JDK version of 21 or higher.❗
 
-Moreover, this project provides some sample classes that already use this style guide. 
-These classes can be used as such but are not required in this project. 
-These classes also use some additional libraries that are included using the Maven dependency mechanism. 
+Moreover, this project provides some sample classes that already use this style guide.
+These classes can be used as such but are not required in this project.
+These classes also use some additional libraries that are included using the Maven dependency mechanism.
 If the sample classes are deleted, then the dependencies can be safely deleted, too.
 
-This project and the associated static analysis tools are already running in continuous integration: an example CI pipeline is active for GitHub Actions. 
-For [Jenkins](https://jenkins.io/) a full CI pipeline has been configured that includes stages to compile, test, run static code analysis, run code coverage analysis, and run mutation coverage analysis, see section [Continuous Integration](doc/Continuous-Integration.md) for details. 
+This project and the associated static analysis tools are already running in continuous integration: an example CI pipeline is active for GitHub Actions.
+For [Jenkins](https://jenkins.io/) a full CI pipeline has been configured that includes stages to compile, test, run static code analysis, run code coverage analysis, and run mutation coverage analysis, see section [Continuous Integration](doc/Continuous-Integration.md) for details.
 Additionally, some development tools are configured in this GitHub project to evaluate the quality of pull requests, see section [integration of external tools](doc/Externe-Tool-Integration.md).
 
 Content of the style guide (only in German):
@@ -33,23 +34,23 @@ Content of the style guide (only in German):
 - [Namensgebung](doc/Namensgebung.md)
 - [Kommentare](doc/Kommentare.md)
 - Testen
-    - [Allgemeine Tipps zum Testen](doc/Testen.md)
-    - [State Based vs. Interaction Based Testing](doc/State-Based-Vs-Interaction-Based.md)
-    - [Testen von Schnittstellen und Basisklassen](doc/Abstract-Test-Pattern.md)
+- [Allgemeine Tipps zum Testen](doc/Testen.md)
+- [State Based vs. Interaction Based Testing](doc/State-Based-Vs-Interaction-Based.md)
+- [Testen von Schnittstellen und Basisklassen](doc/Abstract-Test-Pattern.md)
 - [Fehlerbehandlung](doc/Fehlerbehandlung.md)
 - [Best Practice](doc/Best-Practice.md)
 
-A lot of ideas in this style are based on the following path-breaking books about software development: 
+A lot of ideas in this style are based on the following path-breaking books about software development:
 
 - [1] "The Elements of Java Style", Vermeulen, Ambler, Bumgardner, Metz, Misfeldt, Shur und Thompson, Cambridge University Press, 2000
 - [2] "The Pragmatic Programmer: journey to mastery", Second Edition, Andrew Hunt, David Thomas, Addison Wesley, 2019
 - [3] "Code Complete: A Practical Handbook of Software Construction", Steve McConnell, Microsoft Press, 2004
 - [4] "Clean Code: A Handbook of Agile Software Craftsmanship", Robert C. Martin, Prentice Hall, 2008
 - [5] "Effective Java", Third Edition, Joshua Bloch, Addison Wesley, 2017
-- [6] "Refactoring: Improving the Design of Existing Code", Martin Fowler, Addison Wesley, 1999 
+- [6] "Refactoring: Improving the Design of Existing Code", Martin Fowler, Addison Wesley, 1999
 - [7] "Java by Comparison", Simon Harrer, Jörg Lenhard, Linus Dietz, Pragmatic Programmers, 2018
 
-All documents in this project use the [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/). 
+All documents in this project use the [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
 Source code (snippets, examples, and classes) are using the [MIT license](https://en.wikipedia.org/wiki/MIT_License).
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](https://en.wikipedia.org/wiki/MIT_License)

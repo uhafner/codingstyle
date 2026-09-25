@@ -1,20 +1,18 @@
 package edu.hm.hafner.util;
 
+import static edu.hm.hafner.util.PitMutator.NONE;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import static edu.hm.hafner.util.PitMutator.*;
-
 /**
  * Suppresses specific mutations when the feature {@code FANNOT} is enabled in PitMute.
  *
- * <p>
- * This annotation can be applied to classes, methods, or constructors. When used without parameters, all mutations in
- * that scope are suppressed. For more information, please see the README in PitMute.
- * </p>
+ * <p>This annotation can be applied to classes, methods, or constructors. When used without parameters, all mutations
+ * in that scope are suppressed. For more information, please see the README in PitMute.
  *
  * @see <a href="https://github.com/uhafner/pitmute">PitMute</a>
  */

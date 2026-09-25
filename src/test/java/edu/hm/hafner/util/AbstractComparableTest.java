@@ -1,8 +1,8 @@
 package edu.hm.hafner.util;
 
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import static org.assertj.core.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 /**
  * Verifies that comparable objects comply with the contract in {@link Comparable#compareTo(Object)}.
@@ -28,9 +28,7 @@ public abstract class AbstractComparableTest<T extends Comparable<T>> {
         assertThat(greater.compareTo(greater)).isZero();
     }
 
-    /**
-     * Verifies that {@code sgn(x.compareTo(y)) == -sgn(y.compareTo(x))} for all {@code x} and {@code y}.
-     */
+    /** Verifies that {@code sgn(x.compareTo(y)) == -sgn(y.compareTo(x))} for all {@code x} and {@code y}. */
     @Test
     void shouldBeSymmetric() {
         var left = createSmallerSut();
@@ -43,16 +41,16 @@ public abstract class AbstractComparableTest<T extends Comparable<T>> {
     }
 
     /**
-     * Creates a subject under test. The SUT must be smaller than the SUT of the opposite method {@link
-     * #createGreaterSut()}.
+     * Creates a subject under test. The SUT must be smaller than the SUT of the opposite method
+     * {@link #createGreaterSut()}.
      *
      * @return the SUT
      */
     protected abstract T createSmallerSut();
 
     /**
-     * Creates a subject under test. The SUT must be greater than the SUT of the opposite method {@link
-     * #createSmallerSut()}.
+     * Creates a subject under test. The SUT must be greater than the SUT of the opposite method
+     * {@link #createSmallerSut()}.
      *
      * @return the SUT
      */

@@ -1,10 +1,6 @@
 package edu.hm.hafner.util;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.exception.ExceptionUtils;
-
 import com.google.errorprone.annotations.FormatMethod;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,11 +9,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.locks.ReentrantLock;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 /**
  * Provides a log of info messages and a limited number of error messages. If the number of errors exceeds this limit,
- * then further error messages will be skipped. This class is thread-safe and can be used in a distributed
- * environment.
+ * then further error messages will be skipped. This class is thread-safe and can be used in a distributed environment.
  *
  * @author Ullrich Hafner
  */
@@ -33,6 +30,7 @@ public class FilteredLog implements Serializable {
 
     @SuppressWarnings("serial")
     private final List<String> infoMessages = new ArrayList<>();
+
     @SuppressWarnings("serial")
     private final List<String> errorMessages = new ArrayList<>();
 
@@ -40,8 +38,8 @@ public class FilteredLog implements Serializable {
 
     /**
      * Creates a new {@link FilteredLog}. The error messages will not have a pre-defined title, you need to make sure
-     * that there is a meaningful title before each error message. The maximum number of printed errors is given
-     * by {@link #DEFAULT_MAX_LINES}.
+     * that there is a meaningful title before each error message. The maximum number of printed errors is given by
+     * {@link #DEFAULT_MAX_LINES}.
      */
     public FilteredLog() {
         this(StringUtils.EMPTY, DEFAULT_MAX_LINES);
@@ -50,8 +48,7 @@ public class FilteredLog implements Serializable {
     /**
      * Creates a new {@link FilteredLog}. The maximum number of printed errors is given by {@link #DEFAULT_MAX_LINES}.
      *
-     * @param title
-     *         the title of the error messages
+     * @param title the title of the error messages
      */
     public FilteredLog(final String title) {
         this(title, DEFAULT_MAX_LINES);
@@ -60,10 +57,8 @@ public class FilteredLog implements Serializable {
     /**
      * Creates a new {@link FilteredLog}.
      *
-     * @param title
-     *         the title of the error messages
-     * @param maxLines
-     *         the maximum number of lines to log
+     * @param title the title of the error messages
+     * @param maxLines the maximum number of lines to log
      */
     public FilteredLog(final String title, final int maxLines) {
         this.title = title;
@@ -85,15 +80,13 @@ public class FilteredLog implements Serializable {
     /**
      * Logs the specified information message. Use this method to log any useful information when composing this log.
      *
-     * @param message
-     *         the message to log
+     * @param message the message to log
      */
     public void logInfo(final String message) {
         lock.lock();
         try {
             infoMessages.add(message);
-        }
-        finally {
+        } finally {
             lock.unlock();
         }
     }
@@ -101,12 +94,9 @@ public class FilteredLog implements Serializable {
     /**
      * Logs the specified information message. Use this method to log any useful information when composing this log.
      *
-     * @param format
-     *        a <a href="../util/Formatter.html#syntax">format string</a>
-     * @param args
-     *         Arguments referenced by the format specifiers in the format string. If there are more arguments than
-     *         format specifiers, the extra arguments are ignored. The number of arguments is variable and may be
-     *         zero.
+     * @param format a <a href="../util/Formatter.html#syntax">format string</a>
+     * @param args Arguments referenced by the format specifiers in the format string. If there are more arguments than
+     *     format specifiers, the extra arguments are ignored. The number of arguments is variable and may be zero.
      */
     @FormatMethod
     public void logInfo(final String format, final Object... args) {
@@ -116,15 +106,13 @@ public class FilteredLog implements Serializable {
     /**
      * Logs the specified error message. Use this method to log any error when composing this log.
      *
-     * @param message
-     *         the error message
+     * @param message the error message
      */
     public void logError(final String message) {
         lock.lock();
         try {
             logErrorWithGuard(message);
-        }
-        finally {
+        } finally {
             lock.unlock();
         }
     }
@@ -132,12 +120,9 @@ public class FilteredLog implements Serializable {
     /**
      * Logs the specified error message. Use this method to log any error when composing this log.
      *
-     * @param format
-     *         a <a href="../util/Formatter.html#syntax">format string</a>
-     * @param args
-     *         Arguments referenced by the format specifiers in the format string. If there are more arguments than
-     *         format specifiers, the extra arguments are ignored. The number of arguments is variable and may be
-     *         zero.
+     * @param format a <a href="../util/Formatter.html#syntax">format string</a>
+     * @param args Arguments referenced by the format specifiers in the format string. If there are more arguments than
+     *     format specifiers, the extra arguments are ignored. The number of arguments is variable and may be zero.
      */
     @FormatMethod
     public void logError(final String format, final Object... args) {
@@ -147,14 +132,10 @@ public class FilteredLog implements Serializable {
     /**
      * Logs the specified exception. Use this method to log any exception when composing this log.
      *
-     * @param exception
-     *         the exception to log
-     * @param format
-     *         A <a href="../util/Formatter.html#syntax">format string</a>
-     * @param args
-     *         Arguments referenced by the format specifiers in the format string. If there are more arguments than
-     *         format specifiers, the extra arguments are ignored. The number of arguments is variable and may be
-     *         zero.
+     * @param exception the exception to log
+     * @param format A <a href="../util/Formatter.html#syntax">format string</a>
+     * @param args Arguments referenced by the format specifiers in the format string. If there are more arguments than
+     *     format specifiers, the extra arguments are ignored. The number of arguments is variable and may be zero.
      */
     @FormatMethod
     public void logException(final Exception exception, final String format, final Object... args) {
@@ -164,8 +145,7 @@ public class FilteredLog implements Serializable {
             if (lines <= maxLines) {
                 errorMessages.addAll(Arrays.asList(ExceptionUtils.getRootCauseStackTrace(exception)));
             }
-        }
-        finally {
+        } finally {
             lock.unlock();
         }
     }
@@ -189,8 +169,7 @@ public class FilteredLog implements Serializable {
         lock.lock();
         try {
             return lines;
-        }
-        finally {
+        } finally {
             lock.unlock();
         }
     }
@@ -204,8 +183,7 @@ public class FilteredLog implements Serializable {
         lock.lock();
         try {
             return List.copyOf(infoMessages);
-        }
-        finally {
+        } finally {
             lock.unlock();
         }
     }
@@ -224,11 +202,11 @@ public class FilteredLog implements Serializable {
             }
             messages.addAll(errorMessages);
             if (lines > maxLines) {
-                messages.add(String.format(Locale.ENGLISH, "  ... skipped logging of %d additional errors ...", lines - maxLines));
+                messages.add(String.format(
+                        Locale.ENGLISH, "  ... skipped logging of %d additional errors ...", lines - maxLines));
             }
             return messages;
-        }
-        finally {
+        } finally {
             lock.unlock();
         }
     }
@@ -242,8 +220,7 @@ public class FilteredLog implements Serializable {
         lock.lock();
         try {
             return !errorMessages.isEmpty();
-        }
-        finally {
+        } finally {
             lock.unlock();
         }
     }
@@ -251,16 +228,14 @@ public class FilteredLog implements Serializable {
     /**
      * Merges the info and error messages of the other log.
      *
-     * @param other
-     *         the log to merge
+     * @param other the log to merge
      */
     public void merge(final FilteredLog other) {
         lock.lock();
         try {
             infoMessages.addAll(other.getInfoMessages());
             errorMessages.addAll(other.getErrorMessages());
-        }
-        finally {
+        } finally {
             lock.unlock();
         }
     }
