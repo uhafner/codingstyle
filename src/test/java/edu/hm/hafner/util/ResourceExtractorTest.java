@@ -1,5 +1,11 @@
 package edu.hm.hafner.util;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.URL;
@@ -9,13 +15,9 @@ import java.nio.file.Path;
 import java.security.CodeSource;
 import java.security.ProtectionDomain;
 import java.util.NoSuchElementException;
-
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 /**
  * Tests the class {@link ResourceExtractor}.
@@ -49,8 +51,7 @@ class ResourceExtractorTest {
     void shouldExtractFromFolder(@TempDir final Path targetFolder) {
         var proxy = new ResourceExtractor(ResourceExtractor.class);
 
-        proxy.extract(targetFolder, ASSERTJ_TEMPLATES, JENKINS_FILE,
-                "edu/hm/hafner/util/ResourceExtractor.class");
+        proxy.extract(targetFolder, ASSERTJ_TEMPLATES, JENKINS_FILE, "edu/hm/hafner/util/ResourceExtractor.class");
 
         assertThat(readToString(targetFolder.resolve(ASSERTJ_TEMPLATES)))
                 .contains("has${Property}(${propertyType} ${property_safe})");
@@ -70,19 +71,18 @@ class ResourceExtractorTest {
     void shouldThrowExceptionIfFileDoesNotExistInFolder(@TempDir final Path targetFolder) {
         var proxy = new ResourceExtractor(ResourceExtractor.class);
 
-        assertThatExceptionOfType(UncheckedIOException.class).isThrownBy(() ->
-                proxy.extract(targetFolder, "does-not-exist"));
+        assertThatExceptionOfType(UncheckedIOException.class)
+                .isThrownBy(() -> proxy.extract(targetFolder, "does-not-exist"));
     }
 
     @Test
     void shouldExtractFromJar(@TempDir final Path targetFolder) {
         var proxy = new ResourceExtractor(StringUtils.class);
 
-        proxy.extract(targetFolder, MANIFEST_MF,
-                "org/apache/commons/lang3/StringUtils.class");
+        proxy.extract(targetFolder, MANIFEST_MF, "org/apache/commons/lang3/StringUtils.class");
 
-        assertThat(readToString(targetFolder.resolve(MANIFEST_MF))).contains("Manifest-Version: 1.0",
-                "Bundle-SymbolicName: org.apache.commons.lang3");
+        assertThat(readToString(targetFolder.resolve(MANIFEST_MF)))
+                .contains("Manifest-Version: 1.0", "Bundle-SymbolicName: org.apache.commons.lang3");
     }
 
     @Test
@@ -97,8 +97,8 @@ class ResourceExtractorTest {
     void shouldThrowExceptionIfFileDoesNotExistInJar(@TempDir final Path targetFolder) {
         var proxy = new ResourceExtractor(StringUtils.class);
 
-        assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(() ->
-                proxy.extract(targetFolder, "does-not-exist"));
+        assertThatExceptionOfType(NoSuchElementException.class)
+                .isThrownBy(() -> proxy.extract(targetFolder, "does-not-exist"));
     }
 
     @Test
@@ -131,8 +131,7 @@ class ResourceExtractorTest {
     private String readToString(final Path output) {
         try {
             return new String(Files.readAllBytes(output), StandardCharsets.UTF_8);
-        }
-        catch (IOException exception) {
+        } catch (IOException exception) {
             throw new UncheckedIOException(exception);
         }
     }

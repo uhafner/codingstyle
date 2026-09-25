@@ -5,16 +5,18 @@ Diese sind in diesem Dokument unsortiert aufgeführt.
 
 ## Verwendung von redundanten Klammern
 
-Runde Klammern steigern die Lesbarkeit, wenn in einer boolesche Bedingungen verschiedene Operatoren verwendet werden:  
+Runde Klammern steigern die Lesbarkeit, wenn in einer boolesche Bedingungen verschiedene Operatoren verwendet werden:
+
 ```java
 if (onLeaf() || (treeLeft() && treeRight())) {
     ...
 }
 ```
-Klammern helfen die Intention zu verdeutlichen, auch wenn diese - wie in diesem Beispiel - nicht nötig wären, 
+
+Klammern helfen die Intention zu verdeutlichen, auch wenn diese - wie in diesem Beispiel - nicht nötig wären,
 da über die Priorität der Operatoren das selbe Resultat erzielt
-würde. Aber nicht jeder hat die 
-[Operatorreihenfolgetabelle](http://docs.oracle.com/javase/tutorial/java/nutsandbolts/operators.html) im Kopf. 
+würde. Aber nicht jeder hat die
+[Operatorreihenfolgetabelle](http://docs.oracle.com/javase/tutorial/java/nutsandbolts/operators.html) im Kopf.
 
 Für unäre Operatoren wie die Negation `!` oder einfache binäre Bedingungen mit 2 Operanden sollten
 allerdings möglichst keine Klammern genutzt werden.
@@ -68,6 +70,7 @@ auf eine Bildschirmseite passen. D.h. Scrolling ist weder horizontal noch vertik
 daher zwischen 1 und 10 Zeilen lang. Hin und wieder kann sich auch mal eine Methode mit 20 Zeilen einschleichen...
 
 Hier ein schönes Beispiel:
+
 ```java
 boolean isEven(final long value) {
     return value % 2 == 0;
@@ -110,16 +113,16 @@ public class Queue {
 
 ## Variablendefinition und -initialisierung
 
-In Java werden Variablen möglichst erst dann definiert, wenn Sie gebraucht werden. 
-Dies erhöht die Übersicht und minimiert den Gültigkeitsbereich. Dadurch ist es i.A. auch immer möglich, eine Variable 
+In Java werden Variablen möglichst erst dann definiert, wenn Sie gebraucht werden.
+Dies erhöht die Übersicht und minimiert den Gültigkeitsbereich. Dadurch ist es i.A. auch immer möglich, eine Variable
 sofort zu initialisieren. (Siehe auch Item 45 in [5].)
 
-Dies wird in anderen Programmiersprachen wie C und C++ anders gehandhabt, dort werden diese als Block am Anfang 
-einer Methode definiert. 
+Dies wird in anderen Programmiersprachen wie C und C++ anders gehandhabt, dort werden diese als Block am Anfang
+einer Methode definiert.
 
 ## Nutzung von final
 
-Das Schlüsselwort `final` wird in Java an zwei Stellen verwendet. 
+Das Schlüsselwort `final` wird in Java an zwei Stellen verwendet.
 Es können damit Variablen bzw. Methoden und Klassen als unveränderlich markiert werden.
 
 ### final für unveränderliche Variablenreferenzen bzw. -werte
@@ -127,55 +130,55 @@ Es können damit Variablen bzw. Methoden und Klassen als unveränderlich markier
 Wird eine Variable mit `final` ausgezeichnet (Objektvariable, lokale Variable oder Parameter), dann ist der Wert der Variable
 nach der ersten Zuweisung nicht mehr änderbar. Gerade Java Neulinge interpretieren dies oft nur bei primitiven Datentypen
 richtig: hier ist tatsächlich der Wert nicht mehr änderbar. Bei Variablen, die ein Objekt referenzieren, ist allerdings
-nur gesichert, dass die bestehende Objektreferenz nicht mehr geändert wird. D.h. der Zustand des referenzierten Objektes kann 
-sich trotzdem ändern. Nur bei immutable Klassen ist auch das Objekt nicht mehr veränderbar, dies muss aber wie bei 
+nur gesichert, dass die bestehende Objektreferenz nicht mehr geändert wird. D.h. der Zustand des referenzierten Objektes kann
+sich trotzdem ändern. Nur bei immutable Klassen ist auch das Objekt nicht mehr veränderbar, dies muss aber wie bei
 [Immutable Classes](#immutable-classes) beschrieben, selbst sicher gestellt werden. Java selbst bietet dazu kein Sprachmittel
 an, um neben der Objektreferenz auch den Inhalt als unveränderlich zu markieren.
 
 Folgende Richtlinien haben sich in Java als sinnvoll herausgestellt:
-- Objektvariablen (d.h. Fields) **sollten immer** mit `final` ausgezeichnet werden, wenn dies möglich ist. 
+- Objektvariablen (d.h. Fields) **sollten immer** mit `final` ausgezeichnet werden, wenn dies möglich ist.
 - Parameter **müssen immer** mit `final` ausgezeichnet werden, nur so ist beim Lesen des Quelltextes (Code Review, Debugging)
- sofort klar, welchen Wert die Variablen z.B. am Ende einer Methode haben.
-- Lokale Variable **werden nie** mit `final` ausgezeichnet. Andernfalls geht der Blick auf das Wesentliche verloren. Im 
- Englischen spricht man hier häufig von *clutter* oder *noise*, die die Verwendung von `final` an jeder möglichen Stelle
- erzeugt. Die [Scala](https://www.scala-lang.org/) Erfinder haben dies besser gemacht: 
- hier gibt die Sprache gleich zwei verschiedene Schlüsselwörter
- für die zwei Varianten vor (`var` und `val`). 
- 
-### final für Methoden und Klassen
- 
-Wird eine Methode mit `final` ausgezeichnet, so ist ein Überschreiben dieser Methode in einer Subklasse nicht möglich. 
-Ist die gesamte Klasse mit `final` ausgezeichnet, so kann von dieser Klasse gar nicht abgeleitet werden. 
+sofort klar, welchen Wert die Variablen z.B. am Ende einer Methode haben.
+- Lokale Variable **werden nie** mit `final` ausgezeichnet. Andernfalls geht der Blick auf das Wesentliche verloren. Im
+Englischen spricht man hier häufig von *clutter* oder *noise*, die die Verwendung von `final` an jeder möglichen Stelle
+erzeugt. Die [Scala](https://www.scala-lang.org/) Erfinder haben dies besser gemacht:
+hier gibt die Sprache gleich zwei verschiedene Schlüsselwörter
+für die zwei Varianten vor (`var` und `val`).
 
-Während in [5] empfohlen wird, Klassen oder Methoden möglichst immer mit `final` zu kennzeichnen, wenn man sich nicht 
-wirklich Gedanken über die Nutzung in Subklassen gemacht hat, sehen viele andere Java Architekten dies nicht so 
+### final für Methoden und Klassen
+
+Wird eine Methode mit `final` ausgezeichnet, so ist ein Überschreiben dieser Methode in einer Subklasse nicht möglich.
+Ist die gesamte Klasse mit `final` ausgezeichnet, so kann von dieser Klasse gar nicht abgeleitet werden.
+
+Während in [5] empfohlen wird, Klassen oder Methoden möglichst immer mit `final` zu kennzeichnen, wenn man sich nicht
+wirklich Gedanken über die Nutzung in Subklassen gemacht hat, sehen viele andere Java Architekten dies nicht so
 puristisch. Daher lautet die pragmatische Empfehlung:
 - Klassen sollten in den seltensten Fällen als `final` gekennzeichnet werden. Durch TDD lassen sich durch Vererbung
- verursachte Fehler recht schnell finden. Ein "Versiegeln" von Klassen ist nicht wirklich erforderlich und hemmt die
- Wiederverwendung. 
-- Methoden sollten nur dann als `final` gekennzeichnet, wenn durch das Überschreiben tatsächlich ein Fehler entstehen wird. 
- Z.B. dürfen in Konstruktoren **niemals** Methoden aufgerufen werden, die nicht `final` sind!
- 
+verursachte Fehler recht schnell finden. Ein "Versiegeln" von Klassen ist nicht wirklich erforderlich und hemmt die
+Wiederverwendung.
+- Methoden sollten nur dann als `final` gekennzeichnet, wenn durch das Überschreiben tatsächlich ein Fehler entstehen wird.
+Z.B. dürfen in Konstruktoren **niemals** Methoden aufgerufen werden, die nicht `final` sind!
+
 ## Nutzung von anonymen Klassen
 
 In Java hat es sich gerade in Lehrbüchern eingebürgert, anonyme Klassen für Callbacks zu verwenden: man spart  
-sich einige Zeilen Quelltext und das Buch wird wohl dadurch einige Cents billiger. 
+sich einige Zeilen Quelltext und das Buch wird wohl dadurch einige Cents billiger.
 
 Anonyme Klassen machen den Quelltext leider schwer lesbar und unübersichtlich. Daher gilt grundsätzlich, dass diese nur in
 wenigen Ausnahmefällen verwendet werden sollten. Wenn trotzdem eine anonyme Klasse benötigt wird, dann sollte diese genau
-eine Methode implementieren und die Implementierung selbst sollte wenn möglich genau eine Anweisung enthalten. Mit den 
+eine Methode implementieren und die Implementierung selbst sollte wenn möglich genau eine Anweisung enthalten. Mit den
 [Lambda-Ausdrücken](http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/Lambda-QuickStart/index.html) aus Java 8
 lassen sich solche Anforderungen deutlich eleganter umsetzen.
 
 ## Nutzung von Methodenreferenzen (d.h. Delegates)
 
-Häufig muss sich eine Klasse als Listener für Events registrieren. Beispielsweise registrieren sich UI Actions immer am 
+Häufig muss sich eine Klasse als Listener für Events registrieren. Beispielsweise registrieren sich UI Actions immer am
 Modell, um den eigenen Zustand zu aktualisieren. Java bietet seit Java 8 endlich die Möglichkeit, an dieser Stelle
-Methoden-Referenzen zu verwenden (siehe auch Delegates in C#). Damit ist es nicht mehr erforderlich, dass die registrierende 
+Methoden-Referenzen zu verwenden (siehe auch Delegates in C#). Damit ist es nicht mehr erforderlich, dass die registrierende
 Klasse das erforderliche Interface selbst implementiert: es reicht wenn eine Referenz auf eine private Methode übergeben wird,
 die die Schnittstelle umsetzt.
 
-Bisher wurde gerade in vielen Java Lehrbüchern das folgende Anti-Pattern benutzt, das konzeptionell falsch ist: 
+Bisher wurde gerade in vielen Java Lehrbüchern das folgende Anti-Pattern benutzt, das konzeptionell falsch ist:
 
 ```java
 public class BrokenObserverImplementation implements Observer {
@@ -190,7 +193,7 @@ public class BrokenObserverImplementation implements Observer {
 }
 ```
 
-In dieser unsauberen Variante wird die Methode `update` Teil des API, da sie wegen des Interfaces `public` sein muss. 
+In dieser unsauberen Variante wird die Methode `update` Teil des API, da sie wegen des Interfaces `public` sein muss.
 Die Methode kann daher später nie wieder entfernt werden. Weitere Nachteile dieses Anti-Patterns:
 - Die Methode kann von Nutzern der Klasse zu jedem Zeitpunkt aufgerufen werden, was unerwartete Seiteneffekte nach sich ziehen kann.
 - Muss auf mehrere Events reagiert werden, funktioniert das Pattern nur mit Einsatz von `if-else` Kaskaden, was wiederum die
@@ -209,5 +212,6 @@ public class CorrectObserverImplementation {
     }
 }
 ```
-D.h. die Callback Methode kann nun als private markiert werden und ist nach außen nicht mehr sichtbar. 
+
+D.h. die Callback Methode kann nun als private markiert werden und ist nach außen nicht mehr sichtbar.
 Je nach Anwendungsfall kann statt der Methoden-Referenz auch ein Lambda Ausdruck verwendet werden.

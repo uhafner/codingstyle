@@ -1,5 +1,18 @@
 package edu.hm.hafner.util;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyBoolean;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import edu.hm.hafner.util.SecureXmlParserFactory.ParsingException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
@@ -10,15 +23,9 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
-
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-
-import edu.hm.hafner.util.SecureXmlParserFactory.ParsingException;
-
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 /**
  * Tests the class {@link SecureXmlParserFactory}.
@@ -54,7 +61,8 @@ class SecureXmlParserFactoryTest {
         var brokenDocumentBuilderFactory = createBrokenDocumentBuilderFactory();
         when(factory.createDocumentBuilderFactory()).thenReturn(brokenDocumentBuilderFactory);
 
-        assertThatIllegalArgumentException().isThrownBy(factory::createDocumentBuilder)
+        assertThatIllegalArgumentException()
+                .isThrownBy(factory::createDocumentBuilder)
                 .withMessage("Can't create instance of DocumentBuilder");
     }
 
@@ -73,7 +81,8 @@ class SecureXmlParserFactoryTest {
         var brokenSaxParserFactory = createBrokenSaxParserFactory();
         when(factory.createSaxParserFactory()).thenReturn(brokenSaxParserFactory);
 
-        assertThatIllegalArgumentException().isThrownBy(factory::createSaxParser)
+        assertThatIllegalArgumentException()
+                .isThrownBy(factory::createSaxParser)
                 .withMessage("Can't create instance of SAXParser");
     }
 
@@ -106,10 +115,11 @@ class SecureXmlParserFactoryTest {
     void shouldFailWithParsingExceptionIfParsingBrokenDocument() throws SAXException {
         var factory = new SecureXmlParserFactory();
 
-        assertThatExceptionOfType(ParsingException.class).isThrownBy(() ->
-                factory.parse(createBrokenXmlReader(), StandardCharsets.UTF_8, mock(DefaultHandler.class)));
-        assertThatExceptionOfType(ParsingException.class).isThrownBy(() ->
-                factory.readDocument(createBrokenXmlReader(), StandardCharsets.UTF_8));
+        assertThatExceptionOfType(ParsingException.class)
+                .isThrownBy(() ->
+                        factory.parse(createBrokenXmlReader(), StandardCharsets.UTF_8, mock(DefaultHandler.class)));
+        assertThatExceptionOfType(ParsingException.class)
+                .isThrownBy(() -> factory.readDocument(createBrokenXmlReader(), StandardCharsets.UTF_8));
     }
 
     @Test
@@ -121,7 +131,8 @@ class SecureXmlParserFactoryTest {
         var brokenXmlInputFactory = createBrokenXmlInputFactory();
         when(factory.createXmlInputFactory()).thenReturn(brokenXmlInputFactory);
 
-        assertThatIllegalArgumentException().isThrownBy(() -> factory.createXmlStreamReader(createEmptyXmlReader()))
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> factory.createXmlStreamReader(createEmptyXmlReader()))
                 .withMessage("Can't create instance of XMLStreamReader");
     }
 
@@ -134,14 +145,17 @@ class SecureXmlParserFactoryTest {
         var brokenXmlInputFactory = createBrokenXmlInputFactory();
         when(factory.createXmlInputFactory()).thenReturn(brokenXmlInputFactory);
 
-        assertThatIllegalArgumentException().isThrownBy(() -> factory.createXmlEventReader(createEmptyXmlReader()))
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> factory.createXmlEventReader(createEmptyXmlReader()))
                 .withMessage("Can't create instance of XMLEventReader");
     }
 
     private XMLInputFactory createBrokenXmlInputFactory() throws XMLStreamException {
         var xmlInputFactory = mock(XMLInputFactory.class);
-        when(xmlInputFactory.createXMLStreamReader((Reader) any())).thenThrow(new XMLStreamException(EXPECTED_EXCEPTION));
-        when(xmlInputFactory.createXMLEventReader((Reader) any())).thenThrow(new XMLStreamException(EXPECTED_EXCEPTION));
+        when(xmlInputFactory.createXMLStreamReader((Reader) any()))
+                .thenThrow(new XMLStreamException(EXPECTED_EXCEPTION));
+        when(xmlInputFactory.createXMLEventReader((Reader) any()))
+                .thenThrow(new XMLStreamException(EXPECTED_EXCEPTION));
         return xmlInputFactory;
     }
 
@@ -162,7 +176,8 @@ class SecureXmlParserFactoryTest {
         var brokenTransformerFactory = createBrokenTransformerFactory();
         when(factory.createTransformerFactory()).thenReturn(brokenTransformerFactory);
 
-        assertThatIllegalArgumentException().isThrownBy(factory::createTransformer)
+        assertThatIllegalArgumentException()
+                .isThrownBy(factory::createTransformer)
                 .withMessage("Can't create instance of Transformer");
     }
 

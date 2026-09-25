@@ -1,10 +1,8 @@
 package edu.hm.hafner.util;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
-
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.AbstractList;
@@ -19,24 +17,22 @@ import java.util.stream.StreamSupport;
 /**
  * {@link List} of {@link LineRange} that stores values more efficiently at runtime.
  *
- * <p>
- * This class thinks of {@link LineRange} as two integers (start and end-start), hence a list of {@link LineRange}
+ * <p>This class thinks of {@link LineRange} as two integers (start and end-start), hence a list of {@link LineRange}
  * becomes a list of integers. The class then stores those integers in {@code byte[]}. Each number is packed to UTF-8
  * like variable length format. To store a long value N, we first split into 7 bit chunk, and store each 7 bit chunk as
  * a byte, in the little endian order. The last byte gets its 8th bit set to indicate that that's the last byte. Thus in
  * this format, 0x0 gets stored as 0x80, 0x1234 gets stored as {0x34,0xA4(0x24|0x80)}.
- * </p>
  *
- * <p>
- * This variable length mode stores data most efficiently, since most line numbers are small. Access characteristic gets
- * close to that of {@link LinkedList}, since we can only traverse this packed byte[] from the start or from the end.
- * </p>
+ * <p>This variable length mode stores data most efficiently, since most line numbers are small. Access characteristic
+ * gets close to that of {@link LinkedList}, since we can only traverse this packed byte[] from the start or from the
+ * end.
  *
  * @author Kohsuke Kawaguchi
  */
 public class LineRangeList extends AbstractList<LineRange> implements Serializable {
     @Serial
     private static final long serialVersionUID = -1123973098942984623L;
+
     private static final int DEFAULT_CAPACITY = 16;
     private static final boolean SEQUENTIAL = false;
 
@@ -45,9 +41,7 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
     /** Number of bytes in {@link #data} that's already used. This is not {@link List#size()}. */
     private int len;
 
-    /**
-     * Creates an empty {@link LineRangeList}. It uses a capacity of {@link LineRangeList#DEFAULT_CAPACITY}.
-     */
+    /** Creates an empty {@link LineRangeList}. It uses a capacity of {@link LineRangeList#DEFAULT_CAPACITY}. */
     public LineRangeList() {
         this(DEFAULT_CAPACITY);
     }
@@ -55,8 +49,7 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
     /**
      * Creates an empty {@link LineRangeList} with the specified capacity.
      *
-     * @param capacity
-     *         the initial capacity of the list
+     * @param capacity the initial capacity of the list
      */
     public LineRangeList(final int capacity) {
         super();
@@ -68,8 +61,7 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
     /**
      * Creates a new {@link LineRangeList} with the specified elements.
      *
-     * @param copy
-     *         the initial elements
+     * @param copy the initial elements
      */
     public LineRangeList(final Collection<LineRange> copy) {
         this(copy.size() * 4); // guess
@@ -80,8 +72,7 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
     /**
      * Creates a new {@link LineRangeList} with the specified elements.
      *
-     * @param initialElements
-     *         the initial elements
+     * @param initialElements the initial elements
      */
     @SuppressWarnings("PMD.UseArraysAsList")
     public LineRangeList(final LineRange... initialElements) {
@@ -93,20 +84,17 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
     }
 
     /**
-     * Appends all the elements in the specified collection to the end of this list, in the order that they are
-     * returned by the specified collection's iterator (optional operation).  The behavior of this operation is
-     * undefined if the specified collection is modified while the operation is in progress.  (Note that this will occur
-     * if the specified collection is this list, and it's nonempty.)
+     * Appends all the elements in the specified collection to the end of this list, in the order that they are returned
+     * by the specified collection's iterator (optional operation). The behavior of this operation is undefined if the
+     * specified collection is modified while the operation is in progress. (Note that this will occur if the specified
+     * collection is this list, and it's nonempty.)
      *
-     * @param ranges
-     *         collection containing elements to be added to this list
-     *
+     * @param ranges collection containing elements to be added to this list
      * @return {@code true} if this list changed as a result of the call
-     * @throws NullPointerException
-     *         if the specified collection contains one or more null elements and this list does not permit null
-     *         elements, or if the specified collection is null
-     * @throws IllegalArgumentException
-     *         if some property of an element of the specified collection prevents it from being added to this list
+     * @throws NullPointerException if the specified collection contains one or more null elements and this list does
+     *     not permit null elements, or if the specified collection is null
+     * @throws IllegalArgumentException if some property of an element of the specified collection prevents it from
+     *     being added to this list
      * @see #add(Object)
      */
     public final boolean addAll(final Iterable<? extends LineRange> ranges) {
@@ -119,8 +107,7 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
     /**
      * Makes sure that the buffer has capability to store N bytes.
      *
-     * @param n
-     *         capacity
+     * @param n capacity
      */
     private void ensure(final int n) {
         if (data.length < n) {
@@ -133,7 +120,7 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
     @Override
     public boolean contains(final Object o) {
         if (o instanceof final LineRange other) {
-            for (var cursor = new Cursor(); cursor.hasNext();) {
+            for (var cursor = new Cursor(); cursor.hasNext(); ) {
                 if (cursor.compare(other)) {
                     return true;
                 }
@@ -196,9 +183,7 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
         return new Cursor().skip(index);
     }
 
-    /**
-     * Minimizes the memory waste by throwing away excess capacity.
-     */
+    /** Minimizes the memory waste by throwing away excess capacity. */
     public void trim() {
         if (len != data.length) {
             var small = new byte[len];
@@ -207,9 +192,7 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
         }
     }
 
-    /**
-     * Navigates through the ranges and performs the conversion to and from {@link LineRange}.
-     */
+    /** Navigates through the ranges and performs the conversion to and from {@link LineRange}. */
     @SuppressWarnings("PMD.AssignmentInOperand")
     private class Cursor implements ListIterator<LineRange> {
         private int position;
@@ -222,9 +205,7 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
             this(0);
         }
 
-        /**
-         * Does the opposite of {@link #read()} and skips back one int.
-         */
+        /** Does the opposite of {@link #read()} and skips back one int. */
         private void prev() {
             if (position == 0) {
                 throw new NoSuchElementException("Cursor is a the beginning.");
@@ -239,7 +220,8 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
          *
          * @return the current element
          */
-        @Override @SuppressFBWarnings(value = "IT_NO_SUCH_ELEMENT", justification = "thrown in read()")
+        @Override
+        @SuppressFBWarnings(value = "IT_NO_SUCH_ELEMENT", justification = "thrown in read()")
         public LineRange next() {
             int s = read();
             int d = read();
@@ -253,9 +235,7 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
             return copy().next();
         }
 
-        /**
-         * Removes the last returned value.
-         */
+        /** Removes the last returned value. */
         @Override
         public void remove() {
             prev();
@@ -310,9 +290,7 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
         /**
          * Reads the current value at the cursor and compares it.
          *
-         * @param other
-         *         the line range to compare with
-         *
+         * @param other the line range to compare with
          * @return {@code true} if the read value is equal to the specified range
          */
         private boolean compare(final LineRange other) {
@@ -324,9 +302,7 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
         /**
          * Skips forward and gets the pointer to N-th element.
          *
-         * @param n
-         *         number of elements to skip
-         *
+         * @param n number of elements to skip
          * @return this cursor
          */
         @CanIgnoreReturnValue
@@ -372,8 +348,7 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
             ensure(len + diff);
             if (diff > 0) {
                 System.arraycopy(data, position, data, position + diff, len - position);
-            }
-            else {
+            } else {
                 System.arraycopy(data, position - diff, data, position, len - position + diff);
             }
             len += diff;
@@ -382,9 +357,7 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
         /**
          * Rewrites the value at the current cursor position.
          *
-         * @param other
-         *         the line range to rewrite
-         *
+         * @param other the line range to rewrite
          * @return the changed line range
          */
         private LineRange rewrite(final LineRange other) {
@@ -402,9 +375,7 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
             rewrite(v);
         }
 
-        /**
-         * Inserts the value at the current cursor position.
-         */
+        /** Inserts the value at the current cursor position. */
         @Override
         public void add(final LineRange v) {
             int newSize = sizeOf(v);
@@ -431,9 +402,7 @@ public class LineRangeList extends AbstractList<LineRange> implements Serializab
         /**
          * Computes the number of bytes that the value 'index' would occupy in its encoded form.
          *
-         * @param index
-         *         the index to check
-         *
+         * @param index the index to check
          * @return the number of bytes
          */
         private int sizeOf(final int index) {

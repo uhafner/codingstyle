@@ -4,7 +4,7 @@
 
   <groupId>edu.hm.hafner</groupId>
   <artifactId>codingstyle</artifactId>
-  <version>6.19.0-SNAPSHOT</version>
+  <version>7.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>Java coding style</name>
@@ -106,6 +106,7 @@
     <sortpom-maven-plugin.version>4.0.0</sortpom-maven-plugin.version>
     <git-commit-id-maven-plugin.version>10.0.1</git-commit-id-maven-plugin.version>
     <dependency-check-maven.version>13.0.0</dependency-check-maven.version>
+    <spotless-maven-plugin.version>3.10.2</spotless-maven-plugin.version>
 
     <!-- OpenRewrite versions   -->
     <rewrite-maven-plugin.version>6.46.1</rewrite-maven-plugin.version>
@@ -117,12 +118,6 @@
 
   <dependencyManagement>
     <dependencies>
-      <!-- Production Dependencies -->
-      <dependency>
-        <groupId>net.bytebuddy</groupId>
-        <artifactId>byte-buddy</artifactId>
-        <version>${byte-buddy.version}</version>
-      </dependency>
       <!-- Test Dependencies -->
       <dependency>
         <groupId>org.junit</groupId>
@@ -137,6 +132,12 @@
         <version>${mockito.version}</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <!-- Production Dependencies -->
+      <dependency>
+        <groupId>net.bytebuddy</groupId>
+        <artifactId>byte-buddy</artifactId>
+        <version>${byte-buddy.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -153,14 +154,30 @@
       <version>${error-prone.version}</version>
     </dependency>
     <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>${commons.io.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
       <version>${commons.lang.version}</version>
     </dependency>
     <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>${commons.io.version}</version>
+      <groupId>com.tngtech.archunit</groupId>
+      <artifactId>archunit-junit5</artifactId>
+      <version>${archunit.version}</version>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.junit.platform</groupId>
+          <artifactId>junit-platform-engine</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <!-- Test Dependencies -->
@@ -168,6 +185,12 @@
       <groupId>nl.jqno.equalsverifier</groupId>
       <artifactId>equalsverifier</artifactId>
       <version>${equalsverifier.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>${assertj.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -179,28 +202,6 @@
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.assertj</groupId>
-      <artifactId>assertj-core</artifactId>
-      <version>${assertj.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.tngtech.archunit</groupId>
-      <artifactId>archunit-junit5</artifactId>
-      <version>${archunit.version}</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.junit.platform</groupId>
-          <artifactId>junit-platform-engine</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -377,8 +378,13 @@
           <dependencies>
             <dependency>
               <groupId>org.openrewrite.recipe</groupId>
-              <artifactId>rewrite-testing-frameworks</artifactId>
-              <version>${rewrite-testing-frameworks.version}</version>
+              <artifactId>rewrite-migrate-java</artifactId>
+              <version>${rewrite-migrate-java.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>org.openrewrite.recipe</groupId>
+              <artifactId>rewrite-recommendations</artifactId>
+              <version>${rewrite-recommendations.version}</version>
             </dependency>
             <dependency>
               <groupId>org.openrewrite.recipe</groupId>
@@ -387,13 +393,8 @@
             </dependency>
             <dependency>
               <groupId>org.openrewrite.recipe</groupId>
-              <artifactId>rewrite-migrate-java</artifactId>
-              <version>${rewrite-migrate-java.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>org.openrewrite.recipe</groupId>
-              <artifactId>rewrite-recommendations</artifactId>
-              <version>${rewrite-recommendations.version}</version>
+              <artifactId>rewrite-testing-frameworks</artifactId>
+              <version>${rewrite-testing-frameworks.version}</version>
             </dependency>
           </dependencies>
         </plugin>
@@ -423,14 +424,14 @@
           </configuration>
           <dependencies>
             <dependency>
-              <groupId>org.pitest</groupId>
-              <artifactId>pitest-junit5-plugin</artifactId>
-              <version>${pitest-junit5-plugin.version}</version>
-            </dependency>
-            <dependency>
               <groupId>edu.hm.hafner</groupId>
               <artifactId>pitmute</artifactId>
               <version>${pitmute.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>org.pitest</groupId>
+              <artifactId>pitest-junit5-plugin</artifactId>
+              <version>${pitest-junit5-plugin.version}</version>
             </dependency>
           </dependencies>
         </plugin>
@@ -453,6 +454,103 @@
     </pluginManagement>
     <plugins>
       <plugin>
+        <groupId>com.diffplug.spotless</groupId>
+        <artifactId>spotless-maven-plugin</artifactId>
+        <version>${spotless-maven-plugin.version}</version>
+        <configuration>
+          <asciidoc>
+            <includes>
+              <include>**/*.adoc</include>
+            </includes>
+            <excludes>
+              <exclude>target/**</exclude>
+              <exclude>docker/volumes/**</exclude>
+              <exclude>src/test/resources/**</exclude>
+            </excludes>
+            <adocfmt>
+              <normalizeListBullets>true</normalizeListBullets>
+            </adocfmt>
+          </asciidoc>
+          <java>
+            <excludes>
+              <exclude>target/**</exclude>
+              <exclude>docker/volumes/**</exclude>
+              <exclude>src/test/resources/**</exclude>
+            </excludes>
+            <endWithNewline />
+            <importOrder />
+            <indent>
+              <spaces>true</spaces>
+            </indent>
+            <palantirJavaFormat>
+              <formatJavadoc>true</formatJavadoc>
+            </palantirJavaFormat>
+            <shortenFullyQualifiedTypes />
+            <removeUnusedImports />
+            <toggleOffOn />
+            <trimTrailingWhitespace />
+          </java>
+          <json>
+            <includes>
+              <include>**/*.json</include>
+            </includes>
+            <excludes>
+              <exclude>target/**</exclude>
+              <exclude>docker/volumes/**</exclude>
+              <exclude>src/test/resources/**</exclude>
+            </excludes>
+            <jackson />
+          </json>
+          <markdown>
+            <includes>
+              <include>**/*.md</include>
+            </includes>
+            <excludes>
+              <exclude>target/**</exclude>
+              <exclude>docker/volumes/**</exclude>
+              <exclude>src/test/resources/**</exclude>
+            </excludes>
+            <flexmark />
+          </markdown>
+          <pom>
+            <sortPom>
+              <expandEmptyElements>false</expandEmptyElements>
+              <sortDependencies>scope,groupId,artifactId</sortDependencies>
+              <sortDependencyExclusions>groupId,artifactId</sortDependencyExclusions>
+              <spaceBeforeCloseEmptyElement>true</spaceBeforeCloseEmptyElement>
+            </sortPom>
+          </pom>
+          <typescript>
+            <includes>
+              <include>**/*.js</include>
+            </includes>
+            <excludes>
+              <exclude>target/**</exclude>
+              <exclude>docker/volumes/**</exclude>
+              <exclude>src/test/resources/**</exclude>
+            </excludes>
+            <prettier />
+          </typescript>
+          <yaml>
+            <includes>
+              <include>**/*.yaml</include>
+            </includes>
+            <excludes>
+              <exclude>target/**</exclude>
+              <exclude>docker/volumes/**</exclude>
+              <exclude>src/test/resources/**</exclude>
+            </excludes>
+          </yaml>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven-surefire-plugin.version}</version>
@@ -466,10 +564,10 @@
         </configuration>
         <executions>
           <execution>
+            <id>default-test</id>
             <goals>
               <goal>test</goal>
             </goals>
-            <id>default-test</id>
             <phase>test</phase>
             <configuration>
               <excludes combine.children="append">
@@ -478,10 +576,10 @@
             </configuration>
           </execution>
           <execution>
+            <id>architecture-test</id>
             <goals>
               <goal>test</goal>
             </goals>
-            <id>architecture-test</id>
             <phase>test</phase>
             <configuration>
               <includes>

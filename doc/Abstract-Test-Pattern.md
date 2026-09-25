@@ -1,17 +1,17 @@
 # Abstract Test Pattern
 
-Mit dem **Abstract Test Pattern** lassen sich Schnittstellenverträge (d.h. Interfaces) und abstrakte Klassen 
+Mit dem **Abstract Test Pattern** lassen sich Schnittstellenverträge (d.h. Interfaces) und abstrakte Klassen
 testen. Damit kann sichergestellt werden, dass Subklassen (bzw. Klassen, die ein gegebenes Interface
 implementieren) sich an den vereinbarten Vertrag halten. Das **Abstract Test Pattern** ist prinzipiell eine Komposition
-aus zwei anderen Design Patterns: dem **Template Method Pattern** und dem **Factory Method Pattern**. 
-Der konkrete Testfall wird als eine Template Method umgesetzt. Das darin benötigte Subject under Test wird durch eine 
+aus zwei anderen Design Patterns: dem **Template Method Pattern** und dem **Factory Method Pattern**.
+Der konkrete Testfall wird als eine Template Method umgesetzt. Das darin benötigte Subject under Test wird durch eine
 abstrakte Factory Method erzeugt, die von der jeweiligen konkreten Subtestklasse überschrieben werden muss. An  
 Beispielen lässt sich diese Herangehensweise am besten zeigen.
 
 ## Testen des Schnittstellenvertrags von equals
 
 Im JDK ist für die Methode `Object.equals` ein recht umfangreiche Vertrag im JavaDoc formuliert. Hier der wichtigste
- Teil als Ausschnitt:
+Teil als Ausschnitt:
 
 ```java
 /**
@@ -73,9 +73,9 @@ Jede Klasse, die `equals` überschreibt, kann den Schnittstellenvertrag mit folg
 
 Die restlichen Tests der zu überprüfenden Klassen werden anschließend wie gewohnt in der Testklasse kodiert.
 
-## Testen des Comparable Schnittstellenvertrags 
+## Testen des Comparable Schnittstellenvertrags
 
-Das gleiche Verfahren lässt sich auch mit Interfaces umsetzen. 
+Das gleiche Verfahren lässt sich auch mit Interfaces umsetzen.
 Z.B. muss das Interface `Comparable` so implementiert werden, dass die Operation `compareTo` symmetrisch ist:
 
 ```java
@@ -93,9 +93,9 @@ Z.B. muss das Interface `Comparable` so implementiert werden, dass die Operation
 public int compareTo(T o);
 ```
 
-Ein dazu passender abstrakter Test könnte als 
-[AbstractComparableTest](../src/test/java/edu/hm/hafner/util/AbstractComparableTest.java) 
-folgendermaßen umgesetzt werden: 
+Ein dazu passender abstrakter Test könnte als
+[AbstractComparableTest](../src/test/java/edu/hm/hafner/util/AbstractComparableTest.java)
+folgendermaßen umgesetzt werden:
 
 ```java
 /**
@@ -150,14 +150,14 @@ public abstract class AbstractComparableTest <T extends Comparable<T>> {
 }
 ```
 
-## Testen des Serializable Schnittstellenvertrags 
+## Testen des Serializable Schnittstellenvertrags
 
 Als letztes Beispiel für das Abstract Test Pattern soll das `Serializable`  Interface dienen. Interessanterweise ist dies
-ein Markerinterface, d.h. ein Interface ohne Definition eigener Methoden.  Der JavaDoc für das Interface ist allerdings 
+ein Markerinterface, d.h. ein Interface ohne Definition eigener Methoden.  Der JavaDoc für das Interface ist allerdings
 sehr umfangreich und umfasst mehrere Seiten. Die Frage ist auch hier, wie man einen Test zur Verfügung stellen kann,
 der den Vertrag einer Klasse überprüft, die `Serializable` ist. U.A. muss folgender Punkt erfüllt sein:
-Eine Instanz der Klasse muss mit einem `ObjectOutputStream` in einen Bytestream umgewandelt werden können. Anschließend 
-muss dieser Bytestream mit einem `ObjectInputStream` wieder zurück in eine Instanz der Klasse verwandelt werden können. 
+Eine Instanz der Klasse muss mit einem `ObjectOutputStream` in einen Bytestream umgewandelt werden können. Anschließend
+muss dieser Bytestream mit einem `ObjectInputStream` wieder zurück in eine Instanz der Klasse verwandelt werden können.
 Die beiden Instanzen müssen hinterher gleich sein (bezüglich `equals`).
 
 ```java
@@ -190,17 +190,17 @@ public abstract class SerializableTest<T extends Serializable> extends ResourceT
 ```
 
 Dieser Test kann auch als Ausgangsbasis für weitere Tests im Bereich `Serializable` verwendet werden. Z.B. wird in
-dieser Test meinem Projekt [Static Analysis Model and Parsers Library](https://github.com/jenkinsci/analysis-model/) 
+dieser Test meinem Projekt [Static Analysis Model and Parsers Library](https://github.com/jenkinsci/analysis-model/)
 benutzt, um sicherzustellen, dass sich die Serialisierung einer Klasse sich nicht aus Versehen verändert, so
-dass die mit einer alten Version der Bibliothek serialisierten Daten plötzlich in der neuen Version nicht mehr 
-einlesbar sind: 
-[IssueTest#shouldReadIssueFromOldSerialization](https://github.com/jenkinsci/analysis-model/blob/master/src/test/java/edu/hm/hafner/analysis/IssueTest.java#L306). 
+dass die mit einer alten Version der Bibliothek serialisierten Daten plötzlich in der neuen Version nicht mehr
+einlesbar sind:
+[IssueTest#shouldReadIssueFromOldSerialization](https://github.com/jenkinsci/analysis-model/blob/master/src/test/java/edu/hm/hafner/analysis/IssueTest.java#L306).
 Dazu wird der gleiche Mechanismus benötigt, zusätzlich muss die Serialisierung einer alten Instanz
-als Datei abgelegt werden.    
- 
+als Datei abgelegt werden.
+
 ## Typische Anwendungsgebiete des Abstract Test Patterns
 
-Neben solchen API Tests wird das Pattern hauptsächlich genutzt, um für den Code von abstrakten Klassen auch Testfälle 
+Neben solchen API Tests wird das Pattern hauptsächlich genutzt, um für den Code von abstrakten Klassen auch Testfälle
 zur Verfügung zu stellen. Diese Testfälle können dann von Subklassen einfach mitbenutzt werden. So kann sicher
-gestellt werden, dass Subklassen den Vertrag einer Vererbungshierarchie nicht brechen und damit nicht unbewusst das 
+gestellt werden, dass Subklassen den Vertrag einer Vererbungshierarchie nicht brechen und damit nicht unbewusst das
 [Liskov Substitution Principle](https://en.wikipedia.org/wiki/Liskov_substitution_principle) verletzen.

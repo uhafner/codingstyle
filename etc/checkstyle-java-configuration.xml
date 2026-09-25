@@ -33,10 +33,6 @@
     <module name="InnerTypeLast"/>
 
     <module name="AnnotationUseStyle"/>
-    <module name="Indentation">
-      <property name="arrayInitIndent" value="8"/>
-      <property name="lineWrappingIndentation" value="8"/>
-    </module>
     <module name="MissingDeprecated"/>
     <module name="PackageAnnotation"/>
     <module name="EqualsAvoidNull"/>
@@ -82,13 +78,11 @@
     <module name="ParameterNumber">
       <property name="ignoreOverriddenMethods" value="true"/>
     </module>
-    <module name="EmptyForIteratorPad"/>
     <module name="EmptyLineSeparator">
       <property name="allowMultipleEmptyLines" value="false"/>
       <property name="allowMultipleEmptyLinesInsideClassMembers" value="false"/>
       <property name="allowNoEmptyLineBetweenFields" value="true"/>
     </module>
-
     <module name="NoWhitespaceAfter">
       <property name="tokens" value="ARRAY_INIT,BNOT,DEC,DOT,INC,LNOT,UNARY_MINUS,UNARY_PLUS"/>
     </module>
@@ -103,6 +97,8 @@
     <module name="WhitespaceAround">
       <property name="tokens"
                 value="ASSIGN,BAND,BAND_ASSIGN,BOR,BOR_ASSIGN,BSR,BSR_ASSIGN,BXOR,BXOR_ASSIGN,COLON,DIV,DIV_ASSIGN,EQUAL,GE,GT,LAND,LCURLY,LE,LITERAL_ASSERT,LITERAL_CATCH,LITERAL_DO,LITERAL_ELSE,LITERAL_FINALLY,LITERAL_FOR,LITERAL_IF,LITERAL_RETURN,LITERAL_SYNCHRONIZED,LITERAL_TRY,LITERAL_WHILE,LOR,LT,MINUS,MINUS_ASSIGN,MOD,MOD_ASSIGN,NOT_EQUAL,PLUS,PLUS_ASSIGN,QUESTION,SL,SLIST,SL_ASSIGN,SR,SR_ASSIGN,STAR,STAR_ASSIGN,LITERAL_ASSERT,TYPE_EXTENSION_AND"/>
+      <property name="allowEmptyConstructors" value="true"/>
+      <property name="allowEmptyTypes" value="true"/>
     </module>
     <module name="ParenPad"/>
     <module name="MethodParamPad"/>
@@ -111,17 +107,14 @@
     <module name="AvoidNestedBlocks"/>
     <module name="EmptyBlock">
       <property name="option" value="text"/>
-      <property name="tokens" value="LITERAL_CATCH"/>
+      <property name="tokens" value="LITERAL_CATCH, INSTANCE_INIT"/>
     </module>
     <module name="EmptyBlock">
+      <property name="option" value="statement"/>
       <property name="tokens"
-                value="LITERAL_DO,LITERAL_ELSE,LITERAL_FINALLY,LITERAL_IF,LITERAL_FOR,LITERAL_TRY,LITERAL_WHILE,STATIC_INIT"/>
+                value="LITERAL_DO,LITERAL_ELSE,LITERAL_FINALLY,LITERAL_IF,LITERAL_FOR,LITERAL_TRY,LITERAL_WHILE,STATIC_INIT,INSTANCE_INIT"/>
     </module>
-    <module name="LeftCurly"/>
     <module name="NeedBraces"/>
-    <module name="RightCurly">
-      <property name="option" value="alone"/>
-    </module>
     <module name="CovariantEquals"/>
     <module name="DefaultComesLast"/>
     <module name="EmptyStatement"/>

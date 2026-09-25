@@ -1,8 +1,8 @@
 package edu.hm.hafner.util;
 
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import static org.assertj.core.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 /**
  * Verifies that objects of any Java class comply with the contract in {@link Object#equals(Object)}.
@@ -17,9 +17,7 @@ public abstract class AbstractEqualsTest {
      */
     protected abstract Object createSut();
 
-    /**
-     * Verifies that for any non-null reference value {@code x}, {@code x.equals(null)} should return {@code false}.
-     */
+    /** Verifies that for any non-null reference value {@code x}, {@code x.equals(null)} should return {@code false}. */
     @Test
     @SuppressWarnings({"PMD.EqualsNull", "checkstyle:equalsavoidnull", "ConstantConditions"})
     void shouldReturnFalseOnEqualsNull() {

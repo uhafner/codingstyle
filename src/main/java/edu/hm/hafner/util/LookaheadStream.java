@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
-
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -25,8 +24,7 @@ public class LookaheadStream implements AutoCloseable {
     /**
      * Wraps the specified stream of lines into a {@link LookaheadStream}.
      *
-     * @param stream
-     *         the lines to wrap
+     * @param stream the lines to wrap
      */
     public LookaheadStream(final Stream<String> stream) {
         this(stream, StringUtils.EMPTY);
@@ -35,10 +33,8 @@ public class LookaheadStream implements AutoCloseable {
     /**
      * Wraps the specified stream of lines into a {@link LookaheadStream}.
      *
-     * @param stream
-     *         the lines to wrap
-     * @param fileName
-     *         the file name of the stream
+     * @param stream the lines to wrap
+     * @param fileName the file name of the stream
      */
     public LookaheadStream(final Stream<String> stream, final String fileName) {
         this.stream = stream;
@@ -68,9 +64,7 @@ public class LookaheadStream implements AutoCloseable {
     /**
      * Returns {@code true} if the stream has at least one more element that matches the given regular expression.
      *
-     * @param regexp
-     *         the regular expression
-     *
+     * @param regexp the regular expression
      * @return {@code true} if the stream has more elements that match the regexp
      */
     public boolean hasNext(final String regexp) {
@@ -89,8 +83,7 @@ public class LookaheadStream implements AutoCloseable {
      * the next call of {@link #next()} will again return this value.
      *
      * @return the next element in the stream
-     * @throws NoSuchElementException
-     *         if the stream has no more elements
+     * @throws NoSuchElementException if the stream has no more elements
      */
     public String peekNext() {
         if (!isLookaheadFilled) {
@@ -108,8 +101,7 @@ public class LookaheadStream implements AutoCloseable {
      * Returns the next element in the stream.
      *
      * @return the next element in the stream
-     * @throws NoSuchElementException
-     *         if the stream has no more elements
+     * @throws NoSuchElementException if the stream has no more elements
      */
     public String next() {
         line++;
@@ -130,7 +122,8 @@ public class LookaheadStream implements AutoCloseable {
         return line;
     }
 
-    @Override @Generated
+    @Override
+    @Generated
     public String toString() {
         return "[%d] -> '%s'".formatted(line, lookaheadLine);
     }

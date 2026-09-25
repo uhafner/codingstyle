@@ -1,9 +1,8 @@
 package edu.hm.hafner.util;
 
+import com.google.errorprone.annotations.FormatMethod;
 import java.io.PrintStream;
 import java.util.Collection;
-
-import com.google.errorprone.annotations.FormatMethod;
 
 /**
  * A simple logger that prefixes each message with a given name.
@@ -17,16 +16,13 @@ public class PrefixLogger {
     /**
      * Creates a new {@link PrefixLogger}.
      *
-     * @param logger
-     *         the logger to create
-     * @param prefix
-     *         the prefix to print
+     * @param logger the logger to create
+     * @param prefix the prefix to print
      */
     public PrefixLogger(final PrintStream logger, final String prefix) {
         if (prefix.contains("[")) {
             this.toolName = prefix + " ";
-        }
-        else {
+        } else {
             this.toolName = "[%s] ".formatted(prefix);
         }
         delegate = logger;
@@ -35,12 +31,9 @@ public class PrefixLogger {
     /**
      * Logs the specified message.
      *
-     * @param format
-     *         A <a href="../util/Formatter.html#syntax">format string</a>
-     * @param args
-     *         Arguments referenced by the format specifiers in the format string.  If there are more arguments than
-     *         format specifiers, the extra arguments are ignored.  The number of arguments is variable and may be
-     *         zero.
+     * @param format A <a href="../util/Formatter.html#syntax">format string</a>
+     * @param args Arguments referenced by the format specifiers in the format string. If there are more arguments than
+     *     format specifiers, the extra arguments are ignored. The number of arguments is variable and may be zero.
      */
     @FormatMethod
     public void log(final String format, final Object... args) {
@@ -50,8 +43,7 @@ public class PrefixLogger {
     /**
      * Logs the specified messages.
      *
-     * @param lines
-     *         the messages to log
+     * @param lines the messages to log
      */
     public void logEachLine(final Collection<String> lines) {
         lines.forEach(this::print);

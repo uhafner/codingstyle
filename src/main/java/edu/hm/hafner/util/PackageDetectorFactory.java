@@ -1,7 +1,6 @@
 package edu.hm.hafner.util;
 
 import com.google.errorprone.annotations.MustBeClosed;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -27,9 +26,7 @@ public final class PackageDetectorFactory {
     /**
      * Creates a new package detector runner that uses the detectors for Java, Kotlin, and C#.
      *
-     * @param facade
-     *         the file system facade to use
-     *
+     * @param facade the file system facade to use
      * @return the package detector runner
      */
     @VisibleForTesting
@@ -44,23 +41,17 @@ public final class PackageDetectorFactory {
         // prevents instantiation
     }
 
-    /**
-     * Facade for file system operations. May be replaced by stubs in test cases.
-     */
+    /** Facade for file system operations. May be replaced by stubs in test cases. */
     @VisibleForTesting
     @SuppressMutation(justification = "This method is not tested directly because it accesses the file system.")
     public static class FileSystemFacade {
         /**
          * Opens the specified file.
          *
-         * @param fileName
-         *         the name of the file to open
-         *
+         * @param fileName the name of the file to open
          * @return the input stream to read the file
-         * @throws IOException
-         *         if the file could not be opened
-         * @throws InvalidPathException
-         *         the file name is invalid
+         * @throws IOException if the file could not be opened
+         * @throws InvalidPathException the file name is invalid
          */
         @MustBeClosed
         public InputStream openFile(final String fileName) throws IOException, InvalidPathException {

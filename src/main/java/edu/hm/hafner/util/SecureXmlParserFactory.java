@@ -1,5 +1,16 @@
 package edu.hm.hafner.util;
 
+import static javax.xml.XMLConstants.ACCESS_EXTERNAL_DTD;
+import static javax.xml.XMLConstants.ACCESS_EXTERNAL_SCHEMA;
+import static javax.xml.XMLConstants.ACCESS_EXTERNAL_STYLESHEET;
+import static javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING;
+
+import com.google.errorprone.annotations.FormatMethod;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Serial;
+import java.nio.charset.Charset;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -12,7 +23,6 @@ import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
-
 import org.apache.commons.io.input.ReaderInputStream;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.w3c.dom.Document;
@@ -22,34 +32,25 @@ import org.xml.sax.SAXNotRecognizedException;
 import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.google.errorprone.annotations.FormatMethod;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Serial;
-import java.nio.charset.Charset;
-
-import static javax.xml.XMLConstants.*;
-
 /**
  * Factory for XML Parsers that prevent XML External Entity attacks. Those attacks occur when untrusted XML input
  * containing a reference to an external entity is processed by a weakly configured XML parser.
  *
  * @author Ullrich Hafner
  * @see <a href="https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html">XML
- *         External Entity Prevention Cheat Sheet</a>
- * @see <a href="https://rules.sonarsource.com/java/RSPEC-2755">XML parsers should not be vulnerable to XXE
- *         attacks</a>
+ *     External Entity Prevention Cheat Sheet</a>
+ * @see <a href="https://rules.sonarsource.com/java/RSPEC-2755">XML parsers should not be vulnerable to XXE attacks</a>
  */
-@SuppressMutation(mutator = PitMutator.VOID_METHOD_CALLS, justification = "Setters are used to configure the parsers and factories")
+@SuppressMutation(
+        mutator = PitMutator.VOID_METHOD_CALLS,
+        justification = "Setters are used to configure the parsers and factories")
 public class SecureXmlParserFactory {
     /**
      * The following constants are copied from the Xerces distribution 2.12.2. This avoids adding a dependency to
      * Xerces.
      */
     private static final String SAX_FEATURE_PREFIX = "http://xml.org/sax/features/";
+
     private static final String XERCES_FEATURE_PREFIX = "http://apache.org/xml/features/";
     private static final String EXTERNAL_GENERAL_ENTITIES_FEATURE = "external-general-entities";
     private static final String EXTERNAL_PARAMETER_ENTITIES_FEATURE = "external-parameter-entities";
@@ -60,22 +61,21 @@ public class SecureXmlParserFactory {
     private static final String LOAD_EXTERNAL_DTD_FEATURE = "nonvalidating/load-external-dtd";
 
     private static final String[] ENABLED_PROPERTIES = {
-//            XERCES_FEATURE_PREFIX + DISALLOW_DOCTYPE_DECL_FEATURE,   - If this feature is activated we cannot parse any XML documents that use a DOCTYPE anymore
-            FEATURE_SECURE_PROCESSING
+        //            XERCES_FEATURE_PREFIX + DISALLOW_DOCTYPE_DECL_FEATURE,   - If this feature is activated we cannot
+        // parse any XML documents that use a DOCTYPE anymore
+        FEATURE_SECURE_PROCESSING
     };
     private static final String[] DISABLED_PROPERTIES = {
-            SAX_FEATURE_PREFIX + EXTERNAL_GENERAL_ENTITIES_FEATURE,
-            SAX_FEATURE_PREFIX + EXTERNAL_PARAMETER_ENTITIES_FEATURE,
-            SAX_FEATURE_PREFIX + RESOLVE_DTD_URIS_FEATURE,
-            SAX_FEATURE_PREFIX + USE_ENTITY_RESOLVER2_FEATURE,
-            XERCES_FEATURE_PREFIX + CREATE_ENTITY_REF_NODES_FEATURE,
-            XERCES_FEATURE_PREFIX + LOAD_DTD_GRAMMAR_FEATURE,
-            XERCES_FEATURE_PREFIX + LOAD_EXTERNAL_DTD_FEATURE
+        SAX_FEATURE_PREFIX + EXTERNAL_GENERAL_ENTITIES_FEATURE,
+        SAX_FEATURE_PREFIX + EXTERNAL_PARAMETER_ENTITIES_FEATURE,
+        SAX_FEATURE_PREFIX + RESOLVE_DTD_URIS_FEATURE,
+        SAX_FEATURE_PREFIX + USE_ENTITY_RESOLVER2_FEATURE,
+        XERCES_FEATURE_PREFIX + CREATE_ENTITY_REF_NODES_FEATURE,
+        XERCES_FEATURE_PREFIX + LOAD_DTD_GRAMMAR_FEATURE,
+        XERCES_FEATURE_PREFIX + LOAD_EXTERNAL_DTD_FEATURE
     };
     private static final String[] DISABLED_ATTRIBUTES = {
-            ACCESS_EXTERNAL_DTD,
-            ACCESS_EXTERNAL_SCHEMA,
-            ACCESS_EXTERNAL_STYLESHEET
+        ACCESS_EXTERNAL_DTD, ACCESS_EXTERNAL_SCHEMA, ACCESS_EXTERNAL_STYLESHEET
     };
     private static final String CLEAR_ATTRIBUTE = "";
     private static final String SUPPORTING_EXTERNAL_ENTITIES = "javax.xml.stream.isSupportingExternalEntities";
@@ -95,8 +95,7 @@ public class SecureXmlParserFactory {
             clearAttributes(factory);
 
             return factory.newDocumentBuilder();
-        }
-        catch (ParserConfigurationException exception) {
+        } catch (ParserConfigurationException exception) {
             throw new IllegalArgumentException("Can't create instance of DocumentBuilder", exception);
         }
     }
@@ -118,8 +117,7 @@ public class SecureXmlParserFactory {
     private void setFeature(final DocumentBuilderFactory factory, final String enabledProperty, final boolean value) {
         try {
             factory.setFeature(enabledProperty, value);
-        }
-        catch (ParserConfigurationException ignored) {
+        } catch (ParserConfigurationException ignored) {
             // ignore and continue
         }
     }
@@ -128,8 +126,7 @@ public class SecureXmlParserFactory {
         for (String securityAttribute : DISABLED_ATTRIBUTES) {
             try {
                 factory.setAttribute(securityAttribute, CLEAR_ATTRIBUTE);
-            }
-            catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException e) {
                 // ignore and continue
             }
         }
@@ -139,8 +136,7 @@ public class SecureXmlParserFactory {
         for (String securityAttribute : DISABLED_ATTRIBUTES) {
             try {
                 transformerFactory.setAttribute(securityAttribute, CLEAR_ATTRIBUTE);
-            }
-            catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException e) {
                 // ignore and continue
             }
         }
@@ -159,8 +155,7 @@ public class SecureXmlParserFactory {
             var parser = factory.newSAXParser();
             secureParser(parser);
             return parser;
-        }
-        catch (ParserConfigurationException | SAXException exception) {
+        } catch (ParserConfigurationException | SAXException exception) {
             throw new IllegalArgumentException("Can't create instance of SAXParser", exception);
         }
     }
@@ -173,15 +168,13 @@ public class SecureXmlParserFactory {
     /**
      * Secure the {@link SAXParser} so that it does not resolve external entities.
      *
-     * @param parser
-     *         the parser to secure
+     * @param parser the parser to secure
      */
     private void secureParser(final SAXParser parser) {
         for (String securityAttribute : DISABLED_ATTRIBUTES) {
             try {
                 parser.setProperty(securityAttribute, CLEAR_ATTRIBUTE);
-            }
-            catch (SAXNotRecognizedException | SAXNotSupportedException e) {
+            } catch (SAXNotRecognizedException | SAXNotSupportedException e) {
                 // ignore and continue
             }
         }
@@ -190,8 +183,7 @@ public class SecureXmlParserFactory {
     /**
      * Configures a {@link SAXParserFactory} so that it does not resolve external entities.
      *
-     * @param factory
-     *         the facotry to configure
+     * @param factory the facotry to configure
      */
     public void configureSaxParserFactory(final SAXParserFactory factory) {
         factory.setValidating(false);
@@ -200,16 +192,14 @@ public class SecureXmlParserFactory {
         for (String enabledProperty : ENABLED_PROPERTIES) {
             try {
                 factory.setFeature(enabledProperty, true);
-            }
-            catch (ParserConfigurationException | SAXException ignored) {
+            } catch (ParserConfigurationException | SAXException ignored) {
                 // ignore and continue
             }
         }
         for (String disabledProperty : DISABLED_PROPERTIES) {
             try {
                 factory.setFeature(disabledProperty, false);
-            }
-            catch (ParserConfigurationException | SAXException ignored) {
+            } catch (ParserConfigurationException | SAXException ignored) {
                 // ignore and continue
             }
         }
@@ -218,17 +208,14 @@ public class SecureXmlParserFactory {
     /**
      * Creates a new instance of a {@link XMLStreamReader} that does not resolve external entities.
      *
-     * @param reader
-     *         the reader to wrap
-     *
+     * @param reader the reader to wrap
      * @return a new instance of a {@link XMLStreamReader}
      */
     @SuppressFBWarnings(value = "XXE_XMLSTREAMREADER", justification = "The reader is secured in the called method")
     public XMLStreamReader createXmlStreamReader(final Reader reader) {
         try {
             return createSecureInputFactory().createXMLStreamReader(reader);
-        }
-        catch (XMLStreamException exception) {
+        } catch (XMLStreamException exception) {
             throw new IllegalArgumentException("Can't create instance of XMLStreamReader", exception);
         }
     }
@@ -236,17 +223,14 @@ public class SecureXmlParserFactory {
     /**
      * Creates a new instance of a {@link XMLStreamReader} that does not resolve external entities.
      *
-     * @param reader
-     *         the reader to wrap
-     *
+     * @param reader the reader to wrap
      * @return a new instance of a {@link XMLStreamReader}
      */
     @SuppressFBWarnings(value = "XXE_XMLSTREAMREADER", justification = "The reader is secured in the called method")
     public XMLEventReader createXmlEventReader(final Reader reader) {
         try {
             return createSecureInputFactory().createXMLEventReader(reader);
-        }
-        catch (XMLStreamException exception) {
+        } catch (XMLStreamException exception) {
             throw new IllegalArgumentException("Can't create instance of XMLEventReader", exception);
         }
     }
@@ -267,22 +251,16 @@ public class SecureXmlParserFactory {
      * Creates a {@link SAXParser} that does not resolve external entities and parses the provided content with the
      * given SAX {@link DefaultHandler}.
      *
-     * @param reader
-     *         the content that should be parsed
-     * @param charset
-     *         the charset to use when reading the content
-     * @param handler
-     *         the SAX handler to parse the file
-     *
-     * @throws ParsingException
-     *         if the file could not be parsed
+     * @param reader the content that should be parsed
+     * @param charset the charset to use when reading the content
+     * @param handler the SAX handler to parse the file
+     * @throws ParsingException if the file could not be parsed
      */
     @SuppressFBWarnings(value = "XXE_SAXPARSER", justification = "The parser is secured in the called method")
     public void parse(final Reader reader, final Charset charset, final DefaultHandler handler) {
         try {
             createSaxParser().parse(createInputSource(reader, charset), handler);
-        }
-        catch (SAXException | IOException exception) {
+        } catch (SAXException | IOException exception) {
             throw new ParsingException(exception);
         }
     }
@@ -290,27 +268,25 @@ public class SecureXmlParserFactory {
     /**
      * Parses the provided content into a {@link Document}.
      *
-     * @param reader
-     *         the content that should be parsed
-     * @param charset
-     *         the charset to use when reading the content
-     *
+     * @param reader the content that should be parsed
+     * @param charset the charset to use when reading the content
      * @return the file content as a document
-     * @throws ParsingException
-     *         if the file could not be parsed
+     * @throws ParsingException if the file could not be parsed
      */
     @SuppressFBWarnings(value = "XXE_DOCUMENT", justification = "The parser is secured in the called method")
     public Document readDocument(final Reader reader, final Charset charset) {
         try {
             return createDocumentBuilder().parse(createInputSource(reader, charset));
-        }
-        catch (SAXException | IOException exception) {
+        } catch (SAXException | IOException exception) {
             throw new ParsingException(exception);
         }
     }
 
     private InputSource createInputSource(final Reader reader, final Charset charset) throws IOException {
-        var inputStream = ReaderInputStream.builder().setReader(reader).setCharset(charset).get();
+        var inputStream = ReaderInputStream.builder()
+                .setReader(reader)
+                .setCharset(charset)
+                .get();
 
         return new InputSource(inputStream);
     }
@@ -327,21 +303,20 @@ public class SecureXmlParserFactory {
             clearAttributes(transformerFactory);
 
             return transformerFactory.newTransformer();
-        }
-        catch (TransformerConfigurationException exception) {
+        } catch (TransformerConfigurationException exception) {
             throw new IllegalArgumentException("Can't create instance of Transformer", exception);
         }
     }
 
     @VisibleForTesting
-    @SuppressFBWarnings(value = {"XXE_DTD_TRANSFORM_FACTORY", "XXE_XSLT_TRANSFORM_FACTORY"}, justification = "The transformer is secured in the called method")
+    @SuppressFBWarnings(
+            value = {"XXE_DTD_TRANSFORM_FACTORY", "XXE_XSLT_TRANSFORM_FACTORY"},
+            justification = "The transformer is secured in the called method")
     TransformerFactory createTransformerFactory() {
         return TransformerFactory.newInstance();
     }
 
-    /**
-     * Indicates that during parsing a non-recoverable error has been occurred.
-     */
+    /** Indicates that during parsing a non-recoverable error has been occurred. */
     public static class ParsingException extends RuntimeException {
         @Serial
         private static final long serialVersionUID = -9016364685084958944L;
@@ -349,8 +324,7 @@ public class SecureXmlParserFactory {
         /**
          * Constructs a new {@link ParsingException} with the specified cause.
          *
-         * @param cause
-         *         the cause (which is saved for later retrieval by the {@link #getCause()} method).
+         * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method).
          */
         public ParsingException(final Throwable cause) {
             super(createMessage(cause, "Exception occurred during parsing"), cause);
@@ -359,15 +333,13 @@ public class SecureXmlParserFactory {
         /**
          * Constructs a new {@link ParsingException} with the specified message.
          *
-         * @param messageFormat
-         *         the message as a format string as described in <a href="../util/Formatter.html#syntax">Format string
-         *         syntax</a>
-         * @param args
-         *         Arguments referenced by the format specifiers in the format string.  If there are more arguments than
-         *         format specifiers, the extra arguments are ignored.  The number of arguments is variable and may be zero.
-         *         The maximum number of arguments is limited by the maximum dimension of a Java array as defined by
-         *         <cite>The Java&trade; Virtual Machine Specification</cite>. The behaviour on a {@code null} argument
-         *         depends on the <a href="../util/Formatter.html#syntax">conversion</a>.
+         * @param messageFormat the message as a format string as described in <a
+         *     href="../util/Formatter.html#syntax">Format string syntax</a>
+         * @param args Arguments referenced by the format specifiers in the format string. If there are more arguments
+         *     than format specifiers, the extra arguments are ignored. The number of arguments is variable and may be
+         *     zero. The maximum number of arguments is limited by the maximum dimension of a Java array as defined by
+         *     <cite>The Java&trade; Virtual Machine Specification</cite>. The behaviour on a {@code null} argument
+         *     depends on the <a href="../util/Formatter.html#syntax">conversion</a>.
          */
         @FormatMethod
         public ParsingException(final String messageFormat, final Object... args) {
@@ -377,17 +349,14 @@ public class SecureXmlParserFactory {
         /**
          * Constructs a new {@link ParsingException} with the specified cause and message.
          *
-         * @param cause
-         *         the cause (which is saved for later retrieval by the {@link #getCause()} method).
-         * @param messageFormat
-         *         the message as a format string as described in <a href="../util/Formatter.html#syntax">Format string
-         *         syntax</a>
-         * @param args
-         *         Arguments referenced by the format specifiers in the format string.  If there are more arguments than
-         *         format specifiers, the extra arguments are ignored.  The number of arguments is variable and may be zero.
-         *         The maximum number of arguments is limited by the maximum dimension of a Java array as defined by
-         *         <cite>The Java&trade; Virtual Machine Specification</cite>. The behaviour on a {@code null} argument
-         *         depends on the <a href="../util/Formatter.html#syntax">conversion</a>.
+         * @param cause the cause (which is saved for later retrieval by the {@link #getCause()} method).
+         * @param messageFormat the message as a format string as described in <a
+         *     href="../util/Formatter.html#syntax">Format string syntax</a>
+         * @param args Arguments referenced by the format specifiers in the format string. If there are more arguments
+         *     than format specifiers, the extra arguments are ignored. The number of arguments is variable and may be
+         *     zero. The maximum number of arguments is limited by the maximum dimension of a Java array as defined by
+         *     <cite>The Java&trade; Virtual Machine Specification</cite>. The behaviour on a {@code null} argument
+         *     depends on the <a href="../util/Formatter.html#syntax">conversion</a>.
          */
         @FormatMethod
         public ParsingException(final Throwable cause, final String messageFormat, final Object... args) {
@@ -395,8 +364,8 @@ public class SecureXmlParserFactory {
         }
 
         private static String createMessage(final Throwable cause, final String message) {
-            return "%s%n%s%n%s".formatted(message,
-                    ExceptionUtils.getMessage(cause), ExceptionUtils.getStackTrace(cause));
+            return "%s%n%s%n%s"
+                    .formatted(message, ExceptionUtils.getMessage(cause), ExceptionUtils.getStackTrace(cause));
         }
     }
 }

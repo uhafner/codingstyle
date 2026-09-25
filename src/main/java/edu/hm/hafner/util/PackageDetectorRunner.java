@@ -20,11 +20,8 @@ public class PackageDetectorRunner {
     /**
      * Detects the package name of the specified file based on several detector strategies.
      *
-     * @param fileName
-     *         the filename of the file to scan
-     * @param charset
-     *         the charset to use when reading the source files
-     *
+     * @param fileName the filename of the file to scan
+     * @param charset the charset to use when reading the source files
      * @return the detected package name or {@link Optional#empty()} if no package name could be detected
      */
     public Optional<String> detectPackageName(final String fileName, final Charset charset) {

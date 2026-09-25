@@ -1,16 +1,15 @@
 package edu.hm.hafner.util;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assumptions.assumeThat;
 
 import java.io.IOException;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
-
-import static org.assertj.core.api.Assertions.*;
-import static org.assertj.core.api.Assumptions.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * Tests the class {@link PathUtil}.
@@ -27,8 +26,7 @@ class PathUtilTest extends ResourceTest {
     /**
      * Ensures that illegal file names are processed without problems and the test for existence returns {@code false}.
      *
-     * @param fileName
-     *         the file name to check
+     * @param fileName the file name to check
      */
     @ParameterizedTest(name = "[{index}] Illegal filename = {0}")
     @ValueSource(strings = {"/does/not/exist", "\0 Null-Byte", "C:/!<>$&/&( \0", "/!<>$&/&( \0"})
@@ -63,18 +61,33 @@ class PathUtilTest extends ResourceTest {
         var pathUtil = new PathUtil();
 
         assertThat(pathUtil.exists(getResourceAsFile(FILE_NAME).toString())).isTrue();
-        assertThat(pathUtil.exists(getResourceAsFile(FILE_NAME).getParent().toString())).isTrue();
-        assertThat(pathUtil.exists(FILE_NAME, getResourceAsFile(FILE_NAME).getParent().toString())).isTrue();
-        assertThat(pathUtil.exists(getResourceAsFile(FILE_NAME).getRoot().toString())).isTrue();
+        assertThat(pathUtil.exists(getResourceAsFile(FILE_NAME).getParent().toString()))
+                .isTrue();
+        assertThat(pathUtil.exists(
+                        FILE_NAME, getResourceAsFile(FILE_NAME).getParent().toString()))
+                .isTrue();
+        assertThat(pathUtil.exists(getResourceAsFile(FILE_NAME).getRoot().toString()))
+                .isTrue();
     }
 
     @DisplayName("Should verify valid absolute paths")
     @ParameterizedTest(name = "[{index}] path={0}")
-    @ValueSource(strings = {"/", "/tmp", "C:\\", "c:\\", "C:\\Tmp", "C:/tmp/absolute.txt", "file:///project/src/main/java/com/app/ui/model/Activity.kt"})
+    @ValueSource(
+            strings = {
+                "/",
+                "/tmp",
+                "C:\\",
+                "c:\\",
+                "C:\\Tmp",
+                "C:/tmp/absolute.txt",
+                "file:///project/src/main/java/com/app/ui/model/Activity.kt"
+            })
     void shouldFindAbsolutePaths(final String path) {
         var pathUtil = new PathUtil();
 
-        assertThat(pathUtil.isAbsolute(path)).as("Show be detected as absolute path").isTrue();
+        assertThat(pathUtil.isAbsolute(path))
+                .as("Show be detected as absolute path")
+                .isTrue();
     }
 
     @Test
@@ -112,17 +125,19 @@ class PathUtilTest extends ResourceTest {
 
         var absolutePath = getResourceAsFile(FILE_NAME);
 
-        assertThat(pathUtil.getRelativePath(absolutePath.getParent(), FILE_NAME)).isEqualTo(FILE_NAME);
+        assertThat(pathUtil.getRelativePath(absolutePath.getParent(), FILE_NAME))
+                .isEqualTo(FILE_NAME);
         assertThat(pathUtil.getRelativePath(FILE_NAME)).isEqualTo(FILE_NAME);
-        assertThat(pathUtil.getRelativePath(absolutePath.getParent(), NOT_EXISTING_RELATIVE)).isEqualTo(
-                NOT_EXISTING_RELATIVE);
+        assertThat(pathUtil.getRelativePath(absolutePath.getParent(), NOT_EXISTING_RELATIVE))
+                .isEqualTo(NOT_EXISTING_RELATIVE);
 
-        assertThat(pathUtil.getRelativePath(absolutePath.getParent().getParent(), "util/" + FILE_NAME)).isEqualTo(
-                "util/" + FILE_NAME);
+        assertThat(pathUtil.getRelativePath(absolutePath.getParent().getParent(), "util/" + FILE_NAME))
+                .isEqualTo("util/" + FILE_NAME);
 
-        assertThat(pathUtil.getRelativePath(absolutePath.getParent(), absolutePath.toString())).isEqualTo(FILE_NAME);
-        assertThat(pathUtil.getRelativePath(Path.of(NOT_EXISTING), absolutePath.toString())).isEqualTo(
-                pathUtil.getAbsolutePath(absolutePath));
+        assertThat(pathUtil.getRelativePath(absolutePath.getParent(), absolutePath.toString()))
+                .isEqualTo(FILE_NAME);
+        assertThat(pathUtil.getRelativePath(Path.of(NOT_EXISTING), absolutePath.toString()))
+                .isEqualTo(pathUtil.getAbsolutePath(absolutePath));
         assertThat(pathUtil.getRelativePath(Path.of(NOT_EXISTING), FILE_NAME)).isEqualTo(FILE_NAME);
 
         assertThat(pathUtil.getRelativePath(NOT_EXISTING, FILE_NAME)).isEqualTo(FILE_NAME);
@@ -134,10 +149,10 @@ class PathUtilTest extends ResourceTest {
 
         var absolutePath = getResourceAsFile(FILE_NAME);
 
-        assertThat(pathUtil.getRelativePath(absolutePath.getParent().getParent(), "./util/" + FILE_NAME)).isEqualTo(
-                "util/" + FILE_NAME);
-        assertThat(pathUtil.getRelativePath(absolutePath.getParent().getParent(),
-                "../hafner/util/" + FILE_NAME)).isEqualTo("util/" + FILE_NAME);
+        assertThat(pathUtil.getRelativePath(absolutePath.getParent().getParent(), "./util/" + FILE_NAME))
+                .isEqualTo("util/" + FILE_NAME);
+        assertThat(pathUtil.getRelativePath(absolutePath.getParent().getParent(), "../hafner/util/" + FILE_NAME))
+                .isEqualTo("util/" + FILE_NAME);
     }
 
     @Test
@@ -171,7 +186,9 @@ class PathUtilTest extends ResourceTest {
         var real = current.toRealPath();
         var realWithSymbolic = current.toRealPath(LinkOption.NOFOLLOW_LINKS);
 
-        assumeThat(real).as("Current working directory path is not based on symbolic links").isNotEqualTo(realWithSymbolic);
+        assumeThat(real)
+                .as("Current working directory path is not based on symbolic links")
+                .isNotEqualTo(realWithSymbolic);
 
         var fromUtil = new PathUtil().getAbsolutePath(current);
         var unixStyle = realWithSymbolic.toString().replace('\\', '/');

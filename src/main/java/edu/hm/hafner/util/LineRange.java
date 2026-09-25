@@ -22,8 +22,7 @@ public final class LineRange implements Serializable {
     /**
      * Creates a new instance of {@link LineRange}.
      *
-     * @param line
-     *            the single line of this range
+     * @param line the single line of this range
      */
     public LineRange(final int line) {
         this(line, line);
@@ -32,22 +31,18 @@ public final class LineRange implements Serializable {
     /**
      * Creates a new instance of {@link LineRange}.
      *
-     * @param start
-     *            start of the range
-     * @param end
-     *            end of the range
+     * @param start start of the range
+     * @param end end of the range
      */
     @SuppressMutation(mutator = PitMutator.CONDITIONALS_BOUNDARY, justification = "False positive")
     public LineRange(final int start, final int end) {
         if (start <= 0) {
             this.start = 0;
             this.end = 0;
-        }
-        else if (start < end) {
+        } else if (start < end) {
             this.start = start;
             this.end = end;
-        }
-        else {
+        } else {
             this.start = end;
             this.end = start;
         }
@@ -113,8 +108,7 @@ public final class LineRange implements Serializable {
             return false;
         }
         var lineRange = (LineRange) o;
-        return start == lineRange.start
-                && end == lineRange.end;
+        return start == lineRange.start && end == lineRange.end;
     }
 
     @Override

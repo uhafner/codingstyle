@@ -1,13 +1,15 @@
 package edu.hm.hafner.util;
 
-import org.junit.jupiter.api.Test;
+import static java.util.Arrays.asList;
+import static java.util.Collections.emptyList;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import java.io.PrintStream;
 import java.util.List;
-
-import static java.util.Arrays.*;
-import static java.util.Collections.*;
-import static org.mockito.Mockito.*;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests the class {@link PrefixLogger}.

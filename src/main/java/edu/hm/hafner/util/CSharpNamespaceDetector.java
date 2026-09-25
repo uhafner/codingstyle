@@ -1,7 +1,6 @@
 package edu.hm.hafner.util;
 
 import edu.hm.hafner.util.PackageDetectorFactory.FileSystemFacade;
-
 import java.util.regex.Pattern;
 
 /**

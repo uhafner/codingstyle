@@ -1,8 +1,5 @@
 package edu.hm.hafner.util;
 
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -17,6 +14,8 @@ import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.stream.Collectors;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * A proxy for resources. Extracts a given collection of files from the classpath and copies them to a target path.
@@ -31,8 +30,7 @@ public class ResourceExtractor {
     /**
      * Creates a new {@link ResourceExtractor} that extracts resources from the classloader of the specified class.
      *
-     * @param targetClass
-     *         the target class to use the classloader from
+     * @param targetClass the target class to use the classloader from
      */
     public ResourceExtractor(final Class<?> targetClass) {
         this(targetClass, targetClass.getProtectionDomain());
@@ -56,8 +54,7 @@ public class ResourceExtractor {
         readingFromJarFile = Files.isRegularFile(entryPoint);
         if (readingFromJarFile) {
             extractor = new JarExtractor(entryPoint);
-        }
-        else {
+        } else {
             extractor = new FolderExtractor(entryPoint);
         }
         resourcePath = entryPoint.toString();
@@ -74,12 +71,9 @@ public class ResourceExtractor {
     /**
      * Extracts the specified source files from the classloader and saves them to the specified target folder.
      *
-     * @param targetDirectory
-     *         the target path that will be the parent folder of all extracted files
-     * @param source
-     *         the source file to extract
-     * @param sources
-     *         the additional source files to extract
+     * @param targetDirectory the target path that will be the parent folder of all extracted files
+     * @param source the source file to extract
+     * @param sources the additional source files to extract
      */
     public void extract(final Path targetDirectory, final String source, final String... sources) {
         if (!Files.isDirectory(targetDirectory)) {
@@ -91,9 +85,7 @@ public class ResourceExtractor {
         extractor.extractFiles(targetDirectory, allSources);
     }
 
-    /**
-     * Extracts a collection of files and copies them to a given target path.
-     */
+    /** Extracts a collection of files and copies them to a given target path. */
     private abstract static class Extractor {
         private final Path entryPoint;
 
@@ -108,9 +100,7 @@ public class ResourceExtractor {
         abstract void extractFiles(Path targetDirectory, String... sources);
     }
 
-    /**
-     * Extracts files from a folder, typically provided by the development environment or build system.
-     */
+    /** Extracts files from a folder, typically provided by the development environment or build system. */
     private static class FolderExtractor extends Extractor {
         FolderExtractor(final Path entryPoint) {
             super(entryPoint);
@@ -124,8 +114,7 @@ public class ResourceExtractor {
                     Files.createDirectories(targetFile);
                     copy(targetFile, source);
                 }
-            }
-            catch (IOException exception) {
+            } catch (IOException exception) {
                 throw new UncheckedIOException(exception);
             }
         }
@@ -133,16 +122,13 @@ public class ResourceExtractor {
         private void copy(final Path target, final String source) {
             try {
                 Files.copy(getEntryPoint().resolve(source), target, StandardCopyOption.REPLACE_EXISTING);
-            }
-            catch (IOException exception) {
+            } catch (IOException exception) {
                 throw new UncheckedIOException(exception);
             }
         }
     }
 
-    /**
-     * Extracts files from a deployed jar file.
-     */
+    /** Extracts files from a deployed jar file. */
     private static class JarExtractor extends Extractor {
         JarExtractor(final Path entryPoint) {
             super(entryPoint);
@@ -161,8 +147,7 @@ public class ResourceExtractor {
                         remaining.remove(name);
                     }
                 }
-            }
-            catch (IOException exception) {
+            } catch (IOException exception) {
                 throw new UncheckedIOException(exception);
             }
             if (!remaining.isEmpty()) {
@@ -180,7 +165,8 @@ public class ResourceExtractor {
             if (parent != null) {
                 Files.createDirectories(parent);
             }
-            try (var inputStream = jar.getInputStream(entry); var outputStream = Files.newOutputStream(targetFile)) {
+            try (var inputStream = jar.getInputStream(entry);
+                    var outputStream = Files.newOutputStream(targetFile)) {
                 IOUtils.copy(inputStream, outputStream);
             }
         }

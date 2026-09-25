@@ -1,8 +1,6 @@
 package edu.hm.hafner.util;
 
-import org.assertj.core.api.ObjectAssert;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -13,16 +11,15 @@ import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-
-import static org.assertj.core.api.Assertions.*;
+import org.assertj.core.api.ObjectAssert;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 /**
  * Base class to test the serialization of instances of {@link Serializable}. Note that the instances under test must
  * override equals so that the test case can check the serialized instances for equality.
  *
- * @param <T>
- *         concrete type of the {@link Serializable} under test
- *
+ * @param <T> concrete type of the {@link Serializable} under test
  * @author Ullrich Hafner
  */
 public abstract class SerializableTest<T extends Serializable> extends ResourceTest {
@@ -49,8 +46,7 @@ public abstract class SerializableTest<T extends Serializable> extends ResourceT
      * Resolves the subject under test from an array of bytes and compares the created instance with the original
      * subject under test.
      *
-     * @param serializedInstance
-     *         the byte stream of the serializable
+     * @param serializedInstance the byte stream of the serializable
      */
     protected void assertThatSerializableCanBeRestoredFrom(final byte... serializedInstance) {
         assertThatRestoredInstanceEqualsOriginalInstance(createSerializable(), restore(serializedInstance));
@@ -59,14 +55,12 @@ public abstract class SerializableTest<T extends Serializable> extends ResourceT
     /**
      * Asserts that the instance restored from the serialization is equal to the original instance before the
      * serialization. By default, the {@link ObjectAssert#usingRecursiveComparison() recursive comparison strategy} of
-     * AssertJ is used to compare these instances. If your subject under test overrides
-     * {@link Object#equals(Object) equals}, then you should override this method with {@code original.equals(restored)}
-     * so the customized equals method will be used.
+     * AssertJ is used to compare these instances. If your subject under test overrides {@link Object#equals(Object)
+     * equals}, then you should override this method with {@code original.equals(restored)} so the customized equals
+     * method will be used.
      *
-     * @param original
-     *         the instance before the serialization
-     * @param restored
-     *         the instance restored by the deserialization
+     * @param original the instance before the serialization
+     * @param restored the instance restored by the deserialization
      */
     protected void assertThatRestoredInstanceEqualsOriginalInstance(final T original, final T restored) {
         assertThat(restored).usingRecursiveComparison().isEqualTo(original);
@@ -75,9 +69,7 @@ public abstract class SerializableTest<T extends Serializable> extends ResourceT
     /**
      * Deserializes the subject under test from an array of bytes.
      *
-     * @param serializedInstance
-     *         the byte stream of the serializable
-     *
+     * @param serializedInstance the byte stream of the serializable
      * @return the deserialized instance
      */
     @SuppressWarnings({"unchecked", "BanSerializableRead"})
@@ -85,8 +77,7 @@ public abstract class SerializableTest<T extends Serializable> extends ResourceT
         try (var inputStream = new ObjectInputStream(new ByteArrayInputStream(serializedInstance))) {
             var object = inputStream.readObject();
             return (T) object;
-        }
-        catch (IOException | ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             throw new AssertionError("Can't resolve instance from byte array", e);
         }
     }
@@ -97,17 +88,14 @@ public abstract class SerializableTest<T extends Serializable> extends ResourceT
      * supertypes are written. Objects referenced by this object are written transitively so that a complete equivalent
      * graph of objects can be reconstructed by an ObjectInputStream.
      *
-     * @param object
-     *         the object to serialize
-     *
+     * @param object the object to serialize
      * @return the object serialization
      */
     protected byte[] toByteArray(final Serializable object) {
         var out = new ByteArrayOutputStream();
         try (var stream = new ObjectOutputStream(out)) {
             stream.writeObject(object);
-        }
-        catch (IOException exception) {
+        } catch (IOException exception) {
             throw new IllegalStateException("Can't serialize object " + object, exception);
         }
         return out.toByteArray();
@@ -116,11 +104,9 @@ public abstract class SerializableTest<T extends Serializable> extends ResourceT
     /**
      * Serializes an issue using an {@link ObjectOutputStream } to the file /tmp/serializable.ser.
      *
-     * @throws IOException
-     *         if the file could not be created
+     * @throws IOException if the file could not be created
      */
     protected void createSerializationFile() throws IOException {
-        Files.write(Path.of("/tmp/serializable.ser"), toByteArray(createSerializable()),
-                StandardOpenOption.CREATE_NEW);
+        Files.write(Path.of("/tmp/serializable.ser"), toByteArray(createSerializable()), StandardOpenOption.CREATE_NEW);
     }
 }

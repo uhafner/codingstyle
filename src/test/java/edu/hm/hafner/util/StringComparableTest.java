@@ -1,8 +1,8 @@
 package edu.hm.hafner.util;
 
 /**
- * Example class that shows on how to verify that String instances comply with the contract in {@link
- * Comparable#compareTo(Object)}.
+ * Example class that shows on how to verify that String instances comply with the contract in
+ * {@link Comparable#compareTo(Object)}.
  *
  * @author Ullrich Hafner
  */

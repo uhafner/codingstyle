@@ -15,9 +15,9 @@ Kommando der Entwicklungsumgebung aufzurufen.
 
 Die öffnende Klammer eines Blocks steht immer auf der gleichen Zeile wie die Anweisung davor. Die folgenden Anweisungen
 eines geschachtelten Blocks werden alle mit 4 Leerzeichen eingerückt. Tabs dürfen nicht verwendet werden, da
-diese nicht überall mit der gleichen Leerzeichenanzahl dargestellt werden (z.B. im Browser). 
+diese nicht überall mit der gleichen Leerzeichenanzahl dargestellt werden (z.B. im Browser).
 Die schließende Klammer steht dann genau unterhalb der Anweisung, die die öffnende Klammer enthält.
- 
+
 An Beispielen wird das leichter deutlich, das zum Einrücken verwendete Leerzeichen wird zur besseren Lesbarkeit
 durch das Sonderzeichen `⋅` hervorgehoben:
 
@@ -40,8 +40,8 @@ while (expression2) {
 }
 ```
 
-**Achtung:** Zur besseren Unterstützung der visuellen Struktur steht gemäß [3] 
-bei einem `if-else` und `try-catch` Konstrukt die schließende Klammer immer alleine auf einer Zeile. 
+**Achtung:** Zur besseren Unterstützung der visuellen Struktur steht gemäß [3]
+bei einem `if-else` und `try-catch` Konstrukt die schließende Klammer immer alleine auf einer Zeile.
 Viele Java Entwicklungsteams (z.B. das Oracle JDK Team) halten dies anders.
 
 ```java
@@ -74,17 +74,17 @@ finally {
 
 ## Leerzeichen
 
-Quelltext ohne Leerzeichen lässt sich deutlich schlechter lesen und verstehen. Daher nutzen wir **genau** 
+Quelltext ohne Leerzeichen lässt sich deutlich schlechter lesen und verstehen. Daher nutzen wir **genau**
 ein Leerzeichen an den folgenden Stellen:
-- Zwischen einer Anweisung und der folgenden öffnenden runden ( oder geschweiften { Klammer 
-- Zwischen einer schließenden runden ) und einer öffnenden geschweiften { Klammer 
+- Zwischen einer Anweisung und der folgenden öffnenden runden ( oder geschweiften { Klammer
+- Zwischen einer schließenden runden ) und einer öffnenden geschweiften { Klammer
 - Zwischen binärem Operator und seinen beiden Operanden
 - Nach jedem Komma in der Parameterliste einer Methode
 
 Für die folgenden Konstrukte wird kein Leerzeichen verwendet:
 - Zwischen unärem Operator und seinem Operand
-- Zwischen Methodenname und öffnender runden ( Klammer 
-- Bedingung innerhalb der runden Klammern () im `if` oder `while`   
+- Zwischen Methodenname und öffnender runden ( Klammer
+- Bedingung innerhalb der runden Klammern () im `if` oder `while`
 
 Hier ein echtes Beispiel, in denen das Leerzeichen durch das Sonderzeichen `⋅` hervorgehoben wurde:
 
@@ -135,7 +135,7 @@ public static boolean containsAnyIgnoreCase(@Nullable final CharSequence input,
 Für Kommentare gibt es auch einige Richtlinien, die im Abschnitt [Kommentare](Kommentare.md) aufgeführt sind.
 Bei der Formatierung ist zusätzlich auf die folgenden Punkte zu achten:
 - Zu lange Zeilen werden wie normaler Code nach 120 Zeichen umgebrochen (siehe [oben](#zeilenumbruch))
-- Abschnitte nutzen korrekte Kennzeichnung mittels der XHTML Tags \<p\>Text\</p\> 
+- Abschnitte nutzen korrekte Kennzeichnung mittels der XHTML Tags \<p\>Text\</p\>
 - Parameter werden auf einer neuen Zeile beschrieben (mit korrektem Einrücken)
 
 Ein Beispiel sagt auch hier mehr als tausend Worte:
@@ -177,7 +177,7 @@ public static boolean containsAnyIgnoreCase(@Nullable final CharSequence input,
 }
 
 ```
- 
+
 ## Leerzeilen
 
 Auch Leerzeilen können die Struktur von Programmen verbessern. Zusammenhängende Anweisungen sollten gruppiert werden
@@ -203,7 +203,7 @@ public void foo() {
 Die erste Anweisung beginnt dabei direkt nach dem Methodenkopf, die letzte hört direkt vor der schließenden Klammer auf,
 hier werden keine extra Leerzeilen mehr eingefügt.
 
-Innerhalb einer Klasse hat es sich eingebürgert, zwei Methoden oder Konstruktoren durch eine Leerzeile zu trennen. 
+Innerhalb einer Klasse hat es sich eingebürgert, zwei Methoden oder Konstruktoren durch eine Leerzeile zu trennen.
 Nach dem Klassenkopf und vor der schließenden Klammer einer Klasse steht keine extra Leerzeile, ebenso nicht nach dem
 Methodenkopf und der schließenden Klammer einer Methode.
 Instanzvariablen können wie Anweisungen gruppiert werden, wenn dies thematisch sinnvoll ist. Zwischen Instanzvariablen
@@ -277,3 +277,4 @@ public final class StringContainsUtils {
     }
 }
 ```
+
