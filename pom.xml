@@ -106,7 +106,7 @@
     <sortpom-maven-plugin.version>4.0.0</sortpom-maven-plugin.version>
     <git-commit-id-maven-plugin.version>10.0.1</git-commit-id-maven-plugin.version>
     <dependency-check-maven.version>13.0.0</dependency-check-maven.version>
-    <spotless-maven-plugin.version>3.10.2</spotless-maven-plugin.version>
+    <spotless-maven-plugin.version>3.10.3</spotless-maven-plugin.version>
 
     <!-- OpenRewrite versions   -->
     <rewrite-maven-plugin.version>6.46.1</rewrite-maven-plugin.version>
