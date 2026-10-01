@@ -82,7 +82,7 @@
     <maven-jar-plugin.version>3.5.1</maven-jar-plugin.version>
     <maven-pmd-plugin.version>3.28.0</maven-pmd-plugin.version>
     <pmd.version>7.28.0</pmd.version>
-    <pmd.metrics.version>7.27.0-metrics</pmd.metrics.version>
+    <pmd.metrics.version>7.28.0-metrics</pmd.metrics.version>
     <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
     <checkstyle.version>14.3.0</checkstyle.version>
     <spotbugs-maven-plugin.version>4.10.4.1</spotbugs-maven-plugin.version>
@@ -1111,10 +1111,24 @@
                 </item>
                 <item>
                   <ignore>true</ignore>
+                  <code>java.method.visibilityReduced</code>
+                  <classSimpleName>PackageDetectorFactory</classSimpleName>
+                  <methodName>createPackageDetectors</methodName>
+                  <justification>This is an internal method use for tests.</justification>
+                </item>
+                <item>
+                  <ignore>true</ignore>
                   <regex>true</regex>
-                  <code>java.field.serialVersionUIDUnchanged</code>
-                  <classSimpleName>FilteredLog</classSimpleName>
-                  <justification>We are using the interface which still serializes correctly.</justification>
+                  <code>java.*.visibilityReduced</code>
+                  <classSimpleName>FileSystemFacade</classSimpleName>
+                  <justification>This facade is internal and must not be visible anymore.</justification>
+                </item>
+                <item>
+                  <ignore>true</ignore>
+                  <code>java.annotation.removed</code>
+                  <classSimpleName>FileSystemFacade</classSimpleName>
+                  <annotationType>edu.hm.hafner.util.VisibleForTesting</annotationType>
+                  <justification>This facade is internal and must not be visible anymore.</justification>
                 </item>
               </differences>
             </revapi.differences>
