@@ -30,7 +30,7 @@ public final class PackageDetectorFactory {
      * @return the package detector runner
      */
     @VisibleForTesting
-    public static PackageDetectorRunner createPackageDetectors(final FileSystemFacade facade) {
+    static PackageDetectorRunner createPackageDetectors(final FileSystemFacade facade) {
         return new PackageDetectorRunner(
                 new JavaPackageDetector(facade),
                 new KotlinPackageDetector(facade),
@@ -42,9 +42,8 @@ public final class PackageDetectorFactory {
     }
 
     /** Facade for file system operations. May be replaced by stubs in test cases. */
-    @VisibleForTesting
     @SuppressMutation(justification = "This method is not tested directly because it accesses the file system.")
-    public static class FileSystemFacade {
+    static class FileSystemFacade {
         /**
          * Opens the specified file.
          *
@@ -54,7 +53,7 @@ public final class PackageDetectorFactory {
          * @throws InvalidPathException the file name is invalid
          */
         @MustBeClosed
-        public InputStream openFile(final String fileName) throws IOException, InvalidPathException {
+        InputStream openFile(final String fileName) throws IOException, InvalidPathException {
             return Files.newInputStream(Path.of(fileName));
         }
     }

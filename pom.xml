@@ -1111,10 +1111,24 @@
                 </item>
                 <item>
                   <ignore>true</ignore>
+                  <code>java.method.visibilityReduced</code>
+                  <classSimpleName>PackageDetectorFactory</classSimpleName>
+                  <methodName>createPackageDetectors</methodName>
+                  <justification>This is an internal method use for tests.</justification>
+                </item>
+                <item>
+                  <ignore>true</ignore>
                   <regex>true</regex>
-                  <code>java.field.serialVersionUIDUnchanged</code>
-                  <classSimpleName>FilteredLog</classSimpleName>
-                  <justification>We are using the interface which still serializes correctly.</justification>
+                  <code>java.*.visibilityReduced</code>
+                  <classSimpleName>FileSystemFacade</classSimpleName>
+                  <justification>This facade is internal and must not be visible anymore.</justification>
+                </item>
+                <item>
+                  <ignore>true</ignore>
+                  <code>java.annotation.removed</code>
+                  <classSimpleName>FileSystemFacade</classSimpleName>
+                  <annotationType>edu.hm.hafner.util.VisibleForTesting</annotationType>
+                  <justification>This facade is internal and must not be visible anymore.</justification>
                 </item>
               </differences>
             </revapi.differences>
