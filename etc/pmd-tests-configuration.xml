@@ -29,6 +29,7 @@
     <exclude name="LocalVariableCouldBeFinal"/>
     <exclude name="LocalVariableNamingConventions"/>
     <exclude name="LongVariable"/>
+    <exclude name="OnDemandImport"/>
     <exclude name="OnlyOneReturn"/>
     <exclude name="ShortClassName"/>
     <exclude name="ShortVariable"/>
