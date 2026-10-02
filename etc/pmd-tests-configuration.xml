@@ -9,13 +9,14 @@
   <rule ref="category/java/bestpractices.xml">
     <exclude name="AccessorMethodGeneration"/>
     <exclude name="GuardLogStatement"/>
-    <exclude name="UnitTestShouldUseTestAnnotation"/>
     <exclude name="JUnitJupiterTestShouldBePackagePrivate"/>
+    <exclude name="LiteralsFirstInComparisons"/>
+    <exclude name="LooseCoupling"/>
+    <exclude name="OnDemandImport"/>
+    <exclude name="UnitTestShouldUseTestAnnotation"/>
     <exclude name="UnitTestAssertionsShouldIncludeMessage"/>
     <exclude name="UnitTestContainsTooManyAsserts"/>
     <exclude name="UnitTestShouldIncludeAssert"/>
-    <exclude name="LiteralsFirstInComparisons"/>
-    <exclude name="LooseCoupling"/>
     <exclude name="UnusedPrivateMethod"/>
   </rule>
   <rule ref="category/java/codestyle.xml">
@@ -29,7 +30,6 @@
     <exclude name="LocalVariableCouldBeFinal"/>
     <exclude name="LocalVariableNamingConventions"/>
     <exclude name="LongVariable"/>
-    <exclude name="OnDemandImport"/>
     <exclude name="OnlyOneReturn"/>
     <exclude name="ShortClassName"/>
     <exclude name="ShortVariable"/>
