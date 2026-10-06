@@ -1106,7 +1106,7 @@
                   <ignore>true</ignore>
                   <regex>true</regex>
                   <code>java.method.visibilityIncreased</code>
-                  <classSimpleName>FileSystemFacade</classSimpleName>
+                  <classSimpleName>PackageDetectorFactory</classSimpleName>
                   <justification>This facade can be used in tests of consumers.</justification>
                 </item>
               </differences>
