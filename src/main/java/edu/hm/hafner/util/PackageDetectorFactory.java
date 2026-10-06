@@ -43,7 +43,7 @@ public final class PackageDetectorFactory {
 
     /** Facade for file system operations. May be replaced by stubs in test cases. */
     @SuppressMutation(justification = "This method is not tested directly because it accesses the file system.")
-    static class FileSystemFacade {
+    public static class FileSystemFacade {
         /**
          * Opens the specified file.
          *
