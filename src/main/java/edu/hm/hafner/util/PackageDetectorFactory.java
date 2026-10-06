@@ -53,7 +53,7 @@ public final class PackageDetectorFactory {
          * @throws InvalidPathException the file name is invalid
          */
         @MustBeClosed
-        InputStream openFile(final String fileName) throws IOException, InvalidPathException {
+        public InputStream openFile(final String fileName) throws IOException, InvalidPathException {
             return Files.newInputStream(Path.of(fileName));
         }
     }
