@@ -30,7 +30,7 @@ public final class PackageDetectorFactory {
      * @return the package detector runner
      */
     @VisibleForTesting
-    static PackageDetectorRunner createPackageDetectors(final FileSystemFacade facade) {
+    public static PackageDetectorRunner createPackageDetectors(final FileSystemFacade facade) {
         return new PackageDetectorRunner(
                 new JavaPackageDetector(facade),
                 new KotlinPackageDetector(facade),
