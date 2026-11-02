@@ -33,6 +33,7 @@
     <exclude name="FieldDeclarationsShouldBeAtStartOfClass"/>
     <exclude name="LambdaCanBeMethodReference"/>
     <exclude name="LocalVariableCouldBeFinal"/>
+    <exclude name="LocalVariableDeclarationShouldBeAtStartOfBlock"/>
     <exclude name="LocalVariableNamingConventions"/>
     <exclude name="LongVariable"/>
     <exclude name="OnlyOneReturn"/>
