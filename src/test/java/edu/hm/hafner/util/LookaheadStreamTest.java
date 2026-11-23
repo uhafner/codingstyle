@@ -1,9 +1,8 @@
 package edu.hm.hafner.util;
 
-import static edu.hm.hafner.util.assertions.Assertions.assertThat;
+import static edu.hm.hafner.util.assertions.Assertions.*;
 import static edu.hm.hafner.util.assertions.Assertions.assertThatExceptionOfType;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 import java.util.NoSuchElementException;
 import java.util.stream.Stream;
