@@ -103,10 +103,9 @@
     <maven-enforcer-plugin.version>3.7.0</maven-enforcer-plugin.version>
     <maven-dependency-plugin.version>3.11.0</maven-dependency-plugin.version>
     <depgraph-maven-plugin.version>4.0.6</depgraph-maven-plugin.version>
-    <sortpom-maven-plugin.version>4.0.0</sortpom-maven-plugin.version>
     <git-commit-id-maven-plugin.version>10.0.1</git-commit-id-maven-plugin.version>
     <dependency-check-maven.version>13.0.0</dependency-check-maven.version>
-    <spotless-maven-plugin.version>3.11.0</spotless-maven-plugin.version>
+    <spotless-maven-plugin.version>3.12.0</spotless-maven-plugin.version>
 
     <!-- OpenRewrite versions   -->
     <rewrite-maven-plugin.version>6.46.1</rewrite-maven-plugin.version>
@@ -224,19 +223,6 @@
     </resources>
     <pluginManagement>
       <plugins>
-        <plugin>
-          <groupId>com.github.ekryd.sortpom</groupId>
-          <artifactId>sortpom-maven-plugin</artifactId>
-          <version>${sortpom-maven-plugin.version}</version>
-          <configuration>
-            <expandEmptyElements>false</expandEmptyElements>
-            <spaceBeforeCloseEmptyElement>true</spaceBeforeCloseEmptyElement>
-            <createBackupFile>false</createBackupFile>
-            <sortPlugins>groupId,artifactId</sortPlugins>
-            <sortExecutions>true</sortExecutions>
-            <sortDependencyExclusions>groupId,artifactId</sortDependencyExclusions>
-          </configuration>
-        </plugin>
         <plugin>
           <groupId>com.github.ferstl</groupId>
           <artifactId>depgraph-maven-plugin</artifactId>
@@ -362,6 +348,7 @@
               <recipe>org.openrewrite.staticanalysis.CommonStaticAnalysis</recipe>
               <recipe>org.openrewrite.staticanalysis.MissingOverrideAnnotation</recipe>
               <recipe>org.openrewrite.staticanalysis.RemoveExtraSemicolons</recipe>
+              <recipe>org.openrewrite.staticanalysis.SimplifyTernaryRecipes</recipe>
               <recipe>org.openrewrite.java.migrate.UpgradeToJava21</recipe>
               <recipe>org.openrewrite.java.migrate.util.JavaUtilAPIs</recipe>
               <recipe>org.openrewrite.java.migrate.util.SequencedCollection</recipe>
@@ -675,7 +662,7 @@
             </goals>
             <phase>verify</phase>
             <configuration>
-              <excludes>**/*Assert*.java,**/*_jmh*,**/module-info.java</excludes>
+              <excludes>**/*Assert*.java,**/*_jmh*,**/module-info.java,**/ArchitectureRulesTest.java</excludes>
               <includeTestSourceDirectory>true</includeTestSourceDirectory>
               <configLocation>etc/checkstyle-tests-configuration.xml</configLocation>
               <outputFile>${project.build.directory}/checkstyle-tests/checkstyle-result.xml</outputFile>
@@ -1259,6 +1246,9 @@
     </profile>
     <profile>
       <id>release</id>
+      <properties>
+        <spotless.check.skip>true</spotless.check.skip>
+      </properties>
       <build>
         <plugins>
           <plugin>
@@ -1271,6 +1261,31 @@
                   <goal>sign</goal>
                 </goals>
                 <phase>verify</phase>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>spotless-apply-local</id>
+      <activation>
+        <property>
+          <name>!env.CI</name>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.diffplug.spotless</groupId>
+            <artifactId>spotless-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>spotless-apply</id>
+                <goals>
+                  <goal>apply</goal>
+                </goals>
+                <phase>process-sources</phase>
               </execution>
             </executions>
           </plugin>

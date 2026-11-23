@@ -6,6 +6,7 @@ import static org.assertj.core.api.Assertions.assertThatNoException;
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
 import edu.hm.hafner.util.Generated;
+import edu.umd.cs.findbugs.annotations.Nullable;
 import java.io.Serial;
 import java.io.Serializable;
 import org.junit.jupiter.api.Assertions;
@@ -130,7 +131,7 @@ class ArchitectureRulesTest {
     @SuppressWarnings("all")
     @Generated // This class is just there to be used in architecture tests
     public static class ArchitectureRulesViolatedTest {
-        @edu.umd.cs.findbugs.annotations.Nullable
+        @Nullable
         private final String noNullable = null;
 
         int nonPrivate;
@@ -143,8 +144,8 @@ class ArchitectureRulesTest {
             throw new IllegalArgumentException();
         }
 
-        @edu.umd.cs.findbugs.annotations.Nullable
-        protected String method(@edu.umd.cs.findbugs.annotations.Nullable String param) {
+        @Nullable
+        protected String method(@Nullable String param) {
             return null;
         }
 
